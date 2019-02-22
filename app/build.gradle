@@ -15,20 +15,20 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
+    /*signingConfigs {
         release {
             keyAlias System.getenv("KEY_ALIAS")
             keyPassword System.getenv("KEY_PASSWORD")
             storeFile file(System.getenv("STORE_FILE"))
             storePassword System.getenv("STORE_PASSWORD")
         }
-    }
+    }*/
 
     buildTypes {
         release {
             minifyEnabled false
             debuggable false
-            signingConfig signingConfigs.release
+            //signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
