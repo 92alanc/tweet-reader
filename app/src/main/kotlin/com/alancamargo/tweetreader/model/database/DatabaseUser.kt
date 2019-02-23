@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.alancamargo.tweetreader.model.User
 
-@Entity
+@Entity(tableName = "User")
 data class DatabaseUser(
     @PrimaryKey(autoGenerate = false) override val id: Long,
     override val name: String,

@@ -8,7 +8,7 @@ import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.google.gson.Gson
 
-@Entity
+@Entity(tableName = "Tweet")
 data class DatabaseTweet(
     override val creationDate: String,
     @PrimaryKey(autoGenerate = false) override val id: Long,
