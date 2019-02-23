@@ -1,5 +1,9 @@
 package com.alancamargo.tweetreader.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 open class User(
     open val id: Long,
     open val name: String,
@@ -10,4 +14,4 @@ open class User(
     open val creationDate: String,
     open val profilePictureUrl: String,
     open val profileBannerUrl: String
-)
+) : Parcelable

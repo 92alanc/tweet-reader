@@ -22,13 +22,46 @@
             android:layout_height="match_parent"
             android:padding="@dimen/padding_default">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile_picture"
+                android:layout_width="@dimen/size_img_tweet"
+                android:layout_height="@dimen/size_img_tweet"
+                app:imageUrl="@{tweet.author.profilePictureUrl}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@tools:sample/avatars"/>
+
+            <TextView
+                android:id="@+id/txt_name"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:text="@{tweet.author.name}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_profile_picture"
+                tools:text="Jair M. Bolsonaro"/>
+
+            <TextView
+                android:id="@+id/txt_screen_name"
+                style="@style/ScreenName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{tweet.author.screenName}"
+                app:layout_constraintTop_toBottomOf="@id/txt_name"
+                app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
+                app:layout_constraintStart_toStartOf="@id/txt_name"
+                app:layout_constraintVertical_bias="0"
+                tools:text="\@jairbolsonaro"/>
+
             <TextView
                 android:id="@+id/txt_tweet"
                 style="@style/TextAppearance.AppCompat.Large"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{tweet.text}"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="Brasil acima de tudo, Deus acima de todos!"/>

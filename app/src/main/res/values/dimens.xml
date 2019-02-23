@@ -11,4 +11,8 @@
     <!-- region Radius -->
     <dimen name="radius_cardview_default">4dp</dimen>
     <!-- endregion -->
+
+    <!-- region Size -->
+    <dimen name="size_img_tweet">50dp</dimen>
+    <!-- endregion -->
 </resources>

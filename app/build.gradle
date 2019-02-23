@@ -55,6 +55,10 @@ android {
         enabled true
     }
 
+    androidExtensions {
+        experimental true
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
