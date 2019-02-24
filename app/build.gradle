@@ -49,6 +49,12 @@ android {
             applicationIdSuffix ".joaquinteixeira"
             buildConfigField "long", "USER_ID", '944656536940531713'
         }
+
+        paulJosephWatson {
+            dimension "version"
+            applicationIdSuffix ".pauljosephwatson"
+            buildConfigField "long", "USER_ID", '18643437'
+        }
     }
 
     dataBinding {
