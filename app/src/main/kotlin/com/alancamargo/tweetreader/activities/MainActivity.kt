@@ -1,7 +1,8 @@
-package com.alancamargo.tweetreader
+package com.alancamargo.tweetreader.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.alancamargo.tweetreader.R
 
 class MainActivity : AppCompatActivity() {
 
