@@ -1,8 +1,8 @@
 package com.alancamargo.tweetreader.model
 
 open class Tweet(
-    open val creationDate: String,
-    open val id: Long,
-    open val text: String,
-    open val author: User
+    open var creationDate: String = "",
+    open var id: Long = 0,
+    open var text: String = "",
+    open var author: User = User()
 )

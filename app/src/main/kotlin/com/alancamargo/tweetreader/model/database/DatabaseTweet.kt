@@ -1,21 +1,28 @@
 package com.alancamargo.tweetreader.model.database
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.google.gson.Gson
 
 @Entity(tableName = "Tweet")
-data class DatabaseTweet(
-    override val creationDate: String,
-    @PrimaryKey(autoGenerate = false) override val id: Long,
-    override val text: String,
-    @TypeConverters(UserTypeConverter::class) override val author: User
-) : Tweet(creationDate, id, text, author) {
+@TypeConverters(DatabaseTweet.UserTypeConverter::class)
+class DatabaseTweet : Tweet() {
 
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "tweet_id")
+    override var id: Long = 0
+
+    @ColumnInfo(name = "tweet_creation_date")
+    override var creationDate: String = ""
+
+    @ColumnInfo(name = "tweet_text")
+    override var text: String = ""
+
+    @ColumnInfo(name = "tweet_author")
+    override var author: User = User()
+
+    @Suppress("unused")
     class UserTypeConverter {
 
         private val gson = Gson()
