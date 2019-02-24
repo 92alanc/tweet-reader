@@ -48,7 +48,7 @@
                 style="@style/ScreenName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{tweet.author.screenName}"
+                android:text="@{String.format(@string/screen_name_format, tweet.author.screenName)}"
                 app:layout_constraintTop_toBottomOf="@id/txt_name"
                 app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
                 app:layout_constraintStart_toStartOf="@id/txt_name"
