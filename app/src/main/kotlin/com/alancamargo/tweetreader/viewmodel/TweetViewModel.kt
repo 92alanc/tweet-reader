@@ -14,7 +14,7 @@ class TweetViewModel(context: Context) : ViewModel() {
         repository.insert(tweet)
     }
 
-    fun select(callback: TwitterCallback) {
+    fun getTweets(callback: TwitterCallback) {
         repository.select(callback)
     }
 

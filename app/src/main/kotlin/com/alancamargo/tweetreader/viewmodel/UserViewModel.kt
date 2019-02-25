@@ -14,7 +14,7 @@ class UserViewModel(context: Context) : ViewModel() {
         repository.insert(user)
     }
 
-    fun select(callback: TwitterCallback) {
+    fun getUserDetails(callback: TwitterCallback) {
         repository.select(callback)
     }
 
