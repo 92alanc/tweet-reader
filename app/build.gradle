@@ -15,6 +15,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", '"https://api.twitter.com"'
+        buildConfigField "String", "CONSUMER_KEY", 'System.getenv("TWITTER_CONSUMER_KEY")'
+        buildConfigField "String", "CONSUMER_SECRET", 'System.getenv("TWITTER_CONSUMER_SECRET")'
+        buildConfigField "String", "GRANT_TYPE", '"client_credentials"'
     }
 
     signingConfigs {
@@ -88,6 +91,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     kapt "androidx.room:room-compiler:$room_version"
     // endregion

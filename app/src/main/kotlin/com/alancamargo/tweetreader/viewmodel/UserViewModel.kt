@@ -1,14 +1,14 @@
 package com.alancamargo.tweetreader.viewmodel
 
-import android.content.Context
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.repository.TwitterCallback
 import com.alancamargo.tweetreader.repository.UserRepository
 
-class UserViewModel(context: Context) : ViewModel() {
+class UserViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = UserRepository(context)
+    private val repository = UserRepository(application)
 
     fun insert(user: User) {
         repository.insert(user)

@@ -8,6 +8,8 @@ import android.os.Build.VERSION_CODES.LOLLIPOP
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.connectivity.ConnectivityReceiver
 import com.alancamargo.tweetreader.util.isConnected
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
 @Suppress("unused")
 class TweetReaderApplication : Application() {
@@ -16,6 +18,7 @@ class TweetReaderApplication : Application() {
         super.onCreate()
         ConnectivityMonitor.isConnected = isConnected()
         watchConnectivity()
+        configureImageLoader()
     }
 
     @Suppress("deprecation")
@@ -28,6 +31,11 @@ class TweetReaderApplication : Application() {
                 IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
             )
         }
+    }
+
+    private fun configureImageLoader() {
+        val config = ImageLoaderConfiguration.createDefault(this)
+        ImageLoader.getInstance().init(config)
     }
 
 }

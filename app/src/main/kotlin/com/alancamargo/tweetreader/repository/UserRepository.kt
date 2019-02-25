@@ -40,7 +40,7 @@ class UserRepository(context: Context) {
     }
 
     private fun getUserDetailsFromApi(callback: TwitterCallback) {
-        api.getUserInfo(USER_ID).enqueue(object : Callback<ApiUser> {
+        api.getUserDetails(USER_ID).enqueue(object : Callback<ApiUser> {
             override fun onResponse(call: Call<ApiUser>, response: Response<ApiUser>) {
                 response.body()?.let {
                     val userDetails = MutableLiveData<User>().apply {
