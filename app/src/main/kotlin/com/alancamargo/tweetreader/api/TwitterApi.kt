@@ -13,11 +13,11 @@ interface TwitterApi {
 
     // TODO: add headers
     @GET("/1.1/statuses/user_timeline.json?user_id={user_id}")
-    fun getTweets(@Query("user_id") userId: Long): Call<List<ApiTweet>>
+    fun getTweets(@Query("user_id") userId: String): Call<List<ApiTweet>>
 
     // TODO: add headers
     @GET("/1.1/users/show.json?user_id={user_id}")
-    fun getUserInfo(@Query("user_id") userId: Long): Call<ApiUser>
+    fun getUserInfo(@Query("user_id") userId: String): Call<ApiUser>
 
     companion object {
         fun getService(): TwitterApi {

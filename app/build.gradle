@@ -17,20 +17,20 @@ android {
         buildConfigField "String", "BASE_URL", '"https://api.twitter.com"'
     }
 
-    /*signingConfigs {
+    signingConfigs {
         release {
             keyAlias System.getenv("KEY_ALIAS")
             keyPassword System.getenv("KEY_PASSWORD")
             storeFile file(System.getenv("STORE_FILE"))
             storePassword System.getenv("STORE_PASSWORD")
         }
-    }*/
+    }
 
     buildTypes {
         release {
             minifyEnabled false
             debuggable false
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -41,19 +41,19 @@ android {
         bolsonaro {
             dimension "version"
             applicationIdSuffix ".bolsonaro"
-            buildConfigField "long", "USER_ID", '128372940'
+            buildConfigField "String", "USER_ID", '"128372940"'
         }
 
         joaquinTeixeira {
             dimension "version"
             applicationIdSuffix ".joaquinteixeira"
-            buildConfigField "long", "USER_ID", '944656536940531713'
+            buildConfigField "String", "USER_ID", '"944656536940531713"'
         }
 
         paulJosephWatson {
             dimension "version"
             applicationIdSuffix ".pauljosephwatson"
-            buildConfigField "long", "USER_ID", '18643437'
+            buildConfigField "String", "USER_ID", '"18643437"'
         }
     }
 
