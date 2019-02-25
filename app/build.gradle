@@ -15,9 +15,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", '"https://api.twitter.com"'
-        buildConfigField "String", "CONSUMER_KEY", 'System.getenv("TWITTER_CONSUMER_KEY")'
-        buildConfigField "String", "CONSUMER_SECRET", 'System.getenv("TWITTER_CONSUMER_SECRET")'
         buildConfigField "String", "GRANT_TYPE", '"client_credentials"'
+        buildConfigField "String", "CONSUMER_KEY", "\"$System.env.TWITTER_CONSUMER_KEY\""
+        buildConfigField "String", "CONSUMER_SECRET", "\"$System.env.TWITTER_CONSUMER_SECRET\""
     }
 
     signingConfigs {

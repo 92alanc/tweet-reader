@@ -3,19 +3,26 @@ package com.alancamargo.tweetreader.api
 import com.alancamargo.tweetreader.BuildConfig.BASE_URL
 import com.alancamargo.tweetreader.model.api.ApiTweet
 import com.alancamargo.tweetreader.model.api.ApiUser
+import com.alancamargo.tweetreader.model.api.OAuth2Token
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface TwitterApi {
 
+    @FormUrlEncoded
+    @POST("/oauth2/token")
+    fun postCredentials(@Header("Authorization") authorisation: String,
+                        @Field("grant_type") grantType: String = "client_credentials"): Call<OAuth2Token>
+
     @GET("/1.1/statuses/user_timeline.json?user_id=?")
-    fun getTweets(@Query("user_id") userId: String): Call<List<ApiTweet>>
+    fun getTweets(@Header("Authorization") authorisation: String,
+                  @Query("user_id") userId: String): Call<List<ApiTweet>>
 
     @GET("/1.1/users/show.json?user_id=?")
-    fun getUserDetails(@Query("user_id") userId: String): Call<ApiUser>
+    fun getUserDetails(@Header("Authorization") authorisation: String,
+                       @Query("user_id") userId: String): Call<ApiUser>
 
     companion object {
         fun getService(): TwitterApi {
