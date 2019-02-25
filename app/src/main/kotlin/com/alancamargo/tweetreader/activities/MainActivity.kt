@@ -14,6 +14,7 @@ import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.repository.TwitterCallback
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.UserViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), TwitterCallback {
 
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        recycler_view.adapter = adapter
         userViewModel.getUserDetails(callback = this)
         tweetViewModel.getTweets(callback = this)
     }
