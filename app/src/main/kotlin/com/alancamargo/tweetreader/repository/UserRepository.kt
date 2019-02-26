@@ -10,9 +10,7 @@ import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.database.UserDatabase
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.model.api.ApiUser
 import com.alancamargo.tweetreader.model.api.OAuth2Token
-import com.alancamargo.tweetreader.model.database.DatabaseUser
 import com.alancamargo.tweetreader.util.PreferenceHelper
 import okhttp3.Credentials
 import retrofit2.Call
@@ -26,7 +24,7 @@ class UserRepository(context: Context) {
     private val preferenceHelper = PreferenceHelper(context)
 
     fun insert(user: User) {
-        database.insert(user as DatabaseUser)
+        database.insert(user)
     }
 
     fun select(callback: TwitterCallback) {
@@ -66,8 +64,8 @@ class UserRepository(context: Context) {
     }
 
     private fun getUserDetailsFromApi(authorisationHeader: String, callback: TwitterCallback) {
-        api.getUserDetails(authorisationHeader, BuildConfig.USER_ID).enqueue(object : Callback<ApiUser> {
-            override fun onResponse(call: Call<ApiUser>, response: Response<ApiUser>) {
+        api.getUserDetails(authorisationHeader, BuildConfig.USER_ID).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 response.body()?.let {
                     val userDetails = MutableLiveData<User>().apply {
                         value = it
@@ -77,7 +75,7 @@ class UserRepository(context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<ApiUser>, t: Throwable) {
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.e(javaClass.simpleName, t.message, t)
             }
         })

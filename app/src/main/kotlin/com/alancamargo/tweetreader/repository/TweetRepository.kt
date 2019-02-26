@@ -10,9 +10,7 @@ import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.database.TweetDatabase
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.model.api.ApiTweet
 import com.alancamargo.tweetreader.model.api.OAuth2Token
-import com.alancamargo.tweetreader.model.database.DatabaseTweet
 import com.alancamargo.tweetreader.util.PreferenceHelper
 import okhttp3.Credentials
 import retrofit2.Call
@@ -26,7 +24,7 @@ class TweetRepository(context: Context) {
     private val preferenceHelper = PreferenceHelper(context)
 
     fun insert(tweet: Tweet) {
-        database.insert(tweet as DatabaseTweet)
+        database.insert(tweet)
     }
 
     fun select(callback: TwitterCallback) {
@@ -66,8 +64,8 @@ class TweetRepository(context: Context) {
     }
 
     private fun getTweetsFromApi(authorisationHeader: String, callback: TwitterCallback) {
-        api.getTweets(authorisationHeader, BuildConfig.USER_ID).enqueue(object : Callback<List<ApiTweet>> {
-            override fun onResponse(call: Call<List<ApiTweet>>, response: Response<List<ApiTweet>>) {
+        api.getTweets(authorisationHeader, BuildConfig.USER_ID).enqueue(object : Callback<List<Tweet>> {
+            override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
                 response.body()?.let {
                     val tweets = MutableLiveData<List<Tweet>>().apply {
                         value = it
@@ -77,7 +75,7 @@ class TweetRepository(context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<List<ApiTweet>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Tweet>>, t: Throwable) {
                 Log.e(javaClass.simpleName, t.message, t)
             }
         })

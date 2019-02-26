@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.alancamargo.tweetreader.model.database.DatabaseUser
+import com.alancamargo.tweetreader.model.User
 
 @Dao
 interface UserDao {
 
     @Insert
-    fun insert(user: DatabaseUser)
+    fun insert(user: User)
 
     @Query("SELECT * FROM User LIMIT 1")
-    fun select(): LiveData<DatabaseUser>
+    fun select(): LiveData<User>
 
 }

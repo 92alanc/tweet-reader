@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.alancamargo.tweetreader.model.database.DatabaseTweet
+import com.alancamargo.tweetreader.model.Tweet
 
 @Dao
 interface TweetDao {
 
     @Insert
-    fun insert(tweet: DatabaseTweet)
+    fun insert(tweet: Tweet)
 
     @Query("SELECT * FROM Tweet")
-    fun select(): LiveData<List<DatabaseTweet>>
+    fun select(): LiveData<List<Tweet>>
 
 }

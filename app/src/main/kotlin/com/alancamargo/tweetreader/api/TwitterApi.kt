@@ -1,8 +1,8 @@
 package com.alancamargo.tweetreader.api
 
 import com.alancamargo.tweetreader.BuildConfig.BASE_URL
-import com.alancamargo.tweetreader.model.api.ApiTweet
-import com.alancamargo.tweetreader.model.api.ApiUser
+import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.model.api.OAuth2Token
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -19,11 +19,11 @@ interface TwitterApi {
 
     @GET("/1.1/statuses/user_timeline.json?")
     fun getTweets(@Header("Authorization") authorisation: String,
-                  @Query("user_id") userId: String): Call<List<ApiTweet>>
+                  @Query("user_id") userId: String): Call<List<Tweet>>
 
     @GET("/1.1/users/show.json?")
     fun getUserDetails(@Header("Authorization") authorisation: String,
-                       @Query("user_id") userId: String): Call<ApiUser>
+                       @Query("user_id") userId: String): Call<User>
 
     companion object {
         fun getService(): TwitterApi {
