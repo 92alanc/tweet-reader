@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName
 open class Tweet(
     @SerializedName("created_at") open var creationDate: String = "",
     @PrimaryKey open var id: Long = 0,
-    open var text: String = "",
+    @SerializedName("full_text") open var text: String = "",
     @SerializedName("user") open var author: User = User()
 ) {
 

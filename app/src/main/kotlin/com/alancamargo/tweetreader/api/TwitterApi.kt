@@ -19,7 +19,10 @@ interface TwitterApi {
 
     @GET("/1.1/statuses/user_timeline.json?")
     fun getTweets(@Header("Authorization") authorisation: String,
-                  @Query("user_id") userId: String = USER_ID): Call<List<Tweet>>
+                  @Query("user_id") userId: String = USER_ID,
+                  @Query("include_rts") includeRetweets: Boolean = false,
+                  @Query("exclude_replies") excludeReplies: Boolean = true,
+                  @Query("tweet_mode") tweetMode: String = "extended"): Call<List<Tweet>>
 
     @GET("/1.1/users/show.json?")
     fun getUserDetails(@Header("Authorization") authorisation: String,
