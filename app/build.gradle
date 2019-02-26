@@ -14,8 +14,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", '"https://api.twitter.com"'
-        buildConfigField "String", "GRANT_TYPE", '"client_credentials"'
         buildConfigField "String", "CONSUMER_KEY", "\"$System.env.TWITTER_CONSUMER_KEY\""
         buildConfigField "String", "CONSUMER_SECRET", "\"$System.env.TWITTER_CONSUMER_SECRET\""
     }

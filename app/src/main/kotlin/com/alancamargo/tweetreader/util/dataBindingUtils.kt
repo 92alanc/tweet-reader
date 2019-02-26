@@ -3,21 +3,13 @@ package com.alancamargo.tweetreader.util
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.nostra13.universalimageloader.core.DisplayImageOptions
-import com.nostra13.universalimageloader.core.ImageLoader
+import com.alancamargo.tweetreader.di.DependencyInjection
 import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String?) {
-    val imageLoader = ImageLoader.getInstance()
-    val options = DisplayImageOptions.Builder()
-        .cacheInMemory(true)
-        .cacheOnDisk(true)
-        .considerExifParams(true)
-        .build()
-
-    imageLoader.displayImage(url, imageView, options)
+    DependencyInjection.imageHandler.loadImage(url, imageView)
 }
 
 @BindingAdapter("timestamp")
