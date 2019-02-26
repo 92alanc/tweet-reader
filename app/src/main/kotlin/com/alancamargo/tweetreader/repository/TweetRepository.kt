@@ -3,7 +3,6 @@ package com.alancamargo.tweetreader.repository
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.alancamargo.tweetreader.BuildConfig
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_KEY
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_SECRET
 import com.alancamargo.tweetreader.api.TwitterApi
@@ -64,7 +63,7 @@ class TweetRepository(context: Context) {
     }
 
     private fun getTweetsFromApi(authorisationHeader: String, callback: TwitterCallback) {
-        api.getTweets(authorisationHeader, BuildConfig.USER_ID).enqueue(object : Callback<List<Tweet>> {
+        api.getTweets(authorisationHeader).enqueue(object : Callback<List<Tweet>> {
             override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
                 response.body()?.let {
                     val tweets = MutableLiveData<List<Tweet>>().apply {

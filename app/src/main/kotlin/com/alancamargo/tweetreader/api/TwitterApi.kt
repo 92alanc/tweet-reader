@@ -1,6 +1,7 @@
 package com.alancamargo.tweetreader.api
 
 import com.alancamargo.tweetreader.BuildConfig.BASE_URL
+import com.alancamargo.tweetreader.BuildConfig.USER_ID
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.model.api.OAuth2Token
@@ -18,11 +19,11 @@ interface TwitterApi {
 
     @GET("/1.1/statuses/user_timeline.json?")
     fun getTweets(@Header("Authorization") authorisation: String,
-                  @Query("user_id") userId: String): Call<List<Tweet>>
+                  @Query("user_id") userId: String = USER_ID): Call<List<Tweet>>
 
     @GET("/1.1/users/show.json?")
     fun getUserDetails(@Header("Authorization") authorisation: String,
-                       @Query("user_id") userId: String): Call<User>
+                       @Query("user_id") userId: String = USER_ID): Call<User>
 
     companion object {
         fun getService(): TwitterApi {
