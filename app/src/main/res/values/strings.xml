@@ -3,8 +3,4 @@
     <string name="screen_name_format" translatable="false">\@%s</string>
     <string name="profile">Profile</string>
     <string name="member_since_format">Member since %s</string>
-    <plurals name="followers_count_format">
-        <item quantity="one">%d follower</item>
-        <item quantity="other">%d followers</item>
-    </plurals>
 </resources>

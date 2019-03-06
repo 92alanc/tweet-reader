@@ -2,8 +2,4 @@
 <resources>
     <string name="profile">Perfil</string>
     <string name="member_since_format">Membro desde %s</string>
-    <plurals name="followers_count_format">
-        <item quantity="one">%d seguidor</item>
-        <item quantity="other">%d seguidores</item>
-    </plurals>
 </resources>

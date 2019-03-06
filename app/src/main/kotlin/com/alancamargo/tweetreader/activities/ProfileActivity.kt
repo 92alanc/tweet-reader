@@ -28,8 +28,8 @@ class ProfileActivity : AppCompatActivity() {
             txt_description.text = description
             txt_location.text = location
             setMemberSince(txt_member_since, creationDate)
-            txt_followers_count.text = resources.getQuantityString(R.plurals.followers_count_format,
-                followersCount) // FIXME
+            txt_followers_count.text = resources.getQuantityString(R.plurals.followers_count,
+                followersCount, followersCount)
         }
     }
 
