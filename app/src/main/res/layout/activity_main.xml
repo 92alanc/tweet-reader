@@ -22,7 +22,7 @@
             android:importantForAccessibility="no"
             app:imageUrl="@{user.profileBannerUrl}"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_top"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:src="@tools:sample/backgrounds/scenic"/>
@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             app:imageUrl="@{user.profilePictureUrl}"
             app:layout_constraintDimensionRatio="4:3"
-            app:layout_constraintTop_toTopOf="@+id/guideline_top"
-            app:layout_constraintBottom_toBottomOf="@+id/guideline_top"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
@@ -64,7 +64,7 @@
             tools:text="\@jairbolsonaro"/>
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_top"
+            android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
