@@ -1,6 +1,9 @@
 package com.alancamargo.tweetreader.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -30,6 +33,8 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
 
     private lateinit var binding: ActivityMainBinding
 
+    private var user = User()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -38,9 +43,26 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
         tweetViewModel.getTweets(callback = this)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.item_profile -> {
+                showProfile()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onUserDetailsFound(userDetails: LiveData<User>) {
         userDetails.observe(this, Observer {
-            binding.user = it
+            user = it
+            binding.user = user
             binding.executePendingBindings()
         })
     }
@@ -49,6 +71,11 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
         tweets.observe(this, Observer {
             adapter.submitList(it)
         })
+    }
+
+    private fun showProfile() {
+        // TODO
+        Toast.makeText(this, user.name, Toast.LENGTH_SHORT).show()
     }
 
 }
