@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2"/>
+            app:layout_constraintGuide_percent="0.3"/>
 
         <ImageView
             android:id="@+id/img_profile_banner"
@@ -32,13 +32,13 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_profile_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/size_profile_picture"
+            android:layout_height="@dimen/size_profile_picture"
             app:layout_constraintTop_toTopOf="@id/guideline"
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintHorizontal_bias="0.1"
             tools:src="@tools:sample/avatars"/>
 
         <TextView

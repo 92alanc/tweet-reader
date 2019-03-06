@@ -15,5 +15,6 @@
 
     <!-- region Size -->
     <dimen name="size_img_tweet">50dp</dimen>
+    <dimen name="size_profile_picture">80dp</dimen>
     <!-- endregion -->
 </resources>
