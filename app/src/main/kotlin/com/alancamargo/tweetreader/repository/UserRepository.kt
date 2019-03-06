@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_KEY
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_SECRET
+import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.database.UserDatabase
@@ -65,12 +66,16 @@ class UserRepository(context: Context) {
     private fun getUserDetailsFromApi(authorisationHeader: String, callback: TwitterCallback) {
         api.getUserDetails(authorisationHeader).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
-                response.body()?.let {
-                    val userDetails = MutableLiveData<User>().apply {
-                        value = it
-                    }
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        val userDetails = MutableLiveData<User>().apply {
+                            value = it
+                        }
 
-                    callback.onUserDetailsFound(userDetails)
+                        callback.onUserDetailsFound(userDetails)
+                    }
+                } else if (response.code() == CODE_ACCOUNT_SUSPENDED) {
+                    callback.onAccountSuspended()
                 }
             }
 

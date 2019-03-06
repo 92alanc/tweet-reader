@@ -3,4 +3,5 @@
     <string name="screen_name_format" translatable="false">\@%s</string>
     <string name="profile">Profile</string>
     <string name="member_since_format">Member since %s</string>
+    <string name="account_suspended">This account has been suspended since Twitter is not a big fan of free speech.\nPlease try again later</string>
 </resources>

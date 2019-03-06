@@ -3,6 +3,8 @@ package com.alancamargo.tweetreader.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
     }
 
     private lateinit var user: User
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -65,6 +69,15 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
         tweets.observe(this, Observer {
             adapter.submitList(it)
         })
+    }
+
+    override fun onAccountSuspended() {
+        menu?.findItem(R.id.item_profile)?.let { item ->
+            item.isVisible = false
+        }
+
+        recycler_view.visibility = GONE
+        group_account_suspended.visibility = VISIBLE
     }
 
     private fun showProfile() {
