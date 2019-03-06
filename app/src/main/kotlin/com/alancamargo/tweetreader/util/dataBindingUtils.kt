@@ -32,5 +32,5 @@ fun setMemberSince(textView: TextView, date: String) {
 @BindingAdapter("followersCount")
 fun setFollowersCount(textView: TextView, followersCount: Int) {
     val context = textView.context
-    textView.text = context.getString(R.string.followers_count_format, followersCount)
+    textView.text = context.resources.getQuantityText(R.plurals.followers_count_format, followersCount)
 }

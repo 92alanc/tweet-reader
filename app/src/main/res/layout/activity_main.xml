@@ -1,85 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activities.MainActivity">
-
-    <data>
-        <import type="com.alancamargo.tweetreader.model.User"/>
-
-        <variable name="user" type="User"/>
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/img_profile_banner"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:importantForAccessibility="no"
-            app:imageUrl="@{user.profileBannerUrl}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_profile_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:imageUrl="@{user.profilePictureUrl}"
-            app:layout_constraintDimensionRatio="4:3"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintBottom_toBottomOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            tools:src="@tools:sample/avatars"/>
-
-        <TextView
-            android:id="@+id/txt_name"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            android:text="@{user.name}"
-            app:layout_constraintTop_toBottomOf="@id/img_profile_banner"
-            app:layout_constraintStart_toEndOf="@id/img_profile_picture"
-            tools:text="Jair M. Bolsonaro"/>
-
-        <TextView
-            android:id="@+id/txt_screen_name"
-            style="@style/ScreenName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.format(@string/screen_name_format, user.screenName)}"
-            app:layout_constraintTop_toBottomOf="@id/txt_name"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_view"
-            app:layout_constraintStart_toStartOf="@id/txt_name"
-            tools:text="\@jairbolsonaro"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.15"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_tweet"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    android:id="@+id/recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:listitem="@layout/item_tweet"
+    tools:context=".activities.MainActivity"/>
