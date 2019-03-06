@@ -1,6 +1,5 @@
 package com.alancamargo.tweetreader.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +13,7 @@ import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.repository.TwitterCallback
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
+import com.alancamargo.tweetreader.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), TwitterCallback {
@@ -24,11 +24,19 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
         ViewModelProviders.of(this).get(TweetViewModel::class.java)
     }
 
+    private val userViewModel by lazy {
+        ViewModelProviders.of(this).get(UserViewModel::class.java)
+    }
+
+    private lateinit var user: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title = getString(R.string.title)
         recycler_view.adapter = adapter
         tweetViewModel.getTweets(callback = this)
+        userViewModel.getUserDetails(callback = this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,7 +55,11 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
         }
     }
 
-    override fun onUserDetailsFound(userDetails: LiveData<User>) { }
+    override fun onUserDetailsFound(userDetails: LiveData<User>) {
+        userDetails.observe(this, Observer { user ->
+            this.user = user
+        })
+    }
 
     override fun onTweetsFound(tweets: LiveData<List<Tweet>>) {
         tweets.observe(this, Observer {
@@ -56,7 +68,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
     }
 
     private fun showProfile() {
-        val intent = Intent(this, ProfileActivity::class.java)
+        val intent = ProfileActivity.getIntent(this, user)
         startActivity(intent)
     }
 

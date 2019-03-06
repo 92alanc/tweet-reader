@@ -28,9 +28,3 @@ fun setMemberSince(textView: TextView, date: String) {
     val formattedDate = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault()).format(time)
     textView.text = context.getString(R.string.member_since_format, formattedDate)
 }
-
-@BindingAdapter("followersCount")
-fun setFollowersCount(textView: TextView, followersCount: Int) {
-    val context = textView.context
-    textView.text = context.resources.getQuantityText(R.plurals.followers_count_format, followersCount)
-}
