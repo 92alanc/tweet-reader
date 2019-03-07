@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
@@ -18,7 +20,7 @@ import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), TwitterCallback {
+class MainActivity : AppCompatActivity(), TwitterCallback, Observer<List<Tweet>> {
 
     private val adapter = TweetAdapter()
 
@@ -32,13 +34,14 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
 
     private lateinit var user: User
     private var menu: Menu? = null
+    private var tweets: List<Tweet> = listOf()
     private var maxId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         title = getString(R.string.title)
-        recycler_view.adapter = adapter
+        configureRecyclerView()
         tweetViewModel.getTweets(callback = this)
         userViewModel.getUserDetails(callback = this)
         progress_bar.visibility = VISIBLE
@@ -68,11 +71,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
     }
 
     override fun onTweetsFound(tweets: LiveData<List<Tweet>>) {
-        tweets.observe(this, Observer {
-            maxId = it.last().id
-            progress_bar.visibility = GONE
-            adapter.submitList(it)
-        })
+        tweets.observe(this, this)
     }
 
     override fun onAccountSuspended() {
@@ -84,6 +83,23 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
 
         recycler_view.visibility = GONE
         group_account_suspended.visibility = VISIBLE
+    }
+
+    override fun onChanged(tweets: List<Tweet>) {
+        this.tweets = this.tweets.union(tweets).toList()
+        maxId = this.tweets.last().id
+        progress_bar.visibility = GONE
+        adapter.submitList(this.tweets)
+    }
+
+    private fun configureRecyclerView() {
+        recycler_view.adapter = adapter
+        recycler_view.addOnScrollListener(object :
+            EndlessScrollListener(recycler_view.layoutManager as LinearLayoutManager) {
+            override fun onLoadMore() {
+                tweetViewModel.getTweets(callback = this@MainActivity, maxId = maxId) // FIXME
+            }
+        })
     }
 
     private fun showProfile() {
