@@ -1,6 +1,6 @@
 package com.alancamargo.tweetreader.util
 
-import android.text.SpannableStringBuilder
+import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
@@ -37,8 +37,7 @@ fun setMemberSince(textView: TextView, date: String) {
 @BindingAdapter("tweetText")
 fun setTweetText(textView: TextView, rawText: String) {
     val words = rawText.getWords()
-    val formattedText = SpannableStringBuilder("")
-    val colourSpan = ForegroundColorSpan(ContextCompat.getColor(textView.context, R.color.light_blue))
+    val formattedText = SpannableString(rawText)
 
     for (word in words) {
         val hashtag = Pattern.compile("#(.)+").matcher(word)
@@ -46,11 +45,13 @@ fun setTweetText(textView: TextView, rawText: String) {
         val url = Pattern.compile("((http|https)(://))([a-z]|[A-Z]|[0-9]|[.]|-|/|&|\\?|#|_|=)+")
             .matcher(word)
 
-        // FIXME
         if (hashtag.matches() || account.matches() || url.matches()) {
-            formattedText.append("$word ", colourSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        } else {
-            formattedText.append("$word ")
+            formattedText.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(textView.context, R.color.light_blue)),
+                rawText.indexOf(word),
+                rawText.indexOf(word) + word.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
     }
 
