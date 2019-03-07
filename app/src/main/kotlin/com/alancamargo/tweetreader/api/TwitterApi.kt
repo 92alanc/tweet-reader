@@ -14,19 +14,27 @@ interface TwitterApi {
 
     @FormUrlEncoded
     @POST("/oauth2/token")
-    fun postCredentials(@Header(AUTHORISATION_HEADER) authorisation: String,
-                        @Field("grant_type") grantType: String = "client_credentials"): Call<OAuth2Token>
+    fun postCredentials(
+        @Header(AUTHORISATION_HEADER) authorisation: String,
+        @Field("grant_type") grantType: String = "client_credentials"
+    ): Call<OAuth2Token>
 
     @GET("/1.1/statuses/user_timeline.json")
-    fun getTweets(@Header(AUTHORISATION_HEADER) authorisation: String,
-                  @Query(USER_ID_PARAM) userId: String = USER_ID,
-                  @Query("include_rts") includeRetweets: Boolean = false,
-                  @Query("exclude_replies") excludeReplies: Boolean = true,
-                  @Query("tweet_mode") tweetMode: String = "extended"): Call<List<Tweet>>
+    fun getTweets(
+        @Header(AUTHORISATION_HEADER) authorisation: String,
+        @Query(USER_ID_PARAM) userId: String = USER_ID,
+        @Query("include_rts") includeRetweets: Boolean = false,
+        @Query("exclude_replies") excludeReplies: Boolean = true,
+        @Query("tweet_mode") tweetMode: String = "extended",
+        @Query("count") count: Int = 9,
+        @Query("max_id") maxId: Long? = null
+    ): Call<List<Tweet>>
 
     @GET("/1.1/users/show.json")
-    fun getUserDetails(@Header(AUTHORISATION_HEADER) authorisation: String,
-                       @Query(USER_ID_PARAM) userId: String = USER_ID): Call<User>
+    fun getUserDetails(
+        @Header(AUTHORISATION_HEADER) authorisation: String,
+        @Query(USER_ID_PARAM) userId: String = USER_ID
+    ): Call<User>
 
     companion object {
         fun getService(): TwitterApi {

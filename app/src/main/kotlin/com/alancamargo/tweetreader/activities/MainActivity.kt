@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
 
     private lateinit var user: User
     private var menu: Menu? = null
+    private var maxId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
 
     override fun onTweetsFound(tweets: LiveData<List<Tweet>>) {
         tweets.observe(this, Observer {
+            maxId = it.last().id
             progress_bar.visibility = GONE
             adapter.submitList(it)
         })
