@@ -9,6 +9,7 @@ fun Context.isConnected(): Boolean {
     return activeNetworkInfo != null && activeNetworkInfo.isConnected
 }
 
+@Suppress("RegExpRedundantEscape")
 fun String.getWords(): List<String> {
     return this.split(
         "(\\s|,|!|\\?|\\(|\\)\\[|]|\\{|\\}|<|>|;|\\+|-|\\*|$|(\\|)|\\\\)".toRegex()
