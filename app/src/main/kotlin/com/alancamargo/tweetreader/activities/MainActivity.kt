@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
         recycler_view.adapter = adapter
         tweetViewModel.getTweets(callback = this)
         userViewModel.getUserDetails(callback = this)
+        progress_bar.visibility = VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,11 +68,14 @@ class MainActivity : AppCompatActivity(), TwitterCallback {
 
     override fun onTweetsFound(tweets: LiveData<List<Tweet>>) {
         tweets.observe(this, Observer {
+            progress_bar.visibility = GONE
             adapter.submitList(it)
         })
     }
 
     override fun onAccountSuspended() {
+        progress_bar.visibility = GONE
+
         menu?.findItem(R.id.item_profile)?.let { item ->
             item.isVisible = false
         }
