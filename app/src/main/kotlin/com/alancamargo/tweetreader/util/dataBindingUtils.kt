@@ -1,12 +1,17 @@
 package com.alancamargo.tweetreader.util
 
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.DependencyInjection
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String?) {
@@ -27,4 +32,27 @@ fun setMemberSince(textView: TextView, date: String) {
     val context = textView.context
     val formattedDate = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault()).format(time)
     textView.text = context.getString(R.string.member_since_format, formattedDate)
+}
+
+@BindingAdapter("tweetText")
+fun setTweetText(textView: TextView, rawText: String) {
+    val words = rawText.getWords()
+    val formattedText = SpannableStringBuilder("")
+    val colourSpan = ForegroundColorSpan(ContextCompat.getColor(textView.context, R.color.light_blue))
+
+    for (word in words) {
+        val hashtag = Pattern.compile("#(.)+").matcher(word)
+        val account = Pattern.compile("@([a-z]|[A-Z]|[0-9]|_|\\.|-)+").matcher(word)
+        val url = Pattern.compile("((http|https)(://))([a-z]|[A-Z]|[0-9]|[.]|-|/|&|\\?|#|_|=)+")
+            .matcher(word)
+
+        // FIXME
+        if (hashtag.matches() || account.matches() || url.matches()) {
+            formattedText.append("$word ", colourSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } else {
+            formattedText.append("$word ")
+        }
+    }
+
+    textView.text = formattedText.trim()
 }

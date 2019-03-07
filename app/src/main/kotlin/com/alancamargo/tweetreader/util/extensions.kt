@@ -8,3 +8,11 @@ fun Context.isConnected(): Boolean {
     val activeNetworkInfo = connectivityManager.activeNetworkInfo
     return activeNetworkInfo != null && activeNetworkInfo.isConnected
 }
+
+fun String.getWords(): List<String> {
+    return this.split(
+        "(\\s|,|!|\\?|\\(|\\)\\[|]|\\{|\\}|<|>|;|\\+|-|\\*|$|(\\|)|\\\\)".toRegex()
+    ).toMutableList().apply {
+        removeAll { it == "" }
+    }
+}

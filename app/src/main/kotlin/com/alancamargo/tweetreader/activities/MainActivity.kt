@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
@@ -94,12 +92,12 @@ class MainActivity : AppCompatActivity(), TwitterCallback, Observer<List<Tweet>>
 
     private fun configureRecyclerView() {
         recycler_view.adapter = adapter
-        recycler_view.addOnScrollListener(object :
+        /*recycler_view.addOnScrollListener(object :
             EndlessScrollListener(recycler_view.layoutManager as LinearLayoutManager) {
             override fun onLoadMore() {
                 tweetViewModel.getTweets(callback = this@MainActivity, maxId = maxId) // FIXME
             }
-        })
+        })*/
     }
 
     private fun showProfile() {
