@@ -61,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:tweetText="@{tweet.text}"
-                android:textColorHighlight="@color/light_blue"
+                android:textColorHighlight="@android:color/transparent"
                 app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
