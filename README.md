@@ -23,7 +23,7 @@ makes fun of feminists and other hysteric far-left activists.
 
 * Paul Joseph Watson
 
-A British conservative man who always exposes the far-left,
+A British conservative who always exposes the far-left,
 especially on YouTube.
 
 All his videos are demonetised and sometimes censored by 
@@ -32,3 +32,10 @@ when all he does is criticise and expose the far-left agenda
 and their hypocrisy. Meanwhile youtubers who openly support 
 terror attacks and other hateful and extremist opinions 
 continue to have their videos monetised.
+
+## Suspension
+
+Since these accounts belong to conservatives and Twitter, like
+the establishment media and the rest of the Silicon Valley,
+is against free speech, this app is prepared to handle cases
+when an account is suspended.
