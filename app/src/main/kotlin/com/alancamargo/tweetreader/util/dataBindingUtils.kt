@@ -2,10 +2,11 @@ package com.alancamargo.tweetreader.util
 
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.style.ForegroundColorSpan
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.DependencyInjection
@@ -45,9 +46,27 @@ fun setTweetText(textView: TextView, rawText: String) {
         val url = Pattern.compile("((http|https)(://))([a-z]|[A-Z]|[0-9]|[.]|-|/|&|\\?|#|_|=)+")
             .matcher(word)
 
-        if (hashtag.matches() || account.matches() || url.matches()) {
+        val isHashtag = hashtag.matches()
+        val isAccount = account.matches()
+        val isUrl = url.matches()
+
+        if (isHashtag || isAccount || isUrl) {
+            val linkType = when {
+                isHashtag -> LinkType.HASHTAG
+                isAccount -> LinkType.MENTION
+                else -> LinkType.PLAIN_URL
+            }
+
             formattedText.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(textView.context, R.color.light_blue)),
+                object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        DependencyInjection.linkClickListener.onLinkClicked(
+                            widget.context,
+                            word,
+                            linkType
+                        )
+                    }
+                },
                 rawText.indexOf(word),
                 rawText.indexOf(word) + word.length,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -55,5 +74,6 @@ fun setTweetText(textView: TextView, rawText: String) {
         }
     }
 
+    textView.movementMethod = LinkMovementMethod.getInstance()
     textView.text = formattedText.trim()
 }

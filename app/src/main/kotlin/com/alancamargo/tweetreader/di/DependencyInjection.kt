@@ -1,6 +1,7 @@
 package com.alancamargo.tweetreader.di
 
 import com.alancamargo.tweetreader.util.ImageHandler
+import com.alancamargo.tweetreader.util.LinkClickListener
 
 object DependencyInjection {
 
@@ -10,10 +11,17 @@ object DependencyInjection {
     lateinit var baseUrl: String
         private set
 
-    fun init(imageHandler: ImageHandler,
-             baseUrl: String) {
+    lateinit var linkClickListener: LinkClickListener
+        private set
+
+    fun init(
+        imageHandler: ImageHandler,
+        baseUrl: String,
+        linkClickListener: LinkClickListener
+    ) {
         this.imageHandler = imageHandler
         this.baseUrl = baseUrl
+        this.linkClickListener = linkClickListener
     }
 
 }

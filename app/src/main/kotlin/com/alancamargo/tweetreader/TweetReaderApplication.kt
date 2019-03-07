@@ -10,6 +10,7 @@ import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.connectivity.ConnectivityReceiver
 import com.alancamargo.tweetreader.di.DependencyInjection
 import com.alancamargo.tweetreader.util.AppImageHandler
+import com.alancamargo.tweetreader.util.AppLinkClickListener
 import com.alancamargo.tweetreader.util.isConnected
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
@@ -22,7 +23,7 @@ class TweetReaderApplication : Application() {
         ConnectivityMonitor.isConnected = isConnected()
         watchConnectivity()
         configureImageLoader()
-        DependencyInjection.init(AppImageHandler(), BASE_URL)
+        DependencyInjection.init(AppImageHandler(), BASE_URL, AppLinkClickListener())
     }
 
     @Suppress("deprecation")
