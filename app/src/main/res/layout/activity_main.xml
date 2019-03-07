@@ -51,6 +51,7 @@
         android:id="@+id/group_account_suspended"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="img_account_suspended,txt_account_suspended"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
