@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
@@ -18,7 +19,10 @@ import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), TwitterCallback, Observer<List<Tweet>> {
+class MainActivity : AppCompatActivity(),
+    TwitterCallback,
+    Observer<List<Tweet>>,
+    SwipeRefreshLayout.OnRefreshListener {
 
     private val adapter = TweetAdapter()
 
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity(), TwitterCallback, Observer<List<Tweet>>
         configureRecyclerView()
         tweetViewModel.getTweets(callback = this)
         userViewModel.getUserDetails(callback = this)
+        configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
     }
 
@@ -84,10 +89,19 @@ class MainActivity : AppCompatActivity(), TwitterCallback, Observer<List<Tweet>>
     }
 
     override fun onChanged(tweets: List<Tweet>) {
+        if (swipe_refresh_layout.isRefreshing) {
+            swipe_refresh_layout.isRefreshing = false
+        }
+
         this.tweets = this.tweets.union(tweets).toList()
         maxId = this.tweets.last().id
         progress_bar.visibility = GONE
-        adapter.submitList(this.tweets)
+        adapter.submitList(tweets)
+    }
+
+    override fun onRefresh() {
+        swipe_refresh_layout.isRefreshing = true
+        tweetViewModel.getTweets(callback = this)
     }
 
     private fun configureRecyclerView() {
@@ -98,6 +112,18 @@ class MainActivity : AppCompatActivity(), TwitterCallback, Observer<List<Tweet>>
                 tweetViewModel.getTweets(callback = this@MainActivity, maxId = maxId) // FIXME
             }
         })*/
+    }
+
+    private fun configureSwipeRefreshLayout() {
+        swipe_refresh_layout.run {
+            setOnRefreshListener(this@MainActivity)
+            setColorSchemeResources(
+                R.color.accent,
+                R.color.primary,
+                R.color.accent,
+                R.color.primary_dark
+            )
+        }
     }
 
     private fun showProfile() {
