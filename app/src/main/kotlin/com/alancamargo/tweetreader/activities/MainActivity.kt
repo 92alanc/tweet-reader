@@ -118,10 +118,10 @@ class MainActivity : AppCompatActivity(),
         swipe_refresh_layout.run {
             setOnRefreshListener(this@MainActivity)
             setColorSchemeResources(
-                R.color.accent,
                 R.color.primary,
                 R.color.accent,
-                R.color.primary_dark
+                R.color.primary_dark,
+                R.color.accent
             )
         }
     }
