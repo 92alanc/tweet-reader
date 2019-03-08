@@ -48,7 +48,7 @@ android {
         joaquinTeixeira {
             dimension "version"
             applicationIdSuffix ".joaquinteixeira"
-            buildConfigField "String", "USER_ID", '"944656536940531713"'
+            buildConfigField "String", "USER_ID", '"771843528062304256"'
         }
 
         paulJosephWatson {
