@@ -3,10 +3,10 @@ package com.alancamargo.tweetreader.util
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.DependencyInjection
@@ -57,8 +57,9 @@ fun setTweetText(textView: TextView, rawText: String) {
                 else -> LinkType.PLAIN_URL
             }
 
+            val textColour = ContextCompat.getColor(textView.context, R.color.light_blue)
             formattedText.setSpan(
-                object : ClickableSpan() {
+                object : ClickableTextSpan(textColour) {
                     override fun onClick(widget: View) {
                         DependencyInjection.linkClickListener.onLinkClicked(
                             widget.context,
