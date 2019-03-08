@@ -39,6 +39,7 @@ fun setMemberSince(textView: TextView, date: String) {
 fun setTweetText(textView: TextView, rawText: String) {
     val words = rawText.getWords()
     val formattedText = SpannableString(rawText)
+    val textColour = ContextCompat.getColor(textView.context, R.color.light_blue)
 
     for (word in words) {
         val hashtag = Pattern.compile("#(.)+").matcher(word)
@@ -57,7 +58,6 @@ fun setTweetText(textView: TextView, rawText: String) {
                 else -> LinkType.PLAIN_URL
             }
 
-            val textColour = ContextCompat.getColor(textView.context, R.color.light_blue)
             formattedText.setSpan(
                 object : ClickableTextSpan(textColour) {
                     override fun onClick(widget: View) {
