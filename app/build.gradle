@@ -99,6 +99,7 @@ dependencies {
     // region Instrumented test libraries
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
+    androidTestImplementation 'br.com.concretesolutions:kappuccino:1.2.1'
     // endregion
 
     // region Unit test libraries
