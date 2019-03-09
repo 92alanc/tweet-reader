@@ -1,0 +1,1154 @@
+[
+  {
+    "created_at": "Sat Mar 09 13:21:55 +0000 2019",
+    "id": 1104371738987712514,
+    "id_str": "1104371738987712514",
+    "full_text": "Com o trabalho das FFAA e a liberação da BR-163 aos caminhoneiros, o ministro @tarcisiogdf concluiu sua ida ao Pará, após vistoriar os trabalhos no trecho não pavimentado, disse. “Essa rodovia foi aberta pelo General Geisel, e será concluída pelo Capitão @jairbolsonaro”. https://t.co/duKgYLh6Y5",
+    "truncated": false,
+    "display_text_range": [
+      0,
+      271
+    ],
+    "entities": {
+      "hashtags": [],
+      "symbols": [],
+      "user_mentions": [
+        {
+          "screen_name": "tarcisiogdf",
+          "name": "Tarcísio Gomes de Freitas",
+          "id": 1078618844007157761,
+          "id_str": "1078618844007157761",
+          "indices": [
+            78,
+            90
+          ]
+        },
+        {
+          "screen_name": "jairbolsonaro",
+          "name": "Jair M. Bolsonaro",
+          "id": 128372940,
+          "id_str": "128372940",
+          "indices": [
+            255,
+            269
+          ]
+        }
+      ],
+      "urls": [],
+      "media": [
+        {
+          "id": 1104371516626612225,
+          "id_str": "1104371516626612225",
+          "indices": [
+            272,
+            295
+          ],
+          "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1104371516626612225/pu/img/ATTquMCMOlNuQ0q_.jpg",
+          "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1104371516626612225/pu/img/ATTquMCMOlNuQ0q_.jpg",
+          "url": "https://t.co/duKgYLh6Y5",
+          "display_url": "pic.twitter.com/duKgYLh6Y5",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104371738987712514/video/1",
+          "type": "photo",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 1200,
+              "h": 675,
+              "resize": "fit"
+            },
+            "small": {
+              "w": 680,
+              "h": 383,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1280,
+              "h": 720,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "extended_entities": {
+      "media": [
+        {
+          "id": 1104371516626612225,
+          "id_str": "1104371516626612225",
+          "indices": [
+            272,
+            295
+          ],
+          "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1104371516626612225/pu/img/ATTquMCMOlNuQ0q_.jpg",
+          "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1104371516626612225/pu/img/ATTquMCMOlNuQ0q_.jpg",
+          "url": "https://t.co/duKgYLh6Y5",
+          "display_url": "pic.twitter.com/duKgYLh6Y5",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104371738987712514/video/1",
+          "type": "video",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 1200,
+              "h": 675,
+              "resize": "fit"
+            },
+            "small": {
+              "w": 680,
+              "h": 383,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1280,
+              "h": 720,
+              "resize": "fit"
+            }
+          },
+          "video_info": {
+            "aspect_ratio": [
+              16,
+              9
+            ],
+            "duration_millis": 33033,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/ext_tw_video/1104371516626612225/pu/pl/hXVySh0mtHHpPzXx.m3u8?tag=8"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1104371516626612225/pu/vid/640x360/MQkOvtluGKYJ2JVB.mp4?tag=8"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1104371516626612225/pu/vid/1280x720/PFm2iq2Bu6MTmm8A.mp4?tag=8"
+              },
+              {
+                "bitrate": 256000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1104371516626612225/pu/vid/320x180/GfAfxyGuakiTzLuc.mp4?tag=8"
+              }
+            ]
+          },
+          "additional_media_info": {
+            "monetizable": false
+          }
+        }
+      ]
+    },
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "in_reply_to_status_id": null,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "in_reply_to_screen_name": null,
+    "user": {
+      "id": 128372940,
+      "id_str": "128372940",
+      "name": "Jair M. Bolsonaro",
+      "screen_name": "jairbolsonaro",
+      "location": "Brasília, Brasil",
+      "description": "Capitão do Exército Brasileiro, eleito 38° Presidente da República Federativa do Brasil. 🇧🇷",
+      "url": "https://t.co/bqpNS6l0al",
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "https://t.co/bqpNS6l0al",
+              "expanded_url": "http://www.bolsonaro.com.br",
+              "display_url": "bolsonaro.com.br",
+              "indices": [
+                0,
+                23
+              ]
+            }
+          ]
+        },
+        "description": {
+          "urls": []
+        }
+      },
+      "protected": false,
+      "followers_count": 3645567,
+      "friends_count": 327,
+      "listed_count": 3921,
+      "created_at": "Wed Mar 31 23:13:44 +0000 2010",
+      "favourites_count": 1736,
+      "utc_offset": null,
+      "time_zone": null,
+      "geo_enabled": true,
+      "verified": true,
+      "statuses_count": 6253,
+      "lang": "pt",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "is_translation_enabled": false,
+      "profile_background_color": "175C17",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/128372940/1540929521",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "FFFFFF",
+      "profile_sidebar_fill_color": "A4E37F",
+      "profile_text_color": "1414FF",
+      "profile_use_background_image": true,
+      "has_extended_profile": true,
+      "default_profile": false,
+      "default_profile_image": false,
+      "following": false,
+      "follow_request_sent": false,
+      "notifications": false,
+      "translator_type": "none"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null,
+    "is_quote_status": false,
+    "retweet_count": 4345,
+    "favorite_count": 23621,
+    "favorited": false,
+    "retweeted": false,
+    "possibly_sensitive": false,
+    "lang": "pt"
+  },
+  {
+    "created_at": "Sat Mar 09 10:45:36 +0000 2019",
+    "id": 1104332401696800768,
+    "id_str": "1104332401696800768",
+    "full_text": "Publicado no D.O.U a portaria 888/2019 sobre o projeto de Dessalinização do Ministério de Ciências e Tecnologias, principalmente absorvendo conhecimento nacional em conjunto com outros ministérios. https://t.co/yN5ZnX6rYt",
+    "truncated": false,
+    "display_text_range": [
+      0,
+      197
+    ],
+    "entities": {
+      "hashtags": [],
+      "symbols": [],
+      "user_mentions": [],
+      "urls": [],
+      "media": [
+        {
+          "id": 1104332395241762816,
+          "id_str": "1104332395241762816",
+          "indices": [
+            198,
+            221
+          ],
+          "media_url": "http://pbs.twimg.com/media/D1NgdmRXcAAXMzw.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/D1NgdmRXcAAXMzw.jpg",
+          "url": "https://t.co/yN5ZnX6rYt",
+          "display_url": "pic.twitter.com/yN5ZnX6rYt",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104332401696800768/photo/1",
+          "type": "photo",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "small": {
+              "w": 680,
+              "h": 679,
+              "resize": "fit"
+            },
+            "medium": {
+              "w": 1184,
+              "h": 1183,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1184,
+              "h": 1183,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "extended_entities": {
+      "media": [
+        {
+          "id": 1104332395241762816,
+          "id_str": "1104332395241762816",
+          "indices": [
+            198,
+            221
+          ],
+          "media_url": "http://pbs.twimg.com/media/D1NgdmRXcAAXMzw.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/D1NgdmRXcAAXMzw.jpg",
+          "url": "https://t.co/yN5ZnX6rYt",
+          "display_url": "pic.twitter.com/yN5ZnX6rYt",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104332401696800768/photo/1",
+          "type": "photo",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "small": {
+              "w": 680,
+              "h": 679,
+              "resize": "fit"
+            },
+            "medium": {
+              "w": 1184,
+              "h": 1183,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1184,
+              "h": 1183,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "in_reply_to_status_id": null,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "in_reply_to_screen_name": null,
+    "user": {
+      "id": 128372940,
+      "id_str": "128372940",
+      "name": "Jair M. Bolsonaro",
+      "screen_name": "jairbolsonaro",
+      "location": "Brasília, Brasil",
+      "description": "Capitão do Exército Brasileiro, eleito 38° Presidente da República Federativa do Brasil. 🇧🇷",
+      "url": "https://t.co/bqpNS6l0al",
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "https://t.co/bqpNS6l0al",
+              "expanded_url": "http://www.bolsonaro.com.br",
+              "display_url": "bolsonaro.com.br",
+              "indices": [
+                0,
+                23
+              ]
+            }
+          ]
+        },
+        "description": {
+          "urls": []
+        }
+      },
+      "protected": false,
+      "followers_count": 3645567,
+      "friends_count": 327,
+      "listed_count": 3921,
+      "created_at": "Wed Mar 31 23:13:44 +0000 2010",
+      "favourites_count": 1736,
+      "utc_offset": null,
+      "time_zone": null,
+      "geo_enabled": true,
+      "verified": true,
+      "statuses_count": 6253,
+      "lang": "pt",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "is_translation_enabled": false,
+      "profile_background_color": "175C17",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/128372940/1540929521",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "FFFFFF",
+      "profile_sidebar_fill_color": "A4E37F",
+      "profile_text_color": "1414FF",
+      "profile_use_background_image": true,
+      "has_extended_profile": true,
+      "default_profile": false,
+      "default_profile_image": false,
+      "following": false,
+      "follow_request_sent": false,
+      "notifications": false,
+      "translator_type": "none"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null,
+    "is_quote_status": false,
+    "retweet_count": 4355,
+    "favorite_count": 26415,
+    "favorited": false,
+    "retweeted": false,
+    "possibly_sensitive": false,
+    "lang": "pt"
+  },
+  {
+    "created_at": "Fri Mar 08 22:50:13 +0000 2019",
+    "id": 1104152367996551168,
+    "id_str": "1104152367996551168",
+    "full_text": "Com a aprovação da Nova Previdência pelo Congresso Nacional, teremos condições de estabilizar as contas, potencializar investimentos, enxugar ainda mais a máquina pública, reduzindo nossas estatais e possibilitar muitos outros projetos. Os estudos estão sempre avançando! https://t.co/t4zG325rEZ",
+    "truncated": false,
+    "display_text_range": [
+      0,
+      271
+    ],
+    "entities": {
+      "hashtags": [],
+      "symbols": [],
+      "user_mentions": [],
+      "urls": [],
+      "media": [
+        {
+          "id": 1104151928601300993,
+          "id_str": "1104151928601300993",
+          "indices": [
+            272,
+            295
+          ],
+          "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1104151928601300993/pu/img/Io_55zRQosu6YVBS.jpg",
+          "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1104151928601300993/pu/img/Io_55zRQosu6YVBS.jpg",
+          "url": "https://t.co/t4zG325rEZ",
+          "display_url": "pic.twitter.com/t4zG325rEZ",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104152367996551168/video/1",
+          "type": "photo",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 1200,
+              "h": 675,
+              "resize": "fit"
+            },
+            "small": {
+              "w": 680,
+              "h": 383,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1280,
+              "h": 720,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "extended_entities": {
+      "media": [
+        {
+          "id": 1104151928601300993,
+          "id_str": "1104151928601300993",
+          "indices": [
+            272,
+            295
+          ],
+          "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1104151928601300993/pu/img/Io_55zRQosu6YVBS.jpg",
+          "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1104151928601300993/pu/img/Io_55zRQosu6YVBS.jpg",
+          "url": "https://t.co/t4zG325rEZ",
+          "display_url": "pic.twitter.com/t4zG325rEZ",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104152367996551168/video/1",
+          "type": "video",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 1200,
+              "h": 675,
+              "resize": "fit"
+            },
+            "small": {
+              "w": 680,
+              "h": 383,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1280,
+              "h": 720,
+              "resize": "fit"
+            }
+          },
+          "video_info": {
+            "aspect_ratio": [
+              16,
+              9
+            ],
+            "duration_millis": 57233,
+            "variants": [
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/ext_tw_video/1104151928601300993/pu/pl/L7xgdjmCWwzbtD0j.m3u8?tag=8"
+              },
+              {
+                "bitrate": 256000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1104151928601300993/pu/vid/320x180/bjO_M0oSn4zcnHZk.mp4?tag=8"
+              },
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1104151928601300993/pu/vid/640x360/MCGLl9uPvGhmjyGu.mp4?tag=8"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1104151928601300993/pu/vid/1280x720/ANm74vhj2Lv29FMn.mp4?tag=8"
+              }
+            ]
+          },
+          "additional_media_info": {
+            "monetizable": false
+          }
+        }
+      ]
+    },
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "in_reply_to_status_id": null,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "in_reply_to_screen_name": null,
+    "user": {
+      "id": 128372940,
+      "id_str": "128372940",
+      "name": "Jair M. Bolsonaro",
+      "screen_name": "jairbolsonaro",
+      "location": "Brasília, Brasil",
+      "description": "Capitão do Exército Brasileiro, eleito 38° Presidente da República Federativa do Brasil. 🇧🇷",
+      "url": "https://t.co/bqpNS6l0al",
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "https://t.co/bqpNS6l0al",
+              "expanded_url": "http://www.bolsonaro.com.br",
+              "display_url": "bolsonaro.com.br",
+              "indices": [
+                0,
+                23
+              ]
+            }
+          ]
+        },
+        "description": {
+          "urls": []
+        }
+      },
+      "protected": false,
+      "followers_count": 3645567,
+      "friends_count": 327,
+      "listed_count": 3921,
+      "created_at": "Wed Mar 31 23:13:44 +0000 2010",
+      "favourites_count": 1736,
+      "utc_offset": null,
+      "time_zone": null,
+      "geo_enabled": true,
+      "verified": true,
+      "statuses_count": 6253,
+      "lang": "pt",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "is_translation_enabled": false,
+      "profile_background_color": "175C17",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/128372940/1540929521",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "FFFFFF",
+      "profile_sidebar_fill_color": "A4E37F",
+      "profile_text_color": "1414FF",
+      "profile_use_background_image": true,
+      "has_extended_profile": true,
+      "default_profile": false,
+      "default_profile_image": false,
+      "following": false,
+      "follow_request_sent": false,
+      "notifications": false,
+      "translator_type": "none"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null,
+    "is_quote_status": false,
+    "retweet_count": 6092,
+    "favorite_count": 32823,
+    "favorited": false,
+    "retweeted": false,
+    "possibly_sensitive": false,
+    "lang": "pt"
+  },
+  {
+    "created_at": "Fri Mar 08 19:24:55 +0000 2019",
+    "id": 1104100702144614403,
+    "id_str": "1104100702144614403",
+    "full_text": "Participando da Cerimônia em homenagem ao Dia Internacional da Mulher ao lado de minha amada esposa, Michelle Bolsonaro. Um abraço em todas as mulheres, mães, guerreiras e trabalhadoras de nosso país! 🌹 https://t.co/mDbDpGPv93",
+    "truncated": false,
+    "display_text_range": [
+      0,
+      202
+    ],
+    "entities": {
+      "hashtags": [],
+      "symbols": [],
+      "user_mentions": [],
+      "urls": [],
+      "media": [
+        {
+          "id": 1104100696926965761,
+          "id_str": "1104100696926965761",
+          "indices": [
+            203,
+            226
+          ],
+          "media_url": "http://pbs.twimg.com/media/D1KNu-yX0AEKfbD.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/D1KNu-yX0AEKfbD.jpg",
+          "url": "https://t.co/mDbDpGPv93",
+          "display_url": "pic.twitter.com/mDbDpGPv93",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104100702144614403/photo/1",
+          "type": "photo",
+          "sizes": {
+            "small": {
+              "w": 680,
+              "h": 453,
+              "resize": "fit"
+            },
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 1200,
+              "h": 800,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1280,
+              "h": 853,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "extended_entities": {
+      "media": [
+        {
+          "id": 1104100696926965761,
+          "id_str": "1104100696926965761",
+          "indices": [
+            203,
+            226
+          ],
+          "media_url": "http://pbs.twimg.com/media/D1KNu-yX0AEKfbD.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/D1KNu-yX0AEKfbD.jpg",
+          "url": "https://t.co/mDbDpGPv93",
+          "display_url": "pic.twitter.com/mDbDpGPv93",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104100702144614403/photo/1",
+          "type": "photo",
+          "sizes": {
+            "small": {
+              "w": 680,
+              "h": 453,
+              "resize": "fit"
+            },
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 1200,
+              "h": 800,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 1280,
+              "h": 853,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "in_reply_to_status_id": null,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "in_reply_to_screen_name": null,
+    "user": {
+      "id": 128372940,
+      "id_str": "128372940",
+      "name": "Jair M. Bolsonaro",
+      "screen_name": "jairbolsonaro",
+      "location": "Brasília, Brasil",
+      "description": "Capitão do Exército Brasileiro, eleito 38° Presidente da República Federativa do Brasil. 🇧🇷",
+      "url": "https://t.co/bqpNS6l0al",
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "https://t.co/bqpNS6l0al",
+              "expanded_url": "http://www.bolsonaro.com.br",
+              "display_url": "bolsonaro.com.br",
+              "indices": [
+                0,
+                23
+              ]
+            }
+          ]
+        },
+        "description": {
+          "urls": []
+        }
+      },
+      "protected": false,
+      "followers_count": 3645567,
+      "friends_count": 327,
+      "listed_count": 3921,
+      "created_at": "Wed Mar 31 23:13:44 +0000 2010",
+      "favourites_count": 1736,
+      "utc_offset": null,
+      "time_zone": null,
+      "geo_enabled": true,
+      "verified": true,
+      "statuses_count": 6253,
+      "lang": "pt",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "is_translation_enabled": false,
+      "profile_background_color": "175C17",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/128372940/1540929521",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "FFFFFF",
+      "profile_sidebar_fill_color": "A4E37F",
+      "profile_text_color": "1414FF",
+      "profile_use_background_image": true,
+      "has_extended_profile": true,
+      "default_profile": false,
+      "default_profile_image": false,
+      "following": false,
+      "follow_request_sent": false,
+      "notifications": false,
+      "translator_type": "none"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null,
+    "is_quote_status": false,
+    "retweet_count": 7003,
+    "favorite_count": 66974,
+    "favorited": false,
+    "retweeted": false,
+    "possibly_sensitive": false,
+    "lang": "pt"
+  },
+  {
+    "created_at": "Fri Mar 08 16:08:26 +0000 2019",
+    "id": 1104051255696154624,
+    "id_str": "1104051255696154624",
+    "full_text": "https://t.co/PxuX2Xp0Ma",
+    "truncated": false,
+    "display_text_range": [
+      0,
+      0
+    ],
+    "entities": {
+      "hashtags": [],
+      "symbols": [],
+      "user_mentions": [],
+      "urls": [],
+      "media": [
+        {
+          "id": 1104051249249439745,
+          "id_str": "1104051249249439745",
+          "indices": [
+            0,
+            23
+          ],
+          "media_url": "http://pbs.twimg.com/media/D1Jgwv1W0AErz6O.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/D1Jgwv1W0AErz6O.jpg",
+          "url": "https://t.co/PxuX2Xp0Ma",
+          "display_url": "pic.twitter.com/PxuX2Xp0Ma",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104051255696154624/photo/1",
+          "type": "photo",
+          "sizes": {
+            "small": {
+              "w": 680,
+              "h": 673,
+              "resize": "fit"
+            },
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "large": {
+              "w": 828,
+              "h": 820,
+              "resize": "fit"
+            },
+            "medium": {
+              "w": 828,
+              "h": 820,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "extended_entities": {
+      "media": [
+        {
+          "id": 1104051249249439745,
+          "id_str": "1104051249249439745",
+          "indices": [
+            0,
+            23
+          ],
+          "media_url": "http://pbs.twimg.com/media/D1Jgwv1W0AErz6O.jpg",
+          "media_url_https": "https://pbs.twimg.com/media/D1Jgwv1W0AErz6O.jpg",
+          "url": "https://t.co/PxuX2Xp0Ma",
+          "display_url": "pic.twitter.com/PxuX2Xp0Ma",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1104051255696154624/photo/1",
+          "type": "photo",
+          "sizes": {
+            "small": {
+              "w": 680,
+              "h": 673,
+              "resize": "fit"
+            },
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "large": {
+              "w": 828,
+              "h": 820,
+              "resize": "fit"
+            },
+            "medium": {
+              "w": 828,
+              "h": 820,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "in_reply_to_status_id": null,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "in_reply_to_screen_name": null,
+    "user": {
+      "id": 128372940,
+      "id_str": "128372940",
+      "name": "Jair M. Bolsonaro",
+      "screen_name": "jairbolsonaro",
+      "location": "Brasília, Brasil",
+      "description": "Capitão do Exército Brasileiro, eleito 38° Presidente da República Federativa do Brasil. 🇧🇷",
+      "url": "https://t.co/bqpNS6l0al",
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "https://t.co/bqpNS6l0al",
+              "expanded_url": "http://www.bolsonaro.com.br",
+              "display_url": "bolsonaro.com.br",
+              "indices": [
+                0,
+                23
+              ]
+            }
+          ]
+        },
+        "description": {
+          "urls": []
+        }
+      },
+      "protected": false,
+      "followers_count": 3645567,
+      "friends_count": 327,
+      "listed_count": 3921,
+      "created_at": "Wed Mar 31 23:13:44 +0000 2010",
+      "favourites_count": 1736,
+      "utc_offset": null,
+      "time_zone": null,
+      "geo_enabled": true,
+      "verified": true,
+      "statuses_count": 6253,
+      "lang": "pt",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "is_translation_enabled": false,
+      "profile_background_color": "175C17",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/128372940/1540929521",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "FFFFFF",
+      "profile_sidebar_fill_color": "A4E37F",
+      "profile_text_color": "1414FF",
+      "profile_use_background_image": true,
+      "has_extended_profile": true,
+      "default_profile": false,
+      "default_profile_image": false,
+      "following": false,
+      "follow_request_sent": false,
+      "notifications": false,
+      "translator_type": "none"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null,
+    "is_quote_status": false,
+    "retweet_count": 3028,
+    "favorite_count": 19872,
+    "favorited": false,
+    "retweeted": false,
+    "possibly_sensitive": false,
+    "lang": "und"
+  },
+  {
+    "created_at": "Fri Mar 08 12:17:59 +0000 2019",
+    "id": 1103993261214048257,
+    "id_str": "1103993261214048257",
+    "full_text": "Qualquer celebração deve vir acompanhada de propostas e que respeitemos o feeling da mulher. Infelizmente não depende só de mim para que muitas das pautas já conhecidas avancem. De tudo faremos que estas jóias raras ao fim dos próximos 4 anos possam se sentir mais representadas. https://t.co/DeebaAKHBU",
+    "truncated": false,
+    "display_text_range": [
+      0,
+      279
+    ],
+    "entities": {
+      "hashtags": [],
+      "symbols": [],
+      "user_mentions": [],
+      "urls": [],
+      "media": [
+        {
+          "id": 1103992940651835393,
+          "id_str": "1103992940651835393",
+          "indices": [
+            280,
+            303
+          ],
+          "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1103992940651835393/pu/img/0Vr1Ip6B92m36YXZ.jpg",
+          "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1103992940651835393/pu/img/0Vr1Ip6B92m36YXZ.jpg",
+          "url": "https://t.co/DeebaAKHBU",
+          "display_url": "pic.twitter.com/DeebaAKHBU",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1103993261214048257/video/1",
+          "type": "photo",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 960,
+              "h": 540,
+              "resize": "fit"
+            },
+            "small": {
+              "w": 680,
+              "h": 383,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 960,
+              "h": 540,
+              "resize": "fit"
+            }
+          }
+        }
+      ]
+    },
+    "extended_entities": {
+      "media": [
+        {
+          "id": 1103992940651835393,
+          "id_str": "1103992940651835393",
+          "indices": [
+            280,
+            303
+          ],
+          "media_url": "http://pbs.twimg.com/ext_tw_video_thumb/1103992940651835393/pu/img/0Vr1Ip6B92m36YXZ.jpg",
+          "media_url_https": "https://pbs.twimg.com/ext_tw_video_thumb/1103992940651835393/pu/img/0Vr1Ip6B92m36YXZ.jpg",
+          "url": "https://t.co/DeebaAKHBU",
+          "display_url": "pic.twitter.com/DeebaAKHBU",
+          "expanded_url": "https://twitter.com/jairbolsonaro/status/1103993261214048257/video/1",
+          "type": "video",
+          "sizes": {
+            "thumb": {
+              "w": 150,
+              "h": 150,
+              "resize": "crop"
+            },
+            "medium": {
+              "w": 960,
+              "h": 540,
+              "resize": "fit"
+            },
+            "small": {
+              "w": 680,
+              "h": 383,
+              "resize": "fit"
+            },
+            "large": {
+              "w": 960,
+              "h": 540,
+              "resize": "fit"
+            }
+          },
+          "video_info": {
+            "aspect_ratio": [
+              16,
+              9
+            ],
+            "duration_millis": 124867,
+            "variants": [
+              {
+                "bitrate": 832000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1103992940651835393/pu/vid/640x360/xRAd_GjOIw_OzJi3.mp4?tag=8"
+              },
+              {
+                "content_type": "application/x-mpegURL",
+                "url": "https://video.twimg.com/ext_tw_video/1103992940651835393/pu/pl/FtK3pNn8yNL-Yp4p.m3u8?tag=8"
+              },
+              {
+                "bitrate": 2176000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1103992940651835393/pu/vid/960x540/YTlaIzrbH_Db_mq2.mp4?tag=8"
+              },
+              {
+                "bitrate": 256000,
+                "content_type": "video/mp4",
+                "url": "https://video.twimg.com/ext_tw_video/1103992940651835393/pu/vid/320x180/bBrMJbEeusX3_y39.mp4?tag=8"
+              }
+            ]
+          },
+          "additional_media_info": {
+            "monetizable": false
+          }
+        }
+      ]
+    },
+    "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+    "in_reply_to_status_id": null,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_user_id": null,
+    "in_reply_to_user_id_str": null,
+    "in_reply_to_screen_name": null,
+    "user": {
+      "id": 128372940,
+      "id_str": "128372940",
+      "name": "Jair M. Bolsonaro",
+      "screen_name": "jairbolsonaro",
+      "location": "Brasília, Brasil",
+      "description": "Capitão do Exército Brasileiro, eleito 38° Presidente da República Federativa do Brasil. 🇧🇷",
+      "url": "https://t.co/bqpNS6l0al",
+      "entities": {
+        "url": {
+          "urls": [
+            {
+              "url": "https://t.co/bqpNS6l0al",
+              "expanded_url": "http://www.bolsonaro.com.br",
+              "display_url": "bolsonaro.com.br",
+              "indices": [
+                0,
+                23
+              ]
+            }
+          ]
+        },
+        "description": {
+          "urls": []
+        }
+      },
+      "protected": false,
+      "followers_count": 3645567,
+      "friends_count": 327,
+      "listed_count": 3921,
+      "created_at": "Wed Mar 31 23:13:44 +0000 2010",
+      "favourites_count": 1736,
+      "utc_offset": null,
+      "time_zone": null,
+      "geo_enabled": true,
+      "verified": true,
+      "statuses_count": 6253,
+      "lang": "pt",
+      "contributors_enabled": false,
+      "is_translator": false,
+      "is_translation_enabled": false,
+      "profile_background_color": "175C17",
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "profile_background_tile": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/1057631480459886595/9VPdGJJz_normal.jpg",
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/128372940/1540929521",
+      "profile_link_color": "0084B4",
+      "profile_sidebar_border_color": "FFFFFF",
+      "profile_sidebar_fill_color": "A4E37F",
+      "profile_text_color": "1414FF",
+      "profile_use_background_image": true,
+      "has_extended_profile": true,
+      "default_profile": false,
+      "default_profile_image": false,
+      "following": false,
+      "follow_request_sent": false,
+      "notifications": false,
+      "translator_type": "none"
+    },
+    "geo": null,
+    "coordinates": null,
+    "place": null,
+    "contributors": null,
+    "is_quote_status": false,
+    "retweet_count": 5321,
+    "favorite_count": 36741,
+    "favorited": false,
+    "retweeted": false,
+    "possibly_sensitive": false,
+    "lang": "pt"
+  }
+]

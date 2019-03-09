@@ -68,9 +68,12 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        androidTest.java.srcDirs += 'src/androidTest/kotlin'
-        test.java.srcDirs += 'src/test/kotlin'
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/androidTest/assets/']
+            java.srcDirs = ['src/main/kotlin']
+        }
+        androidTest.java.srcDirs = ['src/androidTest/kotlin']
+        test.java.srcDirs = ['src/test/kotlin']
     }
 }
 
@@ -100,6 +103,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
     androidTestImplementation 'br.com.concretesolutions:kappuccino:1.2.1'
+    androidTestImplementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
     // endregion
 
     // region Unit test libraries
