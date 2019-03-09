@@ -27,9 +27,9 @@ class TweetRepository(context: Context) {
         database.insert(tweet)
     }
 
-    fun select(callback: TwitterCallback, maxId: Long? = null) {
+    fun select(callback: TwitterCallback, maxId: Long? = null, sinceId: Long? = null) {
         if (ConnectivityMonitor.isConnected) {
-            callApi(callback, maxId)
+            callApi(callback, maxId, sinceId)
         } else {
             getTweetsFromDatabase(callback)
         }
@@ -43,14 +43,14 @@ class TweetRepository(context: Context) {
         callback.onTweetsFound(tweets)
     }
 
-    private fun callApi(callback: TwitterCallback, maxId: Long? = null) {
+    private fun callApi(callback: TwitterCallback, maxId: Long? = null, sinceId: Long? = null) {
         if (preferenceHelper.getAccessToken().isEmpty()) {
             val credentials = Credentials.basic(CONSUMER_KEY, CONSUMER_SECRET)
             api.postCredentials(credentials).enqueue(object : Callback<OAuth2Token> {
                 override fun onResponse(call: Call<OAuth2Token>, response: Response<OAuth2Token>) {
                     response.body()?.let {
                         preferenceHelper.setAccessToken(it.getAuthorisationHeader())
-                        getTweetsFromApi(it.getAuthorisationHeader(), callback, maxId)
+                        getTweetsFromApi(it.getAuthorisationHeader(), callback, maxId, sinceId)
                     }
                 }
 
@@ -59,14 +59,19 @@ class TweetRepository(context: Context) {
                 }
             })
         } else {
-            getTweetsFromApi(preferenceHelper.getAccessToken(), callback, maxId)
+            getTweetsFromApi(preferenceHelper.getAccessToken(), callback, maxId, sinceId)
         }
     }
 
     private fun getTweetsFromApi(authorisationHeader: String,
                                  callback: TwitterCallback,
-                                 maxId: Long? = null) {
-        api.getTweets(authorisationHeader, maxId = maxId).enqueue(object : Callback<List<Tweet>> {
+                                 maxId: Long? = null,
+                                 sinceId: Long? = null) {
+        api.getTweets(
+            authorisationHeader,
+            maxId = maxId,
+            sinceId = sinceId
+        ).enqueue(object : Callback<List<Tweet>> {
             override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
                 if (response.isSuccessful) {
                     response.body()?.let {

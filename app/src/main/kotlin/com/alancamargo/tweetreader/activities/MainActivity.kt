@@ -101,7 +101,8 @@ class MainActivity : AppCompatActivity(),
 
     override fun onRefresh() {
         swipe_refresh_layout.isRefreshing = true
-        tweetViewModel.getTweets(callback = this)
+        val sinceId = if (tweets.isEmpty()) null else tweets.first().id
+        tweetViewModel.getTweets(callback = this, sinceId = sinceId)
     }
 
     private fun configureRecyclerView() {

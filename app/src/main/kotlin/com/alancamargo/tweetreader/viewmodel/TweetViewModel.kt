@@ -14,8 +14,8 @@ class TweetViewModel(application: Application) : AndroidViewModel(application) {
         repository.insert(tweet)
     }
 
-    fun getTweets(callback: TwitterCallback, maxId: Long? = null) {
-        repository.select(callback, maxId)
+    fun getTweets(callback: TwitterCallback, maxId: Long? = null, sinceId: Long? = null) {
+        repository.select(callback, maxId, sinceId)
     }
 
 }

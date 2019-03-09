@@ -27,7 +27,8 @@ interface TwitterApi {
         @Query("exclude_replies") excludeReplies: Boolean = true,
         @Query("tweet_mode") tweetMode: String = "extended",
         @Query("count") count: Int = 9,
-        @Query("max_id") maxId: Long? = null
+        @Query("max_id") maxId: Long? = null,
+        @Query("since_id") sinceId: Long? = null
     ): Call<List<Tweet>>
 
     @GET("/1.1/users/show.json")
