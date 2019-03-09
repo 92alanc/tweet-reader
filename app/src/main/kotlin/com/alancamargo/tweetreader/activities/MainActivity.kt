@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
@@ -37,7 +39,6 @@ class MainActivity : AppCompatActivity(),
     private lateinit var user: User
     private var menu: Menu? = null
     private var tweets: List<Tweet> = listOf()
-    private var maxId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,9 +95,8 @@ class MainActivity : AppCompatActivity(),
         }
 
         this.tweets = this.tweets.union(tweets).toList()
-        maxId = this.tweets.last().id
         progress_bar.visibility = GONE
-        adapter.submitList(tweets)
+        adapter.submitList(this.tweets)
     }
 
     override fun onRefresh() {
@@ -106,12 +106,13 @@ class MainActivity : AppCompatActivity(),
 
     private fun configureRecyclerView() {
         recycler_view.adapter = adapter
-        /*recycler_view.addOnScrollListener(object :
+        recycler_view.addOnScrollListener(object :
             EndlessScrollListener(recycler_view.layoutManager as LinearLayoutManager) {
             override fun onLoadMore() {
-                tweetViewModel.getTweets(callback = this@MainActivity, maxId = maxId) // FIXME
+                val maxId = if (tweets.isEmpty()) null else tweets.last().id - 1
+                tweetViewModel.getTweets(callback = this@MainActivity, maxId = maxId)
             }
-        })*/
+        })
     }
 
     private fun configureSwipeRefreshLayout() {

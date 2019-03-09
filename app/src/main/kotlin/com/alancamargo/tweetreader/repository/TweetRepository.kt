@@ -59,7 +59,7 @@ class TweetRepository(context: Context) {
                 }
             })
         } else {
-            getTweetsFromApi(preferenceHelper.getAccessToken(), callback)
+            getTweetsFromApi(preferenceHelper.getAccessToken(), callback, maxId)
         }
     }
 
