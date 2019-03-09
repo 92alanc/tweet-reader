@@ -4,3 +4,4 @@ build/
 *.iml
 *.jks
 local.properties
+google-services.json

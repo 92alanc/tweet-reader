@@ -12,6 +12,7 @@ import com.alancamargo.tweetreader.di.DependencyInjection
 import com.alancamargo.tweetreader.util.AppImageHandler
 import com.alancamargo.tweetreader.util.AppLinkClickListener
 import com.alancamargo.tweetreader.util.isConnected
+import com.google.android.gms.ads.MobileAds
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
@@ -23,7 +24,11 @@ class TweetReaderApplication : Application() {
         ConnectivityMonitor.isConnected = isConnected()
         watchConnectivity()
         configureImageLoader()
-        DependencyInjection.init(AppImageHandler(), BASE_URL, AppLinkClickListener())
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+        DependencyInjection.init(
+            AppImageHandler(), BASE_URL,
+            AppLinkClickListener()
+        )
     }
 
     @Suppress("deprecation")
