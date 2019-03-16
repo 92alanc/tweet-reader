@@ -1,18 +1,11 @@
 package com.alancamargo.tweetreader.util
 
-import android.text.SpannableString
-import android.text.Spanned
 import android.text.method.LinkMovementMethod
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.DependencyInjection
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.regex.Pattern
 
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String?) {
@@ -21,60 +14,39 @@ fun setImageUrl(imageView: ImageView, url: String?) {
 
 @BindingAdapter("timestamp")
 fun setTimestamp(textView: TextView, timestamp: String) {
-    val time = SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.getDefault())
-        .parse(timestamp).time
-    textView.text = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault()).format(time)
+    textView.text = formatDate(timestamp)
 }
 
 @BindingAdapter("memberSince")
-fun setMemberSince(textView: TextView, date: String) {
-    val time = SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.getDefault())
-        .parse(date).time
-    val context = textView.context
-    val formattedDate = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault()).format(time)
-    textView.text = context.getString(R.string.member_since_format, formattedDate)
+fun setMemberSince(textView: TextView, date: String) = textView.run {
+    text = context.getString(R.string.member_since_format, formatDate(date))
 }
 
 @BindingAdapter("tweetText")
 fun setTweetText(textView: TextView, rawText: String) {
     val words = rawText.getWords()
-    val formattedText = SpannableString(rawText)
-    val textColour = ContextCompat.getColor(textView.context, R.color.light_blue)
+    val formattedText = rawText.toSpannable()
+    val textColour = textView.context.getColour(R.color.light_blue)
 
     for (word in words) {
-        val hashtag = Pattern.compile("#(.)+").matcher(word)
-        val account = Pattern.compile("@([a-z]|[A-Z]|[0-9]|_|\\.|-)+").matcher(word)
-        val url = Pattern.compile("((http|https)(://))([a-z]|[A-Z]|[0-9]|[.]|-|/|&|\\?|#|_|=)+")
-            .matcher(word)
+        val isHashtag = word.isHashtag()
+        val isMention = word.isMention()
+        val isUrl = word.isUrl()
 
-        val isHashtag = hashtag.matches()
-        val isAccount = account.matches()
-        val isUrl = url.matches()
+        if (word.isPlainText()) continue
 
-        if (isHashtag || isAccount || isUrl) {
-            val linkType = when {
-                isHashtag -> LinkType.HASHTAG
-                isAccount -> LinkType.MENTION
-                else -> LinkType.PLAIN_URL
-            }
-
-            formattedText.setSpan(
-                object : ClickableTextSpan(textColour) {
-                    override fun onClick(widget: View) {
-                        DependencyInjection.linkClickListener.onLinkClicked(
-                            widget.context,
-                            word,
-                            linkType
-                        )
-                    }
-                },
-                rawText.indexOf(word),
-                rawText.indexOf(word) + word.length,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+        val linkType = when {
+            isHashtag -> LinkType.HASHTAG
+            isMention -> LinkType.MENTION
+            isUrl -> LinkType.PLAIN_URL
+            else -> LinkType.PLAIN_URL
         }
+
+        formattedText.link(word, textColour, linkType)
     }
 
-    textView.movementMethod = LinkMovementMethod.getInstance()
-    textView.text = formattedText.trim()
+    textView.run {
+        movementMethod = LinkMovementMethod.getInstance()
+        text = formattedText.trim()
+    }
 }
