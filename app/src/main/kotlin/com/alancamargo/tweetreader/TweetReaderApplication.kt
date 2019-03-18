@@ -1,10 +1,10 @@
 package com.alancamargo.tweetreader
 
-import android.app.Application
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
+import androidx.multidex.MultiDexApplication
 import com.alancamargo.tweetreader.api.BASE_URL
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.connectivity.ConnectivityReceiver
@@ -17,7 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
 @Suppress("unused")
-class TweetReaderApplication : Application() {
+class TweetReaderApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
