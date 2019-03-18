@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_KEY
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_SECRET
-import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
+import com.alancamargo.tweetreader.api.CODE_FORBIDDEN
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.database.UserDatabase
@@ -74,7 +74,7 @@ class UserRepository(context: Context) {
 
                         callback.onUserDetailsFound(userDetails)
                     }
-                } else if (response.code() == CODE_ACCOUNT_SUSPENDED) {
+                } else if (response.code() == CODE_FORBIDDEN) {
                     callback.onAccountSuspended()
                 }
             }

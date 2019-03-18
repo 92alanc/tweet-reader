@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_KEY
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_SECRET
 import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
+import com.alancamargo.tweetreader.api.CODE_FORBIDDEN
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.database.TweetDatabase
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.model.api.ErrorResponse
 import com.alancamargo.tweetreader.model.api.OAuth2Token
 import com.alancamargo.tweetreader.util.PreferenceHelper
 import okhttp3.Credentials
@@ -63,6 +65,7 @@ class TweetRepository(context: Context) {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun getTweetsFromApi(authorisationHeader: String,
                                  callback: TwitterCallback,
                                  maxId: Long? = null,
@@ -81,8 +84,13 @@ class TweetRepository(context: Context) {
 
                         callback.onTweetsFound(tweets)
                     }
-                } else if (response.code() == CODE_ACCOUNT_SUSPENDED) {
-                    callback.onAccountSuspended()
+                } else if (response.code() == CODE_FORBIDDEN) {
+                    val errorResponse = response as Response<ErrorResponse>
+                    errorResponse.body()?.let {
+                        if (it.errors.first().code == CODE_ACCOUNT_SUSPENDED) {
+                            callback.onAccountSuspended()
+                        }
+                    }
                 }
             }
 
