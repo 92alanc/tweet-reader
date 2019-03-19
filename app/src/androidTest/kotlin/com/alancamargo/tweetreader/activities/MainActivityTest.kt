@@ -1,17 +1,22 @@
 package com.alancamargo.tweetreader.activities
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.alancamargo.tweetreader.api.CODE_FORBIDDEN
 import com.alancamargo.tweetreader.base.BaseActivityTest
 import com.alancamargo.tweetreader.robots.mainActivity
 import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.SocketPolicy
+import org.junit.Rule
 import org.junit.Test
 
 class MainActivityTest : BaseActivityTest<MainActivity>(MainActivity::class) {
 
+    @Rule
+    @JvmField
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
     @Test
     fun whenClickOnAuthorName_shouldRedirectToProfileActivity() {
-        mockTokenResponse()
+        mockProfileDetailsResponse()
         mockTweetsResponse()
 
         mainActivity {
@@ -23,7 +28,7 @@ class MainActivityTest : BaseActivityTest<MainActivity>(MainActivity::class) {
 
     @Test
     fun whenClickOnAuthorScreenName_shouldRedirectToProfileActivity() {
-        mockTokenResponse()
+        mockProfileDetailsResponse()
         mockTweetsResponse()
 
         mainActivity {
@@ -35,7 +40,7 @@ class MainActivityTest : BaseActivityTest<MainActivity>(MainActivity::class) {
 
     @Test
     fun whenClickOnAuthorProfilePicture_shouldRedirectToProfileActivity() {
-        mockTokenResponse()
+        mockProfileDetailsResponse()
         mockTweetsResponse()
 
         mainActivity {
@@ -47,7 +52,6 @@ class MainActivityTest : BaseActivityTest<MainActivity>(MainActivity::class) {
 
     @Test
     fun whenAccountIsSuspended_shouldDisplayMessage() {
-        mockTokenResponse()
         mockAccountSuspendedResponse()
 
         mainActivity {
@@ -58,18 +62,12 @@ class MainActivityTest : BaseActivityTest<MainActivity>(MainActivity::class) {
 
     @Test
     fun whenAccountIsSuspended_shouldNotDisplayTweetList() {
-        mockTokenResponse()
         mockAccountSuspendedResponse()
 
         mainActivity {
         } assert {
             tweetListIsNotDisplayed()
         }
-    }
-
-    private fun mockTokenResponse() {
-        val body = getJsonFromAsset("token.json")
-        enqueueResponseBody(body, 200)
     }
 
     private fun mockTweetsResponse() {
@@ -88,11 +86,7 @@ class MainActivityTest : BaseActivityTest<MainActivity>(MainActivity::class) {
     }
 
     private fun enqueueResponseBody(body: String, code: Int) {
-        api.enqueue(
-            MockResponse().setBody(body)
-                .setResponseCode(code)
-                .setSocketPolicy(SocketPolicy.KEEP_OPEN)
-        )
+        api.enqueue(MockResponse().setBody(body).setResponseCode(code))
     }
 
 }

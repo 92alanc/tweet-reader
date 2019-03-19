@@ -40,7 +40,6 @@ class MainActivityRobot {
     private fun clickRecyclerViewChild(@IdRes viewId: Int) {
         recyclerView(R.id.recycler_view) {
             atPosition(position) {
-                scroll()
                 clickChildView(viewId)
             }
         }
