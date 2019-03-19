@@ -58,7 +58,7 @@ open class BaseActivityTest<T: AppCompatActivity>(
         val json: String
 
         try {
-            val  inputStream: InputStream = rule.activity.assets.open("fixtures/$fileName")
+            val inputStream: InputStream = rule.activity.assets.open("fixtures/$fileName")
             json = inputStream.bufferedReader().use { it.readText() }
         } catch (ex: Exception) {
             ex.printStackTrace()
