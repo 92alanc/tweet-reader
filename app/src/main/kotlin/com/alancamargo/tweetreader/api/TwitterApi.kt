@@ -13,13 +13,13 @@ import retrofit2.http.*
 interface TwitterApi {
 
     @FormUrlEncoded
-    @POST("/oauth2/token")
+    @POST("oauth2/token")
     fun postCredentials(
         @Header(AUTHORISATION_HEADER) authorisation: String,
         @Field("grant_type") grantType: String = "client_credentials"
     ): Call<OAuth2Token>
 
-    @GET("/1.1/statuses/user_timeline.json")
+    @GET("1.1/statuses/user_timeline.json")
     fun getTweets(
         @Header(AUTHORISATION_HEADER) authorisation: String,
         @Query(USER_ID_PARAM) userId: String = USER_ID,
@@ -31,7 +31,7 @@ interface TwitterApi {
         @Query("since_id") sinceId: Long? = null
     ): Call<List<Tweet>>
 
-    @GET("/1.1/users/show.json")
+    @GET("1.1/users/show.json")
     fun getUserDetails(
         @Header(AUTHORISATION_HEADER) authorisation: String,
         @Query(USER_ID_PARAM) userId: String = USER_ID
