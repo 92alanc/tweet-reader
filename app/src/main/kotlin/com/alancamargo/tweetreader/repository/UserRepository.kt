@@ -19,6 +19,8 @@ class UserRepository(private val context: Context) {
 
     private val database = UserDatabase.getInstance(context).userDao()
 
+    fun contains(user: User) = database.count(user.id) > 0
+
     fun insert(user: User) {
         database.insert(user)
     }

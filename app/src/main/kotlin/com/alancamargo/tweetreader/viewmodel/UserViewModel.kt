@@ -12,7 +12,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = UserRepository(application)
 
     fun insert(user: User) {
-        repository.insert(user)
+        if (repository.contains(user))
+            repository.insert(user)
     }
 
     fun getUserDetails(lifecycleOwner: LifecycleOwner, callback: TwitterCallback) {

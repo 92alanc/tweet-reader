@@ -12,7 +12,8 @@ class TweetViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TweetRepository(application)
 
     fun insert(tweet: Tweet) {
-        repository.insert(tweet)
+        if (repository.contains(tweet))
+            repository.insert(tweet)
     }
 
     fun getTweets(lifecycleOwner: LifecycleOwner,

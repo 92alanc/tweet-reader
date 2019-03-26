@@ -11,6 +11,7 @@ import com.alancamargo.tweetreader.model.Tweet
 
 class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
+    private val context = itemView.context
     private val videoView = itemView.findViewById<VideoView>(R.id.video_view)
     private val imgVideo = itemView.findViewById<ImageView>(R.id.img_video)
 

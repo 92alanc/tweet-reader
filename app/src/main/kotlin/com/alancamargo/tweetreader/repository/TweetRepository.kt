@@ -21,6 +21,8 @@ class TweetRepository(private val context: Context) {
 
     private val database = TweetDatabase.getInstance(context).tweetDao()
 
+    fun contains(tweet: Tweet): Boolean = database.count(tweet.id) > 0
+
     fun insert(tweet: Tweet) {
         database.insert(tweet)
     }

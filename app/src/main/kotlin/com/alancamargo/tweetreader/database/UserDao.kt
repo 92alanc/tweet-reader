@@ -15,4 +15,7 @@ interface UserDao {
     @Query("SELECT * FROM User LIMIT 1")
     fun select(): LiveData<User>
 
+    @Query("SELECT COUNT() FROM User WHERE id = :id")
+    fun count(id: Long): Int
+
 }

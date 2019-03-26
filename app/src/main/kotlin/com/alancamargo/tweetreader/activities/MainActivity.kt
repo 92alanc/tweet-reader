@@ -21,13 +21,20 @@ import com.alancamargo.tweetreader.util.loadAnnoyingAds
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(),
     TwitterCallback,
     Observer<List<Tweet>>,
-    SwipeRefreshLayout.OnRefreshListener {
+    SwipeRefreshLayout.OnRefreshListener,
+    CoroutineScope {
 
     private val adapter = TweetAdapter()
+    private val job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Main
 
     private val tweetViewModel by lazy {
         ViewModelProviders.of(this).get(TweetViewModel::class.java)
@@ -53,6 +60,11 @@ class MainActivity : AppCompatActivity(),
         ad_view.loadAnnoyingAds()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menu = menu
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -71,12 +83,17 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onUserDetailsFound(userDetails: LiveData<User>) {
-        userDetails.observe(this, Observer<User?> {
-            it?.let { user ->
-                this.user = user
-                userViewModel.insert(user) // FIXME: run on another thread
+        launch {
+            userDetails.observe(this@MainActivity, Observer<User?> {
+                it?.let { user ->
+                    this@MainActivity.user = user
+                }
+            })
+
+            withContext(Dispatchers.Default) {
+                userViewModel.insert(user)
             }
-        })
+        }
     }
 
     override fun onTweetsFound(tweets: LiveData<List<Tweet>>) {
@@ -95,17 +112,21 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onChanged(tweets: List<Tweet>?) {
-        if (swipe_refresh_layout.isRefreshing) {
-            swipe_refresh_layout.isRefreshing = false
-        }
-
-        tweets?.let {
-            it.forEach {  tweet ->
-                tweetViewModel.insert(tweet) // FIXME: run on another thread
+        launch {
+            if (swipe_refresh_layout.isRefreshing) {
+                swipe_refresh_layout.isRefreshing = false
             }
-            this.tweets = this.tweets.union(it).toList()
-            progress_bar.visibility = GONE
-            adapter.submitList(this.tweets)
+
+            tweets?.let {
+                withContext(Dispatchers.Default) {
+                    it.forEach {  tweet ->
+                        tweetViewModel.insert(tweet)
+                    }
+                }
+                this@MainActivity.tweets = this@MainActivity.tweets.union(it).toList()
+                progress_bar.visibility = GONE
+                adapter.submitList(this@MainActivity.tweets)
+            }
         }
     }
 

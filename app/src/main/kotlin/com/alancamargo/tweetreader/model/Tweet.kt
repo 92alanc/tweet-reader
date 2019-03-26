@@ -28,10 +28,20 @@ data class Tweet(
         fun stringToUser(string: String): User = gson.fromJson(string, User::class.java)
 
         @TypeConverter
-        fun mediaToString(media: Media): String = gson.toJson(media)
+        fun mediaToString(media: Media?): String? {
+            return if (media != null)
+                gson.toJson(media)
+            else
+                null
+        }
 
         @TypeConverter
-        fun stringToMedia(string: String): Media = gson.fromJson(string, Media::class.java)
+        fun stringToMedia(string: String?): Media? {
+            return if (string != null)
+                gson.fromJson(string, Media::class.java)
+            else
+                null
+        }
     }
 
 }
