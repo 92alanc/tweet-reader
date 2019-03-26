@@ -28,7 +28,6 @@ class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
                 val mediaController = MediaController(videoView.context)
                 videoView.setMediaController(mediaController)
                 mediaController.setAnchorView(videoView)
-                videoView.start()
             }
     }
 

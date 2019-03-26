@@ -16,7 +16,12 @@ class ViewPagerAdapter(private val photos: List<String>) : PagerAdapter() {
             .apply {
                 val imageView = findViewById<ImageView>(R.id.photo)
                 setImageUrl(imageView, photos[position])
+                container.addView(imageView)
             }
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
+        container.removeView(obj as View)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
