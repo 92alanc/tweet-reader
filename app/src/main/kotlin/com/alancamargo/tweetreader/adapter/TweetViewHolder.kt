@@ -25,7 +25,7 @@ open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         txtName.text = tweet.author.name
         txtScreenName.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
         setImageUrl(imgProfilePicture, tweet.author.profilePictureUrl)
-        val text = if (tweet.media != null) {
+        val text = if (tweet.media?.contents != null) {
             tweet.text.replace(REGEX_URL, "")
         } else {
             tweet.text
