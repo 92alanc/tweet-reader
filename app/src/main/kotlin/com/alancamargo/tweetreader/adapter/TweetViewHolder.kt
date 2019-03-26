@@ -2,17 +2,20 @@ package com.alancamargo.tweetreader.adapter
 
 import android.view.View
 import android.widget.TextView
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.alancamargo.tweetreader.BR
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
-import com.alancamargo.tweetreader.databinding.ItemTweetBinding
 import com.alancamargo.tweetreader.model.Tweet
 import de.hdodenhof.circleimageview.CircleImageView
 
-class TweetViewHolder(private val binding: ItemTweetBinding) : RecyclerView.ViewHolder(binding.root) {
+open class TweetViewHolder(
+    private val binding: ViewDataBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bindTo(tweet: Tweet) {
-        binding.tweet = tweet
+    open fun bindTo(tweet: Tweet) {
+        binding.setVariable(BR.tweet, tweet)
         binding.executePendingBindings()
         configureAuthorDataClick(tweet)
     }
