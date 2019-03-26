@@ -1,4 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/radius_cardview_default">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_default">
 
-</layout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile_picture"
+            android:layout_width="@dimen/size_img_tweet"
+            android:layout_height="@dimen/size_img_tweet"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars"/>
+
+        <TextView
+            android:id="@+id/txt_name"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_profile_picture"
+            tools:text="Jair M. Bolsonaro"/>
+
+        <TextView
+            android:id="@+id/txt_screen_name"
+            style="@style/ScreenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txt_name"
+            app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
+            app:layout_constraintStart_toStartOf="@id/txt_name"
+            app:layout_constraintVertical_bias="0"
+            tools:text="\@jairbolsonaro"/>
+
+        <TextView
+            android:id="@+id/txt_tweet"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColorHighlight="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@sample/tweets.json/data/text"/>
+
+        <VideoView
+            android:id="@+id/video_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_video_view"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layout_constraintTop_toBottomOf="@id/txt_tweet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_creation_date"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layout_constraintTop_toBottomOf="@id/video_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@sample/tweets.json/data/date"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -2,13 +2,11 @@ package com.alancamargo.tweetreader.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.api.MEDIA_PHOTO
 import com.alancamargo.tweetreader.api.MEDIA_VIDEO
-import com.alancamargo.tweetreader.databinding.ItemTweetBinding
 import com.alancamargo.tweetreader.model.Tweet
 
 class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
@@ -16,25 +14,22 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TweetViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        val binding = when (viewType) {
-            // TODO
+        return when (viewType) {
             VIEW_TYPE_PHOTO -> {
-                DataBindingUtil.inflate<ItemTweetBinding>(inflater, R.layout.item_tweet,
-                    parent, false)
+                val itemView = inflater.inflate(R.layout.item_tweet_photo, parent, false)
+                PhotoTweetViewHolder(itemView)
             }
 
             VIEW_TYPE_VIDEO -> {
-                DataBindingUtil.inflate<ItemTweetBinding>(inflater, R.layout.item_tweet,
-                    parent, false)
+                val itemView = inflater.inflate(R.layout.item_tweet_video, parent, false)
+                VideoTweetViewHolder(itemView)
             }
 
             else -> {
-                DataBindingUtil.inflate<ItemTweetBinding>(inflater, R.layout.item_tweet,
-                    parent, false)
+                val itemView = inflater.inflate(R.layout.item_tweet, parent, false)
+                TweetViewHolder(itemView)
             }
         }
-
-        return TweetViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TweetViewHolder, position: Int) {

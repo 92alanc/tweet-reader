@@ -2,29 +2,34 @@ package com.alancamargo.tweetreader.adapter
 
 import android.view.View
 import android.widget.TextView
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.alancamargo.tweetreader.BR
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.util.setImageUrl
+import com.alancamargo.tweetreader.util.setTimestamp
+import com.alancamargo.tweetreader.util.setTweetText
 import de.hdodenhof.circleimageview.CircleImageView
 
-open class TweetViewHolder(
-    private val binding: ViewDataBinding
-) : RecyclerView.ViewHolder(binding.root) {
+open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    private val context = itemView.context
+    private val txtName = itemView.findViewById<TextView>(R.id.txt_name)
+    private val txtScreenName = itemView.findViewById<TextView>(R.id.txt_screen_name)
+    private val imgProfilePicture = itemView.findViewById<CircleImageView>(R.id.img_profile_picture)
+    private val txtTweet = itemView.findViewById<TextView>(R.id.txt_tweet)
+    private val txtCreationDate = itemView.findViewById<TextView>(R.id.txt_creation_date)
 
     open fun bindTo(tweet: Tweet) {
-        binding.setVariable(BR.tweet, tweet)
-        binding.executePendingBindings()
+        txtName.text = tweet.author.name
+        txtScreenName.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
+        setImageUrl(imgProfilePicture, tweet.author.profilePictureUrl)
+        setTweetText(txtTweet, tweet.text)
+        setTimestamp(txtCreationDate, tweet.creationDate)
         configureAuthorDataClick(tweet)
     }
 
     private fun configureAuthorDataClick(tweet: Tweet) {
-        val txtName = binding.root.findViewById<TextView>(R.id.txt_name)
-        val txtScreenName = binding.root.findViewById<TextView>(R.id.txt_screen_name)
-        val imgProfilePicture = binding.root.findViewById<CircleImageView>(R.id.img_profile_picture)
-
         val clickListener = View.OnClickListener {
             val context = it.context
             val intent = ProfileActivity.getIntent(context, tweet.author)

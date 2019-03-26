@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- region Height -->
+    <dimen name="height_view_pager">250dp</dimen>
+    <dimen name="height_video_view">250dp</dimen>
+    <!-- endregion -->
+
     <!-- region Margin -->
     <dimen name="margin_default">8dp</dimen>
     <dimen name="margin_large">16dp</dimen>

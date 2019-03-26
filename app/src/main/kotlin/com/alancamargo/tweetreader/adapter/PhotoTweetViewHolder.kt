@@ -1,13 +1,19 @@
 package com.alancamargo.tweetreader.adapter
 
-import androidx.databinding.ViewDataBinding
+import android.view.View
+import androidx.viewpager.widget.ViewPager
+import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.Tweet
 
-class PhotoTweetViewHolder(binding: ViewDataBinding) : TweetViewHolder(binding) {
+class PhotoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
+
+    private val viewPager = itemView.findViewById<ViewPager>(R.id.video_view)
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
-        TODO()
+        tweet.media?.contents?.map { it.url }?.let { photos ->
+            viewPager.adapter = ViewPagerAdapter(photos)
+        }
     }
 
 }
