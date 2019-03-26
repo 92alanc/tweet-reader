@@ -8,13 +8,18 @@ import android.text.Spanned
 import android.util.Log
 import android.view.View
 import androidx.annotation.ColorRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.alancamargo.tweetreader.BuildConfig
+import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.api.TwitterApi
+import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.di.DependencyInjection
 import com.alancamargo.tweetreader.model.api.OAuth2Token
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import com.google.android.material.snackbar.Snackbar
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
@@ -93,4 +98,11 @@ fun Context.callApi(func: (token: String) -> Unit) {
     } else {
         func(preferenceHelper.getAccessToken())
     }
+}
+
+fun AppCompatActivity.watchConnectivityState(snackbarView: View) {
+    ConnectivityMonitor.isConnected.observe(this, Observer { isConnected ->
+        if (!isConnected)
+            Snackbar.make(snackbarView, R.string.you_are_offline, Snackbar.LENGTH_SHORT).show()
+    })
 }

@@ -18,6 +18,7 @@ import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.repository.TwitterCallback
 import com.alancamargo.tweetreader.util.loadAnnoyingAds
+import com.alancamargo.tweetreader.util.watchConnectivityState
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity(),
         configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
         ad_view.loadAnnoyingAds()
+        watchConnectivityState(snackbarView = ad_view)
     }
 
     override fun onDestroy() {
