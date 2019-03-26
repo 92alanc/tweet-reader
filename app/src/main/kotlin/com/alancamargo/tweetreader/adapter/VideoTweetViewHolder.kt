@@ -2,6 +2,7 @@ package com.alancamargo.tweetreader.adapter
 
 import android.net.Uri
 import android.view.View
+import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.VideoView
 import com.alancamargo.tweetreader.R
@@ -11,6 +12,7 @@ import com.alancamargo.tweetreader.model.Tweet
 class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
     private val videoView = itemView.findViewById<VideoView>(R.id.video_view)
+    private val imgVideo = itemView.findViewById<ImageView>(R.id.img_video)
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
@@ -28,6 +30,10 @@ class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
                 val mediaController = MediaController(videoView.context)
                 videoView.setMediaController(mediaController)
                 mediaController.setAnchorView(videoView)
+                imgVideo.setOnClickListener {
+                    videoView.start()
+                    it.visibility = View.GONE
+                }
             }
     }
 
