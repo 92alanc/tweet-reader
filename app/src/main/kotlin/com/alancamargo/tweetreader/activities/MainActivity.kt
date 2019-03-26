@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         title = getString(R.string.title)
         configureRecyclerView()
+        // TODO: if no data is found, try fetching from database
         tweetViewModel.getTweets(callback = this)
         userViewModel.getUserDetails(callback = this)
         configureSwipeRefreshLayout()
@@ -71,8 +72,10 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onUserDetailsFound(userDetails: LiveData<User>) {
-        userDetails.observe(this, Observer { user ->
-            this.user = user
+        userDetails.observe(this, Observer<User?> {
+            it?.let { user ->
+                this.user = user
+            }
         })
     }
 
@@ -91,14 +94,16 @@ class MainActivity : AppCompatActivity(),
         group_account_suspended.visibility = VISIBLE
     }
 
-    override fun onChanged(tweets: List<Tweet>) {
+    override fun onChanged(tweets: List<Tweet>?) {
         if (swipe_refresh_layout.isRefreshing) {
             swipe_refresh_layout.isRefreshing = false
         }
 
-        this.tweets = this.tweets.union(tweets).toList()
-        progress_bar.visibility = GONE
-        adapter.submitList(this.tweets)
+        tweets?.let {
+            this.tweets = this.tweets.union(it).toList()
+            progress_bar.visibility = GONE
+            adapter.submitList(this.tweets)
+        }
     }
 
     override fun onRefresh() {

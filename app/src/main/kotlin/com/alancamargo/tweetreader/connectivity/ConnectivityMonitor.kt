@@ -36,6 +36,7 @@ class ConnectivityMonitor : ConnectivityManager.NetworkCallback() {
 
     companion object {
         var isConnected = false
+        // TODO: user live data
     }
 
 }
