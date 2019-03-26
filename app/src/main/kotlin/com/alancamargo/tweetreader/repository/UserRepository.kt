@@ -2,7 +2,9 @@ package com.alancamargo.tweetreader.repository
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.alancamargo.tweetreader.api.CODE_FORBIDDEN
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
@@ -21,14 +23,16 @@ class UserRepository(private val context: Context) {
         database.insert(user)
     }
 
-    fun select(callback: TwitterCallback) {
-        if (ConnectivityMonitor.isConnected) {
-            context.callApi { token ->
-                getUserDetailsFromApi(token, callback)
+    fun select(lifecycleOwner: LifecycleOwner, callback: TwitterCallback) {
+        ConnectivityMonitor.isConnected.observe(lifecycleOwner, Observer { isConnected ->
+            if (isConnected) {
+                context.callApi { token ->
+                    getUserDetailsFromApi(token, callback)
+                }
+            } else {
+                getUserDetailsFromDatabase(callback)
             }
-        } else {
-            getUserDetailsFromDatabase(callback)
-        }
+        })
     }
 
     private fun getUserDetailsFromDatabase(callback: TwitterCallback) {

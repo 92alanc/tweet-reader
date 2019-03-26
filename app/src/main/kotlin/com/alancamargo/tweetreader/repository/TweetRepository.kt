@@ -2,7 +2,9 @@ package com.alancamargo.tweetreader.repository
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
 import com.alancamargo.tweetreader.api.CODE_FORBIDDEN
 import com.alancamargo.tweetreader.api.TwitterApi
@@ -23,14 +25,19 @@ class TweetRepository(private val context: Context) {
         database.insert(tweet)
     }
 
-    fun select(callback: TwitterCallback, maxId: Long? = null, sinceId: Long? = null) {
-        if (ConnectivityMonitor.isConnected) {
-            context.callApi { token ->
-                getTweetsFromApi(token, callback, maxId, sinceId)
+    fun select(lifecycleOwner: LifecycleOwner,
+               callback: TwitterCallback,
+               maxId: Long? = null,
+               sinceId: Long? = null) {
+        ConnectivityMonitor.isConnected.observe(lifecycleOwner, Observer { isConnected ->
+            if (isConnected) {
+                context.callApi { token ->
+                    getTweetsFromApi(token, callback, maxId, sinceId)
+                }
+            } else {
+                getTweetsFromDatabase(callback)
             }
-        } else {
-            getTweetsFromDatabase(callback)
-        }
+        })
     }
 
     private fun getTweetsFromDatabase(callback: TwitterCallback) {

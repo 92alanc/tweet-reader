@@ -21,7 +21,7 @@ class TweetReaderApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        ConnectivityMonitor.isConnected = isConnected()
+        ConnectivityMonitor.isConnected.postValue(isConnected())
         watchConnectivity()
         configureImageLoader()
         MobileAds.initialize(this, getString(R.string.admob_app_id))

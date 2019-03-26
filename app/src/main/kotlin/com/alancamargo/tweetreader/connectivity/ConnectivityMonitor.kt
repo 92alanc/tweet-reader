@@ -8,6 +8,7 @@ import android.net.NetworkRequest
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.MutableLiveData
 
 @RequiresApi(LOLLIPOP)
 class ConnectivityMonitor : ConnectivityManager.NetworkCallback() {
@@ -24,19 +25,18 @@ class ConnectivityMonitor : ConnectivityManager.NetworkCallback() {
 
     override fun onAvailable(network: Network?) {
         super.onAvailable(network)
-        isConnected = true
+        isConnected.postValue(true)
         Log.d(javaClass.simpleName, "Connected")
     }
 
     override fun onLost(network: Network?) {
         super.onLost(network)
-        isConnected = false
+        isConnected.postValue(false)
         Log.d(javaClass.simpleName, "Disconnected")
     }
 
     companion object {
-        var isConnected = false
-        // TODO: user live data
+        var isConnected = MutableLiveData<Boolean>().apply { postValue(false) }
     }
 
 }

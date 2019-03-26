@@ -10,7 +10,7 @@ class ConnectivityReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
         val isConnected = context.isConnected()
-        ConnectivityMonitor.isConnected = isConnected
+        ConnectivityMonitor.isConnected.postValue(isConnected)
         Log.d(javaClass.simpleName, "Connected: $isConnected")
     }
 

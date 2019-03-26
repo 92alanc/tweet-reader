@@ -46,9 +46,8 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         title = getString(R.string.title)
         configureRecyclerView()
-        // TODO: if no data is found, try fetching from database
-        tweetViewModel.getTweets(callback = this)
-        userViewModel.getUserDetails(callback = this)
+        tweetViewModel.getTweets(lifecycleOwner = this, callback = this)
+        userViewModel.getUserDetails(lifecycleOwner = this, callback = this)
         configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
         ad_view.loadAnnoyingAds()
@@ -75,6 +74,7 @@ class MainActivity : AppCompatActivity(),
         userDetails.observe(this, Observer<User?> {
             it?.let { user ->
                 this.user = user
+                userViewModel.insert(user) // FIXME: run on another thread
             }
         })
     }
@@ -100,6 +100,9 @@ class MainActivity : AppCompatActivity(),
         }
 
         tweets?.let {
+            it.forEach {  tweet ->
+                tweetViewModel.insert(tweet) // FIXME: run on another thread
+            }
             this.tweets = this.tweets.union(it).toList()
             progress_bar.visibility = GONE
             adapter.submitList(this.tweets)
@@ -109,7 +112,7 @@ class MainActivity : AppCompatActivity(),
     override fun onRefresh() {
         swipe_refresh_layout.isRefreshing = true
         val sinceId = if (tweets.isEmpty()) null else tweets.first().id
-        tweetViewModel.getTweets(callback = this, sinceId = sinceId)
+        tweetViewModel.getTweets(lifecycleOwner = this, callback = this, sinceId = sinceId)
     }
 
     private fun configureRecyclerView() {
@@ -118,7 +121,11 @@ class MainActivity : AppCompatActivity(),
             EndlessScrollListener(recycler_view.layoutManager as LinearLayoutManager) {
             override fun onLoadMore() {
                 val maxId = if (tweets.isEmpty()) null else tweets.last().id - 1
-                tweetViewModel.getTweets(callback = this@MainActivity, maxId = maxId)
+                tweetViewModel.getTweets(
+                    lifecycleOwner = this@MainActivity,
+                    callback = this@MainActivity,
+                    maxId = maxId
+                )
             }
         })
     }
