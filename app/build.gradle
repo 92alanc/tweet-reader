@@ -105,7 +105,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.1'
-    androidTestImplementation 'androidx.arch.core:core-testing:2.0.0'
+    androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
     androidTestImplementation('br.com.concretesolutions:kappuccino:1.2.1') {
         exclude group: 'androidx.test.espresso'
     }
@@ -115,8 +115,4 @@ dependencies {
     // region Unit test libraries
     testImplementation 'junit:junit:4.12'
     // endregion
-}
-
-repositories {
-    maven { url "https://kotlin.bintray.com/kotlinx/" }
 }
