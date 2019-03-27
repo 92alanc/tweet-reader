@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(),
 
             tweets?.let {
                 withContext(Dispatchers.Default) {
-                    it.forEach {  tweet ->
+                    it.forEach { tweet ->
                         tweetViewModel.insert(tweet)
                     }
                 }
