@@ -8,6 +8,7 @@ import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.api.MEDIA_PHOTO
 import com.alancamargo.tweetreader.api.MEDIA_VIDEO
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.util.hasLink
 
 class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
 
@@ -23,6 +24,11 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
             VIEW_TYPE_VIDEO -> {
                 val itemView = inflater.inflate(R.layout.item_tweet_video, parent, false)
                 VideoTweetViewHolder(itemView)
+            }
+
+            VIEW_TYPE_LINK -> {
+                val itemView = inflater.inflate(R.layout.item_tweet_link, parent, false)
+                LinkTweetViewHolder(itemView)
             }
 
             else -> {
@@ -42,10 +48,12 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
 
         val containsPhoto = tweet.media?.contents?.any { it.type == MEDIA_PHOTO } ?: false
         val containsVideo = tweet.media?.contents?.any { it.type == MEDIA_VIDEO } ?: false
+        val containsLink = tweet.text.hasLink()
 
         return when {
             containsPhoto -> VIEW_TYPE_PHOTO
             containsVideo -> VIEW_TYPE_VIDEO
+            containsLink -> VIEW_TYPE_LINK
             else -> VIEW_TYPE_TEXT
         }
     }
@@ -54,6 +62,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         private const val VIEW_TYPE_TEXT = 0
         private const val VIEW_TYPE_PHOTO = 1
         private const val VIEW_TYPE_VIDEO = 2
+        private const val VIEW_TYPE_LINK = 3
 
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
             return oldItem.id == newItem.id

@@ -106,3 +106,5 @@ fun AppCompatActivity.watchConnectivityState(snackbarView: View) {
             Snackbar.make(snackbarView, R.string.you_are_offline, Snackbar.LENGTH_SHORT).show()
     })
 }
+
+fun String.hasLink() = this.contains(REGEX_URL)
