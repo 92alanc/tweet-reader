@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/radius_cardview_default">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_default">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile_picture"
+            android:layout_width="@dimen/size_img_tweet"
+            android:layout_height="@dimen/size_img_tweet"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars"/>
+
+        <TextView
+            android:id="@+id/txt_name"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_profile_picture"
+            tools:text="Jair M. Bolsonaro"/>
+
+        <TextView
+            android:id="@+id/txt_screen_name"
+            style="@style/Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txt_name"
+            app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
+            app:layout_constraintStart_toStartOf="@id/txt_name"
+            app:layout_constraintVertical_bias="0"
+            tools:text="\@jairbolsonaro"/>
+
+        <TextView
+            android:id="@+id/txt_tweet"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColorHighlight="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@sample/tweets.json/data/text"/>
+
+        <ViewFlipper
+            android:id="@+id/view_flipper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layout_constraintTop_toBottomOf="@id/txt_tweet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/padding_default">
+
+                    <ImageView
+                        android:id="@+id/img_link_thumbnail"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:importantForAccessibility="no"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/txt_link_title"
+                        app:layout_constraintDimensionRatio="4:3"
+                        tools:src="@tools:sample/avatars"/>
+
+                    <TextView
+                        android:id="@+id/txt_link_title"
+                        style="@style/Link"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_default"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/img_link_thumbnail"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="@sample/tweets.json/data/link_title"/>
+
+                    <TextView
+                        android:id="@+id/txt_link"
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginStart="@dimen/margin_default"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        app:layout_constraintTop_toBottomOf="@id/txt_link_title"
+                        app:layout_constraintStart_toEndOf="@id/img_link_thumbnail"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="@sample/tweets.json/data/link"/>
+
+                    <TextView
+                        android:id="@+id/txt_link_text"
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/margin_default"
+                        android:maxLines="4"
+                        android:ellipsize="end"
+                        app:layout_constraintTop_toBottomOf="@id/txt_link"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/img_link_thumbnail"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="@sample/tweets.json/data/link_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+        </ViewFlipper>
+
+        <TextView
+            android:id="@+id/txt_creation_date"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layout_constraintTop_toBottomOf="@id/view_flipper"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@sample/tweets.json/data/date"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

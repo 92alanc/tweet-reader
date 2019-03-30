@@ -2,19 +2,31 @@
   "data": [
     {
       "text": "O que é golden shower? #confuso",
-      "date": "06/03/2019 09:16"
+      "date": "06/03/2019 09:16",
+      "link_title": "O que significa golden shower",
+      "link": "youtube.com",
+      "link_content": "Um doutor em física na Universidade de Cambridge explica em um vídeo de 40 minutos o significado de golden shower, suas origens na Grécia antiga, seu uso na medicina moderna e suas desvantagens."
     },
     {
       "text": "A Lei Rouanet foi usada para cooptar parte dos artistas “famosos” num projeto de Poder. Em meu Governo, sua utilidade será para artistas em início de carreira. Quanto a possibilidade de receber “renomados” que já se beneficiaram da referida, para discuti-la, não passa de piada.",
-      "date": "05/03/2019 21:07"
+      "date": "05/03/2019 21:07",
+      "link_title": "O que é a Lei Rouanet?",
+      "link": "brasil.gov.br",
+      "link_content": "Como a Lei Rouanet beneficia artistas vagabundos que já são milionários a ganharem mais dinheiro ainda."
     },
     {
       "text": "Enquanto acharem que somente escolas educam e que outros fatores puramente sozinhos é que farão o país crescer, o Brasil não evoluirá como gostaríamos. @opropriolavo vem explicando este fenômeno há anos e seus alunos vem deixando um legado. O Brasil tem jeito.",
-      "date": "05/03/2019 20:44"
+      "date": "05/03/2019 20:44",
+      "link_title": "As escolas públicas são uma porcaria!",
+      "link": "vamosestudar.com.br",
+      "link_content": "Um professor obrigou a sala inteira a ir de vermelho para a escola e gritar viva la revolución mas nega ter feito doutrinação comunista."
     },
     {
       "text": "Brasil acima de tudo, Deus acima de todos!",
-      "date": "23/02/2019 15:50"
+      "date": "23/02/2019 15:50",
+      "link_title": "O Brasil agora é um país de direita!",
+      "link": "obrasilaindarespira.com.br",
+      "link_content": "A partir de 01/01/2019 o Brasil volta a respirar tendo um presidente de direita depois de mais de 30 anos sendo governado por lixos."
     }
   ]
 }
