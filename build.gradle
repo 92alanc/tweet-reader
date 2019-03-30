@@ -8,6 +8,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://github.com/leonardocardoso/mvn-repo/raw/master/maven-deploy' }
     }
 
     dependencies {
@@ -21,6 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://github.com/leonardocardoso/mvn-repo/raw/master/maven-deploy' }
     }
 }
 

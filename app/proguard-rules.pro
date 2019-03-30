@@ -9,3 +9,6 @@
 -keepclasseswithmembers class * {
     @retrofit.http.* <methods>;
 }
+
+# Jsoup
+-keeppackagenames org.jsoup.nodes

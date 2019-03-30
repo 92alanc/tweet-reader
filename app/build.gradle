@@ -101,6 +101,8 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation 'org.jsoup:jsoup:1.8.3'
+    implementation 'com.leocardz:link-preview:2.0.0@aar'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     kapt "androidx.room:room-compiler:$room_version"
     // endregion
