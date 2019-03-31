@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.activities.PhotoDetailsActivity
 import com.alancamargo.tweetreader.util.setImageUrl
 
 class ViewPagerAdapter(private val photos: List<String>) : PagerAdapter() {
@@ -17,6 +18,11 @@ class ViewPagerAdapter(private val photos: List<String>) : PagerAdapter() {
                 val imageView = findViewById<ImageView>(R.id.photo)
                 setImageUrl(imageView, photos[position])
                 container.addView(imageView)
+                imageView.setOnClickListener {
+                    val context = it.context
+                    val intent = PhotoDetailsActivity.getIntent(context, photos[position])
+                    context.startActivity(intent)
+                }
             }
     }
 
