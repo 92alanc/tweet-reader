@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.DependencyInjection
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.util.LinkType
 import com.alancamargo.tweetreader.util.extractLinkFrom
 import com.leocardz.link.preview.library.LinkPreviewCallback
 import com.leocardz.link.preview.library.SourceContent
@@ -43,7 +44,8 @@ class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView), LinkPrevi
         txtLink.text = sourceContent.cannonicalUrl
         txtContent.text = sourceContent.description
         previewCard.setOnClickListener {
-            // TODO: open link
+            DependencyInjection.linkClickListener.onLinkClicked(it.context, sourceContent.url,
+                LinkType.PLAIN_URL)
         }
     }
 
