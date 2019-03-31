@@ -33,8 +33,7 @@ class MainActivity : AppCompatActivity(),
     private val adapter = TweetAdapter()
     private val job = Job()
 
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main
+    override val coroutineContext: CoroutineContext = job + Dispatchers.Main
 
     private val tweetViewModel by lazy {
         ViewModelProviders.of(this).get(TweetViewModel::class.java)
