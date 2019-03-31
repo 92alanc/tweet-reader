@@ -35,7 +35,8 @@ class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView), LinkPrevi
 
     override fun onPos(sourceContent: SourceContent, b: Boolean) {
         progressBar.visibility = GONE
-        DependencyInjection.imageHandler.loadImage(sourceContent.images.first(), imgThumbnail)
+        if (sourceContent.images.isNotEmpty())
+            DependencyInjection.imageHandler.loadImage(sourceContent.images.first(), imgThumbnail)
         txtTitle.text = sourceContent.title
         txtLink.text = sourceContent.url
         txtContent.text = sourceContent.description
