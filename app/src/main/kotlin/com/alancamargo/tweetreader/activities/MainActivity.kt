@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.EndlessScrollListener
@@ -141,7 +140,7 @@ class MainActivity : AppCompatActivity(),
     private fun configureRecyclerView() {
         recycler_view.adapter = adapter
         recycler_view.addOnScrollListener(object :
-            EndlessScrollListener(recycler_view.layoutManager as LinearLayoutManager) {
+            EndlessScrollListener() {
             override fun onLoadMore() {
                 val maxId = if (tweets.isEmpty()) null else tweets.last().id - 1
                 tweetViewModel.getTweets(
