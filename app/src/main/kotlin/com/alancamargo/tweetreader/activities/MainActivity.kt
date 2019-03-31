@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.EndlessScrollListener
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity(),
         ViewModelProviders.of(this).get(UserViewModel::class.java)
     }
 
+    private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }
+
     private lateinit var user: User
     private var menu: Menu? = null
     private var tweets: List<Tweet> = listOf()
@@ -63,6 +66,17 @@ class MainActivity : AppCompatActivity(),
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    override fun onBackPressed() {
+        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+        val isOnTop = firstVisibleItemPosition == 0
+
+        if (isOnTop) {
+            super.onBackPressed()
+        } else {
+            recycler_view.scrollToPosition(0)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
