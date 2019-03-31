@@ -38,7 +38,7 @@ class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView), LinkPrevi
         if (sourceContent.images.isNotEmpty())
             DependencyInjection.imageHandler.loadImage(sourceContent.images.first(), imgThumbnail)
         txtTitle.text = sourceContent.title
-        txtLink.text = sourceContent.url
+        txtLink.text = sourceContent.cannonicalUrl
         txtContent.text = sourceContent.description
         previewCard.setOnClickListener {
             // TODO: open link
