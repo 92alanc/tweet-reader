@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.REGEX_URL
-import com.alancamargo.tweetreader.util.setImageUrl
-import com.alancamargo.tweetreader.util.setTimestamp
-import com.alancamargo.tweetreader.util.setTweetText
+import com.alancamargo.tweetreader.util.*
 import de.hdodenhof.circleimageview.CircleImageView
 
 open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,7 +22,7 @@ open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         txtName.text = tweet.author.name
         txtScreenName.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
         setImageUrl(imgProfilePicture, tweet.author.profilePictureUrl)
-        val text = if (tweet.media?.contents != null) {
+        val text = if (tweet.text.hasLink()) {
             tweet.text.replace(REGEX_URL, "")
         } else {
             tweet.text
