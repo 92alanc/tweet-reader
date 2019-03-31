@@ -27,7 +27,7 @@ open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         } else {
             tweet.text
         }
-        setTweetText(txtTweet, text)
+        setTweetText(txtTweet, text.replace("&amp;", "&"))
         setTimestamp(txtCreationDate, tweet.creationDate)
         configureAuthorDataClick(tweet)
     }
