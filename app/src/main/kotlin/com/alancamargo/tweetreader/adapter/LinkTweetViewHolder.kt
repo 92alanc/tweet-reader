@@ -30,11 +30,13 @@ class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView), LinkPrevi
     }
 
     override fun onPre() {
+        previewCard.visibility = GONE
         progressBar.visibility = VISIBLE
     }
 
     override fun onPos(sourceContent: SourceContent, b: Boolean) {
         progressBar.visibility = GONE
+        previewCard.visibility = VISIBLE
         if (sourceContent.images.isNotEmpty())
             DependencyInjection.imageHandler.loadImage(sourceContent.images.first(), imgThumbnail)
         txtTitle.text = sourceContent.title
