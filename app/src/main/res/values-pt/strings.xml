@@ -5,4 +5,5 @@
     <string name="account_suspended">Esta conta foi suspensa já que o Twitter não é muito fã de liberdade de expressão.\nPor favor tente de novo mais tarde</string>
     <string name="you_are_offline">Você está offline</string>
     <string name="close">Fechar</string>
+    <string name="no_data_found">Nenhum dado encontrado</string>
 </resources>

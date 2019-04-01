@@ -13,6 +13,7 @@ import com.alancamargo.tweetreader.util.AppImageHandler
 import com.alancamargo.tweetreader.util.AppLinkClickListener
 import com.alancamargo.tweetreader.util.isConnected
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.FirebaseApp
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
@@ -24,6 +25,7 @@ class TweetReaderApplication : MultiDexApplication() {
         ConnectivityMonitor.isConnected.postValue(isConnected())
         watchConnectivity()
         configureImageLoader()
+        FirebaseApp.initializeApp(this)
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         DependencyInjection.init(
             AppImageHandler(), BASE_URL,

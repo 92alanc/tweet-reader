@@ -20,7 +20,8 @@ import com.alancamargo.tweetreader.repository.TwitterCallback
 import com.alancamargo.tweetreader.util.loadAnnoyingAds
 import com.alancamargo.tweetreader.util.watchConnectivityState
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
-import com.alancamargo.tweetreader.viewmodel.UserViewModel
+import com.crashlytics.android.Crashlytics
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -40,27 +41,29 @@ class MainActivity : AppCompatActivity(),
         ViewModelProviders.of(this).get(TweetViewModel::class.java)
     }
 
-    private val userViewModel by lazy {
-        ViewModelProviders.of(this).get(UserViewModel::class.java)
-    }
-
     private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }
 
-    private lateinit var user: User
+    private var user: User? = null
     private var menu: Menu? = null
     private var tweets: List<Tweet> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        title = getString(R.string.title)
-        configureRecyclerView()
-        tweetViewModel.getTweets(lifecycleOwner = this, callback = this)
-        userViewModel.getUserDetails(lifecycleOwner = this, callback = this)
-        configureSwipeRefreshLayout()
-        progress_bar.visibility = VISIBLE
-        ad_view.loadAnnoyingAds()
-        watchConnectivityState(snackbarView = ad_view)
+        launch {
+            title = getString(R.string.title)
+            configureRecyclerView()
+
+            withContext(coroutineContext) {
+                tweetViewModel.getTweets(lifecycleOwner = this@MainActivity,
+                    callback = this@MainActivity)
+            }
+
+            configureSwipeRefreshLayout()
+            progress_bar.visibility = VISIBLE
+            ad_view.loadAnnoyingAds()
+            watchConnectivityState(snackbarView = ad_view)
+        }
     }
 
     override fun onDestroy() {
@@ -88,25 +91,16 @@ class MainActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.item_profile -> {
-                showProfile()
+                if (user != null) {
+                    showProfile()
+                } else {
+                    Crashlytics.log("Null user on menu item click")
+                    Snackbar.make(ad_view, R.string.no_data_found, Snackbar.LENGTH_SHORT).show()
+                }
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onUserDetailsFound(userDetails: LiveData<User>) {
-        launch {
-            userDetails.observe(this@MainActivity, Observer<User?> {
-                it?.let { user ->
-                    this@MainActivity.user = user
-                }
-            })
-
-            withContext(Dispatchers.Default) {
-                userViewModel.insert(user)
-            }
         }
     }
 
@@ -132,6 +126,9 @@ class MainActivity : AppCompatActivity(),
             }
 
             tweets?.let {
+                if (user == null)
+                    user = it.first().author
+
                 withContext(Dispatchers.Default) {
                     it.forEach { tweet ->
                         tweetViewModel.insert(tweet)
@@ -178,7 +175,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun showProfile() {
-        val intent = ProfileActivity.getIntent(this, user)
+        val intent = ProfileActivity.getIntent(this, user!!)
         startActivity(intent)
     }
 

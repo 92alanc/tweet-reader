@@ -3,7 +3,6 @@ package com.alancamargo.tweetreader.api
 import com.alancamargo.tweetreader.BuildConfig.USER_ID
 import com.alancamargo.tweetreader.di.DependencyInjection
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.model.api.OAuth2Token
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -30,12 +29,6 @@ interface TwitterApi {
         @Query("max_id") maxId: Long? = null,
         @Query("since_id") sinceId: Long? = null
     ): Call<List<Tweet>>
-
-    @GET("1.1/users/show.json")
-    fun getUserDetails(
-        @Header(AUTHORISATION_HEADER) authorisation: String,
-        @Query(USER_ID_PARAM) userId: String = USER_ID
-    ): Call<User>
 
     companion object {
         fun getService(): TwitterApi {
