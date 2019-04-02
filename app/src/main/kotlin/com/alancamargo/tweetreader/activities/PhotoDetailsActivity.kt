@@ -21,7 +21,10 @@ class PhotoDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_details)
         viewModel.loadPhoto(photo, img_photo)
-        bt_close.setOnClickListener { finish() }
+        bt_close.run {
+            bringToFront()
+            setOnClickListener { finish() }
+        }
     }
 
     companion object {
