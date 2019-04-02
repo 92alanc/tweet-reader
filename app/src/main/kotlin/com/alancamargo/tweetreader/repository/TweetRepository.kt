@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
 import com.alancamargo.tweetreader.api.CODE_FORBIDDEN
 import com.alancamargo.tweetreader.api.TwitterApi
-import com.alancamargo.tweetreader.database.TweetDatabase
+import com.alancamargo.tweetreader.database.TwitterDatabase
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.api.ErrorResponse
 import com.alancamargo.tweetreader.util.callApi
@@ -16,7 +16,7 @@ import retrofit2.Response
 
 class TweetRepository(private val context: Context) {
 
-    private val database = TweetDatabase.getInstance(context).tweetDao()
+    private val database = TwitterDatabase.getInstance(context).tweetDao()
 
     fun contains(tweet: Tweet): Boolean = database.count(tweet.id) > 0
 
@@ -25,7 +25,7 @@ class TweetRepository(private val context: Context) {
         database.insert(tweet)
     }
 
-    fun fetchFromApi(callback: RepositoryCallback,
+    fun fetchFromApi(callback: TweetCallback,
                      maxId: Long? = null,
                      sinceId: Long? = null) {
         context.callApi { token ->
@@ -33,14 +33,14 @@ class TweetRepository(private val context: Context) {
         }
     }
 
-    fun fetchFromDatabase(callback: RepositoryCallback) {
+    fun fetchFromDatabase(callback: TweetCallback) {
         Log.d(javaClass.simpleName, "getTweetsFromDatabase")
         callback.onTweetsFound(database.select())
     }
 
     @Suppress("UNCHECKED_CAST")
     private fun getTweetsFromApi(authorisationHeader: String,
-                                 callback: RepositoryCallback,
+                                 callback: TweetCallback,
                                  maxId: Long? = null,
                                  sinceId: Long? = null) {
         Log.d(javaClass.simpleName, "getTweetsFromApi")

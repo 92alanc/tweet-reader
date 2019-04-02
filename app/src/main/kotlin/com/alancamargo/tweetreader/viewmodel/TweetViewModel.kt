@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.repository.RepositoryCallback
+import com.alancamargo.tweetreader.repository.TweetCallback
 import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.runAsync
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class TweetViewModel(application: Application) : AndroidViewModel(application),
     CoroutineScope,
-    RepositoryCallback {
+    TweetCallback {
 
     private val job = Job()
 

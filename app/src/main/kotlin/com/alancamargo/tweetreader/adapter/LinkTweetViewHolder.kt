@@ -9,14 +9,26 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.DependencyInjection
+import com.alancamargo.tweetreader.model.Link
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.repository.LinkCallback
+import com.alancamargo.tweetreader.repository.LinkRepository
 import com.alancamargo.tweetreader.util.LinkType
-import com.alancamargo.tweetreader.util.extractLinkFrom
-import com.leocardz.link.preview.library.LinkPreviewCallback
-import com.leocardz.link.preview.library.SourceContent
-import com.leocardz.link.preview.library.TextCrawler
+import com.alancamargo.tweetreader.util.runAsync
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView), LinkPreviewCallback {
+class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView),
+    LinkCallback,
+    CoroutineScope {
+
+    private val job = Job()
+
+    override val coroutineContext = job + Dispatchers.Main
+
+    private val repository = LinkRepository(itemView.context)
 
     private val imgThumbnail = itemView.findViewById<ImageView>(R.id.img_link_thumbnail)
     private val txtTitle = itemView.findViewById<TextView>(R.id.txt_link_title)
@@ -30,29 +42,40 @@ class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView), LinkPrevi
         loadLinkPreview(tweet)
     }
 
-    override fun onPre() {
-        previewCard.visibility = GONE
-        progressBar.visibility = VISIBLE
+    override fun onStartLoading() {
+        launch {
+            previewCard.visibility = GONE
+            progressBar.visibility = VISIBLE
+        }
     }
 
-    override fun onPos(sourceContent: SourceContent, b: Boolean) {
-        progressBar.visibility = GONE
-        previewCard.visibility = VISIBLE
-        if (sourceContent.images.isNotEmpty())
-            DependencyInjection.imageHandler.loadImage(sourceContent.images.first(), imgThumbnail)
-        txtTitle.text = sourceContent.title
-        txtLink.text = sourceContent.cannonicalUrl
-        txtContent.text = sourceContent.description
-        previewCard.setOnClickListener {
-            DependencyInjection.linkClickListener.onLinkClicked(it.context, sourceContent.url,
-                LinkType.PLAIN_URL)
+    override fun onPreviewReady(link: Link) {
+        runAsync {
+            repository.saveLinkToCache(link)
+        }
+
+        launch {
+            progressBar.visibility = GONE
+            previewCard.visibility = VISIBLE
+
+            link.thumbnail?.let {
+                DependencyInjection.imageHandler.loadImage(it, imgThumbnail)
+            }
+
+            txtTitle.text = link.title
+            txtLink.text = link.displayUrl
+            txtContent.text = link.summary
+            previewCard.setOnClickListener {
+                DependencyInjection.linkClickListener.onLinkClicked(it.context, link.url,
+                    LinkType.PLAIN_URL)
+            }
         }
     }
 
     private fun loadLinkPreview(tweet: Tweet) {
-        val link = extractLinkFrom(tweet.text)
-        val textCrawler = TextCrawler()
-        textCrawler.makePreview(this, link)
+        runAsync {
+            repository.loadPreview(tweet, callback = this)
+        }
     }
 
 }
