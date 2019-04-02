@@ -4,5 +4,6 @@ import com.alancamargo.tweetreader.model.Tweet
 
 interface View {
     fun onAccountSuspended()
-    fun onTweetsFound(tweets: List<Tweet>?)
+    fun onTweetsFound(tweets: List<Tweet>, isRefreshing: Boolean)
+    fun onNothingFound()
 }

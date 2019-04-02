@@ -23,9 +23,7 @@ import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),
-    SwipeRefreshLayout.OnRefreshListener,
-    View {
+class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, View {
 
     private val adapter = TweetAdapter()
 
@@ -84,27 +82,18 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onTweetsFound(tweets: List<Tweet>?) {
-        Log.d(javaClass.simpleName, "tweets: ${tweets?.size}")
-        if (swipe_refresh_layout.isRefreshing) {
-            swipe_refresh_layout.isRefreshing = false
-        }
+    override fun onTweetsFound(tweets: List<Tweet>, isRefreshing: Boolean) {
+        Log.d(javaClass.simpleName, "tweets: ${tweets.size}")
+        hideProgressBars()
+        updateTweets(tweets, isRefreshing)
+    }
 
-        tweets?.let {
-            if (user == null)
-                user = it.firstOrNull()?.author
-
-            it.forEach { tweet ->
-                tweetViewModel.insert(tweet)
-            }
-            this@MainActivity.tweets = this@MainActivity.tweets.union(it).toList()
-            progress_bar.visibility = GONE
-            adapter.submitList(this@MainActivity.tweets)
-        }
+    override fun onNothingFound() {
+        hideProgressBars()
     }
 
     override fun onAccountSuspended() {
-        progress_bar.visibility = GONE
+        hideProgressBars()
 
         menu?.findItem(R.id.item_profile)?.let { item ->
             item.isVisible = false
@@ -150,6 +139,29 @@ class MainActivity : AppCompatActivity(),
     private fun showProfile() {
         val intent = ProfileActivity.getIntent(this, user!!)
         startActivity(intent)
+    }
+
+    private fun updateTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
+        if (user == null)
+            user = tweets.firstOrNull()?.author
+
+        tweets.forEach { tweet ->
+            tweetViewModel.insert(tweet)
+        }
+
+        if (isRefreshing)
+            this.tweets = tweets.union(this.tweets).toList()
+        else
+            this.tweets = this.tweets.union(tweets).toList()
+
+        adapter.submitList(this.tweets)
+    }
+
+    private fun hideProgressBars() {
+        progress_bar.visibility = GONE
+
+        if (swipe_refresh_layout.isRefreshing)
+            swipe_refresh_layout.isRefreshing = false
     }
 
 }

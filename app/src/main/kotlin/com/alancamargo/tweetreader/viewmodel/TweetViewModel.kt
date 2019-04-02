@@ -28,6 +28,8 @@ class TweetViewModel(application: Application) : AndroidViewModel(application),
     private lateinit var view: View
     private lateinit var lifecycleOwner: LifecycleOwner
 
+    private var isRefreshing = false
+
     fun insert(tweet: Tweet) {
         runAsync {
             if (!repository.contains(tweet))
@@ -41,6 +43,7 @@ class TweetViewModel(application: Application) : AndroidViewModel(application),
                   sinceId: Long? = null) {
         this.lifecycleOwner = lifecycleOwner
         this.view = callback
+        isRefreshing = sinceId != null
 
         ConnectivityMonitor.isConnected.observe(lifecycleOwner, Observer { isConnected ->
             runAsync {
@@ -60,7 +63,12 @@ class TweetViewModel(application: Application) : AndroidViewModel(application),
     override fun onTweetsFound(tweets: LiveData<List<Tweet>?>) {
         launch {
             tweets.observe(lifecycleOwner, Observer {
-                view.onTweetsFound(it)
+                it?.let { result ->
+                    if (result.isNotEmpty())
+                        view.onTweetsFound(result, isRefreshing)
+                    else
+                        view.onNothingFound()
+                }
             })
         }
     }
