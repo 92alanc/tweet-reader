@@ -20,6 +20,10 @@ import com.alancamargo.tweetreader.model.api.OAuth2Token
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
@@ -108,3 +112,11 @@ fun AppCompatActivity.watchConnectivityState(snackbarView: View) {
 }
 
 fun String.hasLink() = this.contains(REGEX_URL)
+
+fun CoroutineScope.runAsync(func: () -> Unit) {
+    launch {
+        withContext(Dispatchers.Default) {
+            func()
+        }
+    }
+}

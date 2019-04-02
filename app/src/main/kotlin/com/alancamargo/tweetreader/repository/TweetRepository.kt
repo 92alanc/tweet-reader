@@ -2,13 +2,10 @@ package com.alancamargo.tweetreader.repository
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
 import com.alancamargo.tweetreader.api.CODE_FORBIDDEN
 import com.alancamargo.tweetreader.api.TwitterApi
-import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.database.TweetDatabase
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.api.ErrorResponse
@@ -24,37 +21,29 @@ class TweetRepository(private val context: Context) {
     fun contains(tweet: Tweet): Boolean = database.count(tweet.id) > 0
 
     fun insert(tweet: Tweet) {
+        Log.d(javaClass.simpleName, "added tweet to database")
         database.insert(tweet)
     }
 
-    fun select(lifecycleOwner: LifecycleOwner,
-               callback: TwitterCallback,
-               maxId: Long? = null,
-               sinceId: Long? = null) {
-        ConnectivityMonitor.isConnected.observe(lifecycleOwner, Observer { isConnected ->
-            if (isConnected) {
-                context.callApi { token ->
-                    getTweetsFromApi(token, callback, maxId, sinceId)
-                }
-            } else {
-                getTweetsFromDatabase(callback)
-            }
-        })
+    fun fetchFromApi(callback: RepositoryCallback,
+                     maxId: Long? = null,
+                     sinceId: Long? = null) {
+        context.callApi { token ->
+            getTweetsFromApi(token, callback, maxId, sinceId)
+        }
     }
 
-    private fun getTweetsFromDatabase(callback: TwitterCallback) {
-        val tweets = MutableLiveData<List<Tweet>>().apply {
-            value = database.select().value
-        }
-
-        callback.onTweetsFound(tweets)
+    fun fetchFromDatabase(callback: RepositoryCallback) {
+        Log.d(javaClass.simpleName, "getTweetsFromDatabase")
+        callback.onTweetsFound(database.select())
     }
 
     @Suppress("UNCHECKED_CAST")
     private fun getTweetsFromApi(authorisationHeader: String,
-                                 callback: TwitterCallback,
+                                 callback: RepositoryCallback,
                                  maxId: Long? = null,
                                  sinceId: Long? = null) {
+        Log.d(javaClass.simpleName, "getTweetsFromApi")
         val api = TwitterApi.getService()
         api.getTweets(
             authorisationHeader,

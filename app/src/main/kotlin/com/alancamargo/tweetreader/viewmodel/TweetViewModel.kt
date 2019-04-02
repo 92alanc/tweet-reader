@@ -3,24 +3,66 @@ package com.alancamargo.tweetreader.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.repository.RepositoryCallback
 import com.alancamargo.tweetreader.repository.TweetRepository
-import com.alancamargo.tweetreader.repository.TwitterCallback
+import com.alancamargo.tweetreader.util.runAsync
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class TweetViewModel(application: Application) : AndroidViewModel(application) {
+class TweetViewModel(application: Application) : AndroidViewModel(application),
+    CoroutineScope,
+    RepositoryCallback {
+
+    private val job = Job()
+
+    override val coroutineContext = job + Dispatchers.Main
 
     private val repository = TweetRepository(application)
 
+    private lateinit var view: View
+    private lateinit var lifecycleOwner: LifecycleOwner
+
     fun insert(tweet: Tweet) {
-        if (repository.contains(tweet))
-            repository.insert(tweet)
+        runAsync {
+            if (!repository.contains(tweet))
+                repository.insert(tweet)
+        }
     }
 
     fun getTweets(lifecycleOwner: LifecycleOwner,
-                  callback: TwitterCallback,
+                  callback: View,
                   maxId: Long? = null,
                   sinceId: Long? = null) {
-        repository.select(lifecycleOwner, callback, maxId, sinceId)
+        this.lifecycleOwner = lifecycleOwner
+        this.view = callback
+
+        ConnectivityMonitor.isConnected.observe(lifecycleOwner, Observer { isConnected ->
+            runAsync {
+                if (isConnected) {
+                    repository.fetchFromApi(this, maxId, sinceId)
+                } else {
+                    repository.fetchFromDatabase(this)
+                }
+            }
+        })
+    }
+
+    override fun onAccountSuspended() {
+        view.onAccountSuspended()
+    }
+
+    override fun onTweetsFound(tweets: LiveData<List<Tweet>?>) {
+        launch {
+            tweets.observe(lifecycleOwner, Observer {
+                view.onTweetsFound(it)
+            })
+        }
     }
 
 }

@@ -1,13 +1,12 @@
 package com.alancamargo.tweetreader.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -16,26 +15,19 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.repository.TwitterCallback
 import com.alancamargo.tweetreader.util.loadAnnoyingAds
 import com.alancamargo.tweetreader.util.watchConnectivityState
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
+import com.alancamargo.tweetreader.viewmodel.View
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(),
-    TwitterCallback,
-    Observer<List<Tweet>>,
     SwipeRefreshLayout.OnRefreshListener,
-    CoroutineScope {
+    View {
 
     private val adapter = TweetAdapter()
-    private val job = Job()
-
-    override val coroutineContext: CoroutineContext = job + Dispatchers.Main
 
     private val tweetViewModel by lazy {
         ViewModelProviders.of(this).get(TweetViewModel::class.java)
@@ -50,25 +42,13 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        launch {
-            title = getString(R.string.title)
-            configureRecyclerView()
-
-            withContext(coroutineContext) {
-                tweetViewModel.getTweets(lifecycleOwner = this@MainActivity,
-                    callback = this@MainActivity)
-            }
-
-            configureSwipeRefreshLayout()
-            progress_bar.visibility = VISIBLE
-            ad_view.loadAnnoyingAds()
-            watchConnectivityState(snackbarView = ad_view)
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        job.cancel()
+        title = getString(R.string.title)
+        configureRecyclerView()
+        tweetViewModel.getTweets(lifecycleOwner = this, callback = this)
+        configureSwipeRefreshLayout()
+        progress_bar.visibility = VISIBLE
+        ad_view.loadAnnoyingAds()
+        watchConnectivityState(snackbarView = ad_view)
     }
 
     override fun onBackPressed() {
@@ -104,8 +84,23 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onTweetsFound(tweets: LiveData<List<Tweet>>) {
-        tweets.observe(this, this)
+    override fun onTweetsFound(tweets: List<Tweet>?) {
+        Log.d(javaClass.simpleName, "tweets: ${tweets?.size}")
+        if (swipe_refresh_layout.isRefreshing) {
+            swipe_refresh_layout.isRefreshing = false
+        }
+
+        tweets?.let {
+            if (user == null)
+                user = it.firstOrNull()?.author
+
+            it.forEach { tweet ->
+                tweetViewModel.insert(tweet)
+            }
+            this@MainActivity.tweets = this@MainActivity.tweets.union(it).toList()
+            progress_bar.visibility = GONE
+            adapter.submitList(this@MainActivity.tweets)
+        }
     }
 
     override fun onAccountSuspended() {
@@ -117,28 +112,6 @@ class MainActivity : AppCompatActivity(),
 
         recycler_view.visibility = GONE
         group_account_suspended.visibility = VISIBLE
-    }
-
-    override fun onChanged(tweets: List<Tweet>?) {
-        launch {
-            if (swipe_refresh_layout.isRefreshing) {
-                swipe_refresh_layout.isRefreshing = false
-            }
-
-            tweets?.let {
-                if (user == null)
-                    user = it.first().author
-
-                withContext(Dispatchers.Default) {
-                    it.forEach { tweet ->
-                        tweetViewModel.insert(tweet)
-                    }
-                }
-                this@MainActivity.tweets = this@MainActivity.tweets.union(it).toList()
-                progress_bar.visibility = GONE
-                adapter.submitList(this@MainActivity.tweets)
-            }
-        }
     }
 
     override fun onRefresh() {

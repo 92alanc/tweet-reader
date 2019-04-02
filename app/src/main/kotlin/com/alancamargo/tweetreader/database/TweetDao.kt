@@ -13,7 +13,7 @@ interface TweetDao {
     fun insert(tweet: Tweet)
 
     @Query("SELECT * FROM Tweet")
-    fun select(): LiveData<List<Tweet>>
+    fun select(): LiveData<List<Tweet>?>
 
     @Query("SELECT COUNT() FROM Tweet WHERE id = :id")
     fun count(id: Long): Int
