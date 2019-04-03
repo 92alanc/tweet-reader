@@ -26,10 +26,14 @@ class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
             }
             ?.url
             ?.let { videoUrl ->
-                videoView.setVideoURI(Uri.parse(videoUrl))
-                val mediaController = MediaController(videoView.context)
-                videoView.setMediaController(mediaController)
-                mediaController.setAnchorView(videoView)
+                videoView.run {
+                    setVideoURI(Uri.parse(videoUrl))
+                    setMediaController(MediaController(context).also { it.setAnchorView(this) })
+                    setOnCompletionListener {
+                        imgVideo.visibility = View.VISIBLE
+                    }
+                }
+
                 imgVideo.setOnClickListener {
                     videoView.start()
                     it.visibility = View.GONE
