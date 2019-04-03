@@ -6,10 +6,10 @@ An Android app that reads tweets from a specific account.
 
 * Bolsonaro
 
-Current president of Brazil. Like Donald Trump, extremely hated by 
-the establishment media, artists, feminists, academia, most 
-big companies and the left in general for having a different 
-opinion. 
+Current president of Brazil. Like Donald Trump, Jair Bolsonaro is 
+extremely hated by the establishment media, artists, feminists, 
+academia, most big companies and the left in general for having a 
+different opinion. 
 
 Always gets called a bigot, racist, homophobe, nazi, fascist, 
 sexist, etc.
@@ -26,12 +26,23 @@ makes fun of feminists and other hysteric far-left activists.
 A British conservative who always exposes the far-left,
 especially on YouTube.
 
-All his videos are demonetised and sometimes censored by 
-YouTube right when they are uploaded because of 'hate speech' 
-when all he does is criticise and expose the far-left agenda 
-and their hypocrisy. Meanwhile youtubers who openly support 
-terror attacks and other hateful and extremist opinions 
-continue to have their videos monetised.
+Most, if not all of his videos are demonetised and sometimes 
+censored by YouTube right when they are uploaded because of 
+'hate speech' when all he does is criticise and expose the 
+far-left agenda and their hypocrisy. Meanwhile youtubers who 
+openly support terror attacks and other hateful and extremist 
+opinions continue to have their videos monetised.
+
+* Trump
+
+The current US president. Just like any conservative who won't
+bow down to leftist ideas, Donald Trump is always targeted by
+the mainstream media, universities, the deep state, big companies,
+feminists and other leftists in general.
+
+Trump has a firm attitude towards crime, terrorism and illegal
+immigration, which is one of the main reasons why the left hates
+him so much.
 
 ## Suspension
 
