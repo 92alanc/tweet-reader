@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,16 +69,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-            R.id.item_profile -> {
-                if (user != null) {
-                    showProfile()
-                } else {
-                    Crashlytics.log("Null user on menu item click")
-                    Snackbar.make(ad_view, R.string.no_data_found, Snackbar.LENGTH_SHORT).show()
-                }
-                true
-            }
-
+            R.id.item_profile -> showProfile()
+            R.id.item_about -> showAppInfo()
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -136,11 +129,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         }
     }
 
-    private fun showProfile() {
-        val intent = ProfileActivity.getIntent(this, user!!)
-        startActivity(intent)
-    }
-
     private fun updateTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
         if (user == null)
             user = tweets.firstOrNull()?.author
@@ -162,6 +150,26 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
 
         if (swipe_refresh_layout.isRefreshing)
             swipe_refresh_layout.isRefreshing = false
+    }
+
+    private fun showProfile(): Boolean {
+        if (user != null) {
+            val intent = ProfileActivity.getIntent(this, user!!)
+            startActivity(intent)
+        } else {
+            Crashlytics.log("Null user on menu item click")
+            Snackbar.make(ad_view, R.string.no_data_found, Snackbar.LENGTH_SHORT).show()
+        }
+        return true
+    }
+
+    private fun showAppInfo(): Boolean {
+        AlertDialog.Builder(this).setTitle(R.string.about)
+            .setMessage(R.string.developer_info)
+            .setNeutralButton(R.string.ok, null)
+            .show()
+
+        return true
     }
 
 }

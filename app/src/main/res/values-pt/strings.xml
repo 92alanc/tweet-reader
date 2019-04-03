@@ -6,4 +6,6 @@
     <string name="you_are_offline">Você está offline</string>
     <string name="close">Fechar</string>
     <string name="no_data_found">Nenhum dado encontrado</string>
+    <string name="about">Sobre</string>
+    <string name="developer_info">Desenvolvido por Alan Camargo.\n\nObs.: Eu não sou responsável por nenhum conteúdo exibido neste app.</string>
 </resources>
