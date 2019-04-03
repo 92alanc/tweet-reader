@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.VideoView
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.api.CONTENT_TYPE_MP4
 import com.alancamargo.tweetreader.model.Tweet
 
 class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
@@ -16,29 +15,20 @@ class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
-        tweet.media
-            ?.contents
-            ?.first()
-            ?.videoInfo
-            ?.variants
-            ?.first { variant ->
-                variant.contentType == CONTENT_TYPE_MP4
-            }
-            ?.url
-            ?.let { videoUrl ->
-                videoView.run {
-                    setVideoURI(Uri.parse(videoUrl))
-                    setMediaController(MediaController(context).also { it.setAnchorView(this) })
-                    setOnCompletionListener {
-                        imgVideo.visibility = View.VISIBLE
-                    }
+        tweet.media?.getVideoUrl()?.let { videoUrl ->
+            videoView.run {
+                setVideoURI(Uri.parse(videoUrl))
+                setMediaController(MediaController(context).also { it.setAnchorView(this) })
+                setOnCompletionListener {
+                    imgVideo.visibility = View.VISIBLE
                 }
+            }
 
-                imgVideo.setOnClickListener {
-                    videoView.start()
-                    it.visibility = View.GONE
-                }
+            imgVideo.setOnClickListener {
+                videoView.start()
+                it.visibility = View.GONE
             }
+        }
     }
 
 }

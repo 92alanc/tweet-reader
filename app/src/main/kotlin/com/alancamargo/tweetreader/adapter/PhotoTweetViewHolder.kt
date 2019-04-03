@@ -11,7 +11,7 @@ class PhotoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
-        tweet.media?.contents?.map { it.photoUrl }?.let { photos ->
+        tweet.media?.getPhotoUrls()?.let { photos ->
             viewPager.adapter = ViewPagerAdapter(photos)
         }
     }
