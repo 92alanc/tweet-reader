@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         if (isOnTop) {
             super.onBackPressed()
         } else {
-            recycler_view.scrollToPosition(0)
+            recycler_view.smoothScrollToPosition(0)
         }
     }
 
