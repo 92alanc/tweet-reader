@@ -3,6 +3,7 @@ package com.alancamargo.tweetreader.util
 import android.text.method.LinkMovementMethod
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.text.toSpannable
 import androidx.databinding.BindingAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.DependencyInjection

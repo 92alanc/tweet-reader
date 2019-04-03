@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.toSpannable
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -16,8 +17,7 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.loadAnnoyingAds
-import com.alancamargo.tweetreader.util.watchConnectivityState
+import com.alancamargo.tweetreader.util.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.View
 import com.crashlytics.android.Crashlytics
@@ -164,8 +164,15 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
     }
 
     private fun showAppInfo(): Boolean {
-        AlertDialog.Builder(this).setTitle(R.string.about)
-            .setMessage(R.string.developer_info)
+        val title = "${getString(R.string.app_name)} ${getVersionName()}"
+        val rawText = getString(R.string.developer_info)
+        val textToHighlight = rawText.split("\n\n").last()
+        val message = rawText.toSpannable()
+            .bold(textToHighlight)
+            .colour(textToHighlight, getColour(R.color.red))
+
+        AlertDialog.Builder(this).setTitle(title)
+            .setMessage(message)
             .setNeutralButton(R.string.ok, null)
             .show()
 

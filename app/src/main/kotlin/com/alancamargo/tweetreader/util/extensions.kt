@@ -1,10 +1,12 @@
 package com.alancamargo.tweetreader.util
 
 import android.content.Context
+import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import androidx.annotation.ColorRes
@@ -49,8 +51,6 @@ fun AdView.loadAnnoyingAds() {
     loadAd(adRequest)
 }
 
-fun String.toSpannable() = SpannableString(this)
-
 fun Spannable.link(word: String, textColour: Int, linkType: LinkType) {
     setSpan(
         object : ClickableTextSpan(textColour) {
@@ -64,6 +64,24 @@ fun Spannable.link(word: String, textColour: Int, linkType: LinkType) {
         },
         toString().indexOf(word),
         toString().indexOf(word) + word.length,
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+}
+
+fun Spannable.bold(text: String) = apply {
+    setSpan(
+        StyleSpan(Typeface.BOLD),
+        toString().indexOf(text),
+        toString().indexOf(text) + text.length,
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+}
+
+fun Spannable.colour(text: String, colour: Int) = apply {
+    setSpan(
+        ForegroundColorSpan(colour),
+        toString().indexOf(text),
+        toString().indexOf(text) + text.length,
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
 }
@@ -119,4 +137,8 @@ fun CoroutineScope.runAsync(func: () -> Unit) {
             func()
         }
     }
+}
+
+fun Context.getVersionName(): String {
+    return packageManager.getPackageInfo(packageName, 0).versionName
 }
