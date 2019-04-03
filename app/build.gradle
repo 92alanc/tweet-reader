@@ -60,6 +60,12 @@ android {
             applicationIdSuffix ".pauljosephwatson"
             buildConfigField "String", "USER_ID", '"18643437"'
         }
+
+        trump {
+            dimension "version"
+            applicationIdSuffix ".trump"
+            buildConfigField "String", "USER_ID", '"25073877"'
+        }
     }
 
     dataBinding {
