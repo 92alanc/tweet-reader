@@ -13,6 +13,7 @@
 
     <!-- region Padding -->
     <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
     <!-- endregion -->
 
     <!-- region Radius -->

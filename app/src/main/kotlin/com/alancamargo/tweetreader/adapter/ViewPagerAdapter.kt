@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.PhotoDetailsActivity
@@ -15,14 +16,24 @@ class ViewPagerAdapter(private val photos: List<String>) : PagerAdapter() {
         return LayoutInflater.from(container.context)
             .inflate(R.layout.item_photo, container, false)
             .apply {
+                val indicator = findViewById<TextView>(R.id.txt_indicator)
+                if (count > 1) {
+                    indicator.text = context.getString(R.string.photo_indicator_format,
+                        position + 1,
+                        photos.size)
+                } else {
+                    indicator.visibility = View.GONE
+                }
+
                 val imageView = findViewById<ImageView>(R.id.photo)
                 setImageUrl(imageView, photos[position])
-                container.addView(imageView)
                 imageView.setOnClickListener {
                     val context = it.context
                     val intent = PhotoDetailsActivity.getIntent(context, photos[position])
                     context.startActivity(intent)
                 }
+
+                container.addView(this)
             }
     }
 
