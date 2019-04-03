@@ -7,5 +7,5 @@ fun formatDate(dateString: String): String {
     val locale = Locale.getDefault()
     val time = SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", locale)
         .parse(dateString).time
-    return SimpleDateFormat("dd/MM/yy HH:mm", locale).format(time)
+    return SimpleDateFormat("dd/MM/yyyy HH:mm", locale).format(time)
 }
