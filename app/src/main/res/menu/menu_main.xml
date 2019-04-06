@@ -6,7 +6,9 @@
         android:title="@string/profile"
         android:icon="@drawable/ic_profile"
         app:showAsAction="ifRoom"/>
-
+    <item android:id="@+id/item_privacy"
+        android:title="@string/privacy_terms"
+        app:showAsAction="never"/>
     <item android:id="@+id/item_about"
         android:title="@string/about"
         app:showAsAction="never"/>

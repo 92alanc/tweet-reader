@@ -17,6 +17,7 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
+import com.alancamargo.tweetreader.privacy.PrivacyTermsDialogue
 import com.alancamargo.tweetreader.util.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.View
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         return when (item?.itemId) {
             R.id.item_profile -> showProfile()
             R.id.item_about -> showAppInfo()
+            R.id.item_privacy -> showPrivacyTerms()
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -176,6 +178,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
             .setNeutralButton(R.string.ok, null)
             .show()
 
+        return true
+    }
+
+    private fun showPrivacyTerms(): Boolean {
+        PrivacyTermsDialogue().show(supportFragmentManager, PrivacyTermsDialogue.TAG)
         return true
     }
 
