@@ -123,9 +123,12 @@ fun Context.callApi(func: (token: String) -> Unit) {
 }
 
 fun AppCompatActivity.watchConnectivityState(snackbarView: View) {
+    val snackbar = Snackbar.make(snackbarView, R.string.you_are_offline, Snackbar.LENGTH_INDEFINITE)
     ConnectivityMonitor.isConnected.observe(this, Observer { isConnected ->
         if (!isConnected)
-            Snackbar.make(snackbarView, R.string.you_are_offline, Snackbar.LENGTH_SHORT).show()
+            snackbar.show()
+        else
+            snackbar.dismiss()
     })
 }
 

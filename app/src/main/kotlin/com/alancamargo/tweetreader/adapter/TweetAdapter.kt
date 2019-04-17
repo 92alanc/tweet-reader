@@ -65,7 +65,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         private const val VIEW_TYPE_LINK = 3
 
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {

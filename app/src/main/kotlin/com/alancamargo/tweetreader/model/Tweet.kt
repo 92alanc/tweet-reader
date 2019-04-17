@@ -18,6 +18,17 @@ data class Tweet(
     @SerializedName("extended_entities") var media: Media? = null
 ) {
 
+    override fun equals(other: Any?): Boolean {
+        return if (other == null || other !is Tweet)
+            false
+        else
+            id == other.id
+    }
+
+    override fun hashCode(): Int {
+        return id.toInt()
+    }
+
     class UserConverter {
         private val gson = Gson()
 
