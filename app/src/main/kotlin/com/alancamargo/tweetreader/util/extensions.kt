@@ -142,3 +142,5 @@ fun CoroutineScope.runAsync(func: () -> Unit) {
 fun Context.getVersionName(): String {
     return packageManager.getPackageInfo(packageName, 0).versionName
 }
+
+fun Context.getAppName() = getString(R.string.app_name)

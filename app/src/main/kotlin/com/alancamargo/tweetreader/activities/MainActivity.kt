@@ -17,7 +17,6 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.privacy.PrivacyTermsDialogue
 import com.alancamargo.tweetreader.util.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.View
@@ -182,7 +181,14 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
     }
 
     private fun showPrivacyTerms(): Boolean {
-        PrivacyTermsDialogue().show(supportFragmentManager, PrivacyTermsDialogue.TAG)
+        val appName = getAppName()
+        val message = getString(R.string.privacy_terms_format, appName, appName)
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.privacy_terms)
+            .setMessage(message)
+            .setNeutralButton(R.string.ok, null)
+            .show()
         return true
     }
 
