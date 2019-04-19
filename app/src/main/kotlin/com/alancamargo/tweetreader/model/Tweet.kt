@@ -18,6 +18,10 @@ data class Tweet(
     @SerializedName("extended_entities") var media: Media? = null
 ) {
 
+    fun toJson(): String {
+        return Gson().toJson(this)
+    }
+
     override fun equals(other: Any?): Boolean {
         return if (other == null || other !is Tweet)
             false

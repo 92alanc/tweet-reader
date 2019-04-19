@@ -1,6 +1,7 @@
 package com.alancamargo.tweetreader.repository
 
 import android.content.Context
+import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
@@ -10,6 +11,7 @@ import com.alancamargo.tweetreader.database.TwitterDatabase
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.api.ErrorResponse
 import com.alancamargo.tweetreader.util.callApi
+import com.crashlytics.android.Crashlytics
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,8 +23,12 @@ class TweetRepository(private val context: Context) {
     fun contains(tweet: Tweet): Boolean = database.count(tweet.id) > 0
 
     fun insert(tweet: Tweet) {
-        Log.d(javaClass.simpleName, "added tweet to database")
-        database.insert(tweet)
+        try {
+            database.insert(tweet)
+        } catch (ex: SQLiteConstraintException) {
+            Crashlytics.log("Tweet: ${tweet.toJson()}")
+            Crashlytics.logException(ex)
+        }
     }
 
     fun fetchFromApi(callback: TweetCallback,
