@@ -4,14 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.alancamargo.tweetreader.model.Link
 import com.alancamargo.tweetreader.model.Tweet
 
-@Database(entities = [Tweet::class, Link::class], version = 1, exportSchema = false)
+@Database(entities = [Tweet::class], version = 2, exportSchema = false)
 abstract class TwitterDatabase : RoomDatabase() {
 
     abstract fun tweetDao(): TweetDao
-    abstract fun linkDao(): LinkDao
 
     companion object {
         private var instance: TwitterDatabase? = null
