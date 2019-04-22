@@ -53,85 +53,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="@sample/tweets.json/data/text"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_link_preview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_default"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/txt_tweet"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/padding_default">
-
-                <ImageView
-                    android:id="@+id/img_link_thumbnail"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:importantForAccessibility="no"
-                    app:layout_constraintTop_toTopOf="@+id/txt_link_title"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_link_text"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/txt_link_title"
-                    app:layout_constraintDimensionRatio="4:3"
-                    tools:src="@tools:sample/backgrounds/scenic"/>
-
-                <TextView
-                    android:id="@+id/txt_link_title"
-                    style="@style/Link"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_default"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/img_link_thumbnail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="@sample/tweets.json/data/link_title"/>
-
-                <TextView
-                    android:id="@+id/txt_link"
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginStart="@dimen/margin_default"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    app:layout_constraintTop_toBottomOf="@id/txt_link_title"
-                    app:layout_constraintStart_toEndOf="@id/img_link_thumbnail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="@sample/tweets.json/data/link"/>
-
-                <TextView
-                    android:id="@+id/txt_link_text"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_default"
-                    android:maxLines="4"
-                    android:ellipsize="end"
-                    app:layout_constraintTop_toBottomOf="@id/txt_link"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/img_link_thumbnail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="@sample/tweets.json/data/link_content"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
+        <TextView
+            android:id="@+id/txt_link"
+            style="@style/Link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_default"
             app:layout_constraintTop_toBottomOf="@id/txt_tweet"
-            app:layout_constraintBottom_toTopOf="@+id/txt_creation_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            tools:text="@sample/tweets.json/data/link"/>
 
         <TextView
             android:id="@+id/txt_creation_date"
@@ -139,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
-            app:layout_constraintTop_toBottomOf="@id/card_link_preview"
+            app:layout_constraintTop_toBottomOf="@id/txt_link"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@sample/tweets.json/data/date"/>

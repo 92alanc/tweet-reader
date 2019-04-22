@@ -110,8 +110,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation 'org.jsoup:jsoup:1.8.3'
-    implementation 'io.github.ponnamkarthik:richlinkpreview:1.0.9'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     kapt "androidx.room:room-compiler:$room_version"
