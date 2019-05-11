@@ -1,13 +1,15 @@
-package com.alancamargo.tweetreader.adapter
+package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.adapter.ViewPagerAdapter
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.util.bindView
 
 class PhotoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
-    private val viewPager = itemView.findViewById<ViewPager>(R.id.video_view)
+    private val viewPager by bindView<ViewPager>(R.id.video_view)
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)

@@ -10,9 +10,11 @@ import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import androidx.annotation.ColorRes
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.BuildConfig
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.api.TwitterApi
@@ -147,3 +149,7 @@ fun Context.getVersionName(): String {
 }
 
 fun Context.getAppName() = getString(R.string.app_name)
+
+fun <V: View> RecyclerView.ViewHolder.bindView(@IdRes idRes: Int) = lazy {
+    itemView.findViewById<V>(idRes)
+}

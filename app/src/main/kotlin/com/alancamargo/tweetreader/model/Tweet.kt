@@ -9,13 +9,15 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 @Entity
-@TypeConverters(Tweet.UserConverter::class)
+@TypeConverters(Tweet.TweetConverter::class)
 data class Tweet(
     @SerializedName("created_at") var creationDate: String = "",
     @PrimaryKey var id: Long = 0,
     @SerializedName("full_text") var text: String = "",
     @SerializedName("user") var author: User = User(),
-    @SerializedName("extended_entities") var media: Media? = null
+    @SerializedName("extended_entities") var media: Media? = null,
+    @SerializedName("quoted_status") var quotedTweet: Tweet? = null,
+    @SerializedName("retweeted_status") var retweet: Tweet? = null
 ) {
 
     fun toJson(): String {
@@ -33,7 +35,7 @@ data class Tweet(
         return id.toInt()
     }
 
-    class UserConverter {
+    class TweetConverter {
         private val gson = Gson()
 
         @TypeConverter
@@ -54,6 +56,22 @@ data class Tweet(
         fun stringToMedia(string: String?): Media? {
             return if (string != null)
                 gson.fromJson(string, Media::class.java)
+            else
+                null
+        }
+
+        @TypeConverter
+        fun quotedTweetToString(quotedTweet: Tweet?): String? {
+            return if (quotedTweet != null)
+                gson.toJson(quotedTweet)
+            else
+                null
+        }
+
+        @TypeConverter
+        fun stringToQuotedTweet(string: String?): Tweet? {
+            return if (string != null)
+                gson.fromJson(string, Tweet::class.java)
             else
                 null
         }

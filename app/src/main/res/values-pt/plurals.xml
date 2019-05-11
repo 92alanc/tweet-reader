@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="followers_count">
-        <item quantity="one">%d seguidor</item>
-        <item quantity="other">%d seguidores</item>
+        <item quantity="one">%s seguidor</item>
+        <item quantity="other">%s seguidores</item>
     </plurals>
 </resources>
