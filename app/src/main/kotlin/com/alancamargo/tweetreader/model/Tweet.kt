@@ -15,7 +15,8 @@ data class Tweet(
     @PrimaryKey var id: Long = 0,
     @SerializedName("full_text") var text: String = "",
     @SerializedName("user") var author: User = User(),
-    @SerializedName("extended_entities") var media: Media? = null
+    @SerializedName("extended_entities") var media: Media? = null,
+    @SerializedName("quoted_status") var quotation: Tweet? = null
 ) {
 
     fun toJson(): String {

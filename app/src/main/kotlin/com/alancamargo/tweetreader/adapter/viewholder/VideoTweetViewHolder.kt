@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.adapter
+package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.net.Uri
 import android.view.View

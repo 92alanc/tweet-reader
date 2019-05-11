@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.adapter
+package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
 import android.widget.TextView

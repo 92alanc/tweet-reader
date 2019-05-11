@@ -5,6 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.adapter.viewholder.LinkTweetViewHolder
+import com.alancamargo.tweetreader.adapter.viewholder.PhotoTweetViewHolder
+import com.alancamargo.tweetreader.adapter.viewholder.TweetViewHolder
+import com.alancamargo.tweetreader.adapter.viewholder.VideoTweetViewHolder
 import com.alancamargo.tweetreader.api.MEDIA_PHOTO
 import com.alancamargo.tweetreader.api.MEDIA_VIDEO
 import com.alancamargo.tweetreader.model.Tweet
