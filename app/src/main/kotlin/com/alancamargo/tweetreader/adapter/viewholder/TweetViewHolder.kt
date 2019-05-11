@@ -12,11 +12,11 @@ import de.hdodenhof.circleimageview.CircleImageView
 open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val context = itemView.context
-    private val txtName = itemView.findViewById<TextView>(R.id.txt_name)
-    private val txtScreenName = itemView.findViewById<TextView>(R.id.txt_screen_name)
-    private val imgProfilePicture = itemView.findViewById<CircleImageView>(R.id.img_profile_picture)
-    private val txtTweet = itemView.findViewById<TextView>(R.id.txt_tweet)
-    private val txtCreationDate = itemView.findViewById<TextView>(R.id.txt_creation_date)
+    private val txtName by bindView<TextView>(R.id.txt_name)
+    private val txtScreenName by bindView<TextView>(R.id.txt_screen_name)
+    private val imgProfilePicture by bindView<CircleImageView>(R.id.img_profile_picture)
+    private val txtTweet by bindView<TextView>(R.id.txt_tweet)
+    private val txtCreationDate by bindView<TextView>(R.id.txt_creation_date)
 
     open fun bindTo(tweet: Tweet) {
         txtName.text = tweet.author.name

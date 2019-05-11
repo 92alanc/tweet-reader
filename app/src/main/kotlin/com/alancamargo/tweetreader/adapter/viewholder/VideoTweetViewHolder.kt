@@ -7,11 +7,12 @@ import android.widget.MediaController
 import android.widget.VideoView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.util.bindView
 
 class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
-    private val videoView = itemView.findViewById<VideoView>(R.id.video_view)
-    private val imgVideo = itemView.findViewById<ImageView>(R.id.img_video)
+    private val videoView by bindView<VideoView>(R.id.video_view)
+    private val imgVideo by bindView<ImageView>(R.id.img_video)
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
