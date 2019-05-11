@@ -5,10 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.adapter.viewholder.LinkTweetViewHolder
-import com.alancamargo.tweetreader.adapter.viewholder.PhotoTweetViewHolder
-import com.alancamargo.tweetreader.adapter.viewholder.TweetViewHolder
-import com.alancamargo.tweetreader.adapter.viewholder.VideoTweetViewHolder
+import com.alancamargo.tweetreader.adapter.viewholder.*
 import com.alancamargo.tweetreader.api.MEDIA_PHOTO
 import com.alancamargo.tweetreader.api.MEDIA_VIDEO
 import com.alancamargo.tweetreader.model.Tweet
@@ -35,6 +32,11 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
                 LinkTweetViewHolder(itemView)
             }
 
+            VIEW_TYPE_QUOTED_TWEET -> {
+                val itemView = inflater.inflate(R.layout.item_quoted_tweet, parent, false)
+                QuotedTweetViewHolder(itemView)
+            }
+
             else -> {
                 val itemView = inflater.inflate(R.layout.item_tweet, parent, false)
                 TweetViewHolder(itemView)
@@ -53,11 +55,13 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         val containsPhoto = tweet.media?.contents?.any { it.type == MEDIA_PHOTO } ?: false
         val containsVideo = tweet.media?.contents?.any { it.type == MEDIA_VIDEO } ?: false
         val containsLink = tweet.text.hasLink()
+        val hasQuotedTweet = tweet.quotedTweet != null
 
         return when {
             containsPhoto -> VIEW_TYPE_PHOTO
             containsVideo -> VIEW_TYPE_VIDEO
-            containsLink -> VIEW_TYPE_LINK
+            containsLink && !hasQuotedTweet -> VIEW_TYPE_LINK
+            hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
             else -> VIEW_TYPE_TEXT
         }
     }
@@ -67,6 +71,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         private const val VIEW_TYPE_PHOTO = 1
         private const val VIEW_TYPE_VIDEO = 2
         private const val VIEW_TYPE_LINK = 3
+        private const val VIEW_TYPE_QUOTED_TWEET = 4
 
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
             return oldItem == newItem

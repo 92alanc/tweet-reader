@@ -18,6 +18,7 @@
 
     <!-- region Radius -->
     <dimen name="radius_cardview_default">4dp</dimen>
+    <dimen name="radius_quoted_tweet_outline">10dp</dimen>
     <!-- endregion -->
 
     <!-- region Size -->
