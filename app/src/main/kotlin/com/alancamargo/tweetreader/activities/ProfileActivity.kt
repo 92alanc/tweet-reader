@@ -11,6 +11,7 @@ import com.alancamargo.tweetreader.util.setImageUrl
 import com.alancamargo.tweetreader.util.setMemberSince
 import com.alancamargo.tweetreader.util.watchConnectivityState
 import kotlinx.android.synthetic.main.activity_profile.*
+import java.text.NumberFormat
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -32,8 +33,11 @@ class ProfileActivity : AppCompatActivity() {
             txt_description.text = description
             txt_location.text = location
             setMemberSince(txt_member_since, creationDate)
-            txt_followers_count.text = resources.getQuantityString(R.plurals.followers_count,
-                followersCount, followersCount)
+            txt_followers_count.text = resources.getQuantityString(
+                R.plurals.followers_count,
+                followersCount,
+                NumberFormat.getNumberInstance().format(followersCount)
+            )
         }
     }
 
