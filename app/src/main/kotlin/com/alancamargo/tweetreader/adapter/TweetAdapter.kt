@@ -37,6 +37,11 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
                 QuotedTweetViewHolder(itemView)
             }
 
+            VIEW_TYPE_RETWEET -> {
+                val itemView = inflater.inflate(R.layout.item_retweet, parent, false)
+                RetweetViewHolder(itemView)
+            }
+
             else -> {
                 val itemView = inflater.inflate(R.layout.item_tweet, parent, false)
                 TweetViewHolder(itemView)
@@ -56,12 +61,14 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         val containsVideo = tweet.media?.contents?.any { it.type == MEDIA_VIDEO } ?: false
         val containsLink = tweet.text.hasLink()
         val hasQuotedTweet = tweet.quotedTweet != null
+        val isRetweet = tweet.retweet != null
 
         return when {
             containsPhoto -> VIEW_TYPE_PHOTO
             containsVideo -> VIEW_TYPE_VIDEO
             containsLink && !hasQuotedTweet -> VIEW_TYPE_LINK
             hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
+            isRetweet -> VIEW_TYPE_RETWEET
             else -> VIEW_TYPE_TEXT
         }
     }
@@ -72,6 +79,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         private const val VIEW_TYPE_VIDEO = 2
         private const val VIEW_TYPE_LINK = 3
         private const val VIEW_TYPE_QUOTED_TWEET = 4
+        private const val VIEW_TYPE_RETWEET = 5
 
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
             return oldItem == newItem

@@ -22,7 +22,6 @@ interface TwitterApi {
     fun getTweets(
         @Header(AUTHORISATION_HEADER) authorisation: String,
         @Query(USER_ID_PARAM) userId: String = USER_ID,
-        @Query("include_rts") includeRetweets: Boolean = false,
         @Query("exclude_replies") excludeReplies: Boolean = true,
         @Query("tweet_mode") tweetMode: String = "extended",
         @Query("count") count: Int = 9,

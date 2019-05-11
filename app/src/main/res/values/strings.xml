@@ -11,6 +11,7 @@
     <string name="developer_info">Developed by Alan Camargo.\n\nDisclaimer: I am not responsible for any of the contents displayed in this app.</string>
     <string name="ok" translatable="false">OK</string>
     <string name="photo_indicator_format" translatable="false">%1$d/%2$d</string>
+    <string name="description_retweet" translatable="false">Retweet</string>
     <string name="privacy_terms">Privacy terms</string>
     <string name="privacy_terms_format" translatable="false">
         Alan Camargo built the %1$s app as an Ad Supported app. This SERVICE is provided by Alan Camargo at no cost and is intended for use as is.

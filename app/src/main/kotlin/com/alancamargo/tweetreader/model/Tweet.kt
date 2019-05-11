@@ -16,7 +16,8 @@ data class Tweet(
     @SerializedName("full_text") var text: String = "",
     @SerializedName("user") var author: User = User(),
     @SerializedName("extended_entities") var media: Media? = null,
-    @SerializedName("quoted_status") var quotedTweet: Tweet? = null
+    @SerializedName("quoted_status") var quotedTweet: Tweet? = null,
+    @SerializedName("retweeted_status") var retweet: Tweet? = null
 ) {
 
     fun toJson(): String {

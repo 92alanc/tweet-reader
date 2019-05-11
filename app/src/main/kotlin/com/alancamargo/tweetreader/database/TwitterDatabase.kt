@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.alancamargo.tweetreader.model.Tweet
 
-@Database(entities = [Tweet::class], version = 2, exportSchema = false)
+@Database(entities = [Tweet::class], version = 3, exportSchema = false)
 abstract class TwitterDatabase : RoomDatabase() {
 
     abstract fun tweetDao(): TweetDao
