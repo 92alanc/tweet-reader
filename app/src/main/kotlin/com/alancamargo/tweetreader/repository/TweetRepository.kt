@@ -34,7 +34,7 @@ class TweetRepository(private val context: Context) {
     fun fetchFromApi(callback: TweetCallback,
                      maxId: Long? = null,
                      sinceId: Long? = null) {
-        context.callApi { token ->
+        context.callApi { token, _ ->
             getTweetsFromApi(token, callback, maxId, sinceId)
         }
     }
@@ -42,6 +42,23 @@ class TweetRepository(private val context: Context) {
     fun fetchFromDatabase(callback: TweetCallback) {
         Log.d(javaClass.simpleName, "getTweetsFromDatabase")
         callback.onTweetsFound(database.select())
+    }
+
+    fun fetchSingleTweet(id: Long, callback: SingleTweetCallback) {
+        context.callApi { token, api ->
+            api.getTweet(token, id).enqueue(object : Callback<Tweet> {
+                override fun onResponse(call: Call<Tweet>, response: Response<Tweet>) {
+                    response.body()?.let { tweet ->
+                        callback.onTweetLoaded(tweet)
+                    }
+                }
+
+                override fun onFailure(call: Call<Tweet>, t: Throwable) {
+                    Log.e(javaClass.simpleName, t.message, t)
+                    callback.onError()
+                }
+            })
+        }
     }
 
     @Suppress("UNCHECKED_CAST")
