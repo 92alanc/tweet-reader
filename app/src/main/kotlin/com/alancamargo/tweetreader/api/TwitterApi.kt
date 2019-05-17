@@ -14,20 +14,26 @@ interface TwitterApi {
     @FormUrlEncoded
     @POST("oauth2/token")
     fun postCredentials(
-        @Header(AUTHORISATION_HEADER) authorisation: String,
+        @Header(AUTHORISATION_HEADER) token: String,
         @Field("grant_type") grantType: String = "client_credentials"
     ): Call<OAuth2Token>
 
     @GET("1.1/statuses/user_timeline.json")
     fun getTweets(
-        @Header(AUTHORISATION_HEADER) authorisation: String,
+        @Header(AUTHORISATION_HEADER) token: String,
         @Query(USER_ID_PARAM) userId: String = USER_ID,
-        @Query("exclude_replies") excludeReplies: Boolean = true,
-        @Query("tweet_mode") tweetMode: String = "extended",
+        @Query("tweet_mode") tweetMode: String = TWEET_MODE_EXTENDED,
         @Query("count") count: Int = 9,
         @Query("max_id") maxId: Long? = null,
         @Query("since_id") sinceId: Long? = null
     ): Call<List<Tweet>>
+
+    @GET("1.1/statuses/show.json")
+    fun getTweet(
+        @Header(AUTHORISATION_HEADER) token: String,
+        @Query("id") id: Long,
+        @Query("tweet_mode") tweetMode: String = TWEET_MODE_EXTENDED
+    ): Call<Tweet>
 
     companion object {
         fun getService(): TwitterApi {

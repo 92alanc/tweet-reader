@@ -8,5 +8,7 @@
     <string name="no_data_found">Nenhum dado encontrado</string>
     <string name="about">Sobre</string>
     <string name="developer_info">Desenvolvido por Alan Camargo.\n\nObs.: Eu não sou responsável por nenhum conteúdo exibido neste app.</string>
-    <string name="privacy_terms">Termos de privacidade</string>
+    <string name="description_reply">Resposta</string>
+    <string name="error_loading_tweet">Erro ao carregar tweet</string>
+    <string name="description_quotation">Citação</string>
 </resources>

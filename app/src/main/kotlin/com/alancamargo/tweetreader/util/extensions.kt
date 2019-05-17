@@ -98,7 +98,7 @@ fun String.isUrl() = REGEX_URL.matches(this)
 
 fun String.isPlainText() = !isHashtag() && !isMention() && !isUrl()
 
-fun Context.callApi(func: (token: String) -> Unit) {
+fun Context.callApi(func: (token: String, api: TwitterApi) -> Unit) {
     val preferenceHelper = PreferenceHelper(this)
     val api = TwitterApi.getService()
 
@@ -111,7 +111,7 @@ fun Context.callApi(func: (token: String) -> Unit) {
             override fun onResponse(call: Call<OAuth2Token>, response: Response<OAuth2Token>) {
                 response.body()?.let {
                     preferenceHelper.setAccessToken(it.getAuthorisationHeader())
-                    func(it.getAuthorisationHeader())
+                    func(it.getAuthorisationHeader(), api)
                 }
             }
 
@@ -120,7 +120,7 @@ fun Context.callApi(func: (token: String) -> Unit) {
             }
         })
     } else {
-        func(preferenceHelper.getAccessToken())
+        func(preferenceHelper.getAccessToken(), api)
     }
 }
 
@@ -148,7 +148,7 @@ fun Context.getVersionName(): String {
     return packageManager.getPackageInfo(packageName, 0).versionName
 }
 
-fun Context.getAppName() = getString(R.string.app_name)
+fun Context.getAppName(): String = getString(R.string.app_name)
 
 fun <V: View> RecyclerView.ViewHolder.bindView(@IdRes idRes: Int) = lazy {
     itemView.findViewById<V>(idRes)

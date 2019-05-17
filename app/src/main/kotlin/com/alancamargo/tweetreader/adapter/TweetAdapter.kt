@@ -42,6 +42,11 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
                 RetweetViewHolder(itemView)
             }
 
+            VIEW_TYPE_REPLY -> {
+                val itemView = inflater.inflate(R.layout.item_tweet_reply, parent, false)
+                ReplyViewHolder(itemView)
+            }
+
             else -> {
                 val itemView = inflater.inflate(R.layout.item_tweet, parent, false)
                 TweetViewHolder(itemView)
@@ -51,7 +56,14 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: TweetViewHolder, position: Int) {
         val tweet = getItem(position)
-        holder.bindTo(tweet)
+        if (holder is QuotedTweetViewHolder) {
+            holder.run {
+                bindTo(tweet)
+                bindQuotedTweet()
+            }
+        } else {
+            holder.bindTo(tweet)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -62,6 +74,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         val containsLink = tweet.text.hasLink()
         val hasQuotedTweet = tweet.quotedTweet != null
         val isRetweet = tweet.retweet != null
+        val isReply = tweet.inReplyTo != null
 
         return when {
             containsPhoto -> VIEW_TYPE_PHOTO
@@ -69,6 +82,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
             containsLink && !hasQuotedTweet -> VIEW_TYPE_LINK
             hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
             isRetweet -> VIEW_TYPE_RETWEET
+            isReply -> VIEW_TYPE_REPLY
             else -> VIEW_TYPE_TEXT
         }
     }
@@ -80,6 +94,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         private const val VIEW_TYPE_LINK = 3
         private const val VIEW_TYPE_QUOTED_TWEET = 4
         private const val VIEW_TYPE_RETWEET = 5
+        private const val VIEW_TYPE_REPLY = 6
 
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
             return oldItem == newItem
