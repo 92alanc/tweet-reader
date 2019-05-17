@@ -34,8 +34,8 @@ class TweetRepository(private val context: Context) {
     fun fetchFromApi(callback: TweetCallback,
                      maxId: Long? = null,
                      sinceId: Long? = null) {
-        context.callApi { token, _ ->
-            getTweetsFromApi(token, callback, maxId, sinceId)
+        context.callApi { token, api ->
+            getTweetsFromApi(token, api, callback, maxId, sinceId)
         }
     }
 
@@ -62,14 +62,14 @@ class TweetRepository(private val context: Context) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    private fun getTweetsFromApi(authorisationHeader: String,
+    private fun getTweetsFromApi(token: String,
+                                 api: TwitterApi,
                                  callback: TweetCallback,
                                  maxId: Long? = null,
                                  sinceId: Long? = null) {
         Log.d(javaClass.simpleName, "getTweetsFromApi")
-        val api = TwitterApi.getService()
         api.getTweets(
-            authorisationHeader,
+            token,
             maxId = maxId,
             sinceId = sinceId
         ).enqueue(object : Callback<List<Tweet>> {
