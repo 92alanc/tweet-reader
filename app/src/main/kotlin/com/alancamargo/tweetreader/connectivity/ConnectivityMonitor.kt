@@ -23,13 +23,13 @@ class ConnectivityMonitor : ConnectivityManager.NetworkCallback() {
         connectivityManager.registerNetworkCallback(networkRequest, this)
     }
 
-    override fun onAvailable(network: Network?) {
+    override fun onAvailable(network: Network) {
         super.onAvailable(network)
         isConnected.postValue(true)
         Log.d(javaClass.simpleName, "Connected")
     }
 
-    override fun onLost(network: Network?) {
+    override fun onLost(network: Network) {
         super.onLost(network)
         isConnected.postValue(false)
         Log.d(javaClass.simpleName, "Disconnected")
