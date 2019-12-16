@@ -12,8 +12,6 @@ android {
         applicationId "com.alancamargo.tweetreader"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 9
-        versionName "1.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -45,24 +43,32 @@ android {
     productFlavors {
         bolsonaro {
             dimension "version"
+            versionCode 9
+            versionName "1.8"
             applicationIdSuffix ".bolsonaro"
             buildConfigField "String", "USER_ID", '"128372940"'
         }
 
         joaquinTeixeira {
             dimension "version"
+            versionCode 9
+            versionName "1.8"
             applicationIdSuffix ".joaquinteixeira"
             buildConfigField "String", "USER_ID", '"771843528062304256"'
         }
 
         paulJosephWatson {
             dimension "version"
+            versionCode 9
+            versionName "1.8"
             applicationIdSuffix ".pauljosephwatson"
             buildConfigField "String", "USER_ID", '"18643437"'
         }
 
         trump {
             dimension "version"
+            versionCode 9
+            versionName "1.8"
             applicationIdSuffix ".trump"
             buildConfigField "String", "USER_ID", '"25073877"'
         }
