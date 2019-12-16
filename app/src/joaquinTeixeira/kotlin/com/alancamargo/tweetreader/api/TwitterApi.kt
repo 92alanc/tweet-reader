@@ -26,7 +26,8 @@ interface TwitterApi {
         @Query("count") count: Int = 9,
         @Query("max_id") maxId: Long? = null,
         @Query("since_id") sinceId: Long? = null,
-        @Query("include_rts") includeRetweets: Boolean = false
+        @Query("include_rts") includeRetweets: Boolean = false,
+        @Query("exclude_replies") excludeReplies: Boolean = false
     ): Call<List<Tweet>>
 
     @GET("1.1/statuses/show.json")
