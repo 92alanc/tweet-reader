@@ -1,0 +1,49 @@
+package com.alancamargo.tweetreader.api
+
+import com.alancamargo.tweetreader.BuildConfig.USER_ID
+import com.alancamargo.tweetreader.di.DependencyInjection
+import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.model.api.OAuth2Token
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+
+interface TwitterApi {
+
+    @FormUrlEncoded
+    @POST("oauth2/token")
+    fun postCredentials(
+        @Header(AUTHORISATION_HEADER) token: String,
+        @Field("grant_type") grantType: String = "client_credentials"
+    ): Call<OAuth2Token>
+
+    @GET("1.1/statuses/user_timeline.json")
+    fun getTweets(
+        @Header(AUTHORISATION_HEADER) token: String,
+        @Query(USER_ID_PARAM) userId: String = USER_ID,
+        @Query("tweet_mode") tweetMode: String = TWEET_MODE_EXTENDED,
+        @Query("count") count: Int = 9,
+        @Query("max_id") maxId: Long? = null,
+        @Query("since_id") sinceId: Long? = null,
+        @Query("include_rts") includeRetweets: Boolean = false
+    ): Call<List<Tweet>>
+
+    @GET("1.1/statuses/show.json")
+    fun getTweet(
+        @Header(AUTHORISATION_HEADER) token: String,
+        @Query("id") id: Long,
+        @Query("tweet_mode") tweetMode: String = TWEET_MODE_EXTENDED
+    ): Call<Tweet>
+
+    companion object {
+        fun getService(): TwitterApi {
+            return Retrofit.Builder()
+                .baseUrl(DependencyInjection.baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(TwitterApi::class.java)
+        }
+    }
+
+}
