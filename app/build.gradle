@@ -87,6 +87,10 @@ android {
             assets.srcDirs = ['src/main/assets', 'src/androidTest/assets/']
             java.srcDirs = ['src/main/kotlin']
         }
+        bolsonaro.java.srcDirs = [ 'src/bolsonaro/kotlin' ]
+        joaquinTeixeira.java.srcDirs = [ 'src/joaquinTeixeira/kotlin' ]
+        paulJosephWatson.java.srcDirs = [ 'src/paulJosephWatson/kotlin' ]
+        trump.java.srcDirs = [ 'src/trump/kotlin' ]
         androidTest.java.srcDirs = ['src/androidTest/kotlin']
         test.java.srcDirs = ['src/test/kotlin']
     }
