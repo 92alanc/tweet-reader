@@ -15,4 +15,5 @@
     <string name="description_reply">Reply</string>
     <string name="error_loading_tweet">Error loading tweet</string>
     <string name="description_quotation">Quotation</string>
+    <string name="ad">Ad</string>
 </resources>

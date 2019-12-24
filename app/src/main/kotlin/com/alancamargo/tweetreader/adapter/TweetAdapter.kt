@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.viewholder.*
 import com.alancamargo.tweetreader.api.MEDIA_PHOTO
@@ -11,9 +12,9 @@ import com.alancamargo.tweetreader.api.MEDIA_VIDEO
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.hasLink
 
-class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
+class TweetAdapter : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TweetViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
@@ -47,6 +48,11 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
                 ReplyViewHolder(itemView)
             }
 
+            VIEW_TYPE_AD -> {
+                val itemView = inflater.inflate(R.layout.item_ad, parent, false)
+                AdViewHolder(itemView)
+            }
+
             else -> {
                 val itemView = inflater.inflate(R.layout.item_tweet, parent, false)
                 TweetViewHolder(itemView)
@@ -54,15 +60,19 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         }
     }
 
-    override fun onBindViewHolder(holder: TweetViewHolder, position: Int) {
-        val tweet = getItem(position)
-        if (holder is QuotedTweetViewHolder) {
-            holder.run {
-                bindTo(tweet)
-                bindQuotedTweet()
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is TweetViewHolder) {
+            val tweet = getItem(position)
+            if (holder is QuotedTweetViewHolder) {
+                holder.run {
+                    bindTo(tweet)
+                    bindQuotedTweet()
+                }
+            } else {
+                holder.bindTo(tweet)
             }
-        } else {
-            holder.bindTo(tweet)
+        } else if (holder is AdViewHolder) {
+            holder.start()
         }
     }
 
@@ -75,6 +85,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         val hasQuotedTweet = tweet.quotedTweet != null
         val isRetweet = tweet.retweet != null
         val isReply = tweet.inReplyTo != null
+        val isAd = (position + 1) % 10 == 0
 
         return when {
             containsPhoto -> VIEW_TYPE_PHOTO
@@ -83,6 +94,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
             hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
             isRetweet -> VIEW_TYPE_RETWEET
             isReply -> VIEW_TYPE_REPLY
+            isAd -> VIEW_TYPE_AD
             else -> VIEW_TYPE_TEXT
         }
     }
@@ -95,6 +107,7 @@ class TweetAdapter : ListAdapter<Tweet, TweetViewHolder>(DiffCallback) {
         private const val VIEW_TYPE_QUOTED_TWEET = 4
         private const val VIEW_TYPE_RETWEET = 5
         private const val VIEW_TYPE_REPLY = 6
+        private const val VIEW_TYPE_AD = 7
 
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
             return oldItem == newItem

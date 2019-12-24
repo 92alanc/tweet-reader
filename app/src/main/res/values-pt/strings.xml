@@ -11,4 +11,5 @@
     <string name="description_reply">Resposta</string>
     <string name="error_loading_tweet">Erro ao carregar tweet</string>
     <string name="description_quotation">Citação</string>
+    <string name="ad">Anúncio</string>
 </resources>
