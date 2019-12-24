@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         tweetViewModel.getTweets(lifecycleOwner = this, callback = this)
         configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
-        ad_view.loadAnnoyingAds()
+        ad_view.loadBannerAds()
         watchConnectivityState(snackbarView = ad_view)
     }
 

@@ -13,18 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
 import com.alancamargo.tweetreader.di.DependencyInjection
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-fun AdView.loadAnnoyingAds() {
-    val adRequest = AdRequest.Builder().build()
-    loadAd(adRequest)
-}
 
 fun AppCompatActivity.watchConnectivityState(snackbarView: View) {
     val snackbar = Snackbar.make(snackbarView, R.string.you_are_offline, Snackbar.LENGTH_INDEFINITE)

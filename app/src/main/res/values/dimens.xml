@@ -3,6 +3,7 @@
     <!-- region Height -->
     <dimen name="height_view_pager">250dp</dimen>
     <dimen name="height_video_view">250dp</dimen>
+    <dimen name="height_media_view">175dp</dimen>
     <!-- endregion -->
 
     <!-- region Margin -->
@@ -25,5 +26,15 @@
     <dimen name="size_img_tweet">50dp</dimen>
     <dimen name="size_profile_picture">80dp</dimen>
     <dimen name="size_media_view">100dp</dimen>
+    <dimen name="size_ad_icon">40dp</dimen>
+    <!-- endregion -->
+
+    <!-- region Text size -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    <!-- endregion -->
+
+    <!-- region Width -->
+    <dimen name="width_media_view">250dp</dimen>
     <!-- endregion -->
 </resources>

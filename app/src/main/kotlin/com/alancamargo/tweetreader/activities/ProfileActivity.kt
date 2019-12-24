@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.loadAnnoyingAds
+import com.alancamargo.tweetreader.util.loadBannerAds
 import com.alancamargo.tweetreader.util.setImageUrl
 import com.alancamargo.tweetreader.util.setMemberSince
 import com.alancamargo.tweetreader.util.watchConnectivityState
@@ -20,7 +20,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         title = getString(R.string.title)
         intent.getParcelableExtra<User>(EXTRA_PROFILE).let(::bindData)
-        ad_view.loadAnnoyingAds()
+        ad_view.loadBannerAds()
         watchConnectivityState(ad_view)
     }
 
