@@ -12,7 +12,7 @@ class StringExtensionsTest {
         val string = "This is a test string containing words, punctuation and " +
                 "numbers123."
         val expected = listOf("This", "is", "a", "test", "string", "containing",
-            "words", "punctuation", "and", "numbers123")
+            "words", "punctuation", "and", "numbers123.")
         val actual = string.getWords()
 
         assertThat(actual, `is`(expected))
@@ -119,6 +119,20 @@ class StringExtensionsTest {
         val string = "Check out my github on github.com/alancamargo92, it\'s amazing!"
 
         assertThat(string.hasLink(), `is`(true))
+    }
+
+    @Test
+    fun shouldDetectShortUrl() {
+        val string = "https://t.co/h12345ABc2y"
+
+        assertThat(string.hasLink(), `is`(true))
+    }
+
+    @Test
+    fun shouldNotSplitLinksWhenGettingSeparateWords() {
+        val string = "https://t.co/h12345ABc2y"
+
+        assertThat(string.getWords().size, `is`(1))
     }
 
 }

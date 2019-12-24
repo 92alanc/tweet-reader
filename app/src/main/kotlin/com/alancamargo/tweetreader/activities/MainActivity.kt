@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.item_profile -> showProfile()
             R.id.item_about -> showAppInfo()
             R.id.item_privacy -> showPrivacyTerms()
@@ -134,9 +134,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         if (user == null)
             user = tweets.firstOrNull()?.author
 
-        tweets.forEach { tweet ->
-            tweetViewModel.insert(tweet)
-        }
+        tweets.forEach(tweetViewModel::insert)
 
         if (isRefreshing)
             this.tweets = tweets.union(this.tweets).toList()

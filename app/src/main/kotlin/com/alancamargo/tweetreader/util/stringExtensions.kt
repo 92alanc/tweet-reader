@@ -1,10 +1,7 @@
 package com.alancamargo.tweetreader.util
 
-@Suppress("RegExpRedundantEscape")
 fun String.getWords(): List<String> {
-    return this.split(
-        "(\\s|,|\\.|!|\\?|\\(|\\)\\[|]|\\{|\\}|<|>|;|\\+|-|\\*|$|(\\|)|\\\\)".toRegex()
-    ).toMutableList().apply {
+    return this.split(REGEX_WORDS).toMutableList().apply {
         removeAll { it == "" }
     }
 }
