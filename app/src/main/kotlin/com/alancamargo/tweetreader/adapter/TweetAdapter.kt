@@ -50,23 +50,26 @@ class TweetAdapter : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
     override fun getItemViewType(position: Int): Int {
         val tweet = getItem(position)
 
+        val isAd = (position + 1) % 5 == 0
         val containsPhoto = tweet.media?.contents?.any { it.type == MEDIA_PHOTO } ?: false
         val containsVideo = tweet.media?.contents?.any { it.type == MEDIA_VIDEO } ?: false
         val containsLink = tweet.text.hasLink()
         val hasQuotedTweet = tweet.quotedTweet != null
         val isRetweet = tweet.retweet != null
         val isReply = tweet.inReplyTo != null
-        val isAd = position % 5 == 0
 
-        return when {
-            containsPhoto -> VIEW_TYPE_PHOTO
-            containsVideo -> VIEW_TYPE_VIDEO
-            containsLink && !hasQuotedTweet -> VIEW_TYPE_LINK
-            hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
-            isRetweet -> VIEW_TYPE_RETWEET
-            isReply -> VIEW_TYPE_REPLY
-            isAd -> VIEW_TYPE_AD
-            else -> VIEW_TYPE_TEXT
+        return if (isAd) {
+            VIEW_TYPE_AD
+        } else {
+            when {
+                containsPhoto -> VIEW_TYPE_PHOTO
+                containsVideo -> VIEW_TYPE_VIDEO
+                containsLink && !hasQuotedTweet -> VIEW_TYPE_LINK
+                hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
+                isRetweet -> VIEW_TYPE_RETWEET
+                isReply -> VIEW_TYPE_REPLY
+                else -> VIEW_TYPE_TEXT
+            }
         }
     }
 
@@ -111,14 +114,14 @@ class TweetAdapter : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Tweet>() {
-        private const val VIEW_TYPE_TEXT = 0
-        private const val VIEW_TYPE_PHOTO = 1
-        private const val VIEW_TYPE_VIDEO = 2
-        private const val VIEW_TYPE_LINK = 3
-        private const val VIEW_TYPE_QUOTED_TWEET = 4
-        private const val VIEW_TYPE_RETWEET = 5
-        private const val VIEW_TYPE_REPLY = 6
-        private const val VIEW_TYPE_AD = 7
+        const val VIEW_TYPE_TEXT = 0
+        const val VIEW_TYPE_PHOTO = 1
+        const val VIEW_TYPE_VIDEO = 2
+        const val VIEW_TYPE_LINK = 3
+        const val VIEW_TYPE_QUOTED_TWEET = 4
+        const val VIEW_TYPE_RETWEET = 5
+        const val VIEW_TYPE_REPLY = 6
+        const val VIEW_TYPE_AD = 7
 
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
             return oldItem == newItem
