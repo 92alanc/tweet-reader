@@ -12,4 +12,5 @@
     <string name="error_loading_tweet">Erro ao carregar tweet</string>
     <string name="description_quotation">Citação</string>
     <string name="ad">Anúncio</string>
+    <string name="error_loading_ad">Erro ao carregar o anúncio. Deu sorte!</string>
 </resources>

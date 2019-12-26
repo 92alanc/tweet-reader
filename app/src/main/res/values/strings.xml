@@ -16,4 +16,5 @@
     <string name="error_loading_tweet">Error loading tweet</string>
     <string name="description_quotation">Quotation</string>
     <string name="ad">Ad</string>
+    <string name="error_loading_ad">Error loading ad. Lucky you!</string>
 </resources>

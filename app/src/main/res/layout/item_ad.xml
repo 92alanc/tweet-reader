@@ -125,6 +125,36 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="Buy now!"/>
 
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/label_ad"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_native_ad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="ad_advertiser,ad_app_icon,ad_body,ad_call_to_action,ad_headline,ad_media,ad_price,ad_stars,ad_store"/>
+
+            <TextView
+                android:id="@+id/txt_error"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:text="@string/error_loading_ad"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/label_ad"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </com.google.android.gms.ads.formats.UnifiedNativeAdView>

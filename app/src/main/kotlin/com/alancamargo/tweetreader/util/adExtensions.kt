@@ -48,7 +48,7 @@ private fun UnifiedNativeAdView.fillViews(ad: UnifiedNativeAd) {
 
 private fun UnifiedNativeAdView.fillBody(ad: UnifiedNativeAd) {
     if (ad.body == null) {
-        bodyView.visibility = View.INVISIBLE
+        bodyView.visibility = View.GONE
     } else {
         bodyView.visibility = View.VISIBLE
         (bodyView as TextView).text = ad.body
@@ -57,7 +57,7 @@ private fun UnifiedNativeAdView.fillBody(ad: UnifiedNativeAd) {
 
 private fun UnifiedNativeAdView.fillCallToAction(ad: UnifiedNativeAd) {
     if (ad.callToAction == null) {
-        callToActionView.visibility = View.INVISIBLE
+        callToActionView.visibility = View.GONE
     } else {
         callToActionView.visibility = View.VISIBLE
         (callToActionView as Button).text = ad.callToAction
@@ -77,7 +77,7 @@ private fun UnifiedNativeAdView.fillIcon(ad: UnifiedNativeAd) {
 
 private fun UnifiedNativeAdView.fillPrice(ad: UnifiedNativeAd) {
     if (ad.price == null) {
-        priceView.visibility = View.INVISIBLE
+        priceView.visibility = View.GONE
     } else {
         priceView.visibility = View.VISIBLE
         (priceView as TextView).text = ad.price
@@ -86,7 +86,7 @@ private fun UnifiedNativeAdView.fillPrice(ad: UnifiedNativeAd) {
 
 private fun UnifiedNativeAdView.fillStore(ad: UnifiedNativeAd) {
     if (ad.store == null) {
-        storeView.visibility = View.INVISIBLE
+        storeView.visibility = View.GONE
     } else {
         storeView.visibility = View.VISIBLE
         (storeView as TextView).text = ad.store
@@ -95,7 +95,7 @@ private fun UnifiedNativeAdView.fillStore(ad: UnifiedNativeAd) {
 
 private fun UnifiedNativeAdView.fillRating(ad: UnifiedNativeAd) {
     if (ad.starRating == null) {
-        starRatingView.visibility = View.INVISIBLE
+        starRatingView.visibility = View.GONE
     } else {
         (starRatingView as RatingBar).rating = ad.starRating!!.toFloat()
         starRatingView.visibility = View.VISIBLE
@@ -104,7 +104,7 @@ private fun UnifiedNativeAdView.fillRating(ad: UnifiedNativeAd) {
 
 private fun UnifiedNativeAdView.fillAdvertiser(ad: UnifiedNativeAd) {
     if (ad.advertiser == null) {
-        advertiserView.visibility = View.INVISIBLE
+        advertiserView.visibility = View.GONE
     } else {
         (advertiserView as TextView).text = ad.advertiser
         advertiserView.visibility = View.VISIBLE
