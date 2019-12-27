@@ -3,7 +3,6 @@ package com.alancamargo.tweetreader.util
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.google.android.gms.ads.AdRequest
@@ -30,7 +29,6 @@ private fun UnifiedNativeAdView.bindViews() {
     callToActionView = findViewById(R.id.ad_call_to_action)
     iconView = findViewById(R.id.ad_app_icon)
     priceView = findViewById(R.id.ad_price)
-    starRatingView = findViewById(R.id.ad_stars)
     storeView = findViewById(R.id.ad_store)
 }
 
@@ -42,7 +40,6 @@ private fun UnifiedNativeAdView.fillViews(ad: UnifiedNativeAd) {
     fillIcon(ad)
     fillPrice(ad)
     fillStore(ad)
-    fillRating(ad)
     fillAdvertiser(ad)
 }
 
@@ -90,15 +87,6 @@ private fun UnifiedNativeAdView.fillStore(ad: UnifiedNativeAd) {
     } else {
         storeView.visibility = View.VISIBLE
         (storeView as TextView).text = ad.store
-    }
-}
-
-private fun UnifiedNativeAdView.fillRating(ad: UnifiedNativeAd) {
-    if (ad.starRating == null) {
-        starRatingView.visibility = View.GONE
-    } else {
-        (starRatingView as RatingBar).rating = ad.starRating!!.toFloat()
-        starRatingView.visibility = View.VISIBLE
     }
 }
 
