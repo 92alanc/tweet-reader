@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.toSpannable
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,18 +19,29 @@ import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.*
-import com.alancamargo.tweetreader.viewmodel.TweetViewModel
+import com.alancamargo.tweetreader.viewmodel.MyNewViewModel
 import com.alancamargo.tweetreader.viewmodel.View
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, View {
+class MainActivity : AppCompatActivity(),
+    SwipeRefreshLayout.OnRefreshListener,
+    CoroutineScope,
+    View {
+
+    private val job = Job()
+
+    override val coroutineContext = job + Dispatchers.Main
 
     private val adapter = TweetAdapter()
 
     private val tweetViewModel by lazy {
-        ViewModelProviders.of(this).get(TweetViewModel::class.java)
+        ViewModelProviders.of(this).get(MyNewViewModel::class.java)
     }
 
     private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }
@@ -43,7 +55,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         setContentView(R.layout.activity_main)
         title = getString(R.string.title)
         configureRecyclerView()
-        tweetViewModel.getTweets(lifecycleOwner = this, callback = this)
+        launch {
+            tweetViewModel.getTweets().observe(this@MainActivity, Observer { tweets ->
+                onTweetsFound(tweets, isRefreshing = false)
+            })
+        }
         configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
         ad_view.loadBannerAds()
@@ -54,11 +70,10 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
         val isOnTop = firstVisibleItemPosition == 0
 
-        if (isOnTop) {
+        if (isOnTop)
             super.onBackPressed()
-        } else {
+        else
             recycler_view.smoothScrollToPosition(0)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -100,7 +115,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
     override fun onRefresh() {
         swipe_refresh_layout.isRefreshing = true
         val sinceId = if (tweets.isEmpty()) null else tweets.first().id
-        tweetViewModel.getTweets(lifecycleOwner = this, callback = this, sinceId = sinceId)
+        launch {
+            tweetViewModel.getTweets(sinceId = sinceId).observe(this@MainActivity, Observer { tweets ->
+                onTweetsFound(tweets, isRefreshing = true)
+            })
+        }
     }
 
     private fun configureRecyclerView() {
@@ -109,11 +128,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
             EndlessScrollListener() {
             override fun onLoadMore() {
                 val maxId = if (tweets.isEmpty()) null else tweets.last().id - 1
-                tweetViewModel.getTweets(
-                    lifecycleOwner = this@MainActivity,
-                    callback = this@MainActivity,
-                    maxId = maxId
-                )
+                launch {
+                    tweetViewModel.getTweets(maxId = maxId).observe(this@MainActivity, Observer {
+                        onTweetsFound(it, isRefreshing = true)
+                    })
+                }
             }
         })
     }
@@ -133,8 +152,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
     private fun updateTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
         if (user == null)
             user = tweets.firstOrNull()?.author
-
-        tweets.forEach(tweetViewModel::insert)
 
         if (isRefreshing)
             this.tweets = tweets.union(this.tweets).toList()
