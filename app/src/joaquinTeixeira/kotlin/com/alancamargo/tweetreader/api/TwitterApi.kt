@@ -22,7 +22,7 @@ interface TwitterApi {
     fun getTweets(
         @Header(AUTHORISATION_HEADER) token: String,
         @Query(USER_ID_PARAM) userId: String = USER_ID,
-        @Query("tweet_mode") tweetMode: String = TWEET_MODE_EXTENDED,
+        @Query(TWEET_MODE_PARAM) tweetMode: String = TWEET_MODE_EXTENDED,
         @Query("count") count: Int = 9,
         @Query("max_id") maxId: Long? = null,
         @Query("since_id") sinceId: Long? = null,
@@ -34,7 +34,7 @@ interface TwitterApi {
     fun getTweet(
         @Header(AUTHORISATION_HEADER) token: String,
         @Query("id") id: Long,
-        @Query("tweet_mode") tweetMode: String = TWEET_MODE_EXTENDED
+        @Query(TWEET_MODE_PARAM) tweetMode: String = TWEET_MODE_EXTENDED
     ): Call<Tweet>
 
     companion object {
