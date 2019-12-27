@@ -19,7 +19,7 @@ import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.*
-import com.alancamargo.tweetreader.viewmodel.MyNewViewModel
+import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.View
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(),
     private val adapter = TweetAdapter()
 
     private val tweetViewModel by lazy {
-        ViewModelProviders.of(this).get(MyNewViewModel::class.java)
+        ViewModelProviders.of(this).get(TweetViewModel::class.java)
     }
 
     private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }

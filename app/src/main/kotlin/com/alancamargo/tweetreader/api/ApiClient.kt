@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
 
-    fun getService(token: String): MyNewApi = lazy {
+    fun getService(token: String): TwitterApi = lazy {
         Retrofit.Builder()
             .baseUrl(DependencyInjection.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(buildClient(token))
             .build()
-            .create(MyNewApi::class.java)
+            .create(TwitterApi::class.java)
     }.value
 
     private fun buildClient(token: String): OkHttpClient {

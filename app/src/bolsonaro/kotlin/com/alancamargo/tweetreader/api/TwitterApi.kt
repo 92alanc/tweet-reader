@@ -5,7 +5,7 @@ import com.alancamargo.tweetreader.model.Tweet
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MyNewApi {
+interface TwitterApi {
 
     @GET("1.1/statuses/user_timeline.json")
     suspend fun getTweets(

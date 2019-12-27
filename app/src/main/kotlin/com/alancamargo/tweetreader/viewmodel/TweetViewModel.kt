@@ -2,11 +2,11 @@ package com.alancamargo.tweetreader.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.alancamargo.tweetreader.repository.MyNewRepository
+import com.alancamargo.tweetreader.repository.TweetRepository
 
-class MyNewViewModel(application: Application) : AndroidViewModel(application) {
+class TweetViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = MyNewRepository(application)
+    private val repository = TweetRepository(application)
 
     suspend fun getTweets(
         maxId: Long? = null,

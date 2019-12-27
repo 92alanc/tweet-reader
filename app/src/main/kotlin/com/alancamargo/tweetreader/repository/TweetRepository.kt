@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alancamargo.tweetreader.api.ApiClient
-import com.alancamargo.tweetreader.api.MyNewApi
 import com.alancamargo.tweetreader.api.TokenHelper
+import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.model.Tweet
 
-class MyNewRepository(private val context: Context) {
+class TweetRepository(private val context: Context) {
 
     suspend fun getTweets(maxId: Long? = null, sinceId: Long? = null): LiveData<List<Tweet>> {
         return MutableLiveData<List<Tweet>>().apply {
@@ -20,7 +20,7 @@ class MyNewRepository(private val context: Context) {
         return getApi().getTweet(id)
     }
 
-    private suspend fun getApi(): MyNewApi {
+    private suspend fun getApi(): TwitterApi {
         val token = TokenHelper().getAccessToken(context)
         return ApiClient.getService(token)
     }

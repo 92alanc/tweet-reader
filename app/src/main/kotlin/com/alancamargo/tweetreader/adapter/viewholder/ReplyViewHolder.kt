@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.repository.MyNewRepository
+import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.bindView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView) {
         super.bindTo(tweet)
         quotedTweet.visibility = GONE
         progressBar.visibility = VISIBLE
-        val repository = MyNewRepository(itemView.context)
+        val repository = TweetRepository(itemView.context)
         originalTweet.inReplyTo?.let { id ->
             CoroutineScope(Dispatchers.IO).launch {
                 try {
