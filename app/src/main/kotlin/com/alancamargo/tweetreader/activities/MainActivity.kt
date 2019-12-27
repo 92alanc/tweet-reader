@@ -1,14 +1,11 @@
 package com.alancamargo.tweetreader.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.toSpannable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +15,11 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.*
+import com.alancamargo.tweetreader.util.loadBannerAds
+import com.alancamargo.tweetreader.util.showAppInfo
+import com.alancamargo.tweetreader.util.showPrivacyTerms
+import com.alancamargo.tweetreader.util.watchConnectivityState
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
-import com.alancamargo.tweetreader.viewmodel.View
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,10 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(),
-    SwipeRefreshLayout.OnRefreshListener,
-    CoroutineScope,
-    View {
+class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, CoroutineScope {
 
     private val job = Job()
 
@@ -55,15 +51,16 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         title = getString(R.string.title)
         configureRecyclerView()
-        launch {
-            tweetViewModel.getTweets().observe(this@MainActivity, Observer { tweets ->
-                onTweetsFound(tweets, isRefreshing = false)
-            })
-        }
+        loadTweets()
         configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
         ad_view.loadBannerAds()
         watchConnectivityState(snackbarView = ad_view)
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {
@@ -91,35 +88,10 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onTweetsFound(tweets: List<Tweet>, isRefreshing: Boolean) {
-        Log.d(javaClass.simpleName, "tweets: ${tweets.size}")
-        hideProgressBars()
-        updateTweets(tweets, isRefreshing)
-    }
-
-    override fun onNothingFound() {
-        hideProgressBars()
-    }
-
-    override fun onAccountSuspended() {
-        hideProgressBars()
-
-        menu?.findItem(R.id.item_profile)?.let { item ->
-            item.isVisible = false
-        }
-
-        recycler_view.visibility = GONE
-        group_account_suspended.visibility = VISIBLE
-    }
-
     override fun onRefresh() {
         swipe_refresh_layout.isRefreshing = true
         val sinceId = if (tweets.isEmpty()) null else tweets.first().id
-        launch {
-            tweetViewModel.getTweets(sinceId = sinceId).observe(this@MainActivity, Observer { tweets ->
-                onTweetsFound(tweets, isRefreshing = true)
-            })
-        }
+        loadTweets(sinceId = sinceId, isRefreshing = true)
     }
 
     private fun configureRecyclerView() {
@@ -128,11 +100,7 @@ class MainActivity : AppCompatActivity(),
             EndlessScrollListener() {
             override fun onLoadMore() {
                 val maxId = if (tweets.isEmpty()) null else tweets.last().id - 1
-                launch {
-                    tweetViewModel.getTweets(maxId = maxId).observe(this@MainActivity, Observer {
-                        onTweetsFound(it, isRefreshing = true)
-                    })
-                }
+                loadTweets(maxId = maxId, isRefreshing = true)
             }
         })
     }
@@ -147,6 +115,23 @@ class MainActivity : AppCompatActivity(),
                 R.color.accent
             )
         }
+    }
+
+    private fun loadTweets(
+        maxId: Long? = null,
+        sinceId: Long? = null,
+        isRefreshing: Boolean = false
+    ) {
+        launch {
+            tweetViewModel.getTweets(maxId, sinceId).observe(this@MainActivity, Observer {
+                showTweets(it, isRefreshing)
+            })
+        }
+    }
+
+    private fun showTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
+        hideProgressBars()
+        updateTweets(tweets, isRefreshing)
     }
 
     private fun updateTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
@@ -168,6 +153,18 @@ class MainActivity : AppCompatActivity(),
             swipe_refresh_layout.isRefreshing = false
     }
 
+    // TODO
+    private fun onAccountSuspended() {
+        hideProgressBars()
+
+        menu?.findItem(R.id.item_profile)?.let { item ->
+            item.isVisible = false
+        }
+
+        recycler_view.visibility = GONE
+        group_account_suspended.visibility = VISIBLE
+    }
+
     private fun showProfile(): Boolean {
         if (user != null) {
             val intent = ProfileActivity.getIntent(this, user!!)
@@ -176,34 +173,6 @@ class MainActivity : AppCompatActivity(),
             Crashlytics.log("Null user on menu item click")
             Snackbar.make(ad_view, R.string.no_data_found, Snackbar.LENGTH_SHORT).show()
         }
-        return true
-    }
-
-    private fun showAppInfo(): Boolean {
-        val title = "${getString(R.string.app_name)} ${getVersionName()}"
-        val rawText = getString(R.string.developer_info)
-        val textToHighlight = rawText.split("\n\n").last()
-        val message = rawText.toSpannable()
-            .bold(textToHighlight)
-            .colour(textToHighlight, getColour(R.color.red))
-
-        AlertDialog.Builder(this).setTitle(title)
-            .setMessage(message)
-            .setNeutralButton(R.string.ok, null)
-            .show()
-
-        return true
-    }
-
-    private fun showPrivacyTerms(): Boolean {
-        val appName = getAppName()
-        val message = getString(R.string.privacy_terms_format, appName, appName)
-
-        AlertDialog.Builder(this)
-            .setTitle(R.string.privacy_terms)
-            .setMessage(message)
-            .setNeutralButton(R.string.ok, null)
-            .show()
         return true
     }
 
