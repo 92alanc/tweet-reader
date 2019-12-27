@@ -29,6 +29,7 @@ class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView) {
         originalTweet.inReplyTo?.let { id ->
             CoroutineScope(Dispatchers.IO).launch {
                 try {
+                    // FIXME
                     val repliedTweet = repository.getTweet(id)
                     withContext(Dispatchers.Main) {
                         onTweetLoaded(repliedTweet.value!!)

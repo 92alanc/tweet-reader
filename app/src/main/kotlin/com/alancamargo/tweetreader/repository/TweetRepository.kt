@@ -19,6 +19,7 @@ class TweetRepository(private val context: Context) {
             val tweets = try {
                 getApi().getTweets(maxId = maxId, sinceId = sinceId)
             } catch (ex: Exception) {
+                Log.e(javaClass.simpleName, ex.message, ex)
                 database.select()
             }
 
