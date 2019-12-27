@@ -13,6 +13,7 @@ import com.alancamargo.tweetreader.util.bindView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView) {
 
@@ -28,11 +29,14 @@ class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView) {
         originalTweet.inReplyTo?.let { id ->
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    // FIXME
-                    val quotedTweet = repository.getTweet(id)
-                    onTweetLoaded(quotedTweet)
+                    val repliedTweet = repository.getTweet(id)
+                    withContext(Dispatchers.Main) {
+                        onTweetLoaded(repliedTweet.value!!)
+                    }
                 } catch (ex: Exception) {
-                    onError()
+                    withContext(Dispatchers.Main) {
+                        onError()
+                    }
                 }
             }
         }

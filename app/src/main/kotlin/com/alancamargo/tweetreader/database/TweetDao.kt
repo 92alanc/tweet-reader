@@ -1,6 +1,5 @@
 package com.alancamargo.tweetreader.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -10,12 +9,15 @@ import com.alancamargo.tweetreader.model.Tweet
 interface TweetDao {
 
     @Insert
-    fun insert(tweet: Tweet)
+    suspend fun insert(tweet: Tweet)
 
     @Query("SELECT * FROM Tweet ORDER BY id DESC")
-    fun select(): LiveData<List<Tweet>?>
+    suspend fun select(): List<Tweet>?
+
+    @Query("SELECT * FROM Tweet WHERE id = :id")
+    suspend fun select(id: Long): Tweet?
 
     @Query("SELECT COUNT() FROM Tweet WHERE id = :id")
-    fun count(id: Long): Int
+    suspend fun count(id: Long): Int
 
 }
