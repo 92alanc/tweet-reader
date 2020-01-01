@@ -20,6 +20,6 @@ interface TwitterApi {
     suspend fun getTweet(
         @Query("id") id: Long,
         @Query(TWEET_MODE_PARAM) tweetMode: String = TWEET_MODE_EXTENDED
-    ): Tweet
+    ): Tweet?
 
 }

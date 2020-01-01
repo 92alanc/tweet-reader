@@ -8,12 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.bindView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView) {
 
@@ -25,32 +20,19 @@ class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView) {
         super.bindTo(tweet)
         quotedTweet.visibility = GONE
         progressBar.visibility = VISIBLE
-        val repository = TweetRepository(itemView.context)
-        originalTweet.inReplyTo?.let { id ->
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    // FIXME
-                    val repliedTweet = repository.getTweet(id)
-                    withContext(Dispatchers.Main) {
-                        onTweetLoaded(repliedTweet.value!!)
-                    }
-                } catch (ex: Exception) {
-                    withContext(Dispatchers.Main) {
-                        onError()
-                    }
-                }
-            }
-        }
+        bindRepliedTweet(originalTweet.repliedTweet)
     }
 
-    private fun onTweetLoaded(tweet: Tweet) {
+    private fun bindRepliedTweet(repliedTweet: Tweet?) {
         progressBar.visibility = GONE
         quotedTweet.visibility = VISIBLE
-        originalTweet.quotedTweet = tweet
-        super.bindQuotedTweet()
+        if (repliedTweet != null)
+            super.bindQuotedTweet(repliedTweet)
+        else
+            showError()
     }
 
-    private fun onError() {
+    private fun showError() {
         progressBar.visibility = GONE
         txtError.visibility = VISIBLE
     }

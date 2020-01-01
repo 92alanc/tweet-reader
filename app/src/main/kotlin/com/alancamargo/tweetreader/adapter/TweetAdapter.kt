@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.viewholder.*
-import com.alancamargo.tweetreader.api.MEDIA_PHOTO
-import com.alancamargo.tweetreader.api.MEDIA_VIDEO
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.hasLink
 
@@ -37,7 +35,7 @@ class TweetAdapter : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
             if (holder is QuotedTweetViewHolder) {
                 holder.run {
                     bindTo(tweet)
-                    bindQuotedTweet()
+                    tweet.quotedTweet?.let(::bindQuotedTweet)
                 }
             } else {
                 holder.bindTo(tweet)
@@ -51,12 +49,12 @@ class TweetAdapter : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
         val tweet = getItem(position)
 
         val isAd = (position + 1) % 5 == 0
-        val containsPhoto = tweet.media?.contents?.any { it.type == MEDIA_PHOTO } ?: false
-        val containsVideo = tweet.media?.contents?.any { it.type == MEDIA_VIDEO } ?: false
+        val containsPhoto = tweet.containsPhoto()
+        val containsVideo = tweet.containsVideo()
         val containsLink = tweet.text.hasLink()
-        val hasQuotedTweet = tweet.quotedTweet != null
-        val isRetweet = tweet.retweet != null
-        val isReply = tweet.inReplyTo != null
+        val hasQuotedTweet = tweet.isQuoting()
+        val isRetweet = tweet.isRetweet()
+        val isReply = tweet.isReply()
 
         return if (isAd) {
             VIEW_TYPE_AD

@@ -17,7 +17,12 @@ class TweetRepository(private val context: Context) {
     suspend fun getTweets(maxId: Long? = null, sinceId: Long? = null): LiveData<List<Tweet>> {
         return MutableLiveData<List<Tweet>>().apply {
             val tweets = try {
-                getApi().getTweets(maxId = maxId, sinceId = sinceId)
+                getApi().getTweets(maxId = maxId, sinceId = sinceId).map {
+                    it.also { tweet ->
+                        if (tweet.isReply())
+                            tweet.repliedTweet = loadRepliedTweet(it)
+                    }
+                }
             } catch (ex: Exception) {
                 Log.e(javaClass.simpleName, ex.message, ex)
                 database.select()
@@ -27,22 +32,15 @@ class TweetRepository(private val context: Context) {
         }
     }
 
-    suspend fun getTweet(id: Long): LiveData<Tweet> {
-        return MutableLiveData<Tweet>().apply {
-            val tweet = try {
-                getApi().getTweet(id)
-            } catch (ex: Exception) {
-                Log.e(javaClass.simpleName, ex.message, ex)
-                database.select(id)
-            }
-
-            postValue(tweet)
-        }
-    }
-
     private suspend fun getApi(): TwitterApi {
         val token = TokenHelper().getAccessToken(context)
         return ApiClient.getService(token)
+    }
+
+    private suspend fun loadRepliedTweet(tweet: Tweet): Tweet? {
+        return tweet.inReplyTo?.let { id ->
+            getApi().getTweet(id)
+        }
     }
 
 }

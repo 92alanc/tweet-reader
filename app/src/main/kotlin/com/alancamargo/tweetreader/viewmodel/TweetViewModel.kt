@@ -13,6 +13,4 @@ class TweetViewModel(application: Application) : AndroidViewModel(application) {
         sinceId: Long? = null
     ) = repository.getTweets(maxId, sinceId)
 
-    suspend fun getTweet(id: Long) = repository.getTweet(id)
-
 }

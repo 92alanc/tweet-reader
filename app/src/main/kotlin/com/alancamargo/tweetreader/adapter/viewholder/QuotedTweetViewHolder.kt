@@ -20,10 +20,8 @@ open class QuotedTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
     lateinit var originalTweet: Tweet
 
-    fun bindQuotedTweet() {
-        originalTweet.quotedTweet?.let { quotedTweet ->
-            super.bindTo(quotedTweet)
-        }
+    fun bindQuotedTweet(tweet: Tweet) {
+        super.bindTo(tweet)
     }
 
     override fun bindTo(tweet: Tweet) {
@@ -33,8 +31,9 @@ open class QuotedTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
         txtScreenName.text = tweet.author.screenName
 
         icon.setImageResource(
-            if (tweet.inReplyTo == null) R.drawable.ic_quote
-            else R.drawable.ic_reply
+            if (tweet.isReply()) R.drawable.ic_reply
+            else R.drawable.ic_quote
+
         )
 
         val text = if (tweet.text.hasLink())
