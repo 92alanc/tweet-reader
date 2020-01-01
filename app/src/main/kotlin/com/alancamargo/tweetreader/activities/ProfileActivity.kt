@@ -9,7 +9,6 @@ import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.loadBannerAds
 import com.alancamargo.tweetreader.util.setImageUrl
 import com.alancamargo.tweetreader.util.setMemberSince
-import com.alancamargo.tweetreader.util.watchConnectivityState
 import kotlinx.android.synthetic.main.activity_profile.*
 import java.text.NumberFormat
 
@@ -21,7 +20,6 @@ class ProfileActivity : AppCompatActivity() {
         title = getString(R.string.title)
         intent.getParcelableExtra<User>(EXTRA_PROFILE).let(::bindData)
         ad_view.loadBannerAds()
-        watchConnectivityState(ad_view)
     }
 
     private fun bindData(profile: User) {

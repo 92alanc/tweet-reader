@@ -18,7 +18,6 @@ import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.loadBannerAds
 import com.alancamargo.tweetreader.util.showAppInfo
 import com.alancamargo.tweetreader.util.showPrivacyTerms
-import com.alancamargo.tweetreader.util.watchConnectivityState
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
@@ -55,7 +54,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
         ad_view.loadBannerAds()
-        watchConnectivityState(snackbarView = ad_view)
     }
 
     override fun onDestroy() {
