@@ -11,12 +11,12 @@ class AppLinkClickListener : LinkClickListener {
         val url = when (linkType) {
             LinkType.MENTION -> {
                 val userName = link.replace("@", "")
-                "http://twitter.com/$userName"
+                "$BASE_URL/$userName"
             }
 
             LinkType.HASHTAG -> {
                 val hashtag = link.replace("#", "%23")
-                "http://twitter.com/search?q=$hashtag"
+                "$BASE_URL/search?q=$hashtag"
             }
 
             LinkType.PLAIN_URL -> link
@@ -24,6 +24,10 @@ class AppLinkClickListener : LinkClickListener {
 
         val intent = Intent(ACTION_VIEW, Uri.parse(url))
         context.startActivity(intent)
+    }
+
+    companion object {
+        private const val BASE_URL = "http://twitter.com"
     }
 
 }
