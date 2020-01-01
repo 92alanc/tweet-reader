@@ -15,6 +15,7 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
+import com.alancamargo.tweetreader.util.append
 import com.alancamargo.tweetreader.util.loadBannerAds
 import com.alancamargo.tweetreader.util.showAppInfo
 import com.alancamargo.tweetreader.util.showPrivacyTerms
@@ -146,9 +147,9 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
             user = tweets.firstOrNull()?.author
 
         if (isRefreshing)
-            this.tweets = tweets.union(this.tweets).toList()
+            this.tweets = tweets.append(this.tweets)
         else
-            this.tweets = this.tweets.union(tweets).toList()
+            this.tweets = this.tweets.append(tweets)
 
         adapter.submitList(this.tweets)
     }

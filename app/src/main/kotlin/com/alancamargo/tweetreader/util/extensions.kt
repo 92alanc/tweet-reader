@@ -48,3 +48,5 @@ fun Spannable.link(word: String, textColour: Int, linkType: LinkType) {
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
 }
+
+fun <T> List<T>.append(other: List<T>) = this.union(other).toList()
