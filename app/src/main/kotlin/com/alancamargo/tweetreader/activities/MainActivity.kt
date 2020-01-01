@@ -124,13 +124,22 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
     ) {
         launch {
             tweetViewModel.getTweets(maxId, sinceId).observe(this@MainActivity, Observer {
-                showTweets(it, isRefreshing)
+                if (it == null && noTweetsLoaded()) {
+                    showDisconnectedMessage()
+                } else if (it?.isEmpty() == true) {
+                    hideProgressBars()
+                } else {
+                    it?.let { tweets ->
+                        showTweets(tweets, isRefreshing)
+                    } ?: hideProgressBars()
+                }
             })
         }
     }
 
     private fun showTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
         hideProgressBars()
+        hideDisconnectedMessage()
         updateTweets(tweets, isRefreshing)
     }
 
@@ -153,8 +162,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
             swipe_refresh_layout.isRefreshing = false
     }
 
-    // TODO
-    private fun onAccountSuspended() {
+    private fun showDisconnectedMessage() {
         hideProgressBars()
 
         menu?.findItem(R.id.item_profile)?.let { item ->
@@ -162,7 +170,16 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         }
 
         recycler_view.visibility = GONE
-        group_account_suspended.visibility = VISIBLE
+        group_disconnected.visibility = VISIBLE
+    }
+
+    private fun hideDisconnectedMessage() {
+        menu?.findItem(R.id.item_profile)?.let { item ->
+            item.isVisible = true
+        }
+
+        group_disconnected.visibility = GONE
+        recycler_view.visibility = VISIBLE
     }
 
     private fun showProfile(): Boolean {
@@ -175,5 +192,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         }
         return true
     }
+
+    private fun noTweetsLoaded() = this.tweets.isEmpty()
 
 }

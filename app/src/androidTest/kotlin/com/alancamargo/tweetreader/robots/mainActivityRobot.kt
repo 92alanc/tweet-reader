@@ -57,7 +57,7 @@ class MainActivityResult {
 
     fun accountSuspendedMessageIsDisplayed() {
         displayed {
-            id(R.id.txt_account_suspended)
+            id(R.id.txt_disconnected)
         }
     }
 
