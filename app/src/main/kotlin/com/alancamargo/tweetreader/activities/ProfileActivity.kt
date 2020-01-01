@@ -12,11 +12,10 @@ import com.alancamargo.tweetreader.util.setMemberSince
 import kotlinx.android.synthetic.main.activity_profile.*
 import java.text.NumberFormat
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
         title = getString(R.string.title)
         intent.getParcelableExtra<User>(EXTRA_PROFILE).let(::bindData)
         ad_view.loadBannerAds()

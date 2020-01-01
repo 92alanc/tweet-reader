@@ -28,7 +28,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, CoroutineScope {
+class MainActivity : AppCompatActivity(R.layout.activity_main),
+    SwipeRefreshLayout.OnRefreshListener,
+    CoroutineScope {
 
     private val job = Job()
 
@@ -48,7 +50,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         title = getString(R.string.title)
         configureRecyclerView()
         loadTweets()
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
 
     override fun onRefresh() {
         swipe_refresh_layout.isRefreshing = true
-        val sinceId = if (tweets.isEmpty()) null else tweets.first().id
+        val sinceId = tweets.getSinceId()
         loadTweets(sinceId = sinceId, isRefreshing = true)
     }
 
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
         recycler_view.addOnScrollListener(object :
             EndlessScrollListener() {
             override fun onLoadMore() {
-                val maxId = if (tweets.isEmpty()) null else tweets.last().id - 1
+                val maxId = tweets.getMaxId()
                 loadTweets(maxId = maxId, isRefreshing = false)
             }
         })
@@ -193,5 +194,19 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
     }
 
     private fun noTweetsLoaded() = this.tweets.isEmpty()
+
+    private fun List<Tweet>.getMaxId(): Long? {
+        return if (isEmpty())
+            null
+        else
+            last().id - 1
+    }
+
+    private fun List<Tweet>.getSinceId(): Long? {
+        return if (isEmpty())
+            null
+        else
+            first().id
+    }
 
 }

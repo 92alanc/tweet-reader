@@ -9,7 +9,7 @@ import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModel
 import kotlinx.android.synthetic.main.activity_photo_details.*
 
-class PhotoDetailsActivity : AppCompatActivity() {
+class PhotoDetailsActivity : AppCompatActivity(R.layout.activity_photo_details) {
 
     private val photo by lazy { intent.getStringExtra(EXTRA_PHOTO) }
 
@@ -19,7 +19,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo_details)
         title = getString(R.string.title)
         viewModel.loadPhoto(photo, img_photo)
         bt_close.run {
