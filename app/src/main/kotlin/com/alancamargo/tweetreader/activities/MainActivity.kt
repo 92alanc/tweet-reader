@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, 
             EndlessScrollListener() {
             override fun onLoadMore() {
                 val maxId = if (tweets.isEmpty()) null else tweets.last().id - 1
-                loadTweets(maxId = maxId, isRefreshing = true)
+                loadTweets(maxId = maxId, isRefreshing = false)
             }
         })
     }
