@@ -7,7 +7,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     private val adapter = TweetAdapter()
 
-    private val tweetViewModel by lazy {
-        ViewModelProviders.of(this).get(TweetViewModel::class.java)
+    private val tweetViewModel: TweetViewModel by lazy {
+        ViewModelProvider(this).get(TweetViewModel::class.java)
     }
 
     private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }

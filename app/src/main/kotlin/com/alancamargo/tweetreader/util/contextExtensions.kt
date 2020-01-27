@@ -1,18 +1,11 @@
 package com.alancamargo.tweetreader.util
 
 import android.content.Context
-import android.net.ConnectivityManager
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.text.toSpannable
 import com.alancamargo.tweetreader.R
-
-fun Context.isConnected(): Boolean {
-    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val activeNetworkInfo = connectivityManager.activeNetworkInfo
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected
-}
 
 fun Context.getColour(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
 
