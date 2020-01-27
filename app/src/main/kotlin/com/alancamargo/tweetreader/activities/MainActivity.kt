@@ -25,16 +25,10 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
-    SwipeRefreshLayout.OnRefreshListener,
-    CoroutineScope {
-
-    private val job = Job()
-
-    override val coroutineContext = job + Dispatchers.Main
+    SwipeRefreshLayout.OnRefreshListener {
 
     private val adapter = TweetAdapter()
 
@@ -56,11 +50,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         configureSwipeRefreshLayout()
         progress_bar.visibility = VISIBLE
         ad_view.loadBannerAds()
-    }
-
-    override fun onDestroy() {
-        job.cancel()
-        super.onDestroy()
     }
 
     override fun onBackPressed() {
@@ -105,16 +94,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         })
     }
 
-    private fun configureSwipeRefreshLayout() {
-        swipe_refresh_layout.run {
-            setOnRefreshListener(this@MainActivity)
-            setColorSchemeResources(
-                R.color.primary,
-                R.color.accent,
-                R.color.primary_dark,
-                R.color.accent
-            )
-        }
+    private fun configureSwipeRefreshLayout() = with(swipe_refresh_layout) {
+        setOnRefreshListener(this@MainActivity)
+        setColorSchemeResources(
+            R.color.primary,
+            R.color.accent,
+            R.color.primary_dark,
+            R.color.accent
+        )
     }
 
     private fun loadTweets(
@@ -122,7 +109,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         sinceId: Long? = null,
         isRefreshing: Boolean = false
     ) {
-        launch {
+        CoroutineScope(Dispatchers.Main).launch {
             tweetViewModel.getTweets(maxId, sinceId).observe(this@MainActivity, Observer {
                 if (it == null && noTweetsLoaded()) {
                     showDisconnectedMessage()
