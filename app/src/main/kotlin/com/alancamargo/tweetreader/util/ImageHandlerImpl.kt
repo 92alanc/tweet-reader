@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
 
-class AppImageHandler : ImageHandler {
+class ImageHandlerImpl : ImageHandler {
 
     override fun loadImage(url: String?, target: ImageView) {
         val options = DisplayImageOptions.Builder()

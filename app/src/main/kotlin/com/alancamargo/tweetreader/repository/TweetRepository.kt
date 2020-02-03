@@ -1,13 +1,13 @@
 package com.alancamargo.tweetreader.repository
 
-import android.content.Context
-import android.util.Log
 import com.alancamargo.tweetreader.api.ApiClient
 import com.alancamargo.tweetreader.api.TokenHelper
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.model.Tweet
+import com.crashlytics.android.Crashlytics
+import retrofit2.HttpException
 
-class TweetRepository(private val context: Context) {
+class TweetRepository(private val tokenHelper: TokenHelper) {
 
     suspend fun getTweets(maxId: Long? = null, sinceId: Long? = null): List<Tweet> {
         return try {
@@ -17,14 +17,14 @@ class TweetRepository(private val context: Context) {
                         tweet.repliedTweet = loadRepliedTweet(it)
                 }
             }
-        } catch (ex: Exception) {
-            Log.e(javaClass.simpleName, ex.message, ex)
+        } catch (ex: HttpException) {
+            Crashlytics.logException(ex)
             emptyList()
         }
     }
 
     private suspend fun getApi(): TwitterApi {
-        val token = TokenHelper().getAccessToken(context)
+        val token = tokenHelper.getAccessTokenAndUpdateCache()
         return ApiClient.getService(token)
     }
 

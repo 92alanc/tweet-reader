@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 
-class AppLinkClickListener : LinkClickListener {
+class LinkClickListenerImpl : LinkClickListener {
 
     override fun onLinkClicked(context: Context, link: String, linkType: LinkType) {
         val url = when (linkType) {

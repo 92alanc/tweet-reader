@@ -20,20 +20,20 @@ import com.alancamargo.tweetreader.util.loadBannerAds
 import com.alancamargo.tweetreader.util.showAppInfo
 import com.alancamargo.tweetreader.util.showPrivacyTerms
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
+import com.alancamargo.tweetreader.viewmodel.TweetViewModelFactory
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     SwipeRefreshLayout.OnRefreshListener {
 
     private val adapter = TweetAdapter()
-
-    private val tweetViewModel: TweetViewModel by lazy {
-        ViewModelProvider(this).get(TweetViewModel::class.java)
-    }
-
+    private val viewModelFactory by inject<TweetViewModelFactory>()
     private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }
+
+    private lateinit var tweetViewModel: TweetViewModel
 
     private var user: User? = null
     private var menu: Menu? = null
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.title)
+        setUpViewModel()
         configureRecyclerView()
         loadTweets()
         configureSwipeRefreshLayout()
@@ -78,6 +79,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         swipe_refresh_layout.isRefreshing = true
         val sinceId = tweets.getSinceId()
         loadTweets(sinceId = sinceId, isRefreshing = true)
+    }
+
+    private fun setUpViewModel() {
+        tweetViewModel = ViewModelProvider(this, viewModelFactory).get(
+            TweetViewModel::class.java
+        )
     }
 
     private fun configureRecyclerView() {

@@ -1,17 +1,14 @@
 package com.alancamargo.tweetreader.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.repository.TweetRepository
 import kotlinx.coroutines.launch
 
-class TweetViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = TweetRepository(application)
+class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
 
     private val tweetsLiveData = MutableLiveData<List<Tweet>>()
 
