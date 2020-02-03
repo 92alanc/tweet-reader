@@ -7,17 +7,18 @@ import com.alancamargo.tweetreader.api.token.TokenHelper
 import com.alancamargo.tweetreader.api.token.TokenHelperImpl
 import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.*
-import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModelFactory
-import com.alancamargo.tweetreader.viewmodel.TweetViewModelFactory
+import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModel
+import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 fun getModules() = listOf(data, api, helpers, ui)
 
 private val data = module {
+    viewModel { TweetViewModel(get()) }
+    viewModel { PhotoDetailsViewModel(get()) }
     factory { TweetRepository(get()) }
-    factory { TweetViewModelFactory(get()) }
-    factory { PhotoDetailsViewModelFactory(get()) }
 }
 
 private val api = module {

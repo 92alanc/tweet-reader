@@ -7,7 +7,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
@@ -20,20 +19,18 @@ import com.alancamargo.tweetreader.util.loadBannerAds
 import com.alancamargo.tweetreader.util.showAppInfo
 import com.alancamargo.tweetreader.util.showPrivacyTerms
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
-import com.alancamargo.tweetreader.viewmodel.TweetViewModelFactory
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     SwipeRefreshLayout.OnRefreshListener {
 
-    private val viewModelFactory by inject<TweetViewModelFactory>()
     private val adapter by inject<TweetAdapter>()
+    private val viewModel by viewModel<TweetViewModel>()
     private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }
-
-    private lateinit var tweetViewModel: TweetViewModel
 
     private var user: User? = null
     private var menu: Menu? = null
@@ -42,7 +39,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.title)
-        setUpViewModel()
         configureRecyclerView()
         loadTweets()
         configureSwipeRefreshLayout()
@@ -81,12 +77,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         loadTweets(sinceId = sinceId, isRefreshing = true)
     }
 
-    private fun setUpViewModel() {
-        tweetViewModel = ViewModelProvider(this, viewModelFactory).get(
-            TweetViewModel::class.java
-        )
-    }
-
     private fun configureRecyclerView() {
         recycler_view.adapter = adapter
         recycler_view.addOnScrollListener(object :
@@ -113,7 +103,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         sinceId: Long? = null,
         isRefreshing: Boolean = false
     ) {
-        tweetViewModel.getTweets(maxId, sinceId).observe(this, Observer {
+        viewModel.getTweets(maxId, sinceId).observe(this, Observer {
             if (it.isEmpty() && noTweetsLoaded())
                 showDisconnectedMessage()
             else if (it.isEmpty())
