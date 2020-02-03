@@ -153,6 +153,6 @@ dependencies {
     // endregion
 
     // region Unit test libraries
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.12'
     // endregion
 }
