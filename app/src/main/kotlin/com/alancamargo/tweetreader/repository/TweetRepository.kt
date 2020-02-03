@@ -1,36 +1,31 @@
 package com.alancamargo.tweetreader.repository
 
-import com.alancamargo.tweetreader.api.ApiClient
-import com.alancamargo.tweetreader.api.TokenHelper
 import com.alancamargo.tweetreader.api.TwitterApi
+import com.alancamargo.tweetreader.api.provider.ApiProvider
 import com.alancamargo.tweetreader.model.Tweet
 import com.crashlytics.android.Crashlytics
-import retrofit2.HttpException
 
-class TweetRepository(private val tokenHelper: TokenHelper) {
+class TweetRepository(private val apiProvider: ApiProvider) {
 
     suspend fun getTweets(maxId: Long? = null, sinceId: Long? = null): List<Tweet> {
         return try {
-            getApi().getTweets(maxId = maxId, sinceId = sinceId).map {
+            val api = apiProvider.getTwitterApi()
+            api.getTweets(maxId = maxId, sinceId = sinceId).map {
                 it.also { tweet ->
                     if (tweet.isReply())
-                        tweet.repliedTweet = loadRepliedTweet(it)
+                        tweet.repliedTweet = loadRepliedTweet(api, it)
                 }
             }
-        } catch (ex: HttpException) {
-            Crashlytics.logException(ex)
+        } catch (t: Throwable) {
+            // TODO: handle different error codes
+            Crashlytics.logException(t)
             emptyList()
         }
     }
 
-    private suspend fun getApi(): TwitterApi {
-        val token = tokenHelper.getAccessTokenAndUpdateCache()
-        return ApiClient.getService(token)
-    }
-
-    private suspend fun loadRepliedTweet(tweet: Tweet): Tweet? {
+    private suspend fun loadRepliedTweet(api: TwitterApi, tweet: Tweet): Tweet? {
         return tweet.inReplyTo?.let { id ->
-            getApi().getTweet(id)
+            api.getTweet(id)
         }
     }
 
