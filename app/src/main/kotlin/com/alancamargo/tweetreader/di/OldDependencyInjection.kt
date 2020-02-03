@@ -3,7 +3,7 @@ package com.alancamargo.tweetreader.di
 import com.alancamargo.tweetreader.util.ImageHandler
 import com.alancamargo.tweetreader.util.LinkClickListener
 
-object DependencyInjection {
+object OldDependencyInjection {
 
     lateinit var imageHandler: ImageHandler
         private set

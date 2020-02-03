@@ -3,7 +3,7 @@ package com.alancamargo.tweetreader.adapter.viewholder
 import android.view.View
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.di.DependencyInjection
+import com.alancamargo.tweetreader.di.OldDependencyInjection
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.LinkType
 import com.alancamargo.tweetreader.util.bindView
@@ -20,7 +20,7 @@ class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
             txtLink.run {
                 text = link
                 setOnClickListener {
-                    DependencyInjection.linkClickListener.onLinkClicked(
+                    OldDependencyInjection.linkClickListener.onLinkClicked(
                         context, link, LinkType.PLAIN_URL
                     )
                 }

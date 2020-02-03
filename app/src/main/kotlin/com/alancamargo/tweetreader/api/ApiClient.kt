@@ -1,6 +1,6 @@
 package com.alancamargo.tweetreader.api
 
-import com.alancamargo.tweetreader.di.DependencyInjection
+import com.alancamargo.tweetreader.di.OldDependencyInjection
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,7 +10,7 @@ object ApiClient {
 
     fun getService(token: String): TwitterApi = lazy {
         Retrofit.Builder()
-            .baseUrl(DependencyInjection.baseUrl)
+            .baseUrl(OldDependencyInjection.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(buildClient(token))
             .build()

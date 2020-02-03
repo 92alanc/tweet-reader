@@ -6,11 +6,11 @@ import android.widget.TextView
 import androidx.core.text.toSpannable
 import androidx.databinding.BindingAdapter
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.di.DependencyInjection
+import com.alancamargo.tweetreader.di.OldDependencyInjection
 
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String?) {
-    DependencyInjection.imageHandler.loadImage(url, imageView)
+    OldDependencyInjection.imageHandler.loadImage(url, imageView)
 }
 
 @BindingAdapter("timestamp")
