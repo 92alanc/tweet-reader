@@ -6,6 +6,8 @@ fun String.getWords(): List<String> {
     }
 }
 
+fun String.extractLink() = getWords().find { it.isUrl() }
+
 fun String.isHashtag() = REGEX_HASHTAG.matches(this)
 
 fun String.isMention() = REGEX_MENTION.matches(this)

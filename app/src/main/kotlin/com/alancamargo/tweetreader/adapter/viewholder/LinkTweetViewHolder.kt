@@ -4,7 +4,7 @@ import android.view.View
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.extractLinkFrom
+import com.alancamargo.tweetreader.util.extractLink
 import kotlinx.android.synthetic.main.item_tweet_link.*
 
 class LinkTweetViewHolder(
@@ -16,12 +16,13 @@ class LinkTweetViewHolder(
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
 
-        extractLinkFrom(tweet.text)?.let { link ->
-            txt_link.run {
+        tweet.text.extractLink()?.let { link ->
+            with(txt_link) {
                 text = link
                 setOnClickListener {
                     linkClickListener.onLinkClicked(
-                        context, link,
+                        context,
+                        link,
                         LinkClickListener.LinkType.PLAIN_URL
                     )
                 }
