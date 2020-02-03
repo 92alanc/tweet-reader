@@ -13,21 +13,18 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-fun getModules() = listOf(data, api, helpers, ui)
+fun getModules() = listOf(data, helpers, ui)
 
 private val data = module {
     viewModel { TweetViewModel(get()) }
     viewModel { PhotoDetailsViewModel(get()) }
     factory { TweetRepository(get()) }
-}
-
-private val api = module {
-    factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
     factory { ApiProvider(BASE_URL, get()) }
 }
 
 private val helpers = module {
     factory<PreferenceHelper> { PreferenceHelperImpl(androidContext()) }
+    factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
 }
 
 private val ui = module {
