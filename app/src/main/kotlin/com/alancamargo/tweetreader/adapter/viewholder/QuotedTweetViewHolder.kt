@@ -9,7 +9,10 @@ import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.*
 import de.hdodenhof.circleimageview.CircleImageView
 
-open class QuotedTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
+open class QuotedTweetViewHolder(
+    itemView: View,
+    imageHandler: ImageHandler
+) : TweetViewHolder(itemView, imageHandler) {
 
     private val imgProfilePicture by bindView<CircleImageView>(R.id.img_profile_picture_original)
     private val txtName by bindView<TextView>(R.id.txt_name_original)
@@ -26,7 +29,7 @@ open class QuotedTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
 
     override fun bindTo(tweet: Tweet) {
         originalTweet = tweet
-        setImageUrl(imgProfilePicture, tweet.author.profilePictureUrl)
+        imageHandler.loadImage(tweet.author.profilePictureUrl, imgProfilePicture)
         txtName.text = tweet.author.name
         txtScreenName.text = tweet.author.screenName
 

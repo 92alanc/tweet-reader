@@ -9,7 +9,10 @@ import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.*
 import de.hdodenhof.circleimageview.CircleImageView
 
-open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+open class TweetViewHolder(
+    itemView: View,
+    protected val imageHandler: ImageHandler
+) : RecyclerView.ViewHolder(itemView) {
 
     private val context = itemView.context
     private val txtName by bindView<TextView>(R.id.txt_name)
@@ -21,7 +24,7 @@ open class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     open fun bindTo(tweet: Tweet) {
         txtName.text = tweet.author.name
         txtScreenName.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
-        setImageUrl(imgProfilePicture, tweet.author.profilePictureUrl)
+        imageHandler.loadImage(tweet.author.profilePictureUrl, imgProfilePicture)
         val text = if (tweet.text.hasLink()) {
             tweet.text.replace(REGEX_URL, "")
         } else {

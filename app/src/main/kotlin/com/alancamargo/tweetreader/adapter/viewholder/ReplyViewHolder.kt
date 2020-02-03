@@ -8,9 +8,13 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.util.ImageHandler
 import com.alancamargo.tweetreader.util.bindView
 
-class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView) {
+class ReplyViewHolder(
+    itemView: View,
+    imageHandler: ImageHandler
+) : QuotedTweetViewHolder(itemView, imageHandler) {
 
     private val progressBar by bindView<ProgressBar>(R.id.progress_bar)
     private val txtError by bindView<TextView>(R.id.txt_error)

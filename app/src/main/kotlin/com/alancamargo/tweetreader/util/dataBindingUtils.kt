@@ -8,11 +8,6 @@ import androidx.databinding.BindingAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.OldDependencyInjection
 
-@BindingAdapter("imageUrl")
-fun setImageUrl(imageView: ImageView, url: String?) {
-    OldDependencyInjection.imageHandler.loadImage(url, imageView)
-}
-
 @BindingAdapter("timestamp")
 fun setTimestamp(textView: TextView, timestamp: String) {
     textView.text = formatDate(timestamp)

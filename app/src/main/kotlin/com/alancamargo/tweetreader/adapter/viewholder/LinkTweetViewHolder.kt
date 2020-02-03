@@ -5,11 +5,15 @@ import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.di.OldDependencyInjection
 import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.util.ImageHandler
 import com.alancamargo.tweetreader.util.LinkType
 import com.alancamargo.tweetreader.util.bindView
 import com.alancamargo.tweetreader.util.extractLinkFrom
 
-class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
+class LinkTweetViewHolder(
+    itemView: View,
+    imageHandler: ImageHandler
+) : TweetViewHolder(itemView, imageHandler) {
 
     private val txtLink by bindView<TextView>(R.id.txt_link)
 

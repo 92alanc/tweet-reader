@@ -15,10 +15,7 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.append
-import com.alancamargo.tweetreader.util.loadBannerAds
-import com.alancamargo.tweetreader.util.showAppInfo
-import com.alancamargo.tweetreader.util.showPrivacyTerms
+import com.alancamargo.tweetreader.util.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.alancamargo.tweetreader.viewmodel.TweetViewModelFactory
 import com.crashlytics.android.Crashlytics
@@ -29,15 +26,16 @@ import org.koin.android.ext.android.inject
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     SwipeRefreshLayout.OnRefreshListener {
 
-    private val adapter = TweetAdapter()
+    private val imageHandler by inject<ImageHandler>()
     private val viewModelFactory by inject<TweetViewModelFactory>()
     private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }
+    private val adapter = TweetAdapter(imageHandler)
 
     private lateinit var tweetViewModel: TweetViewModel
 
     private var user: User? = null
     private var menu: Menu? = null
-    private var tweets: List<Tweet> = listOf()
+    private var tweets: List<Tweet> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
