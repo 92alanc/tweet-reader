@@ -6,8 +6,13 @@ import com.alancamargo.tweetreader.util.PreferenceHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Credentials
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-class TokenHelperImpl(private val preferenceHelper: PreferenceHelper) : TokenHelper {
+class TokenHelperImpl(
+    private val preferenceHelper: PreferenceHelper,
+    private val baseUrl: String
+) : TokenHelper {
 
     override suspend fun getAccessTokenAndUpdateCache(): String {
         val cachedToken = preferenceHelper.getAccessToken()
@@ -18,16 +23,24 @@ class TokenHelperImpl(private val preferenceHelper: PreferenceHelper) : TokenHel
                 CONSUMER_SECRET
             )
 
-            val authClient = AuthenticationApiClient.getService()
+            val authenticationApi = buildAuthenticationApi()
 
             withContext(Dispatchers.IO) {
-                authClient.postCredentials(tempCredentials).getAuthorisationHeader().also { newToken ->
-                    preferenceHelper.setAccessToken(newToken)
+                authenticationApi.postCredentials(tempCredentials).getAuthorisationHeader().also {
+                    preferenceHelper.setAccessToken(it)
                 }
             }
         } else {
             cachedToken
         }
+    }
+
+    private fun buildAuthenticationApi(): AuthenticationApi {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(AuthenticationApi::class.java)
     }
 
 }

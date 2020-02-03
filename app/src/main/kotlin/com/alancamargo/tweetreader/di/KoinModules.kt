@@ -20,7 +20,7 @@ private val data = module {
 }
 
 private val api = module {
-    factory<TokenHelper> { TokenHelperImpl(get()) }
+    factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
     factory { ApiProvider(BASE_URL, get()) }
 }
 

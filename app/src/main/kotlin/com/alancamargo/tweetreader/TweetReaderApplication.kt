@@ -1,7 +1,6 @@
 package com.alancamargo.tweetreader
 
 import androidx.multidex.MultiDexApplication
-import com.alancamargo.tweetreader.api.BASE_URL
 import com.alancamargo.tweetreader.di.OldDependencyInjection
 import com.alancamargo.tweetreader.di.getModules
 import com.alancamargo.tweetreader.util.ImageHandlerImpl
@@ -22,10 +21,7 @@ class TweetReaderApplication : MultiDexApplication() {
         FirebaseApp.initializeApp(this)
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         startDependencyInjection()
-        OldDependencyInjection.init(
-            ImageHandlerImpl(), BASE_URL,
-            LinkClickListenerImpl()
-        )
+        OldDependencyInjection.init(ImageHandlerImpl(), LinkClickListenerImpl())
     }
 
     private fun startDependencyInjection() {
