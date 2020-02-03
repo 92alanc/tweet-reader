@@ -30,11 +30,7 @@ private val data = module {
 }
 
 private val helpers = module {
-    factory<PreferenceHelper> {
-        PreferenceHelperImpl(
-            androidContext()
-        )
-    }
+    factory<PreferenceHelper> { PreferenceHelperImpl(androidContext()) }
     factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
 }
 
