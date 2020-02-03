@@ -23,9 +23,6 @@ import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
     SwipeRefreshLayout.OnRefreshListener {
@@ -109,19 +106,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         sinceId: Long? = null,
         isRefreshing: Boolean = false
     ) {
-        CoroutineScope(Dispatchers.Main).launch {
-            tweetViewModel.getTweets(maxId, sinceId).observe(this@MainActivity, Observer {
-                if (it == null && noTweetsLoaded()) {
-                    showDisconnectedMessage()
-                } else if (it?.isEmpty() == true) {
-                    hideProgressBars()
-                } else {
-                    it?.let { tweets ->
-                        showTweets(tweets, isRefreshing)
-                    } ?: hideProgressBars()
-                }
-            })
-        }
+        tweetViewModel.getTweets(maxId, sinceId).observe(this, Observer {
+            if (it.isEmpty() && noTweetsLoaded())
+                showDisconnectedMessage()
+            else if (it.isEmpty())
+                hideProgressBars()
+            else
+                showTweets(it, isRefreshing)
+        })
     }
 
     private fun showTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
