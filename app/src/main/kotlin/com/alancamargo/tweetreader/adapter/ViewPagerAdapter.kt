@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.PhotoDetailsActivity
-import com.alancamargo.tweetreader.util.ImageHandler
+import com.alancamargo.tweetreader.handlers.ImageHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ViewPagerAdapter(
     private val photos: List<String>,
@@ -29,7 +32,11 @@ class ViewPagerAdapter(
                 }
 
                 val imageView = findViewById<ImageView>(R.id.photo)
-                imageHandler.loadImage(photos[position], imageView)
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    imageHandler.loadImage(photos[position], imageView)
+                }
+
                 imageView.setOnClickListener {
                     val context = it.context
                     val intent = PhotoDetailsActivity.getIntent(context, photos[position])

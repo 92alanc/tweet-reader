@@ -7,8 +7,8 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.ImageHandler
 import com.alancamargo.tweetreader.util.LinkClickListener
 import com.alancamargo.tweetreader.util.bindView
 

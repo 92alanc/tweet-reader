@@ -1,16 +1,16 @@
 package com.alancamargo.tweetreader.viewmodel
 
+import android.widget.ImageView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alancamargo.tweetreader.handlers.ImageHandler
-import com.github.chrisbanes.photoview.PhotoView
 import kotlinx.coroutines.launch
 
-class PhotoDetailsViewModel(private val imageHandler: ImageHandler) : ViewModel() {
+class ProfileViewModel(private val imageHandler: ImageHandler) : ViewModel() {
 
-    fun loadPhoto(photoUrl: String, photoView: PhotoView) {
+    fun loadPhoto(photoUrl: String, imageView: ImageView) {
         viewModelScope.launch {
-            imageHandler.loadImage(photoUrl, photoView)
+            imageHandler.loadImage(photoUrl, imageView)
         }
     }
 

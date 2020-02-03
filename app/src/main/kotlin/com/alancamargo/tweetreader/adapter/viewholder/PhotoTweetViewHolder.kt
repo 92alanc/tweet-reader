@@ -4,8 +4,8 @@ import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.ViewPagerAdapter
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.ImageHandler
 import com.alancamargo.tweetreader.util.LinkClickListener
 import com.alancamargo.tweetreader.util.bindView
 

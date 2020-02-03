@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.viewholder.*
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.ImageHandler
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.util.LinkClickListener
 import com.alancamargo.tweetreader.util.hasLink
 

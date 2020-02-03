@@ -1,13 +1,18 @@
 package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.*
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 open class TweetViewHolder(
     itemView: View,
@@ -25,15 +30,22 @@ open class TweetViewHolder(
     open fun bindTo(tweet: Tweet) {
         txtName.text = tweet.author.name
         txtScreenName.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
-        imageHandler.loadImage(tweet.author.profilePictureUrl, imgProfilePicture)
-        val text = if (tweet.text.hasLink()) {
+        loadProfilePicture(tweet.author.profilePictureUrl, imgProfilePicture)
+
+        val text = if (tweet.text.hasLink())
             tweet.text.replace(REGEX_URL, "")
-        } else {
+        else
             tweet.text
-        }
+
         setTweetText(txtTweet, text.replace("&amp;", "&"), linkClickListener)
         setTimestamp(txtCreationDate, tweet.creationDate)
         configureAuthorDataClick(tweet)
+    }
+
+    protected fun loadProfilePicture(url: String, imageView: ImageView) {
+        CoroutineScope(Dispatchers.Main).launch {
+            imageHandler.loadImage(url, imageView)
+        }
     }
 
     private fun configureAuthorDataClick(tweet: Tweet) {

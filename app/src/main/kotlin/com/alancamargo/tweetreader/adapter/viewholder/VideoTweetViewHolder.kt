@@ -6,8 +6,8 @@ import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.VideoView
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.ImageHandler
 import com.alancamargo.tweetreader.util.LinkClickListener
 import com.alancamargo.tweetreader.util.bindView
 

@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.*
 import de.hdodenhof.circleimageview.CircleImageView
@@ -30,7 +31,7 @@ open class QuotedTweetViewHolder(
 
     override fun bindTo(tweet: Tweet) {
         originalTweet = tweet
-        imageHandler.loadImage(tweet.author.profilePictureUrl, imgProfilePicture)
+        loadProfilePicture(tweet.author.profilePictureUrl, imgProfilePicture)
         txtName.text = tweet.author.name
         txtScreenName.text = tweet.author.screenName
 

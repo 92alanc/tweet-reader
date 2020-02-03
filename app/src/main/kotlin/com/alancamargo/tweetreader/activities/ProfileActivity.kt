@@ -6,16 +6,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.ImageHandler
 import com.alancamargo.tweetreader.util.loadBannerAds
 import com.alancamargo.tweetreader.util.setMemberSince
+import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.NumberFormat
 
 class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
 
-    private val imageHandler by inject<ImageHandler>()
+    private val viewModel by viewModel<ProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +26,8 @@ class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
 
     private fun bindData(profile: User) {
         with(profile) {
-            imageHandler.loadImage(profileBannerUrl, img_profile_banner)
-            imageHandler.loadImage(profilePictureUrl, img_profile_picture)
+            viewModel.loadPhoto(profileBannerUrl, img_profile_banner)
+            viewModel.loadPhoto(profilePictureUrl, img_profile_picture)
             txt_name.text = name
             txt_screen_name.text = getString(R.string.screen_name_format, screenName)
             txt_description.text = description

@@ -3,6 +3,7 @@ package com.alancamargo.tweetreader.adapter.viewholder
 import android.view.View
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.*
 
