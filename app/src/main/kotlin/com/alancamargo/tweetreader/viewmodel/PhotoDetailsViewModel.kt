@@ -1,14 +1,13 @@
 package com.alancamargo.tweetreader.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import com.alancamargo.tweetreader.di.DependencyInjection
+import androidx.lifecycle.ViewModel
+import com.alancamargo.tweetreader.util.ImageHandler
 import com.github.chrisbanes.photoview.PhotoView
 
-class PhotoDetailsViewModel(application: Application) : AndroidViewModel(application) {
+class PhotoDetailsViewModel(private val imageHandler: ImageHandler) : ViewModel() {
 
     fun loadPhoto(photo: String, photoView: PhotoView) {
-        DependencyInjection.imageHandler.loadImage(photo, photoView)
+        imageHandler.loadImage(photo, photoView)
     }
 
 }

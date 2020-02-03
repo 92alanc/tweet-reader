@@ -7,6 +7,7 @@ import com.alancamargo.tweetreader.api.TokenHelperImpl
 import com.alancamargo.tweetreader.di.DependencyInjection
 import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.*
+import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModelFactory
 import com.alancamargo.tweetreader.viewmodel.TweetViewModelFactory
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
@@ -46,6 +47,7 @@ class TweetReaderApplication : MultiDexApplication() {
         factory<TokenHelper> { TokenHelperImpl(get()) }
         factory { TweetRepository(get()) }
         factory { TweetViewModelFactory(get()) }
+        factory { PhotoDetailsViewModelFactory(get()) }
     }
 
 }
