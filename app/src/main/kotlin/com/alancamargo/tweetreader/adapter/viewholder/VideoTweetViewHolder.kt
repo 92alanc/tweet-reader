@@ -8,12 +8,14 @@ import android.widget.VideoView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.ImageHandler
+import com.alancamargo.tweetreader.util.LinkClickListener
 import com.alancamargo.tweetreader.util.bindView
 
 class VideoTweetViewHolder(
     itemView: View,
-    imageHandler: ImageHandler
-) : TweetViewHolder(itemView, imageHandler) {
+    imageHandler: ImageHandler,
+    linkClickListener: LinkClickListener
+) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
 
     private val videoView by bindView<VideoView>(R.id.video_view)
     private val imgVideo by bindView<ImageView>(R.id.img_video)

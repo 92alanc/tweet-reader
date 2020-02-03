@@ -11,8 +11,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 open class QuotedTweetViewHolder(
     itemView: View,
-    imageHandler: ImageHandler
-) : TweetViewHolder(itemView, imageHandler) {
+    imageHandler: ImageHandler,
+    linkClickListener: LinkClickListener
+) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
 
     private val imgProfilePicture by bindView<CircleImageView>(R.id.img_profile_picture_original)
     private val txtName by bindView<TextView>(R.id.txt_name_original)
@@ -44,7 +45,7 @@ open class QuotedTweetViewHolder(
         else
             tweet.text
 
-        setTweetText(txtTweet, text.replace("&amp;", "&"))
+        setTweetText(txtTweet, text.replace("&amp;", "&"), linkClickListener)
         setTimestamp(txtCreationDate, tweet.creationDate)
         configureAuthorDataClick(tweet)
     }

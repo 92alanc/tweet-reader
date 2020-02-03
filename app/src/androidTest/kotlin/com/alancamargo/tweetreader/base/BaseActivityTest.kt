@@ -6,7 +6,6 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.rule.ActivityTestRule
 import br.com.concretesolutions.kappuccino.utils.doWait
-import com.alancamargo.tweetreader.di.OldDependencyInjection
 import com.alancamargo.tweetreader.mock.MockImageHandler
 import com.alancamargo.tweetreader.mock.MockLinkClickListener
 import okhttp3.mockwebserver.MockWebServer

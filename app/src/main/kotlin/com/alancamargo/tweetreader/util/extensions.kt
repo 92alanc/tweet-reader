@@ -8,7 +8,6 @@ import android.text.style.StyleSpan
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
-import com.alancamargo.tweetreader.di.OldDependencyInjection
 
 fun <V: View> RecyclerView.ViewHolder.bindView(@IdRes idRes: Int) = lazy {
     itemView.findViewById<V>(idRes)
@@ -32,15 +31,16 @@ fun Spannable.colour(text: String, colour: Int) = apply {
     )
 }
 
-fun Spannable.link(word: String, textColour: Int, linkType: LinkType) {
+fun Spannable.link(
+    word: String,
+    textColour: Int,
+    linkType: LinkType,
+    linkClickListener: LinkClickListener
+) {
     setSpan(
         object : ClickableTextSpan(textColour) {
             override fun onClick(widget: View) {
-                OldDependencyInjection.linkClickListener.onLinkClicked(
-                    widget.context,
-                    word,
-                    linkType
-                )
+                linkClickListener.onLinkClicked(widget.context, word, linkType)
             }
         },
         toString().indexOf(word),

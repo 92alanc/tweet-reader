@@ -1,9 +1,7 @@
 package com.alancamargo.tweetreader
 
 import androidx.multidex.MultiDexApplication
-import com.alancamargo.tweetreader.di.OldDependencyInjection
 import com.alancamargo.tweetreader.di.getModules
-import com.alancamargo.tweetreader.util.LinkClickListenerImpl
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -20,7 +18,6 @@ class TweetReaderApplication : MultiDexApplication() {
         FirebaseApp.initializeApp(this)
         MobileAds.initialize(this, getString(R.string.admob_app_id))
         startDependencyInjection()
-        OldDependencyInjection.init(LinkClickListenerImpl())
     }
 
     private fun startDependencyInjection() {

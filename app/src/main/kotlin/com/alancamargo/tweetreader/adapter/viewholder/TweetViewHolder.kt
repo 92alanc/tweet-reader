@@ -11,7 +11,8 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 open class TweetViewHolder(
     itemView: View,
-    protected val imageHandler: ImageHandler
+    protected val imageHandler: ImageHandler,
+    protected val linkClickListener: LinkClickListener
 ) : RecyclerView.ViewHolder(itemView) {
 
     private val context = itemView.context
@@ -30,7 +31,7 @@ open class TweetViewHolder(
         } else {
             tweet.text
         }
-        setTweetText(txtTweet, text.replace("&amp;", "&"))
+        setTweetText(txtTweet, text.replace("&amp;", "&"), linkClickListener)
         setTimestamp(txtCreationDate, tweet.creationDate)
         configureAuthorDataClick(tweet)
     }
