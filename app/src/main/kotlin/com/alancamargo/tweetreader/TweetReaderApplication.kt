@@ -14,10 +14,14 @@ class TweetReaderApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        configureImageLoader()
+        startFirebase()
+        startDependencyInjection()
+        startImageLoader()
+    }
+
+    private fun startFirebase() {
         FirebaseApp.initializeApp(this)
         MobileAds.initialize(this, getString(R.string.admob_app_id))
-        startDependencyInjection()
     }
 
     private fun startDependencyInjection() {
@@ -27,7 +31,7 @@ class TweetReaderApplication : MultiDexApplication() {
         }
     }
 
-    private fun configureImageLoader() {
+    private fun startImageLoader() {
         val config = ImageLoaderConfiguration.createDefault(this)
         ImageLoader.getInstance().init(config)
     }
