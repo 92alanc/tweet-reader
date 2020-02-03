@@ -4,6 +4,7 @@ import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.core.text.toSpannable
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 
 fun setTimestamp(textView: TextView, timestamp: String) {
     textView.text = formatDate(timestamp)
@@ -26,10 +27,10 @@ fun setTweetText(textView: TextView, rawText: String, linkClickListener: LinkCli
         if (word.isPlainText()) continue
 
         val linkType = when {
-            isHashtag -> LinkType.HASHTAG
-            isMention -> LinkType.MENTION
-            isUrl -> LinkType.PLAIN_URL
-            else -> LinkType.PLAIN_URL
+            isHashtag -> LinkClickListener.LinkType.HASHTAG
+            isMention -> LinkClickListener.LinkType.MENTION
+            isUrl -> LinkClickListener.LinkType.PLAIN_URL
+            else -> LinkClickListener.LinkType.PLAIN_URL
         }
 
         formattedText.link(word, textColour, linkType, linkClickListener)

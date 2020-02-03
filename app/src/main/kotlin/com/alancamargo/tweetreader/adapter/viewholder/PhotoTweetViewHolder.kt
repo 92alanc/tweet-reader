@@ -6,7 +6,7 @@ import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.ViewPagerAdapter
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.LinkClickListener
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.util.bindView
 
 class PhotoTweetViewHolder(

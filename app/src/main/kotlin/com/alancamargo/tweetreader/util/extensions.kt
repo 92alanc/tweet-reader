@@ -8,6 +8,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 
 fun <V: View> RecyclerView.ViewHolder.bindView(@IdRes idRes: Int) = lazy {
     itemView.findViewById<V>(idRes)
@@ -34,7 +35,7 @@ fun Spannable.colour(text: String, colour: Int) = apply {
 fun Spannable.link(
     word: String,
     textColour: Int,
-    linkType: LinkType,
+    linkType: LinkClickListener.LinkType,
     linkClickListener: LinkClickListener
 ) {
     setSpan(
@@ -48,5 +49,3 @@ fun Spannable.link(
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
 }
-
-fun <T> List<T>.append(other: List<T>) = this.union(other).toList()

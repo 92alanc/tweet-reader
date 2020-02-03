@@ -7,8 +7,11 @@ import com.alancamargo.tweetreader.api.token.TokenHelper
 import com.alancamargo.tweetreader.api.token.TokenHelperImpl
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.handlers.ImageHandlerImpl
+import com.alancamargo.tweetreader.helpers.LinkClickListener
+import com.alancamargo.tweetreader.helpers.LinkClickListenerImpl
+import com.alancamargo.tweetreader.helpers.PreferenceHelper
+import com.alancamargo.tweetreader.helpers.PreferenceHelperImpl
 import com.alancamargo.tweetreader.repository.TweetRepository
-import com.alancamargo.tweetreader.util.*
 import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModel
 import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
@@ -27,7 +30,11 @@ private val data = module {
 }
 
 private val helpers = module {
-    factory<PreferenceHelper> { PreferenceHelperImpl(androidContext()) }
+    factory<PreferenceHelper> {
+        PreferenceHelperImpl(
+            androidContext()
+        )
+    }
     factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
 }
 

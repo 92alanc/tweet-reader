@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.LinkClickListener
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.util.bindView
 import com.alancamargo.tweetreader.util.setTimestamp
 import de.hdodenhof.circleimageview.CircleImageView

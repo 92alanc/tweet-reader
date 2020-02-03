@@ -3,7 +3,7 @@ package com.alancamargo.tweetreader.api.token
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_KEY
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_SECRET
 import com.alancamargo.tweetreader.api.AuthenticationApi
-import com.alancamargo.tweetreader.util.PreferenceHelper
+import com.alancamargo.tweetreader.helpers.PreferenceHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Credentials

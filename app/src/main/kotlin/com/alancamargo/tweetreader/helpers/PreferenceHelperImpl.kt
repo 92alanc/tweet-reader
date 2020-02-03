@@ -1,8 +1,9 @@
-package com.alancamargo.tweetreader.util
+package com.alancamargo.tweetreader.helpers
 
 import android.content.Context
 
-class PreferenceHelperImpl(context: Context) : PreferenceHelper {
+class PreferenceHelperImpl(context: Context) :
+    PreferenceHelper {
 
     private val preferences = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
 

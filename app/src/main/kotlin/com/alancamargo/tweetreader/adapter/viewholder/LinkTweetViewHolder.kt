@@ -4,8 +4,10 @@ import android.view.View
 import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.handlers.ImageHandler
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.*
+import com.alancamargo.tweetreader.util.bindView
+import com.alancamargo.tweetreader.util.extractLinkFrom
 
 class LinkTweetViewHolder(
     itemView: View,
@@ -22,7 +24,10 @@ class LinkTweetViewHolder(
             txtLink.run {
                 text = link
                 setOnClickListener {
-                    linkClickListener.onLinkClicked(context, link, LinkType.PLAIN_URL)
+                    linkClickListener.onLinkClicked(
+                        context, link,
+                        LinkClickListener.LinkType.PLAIN_URL
+                    )
                 }
             }
         }

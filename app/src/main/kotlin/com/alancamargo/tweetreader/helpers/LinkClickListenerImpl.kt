@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.util
+package com.alancamargo.tweetreader.helpers
 
 import android.content.Context
 import android.content.Intent
@@ -7,19 +7,22 @@ import android.net.Uri
 
 class LinkClickListenerImpl : LinkClickListener {
 
-    override fun onLinkClicked(context: Context, link: String, linkType: LinkType) {
+    override fun onLinkClicked(
+        context: Context, link: String,
+        linkType: LinkClickListener.LinkType
+    ) {
         val url = when (linkType) {
-            LinkType.MENTION -> {
+            LinkClickListener.LinkType.MENTION -> {
                 val userName = link.replace("@", "")
                 "$BASE_URL/$userName"
             }
 
-            LinkType.HASHTAG -> {
+            LinkClickListener.LinkType.HASHTAG -> {
                 val hashtag = link.replace("#", "%23")
                 "$BASE_URL/search?q=$hashtag"
             }
 
-            LinkType.PLAIN_URL -> link
+            LinkClickListener.LinkType.PLAIN_URL -> link
         }
 
         val intent = Intent(ACTION_VIEW, Uri.parse(url))

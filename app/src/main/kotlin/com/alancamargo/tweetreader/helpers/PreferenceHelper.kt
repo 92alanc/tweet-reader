@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.util
+package com.alancamargo.tweetreader.helpers
 
 interface PreferenceHelper {
     fun getAccessToken(): String?

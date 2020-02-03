@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.*
 import de.hdodenhof.circleimageview.CircleImageView
