@@ -1,14 +1,11 @@
 package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
-import android.widget.TextView
-import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.handlers.ImageHandler
-import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.helpers.LinkClickListener
-import com.alancamargo.tweetreader.util.bindView
+import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.setTimestamp
-import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.item_retweet.*
 
 class RetweetViewHolder(
     itemView: View,
@@ -16,16 +13,11 @@ class RetweetViewHolder(
     linkClickListener: LinkClickListener
 ) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
 
-    private val imgProfilePicture by bindView<CircleImageView>(R.id.img_profile_picture_original)
-    private val txtName by bindView<TextView>(R.id.txt_name_original)
-    private val txtScreenName by bindView<TextView>(R.id.txt_screen_name_original)
-    private val txtCreationDate by bindView<TextView>(R.id.txt_creation_date_original)
-
     override fun bindTo(tweet: Tweet) {
-        loadProfilePicture(tweet.author.profilePictureUrl, imgProfilePicture)
-        txtName.text = tweet.author.name
-        txtScreenName.text = tweet.author.screenName
-        setTimestamp(txtCreationDate, tweet.creationDate)
+        loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture_original)
+        txt_name_original.text = tweet.author.name
+        txt_screen_name_original.text = tweet.author.screenName
+        setTimestamp(txt_creation_date_original, tweet.creationDate)
 
         tweet.retweet?.let { retweet ->
             super.bindTo(retweet)

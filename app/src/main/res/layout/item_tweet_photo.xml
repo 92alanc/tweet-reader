@@ -57,7 +57,7 @@
             tools:text="@sample/tweets.json/data/text"/>
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/video_view"
+            android:id="@+id/view_pager"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_view_pager"
             android:layout_marginTop="@dimen/margin_default"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
             android:textIsSelectable="true"
-            app:layout_constraintTop_toBottomOf="@id/video_view"
+            app:layout_constraintTop_toBottomOf="@id/view_pager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@sample/tweets.json/data/date"/>

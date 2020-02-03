@@ -2,15 +2,18 @@ package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.*
-import de.hdodenhof.circleimageview.CircleImageView
+import com.alancamargo.tweetreader.util.REGEX_URL
+import com.alancamargo.tweetreader.util.hasLink
+import com.alancamargo.tweetreader.util.setTimestamp
+import com.alancamargo.tweetreader.util.setTweetText
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_tweet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,27 +22,24 @@ open class TweetViewHolder(
     itemView: View,
     protected val imageHandler: ImageHandler,
     protected val linkClickListener: LinkClickListener
-) : RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     private val context = itemView.context
-    private val txtName by bindView<TextView>(R.id.txt_name)
-    private val txtScreenName by bindView<TextView>(R.id.txt_screen_name)
-    private val imgProfilePicture by bindView<CircleImageView>(R.id.img_profile_picture)
-    private val txtTweet by bindView<TextView>(R.id.txt_tweet)
-    private val txtCreationDate by bindView<TextView>(R.id.txt_creation_date)
+
+    override val containerView: View? = itemView
 
     open fun bindTo(tweet: Tweet) {
-        txtName.text = tweet.author.name
-        txtScreenName.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
-        loadProfilePicture(tweet.author.profilePictureUrl, imgProfilePicture)
+        txt_name.text = tweet.author.name
+        txt_screen_name.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
+        loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture)
 
         val text = if (tweet.text.hasLink())
             tweet.text.replace(REGEX_URL, "")
         else
             tweet.text
 
-        setTweetText(txtTweet, text.replace("&amp;", "&"), linkClickListener)
-        setTimestamp(txtCreationDate, tweet.creationDate)
+        setTweetText(txt_tweet, text.replace("&amp;", "&"), linkClickListener)
+        setTimestamp(txt_creation_date, tweet.creationDate)
         configureAuthorDataClick(tweet)
     }
 
@@ -56,9 +56,9 @@ open class TweetViewHolder(
             context.startActivity(intent)
         }
 
-        txtName.setOnClickListener(clickListener)
-        txtScreenName.setOnClickListener(clickListener)
-        imgProfilePicture.setOnClickListener(clickListener)
+        txt_name.setOnClickListener(clickListener)
+        txt_screen_name.setOnClickListener(clickListener)
+        img_profile_picture.setOnClickListener(clickListener)
     }
 
 }

@@ -3,14 +3,10 @@ package com.alancamargo.tweetreader.adapter.viewholder
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.handlers.ImageHandler
-import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.helpers.LinkClickListener
-import com.alancamargo.tweetreader.util.bindView
+import com.alancamargo.tweetreader.model.Tweet
+import kotlinx.android.synthetic.main.item_tweet_reply.*
 
 class ReplyViewHolder(
     itemView: View,
@@ -18,20 +14,16 @@ class ReplyViewHolder(
     linkClickListener: LinkClickListener
 ) : QuotedTweetViewHolder(itemView, imageHandler, linkClickListener) {
 
-    private val progressBar by bindView<ProgressBar>(R.id.progress_bar)
-    private val txtError by bindView<TextView>(R.id.txt_error)
-    private val quotedTweet by bindView<FrameLayout>(R.id.quoted_tweet)
-
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
-        quotedTweet.visibility = GONE
-        progressBar.visibility = VISIBLE
+        quoted_tweet.visibility = GONE
+        progress_bar.visibility = VISIBLE
         bindRepliedTweet(originalTweet.repliedTweet)
     }
 
     private fun bindRepliedTweet(repliedTweet: Tweet?) {
-        progressBar.visibility = GONE
-        quotedTweet.visibility = VISIBLE
+        progress_bar.visibility = GONE
+        quoted_tweet.visibility = VISIBLE
         if (repliedTweet != null)
             super.bindQuotedTweet(repliedTweet)
         else
@@ -39,8 +31,8 @@ class ReplyViewHolder(
     }
 
     private fun showError() {
-        progressBar.visibility = GONE
-        txtError.visibility = VISIBLE
+        progress_bar.visibility = GONE
+        txt_error.visibility = VISIBLE
     }
 
 }
