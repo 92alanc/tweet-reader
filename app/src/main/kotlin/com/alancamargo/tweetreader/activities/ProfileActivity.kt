@@ -45,8 +45,7 @@ class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
         private const val EXTRA_PROFILE = "com.alancamargo.tweetreader.EXTRA_PROFILE"
 
         fun getIntent(context: Context, profile: User): Intent {
-            return Intent(context, ProfileActivity::class.java)
-                .putExtra(EXTRA_PROFILE, profile)
+            return Intent(context, ProfileActivity::class.java).putExtra(EXTRA_PROFILE, profile)
         }
     }
 

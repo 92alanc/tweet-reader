@@ -32,8 +32,7 @@ class PhotoDetailsActivity : AppCompatActivity(R.layout.activity_photo_details) 
         private const val EXTRA_PHOTO = "com.alancamargo.tweetreader.EXTRA_PHOTO"
 
         fun getIntent(context: Context, photo: String): Intent {
-            return Intent(context, PhotoDetailsActivity::class.java)
-                .putExtra(EXTRA_PHOTO, photo)
+            return Intent(context, PhotoDetailsActivity::class.java).putExtra(EXTRA_PHOTO, photo)
         }
     }
 
