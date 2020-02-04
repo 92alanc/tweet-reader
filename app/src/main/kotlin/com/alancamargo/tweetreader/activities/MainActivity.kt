@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     private var user: User? = null
     private var menu: Menu? = null
-    private var tweets: List<Tweet> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,17 +70,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     override fun onRefresh() {
         swipe_refresh_layout.isRefreshing = true
-        val sinceId = tweets.getSinceId()
-        loadTweets(sinceId = sinceId, isRefreshing = true)
+        loadTweets(isRefreshing = true)
     }
 
     private fun configureRecyclerView() {
         recycler_view.adapter = adapter
-        recycler_view.addOnScrollListener(object :
-            EndlessScrollListener() {
+        recycler_view.addOnScrollListener(object : EndlessScrollListener() {
             override fun onLoadMore() {
-                val maxId = tweets.getMaxId()
-                loadTweets(maxId = maxId, isRefreshing = false)
+                loadTweets(hasScrolledToBottom = true)
             }
         })
     }
@@ -96,38 +92,27 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         )
     }
 
-    private fun loadTweets(
-        maxId: Long? = null,
-        sinceId: Long? = null,
-        isRefreshing: Boolean = false
-    ) {
+    private fun loadTweets(hasScrolledToBottom: Boolean = false, isRefreshing: Boolean = false) {
         progress_bar.visibility = VISIBLE
-        viewModel.getTweets(maxId, sinceId).observe(this, Observer {
-            if (it.isEmpty() && noTweetsLoaded())
+        viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, Observer {
+            if (it.isEmpty())
                 showDisconnectedMessage()
-            else if (it.isEmpty())
-                hideProgressBars()
             else
-                showTweets(it, isRefreshing)
+                showTweets(it)
         })
     }
 
-    private fun showTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
+    private fun showTweets(tweets: List<Tweet>) {
         hideProgressBars()
         hideDisconnectedMessage()
-        updateTweets(tweets, isRefreshing)
+        updateTweets(tweets)
     }
 
-    private fun updateTweets(tweets: List<Tweet>, isRefreshing: Boolean) {
+    private fun updateTweets(tweets: List<Tweet>) {
         if (user == null)
             user = tweets.firstOrNull()?.author
 
-        if (isRefreshing)
-            this.tweets = tweets + this.tweets
-        else
-            this.tweets = this.tweets + tweets
-
-        adapter.submitList(this.tweets)
+        adapter.submitList(tweets)
     }
 
     private fun hideProgressBars() {
@@ -166,22 +151,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             Snackbar.make(ad_view, R.string.no_data_found, Snackbar.LENGTH_SHORT).show()
         }
         return true
-    }
-
-    private fun noTweetsLoaded() = this.tweets.isEmpty()
-
-    private fun List<Tweet>.getMaxId(): Long? {
-        return if (isEmpty())
-            null
-        else
-            last().id - 1
-    }
-
-    private fun List<Tweet>.getSinceId(): Long? {
-        return if (isEmpty())
-            null
-        else
-            first().id
     }
 
 }

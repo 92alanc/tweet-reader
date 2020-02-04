@@ -7,15 +7,25 @@ import com.crashlytics.android.Crashlytics
 
 class TweetRepository(private val apiProvider: ApiProvider) {
 
-    suspend fun getTweets(maxId: Long? = null, sinceId: Long? = null): List<Tweet> {
+    private var tweets: List<Tweet> = emptyList()
+
+    suspend fun getTweets(hasScrolledToBottom: Boolean, isRefreshing: Boolean): List<Tweet> {
         return try {
             val api = apiProvider.getTwitterApi()
-            api.getTweets(maxId = maxId, sinceId = sinceId).map {
+
+            val maxId = if (hasScrolledToBottom) tweets.getMaxId() else null
+            val sinceId = if (isRefreshing) tweets.getSinceId() else null
+
+            val newTweets = api.getTweets(maxId = maxId, sinceId = sinceId).map {
                 it.also { tweet ->
                     if (tweet.isReply())
                         tweet.repliedTweet = loadRepliedTweet(api, it)
                 }
             }
+
+            tweets = updateTweets(newTweets, isRefreshing)
+
+            tweets
         } catch (t: Throwable) {
             // TODO: handle different error codes
             Crashlytics.logException(t)
@@ -28,5 +38,16 @@ class TweetRepository(private val apiProvider: ApiProvider) {
             api.getTweet(id)
         }
     }
+
+    private fun updateTweets(newTweets: List<Tweet>, isRefreshing: Boolean): List<Tweet> {
+        return if (isRefreshing)
+            newTweets + tweets
+        else
+            tweets + newTweets
+    }
+
+    private fun List<Tweet>.getMaxId(): Long? = if (isEmpty()) null else last().id - 1
+
+    private fun List<Tweet>.getSinceId(): Long? = if (isEmpty()) null else first().id
 
 }

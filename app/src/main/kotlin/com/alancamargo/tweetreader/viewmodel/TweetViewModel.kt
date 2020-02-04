@@ -12,10 +12,10 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
 
     private val tweetsLiveData = MutableLiveData<List<Tweet>>()
 
-    fun getTweets(maxId: Long? = null, sinceId: Long? = null): LiveData<List<Tweet>> {
+    fun getTweets(hasScrolledToBottom: Boolean, isRefreshing: Boolean): LiveData<List<Tweet>> {
         return tweetsLiveData.apply {
             viewModelScope.launch {
-                val tweets = repository.getTweets(maxId, sinceId)
+                val tweets = repository.getTweets(hasScrolledToBottom, isRefreshing)
                 postValue(tweets)
             }
         }
