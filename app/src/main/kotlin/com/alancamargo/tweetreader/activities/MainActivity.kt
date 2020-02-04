@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
+import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.loadBannerAds
@@ -95,10 +96,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private fun loadTweets(hasScrolledToBottom: Boolean = false, isRefreshing: Boolean = false) {
         progress_bar.visibility = VISIBLE
         viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, Observer {
-            if (it.isEmpty())
-                showDisconnectedMessage()
-            else
-                showTweets(it)
+            when (it) {
+                is Result.Success -> showTweets(it.body)
+                is Result.NetworkError -> showDisconnectedMessage()
+                is Result.AccountSuspendedError -> TODO("handle account suspended")
+                is Result.GenericError -> TODO("handle generic error")
+            }
         })
     }
 

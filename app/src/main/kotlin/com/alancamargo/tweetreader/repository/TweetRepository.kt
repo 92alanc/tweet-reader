@@ -2,20 +2,24 @@ package com.alancamargo.tweetreader.repository
 
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.api.provider.ApiProvider
+import com.alancamargo.tweetreader.api.results.Result
+import com.alancamargo.tweetreader.api.tools.safeApiCall
 import com.alancamargo.tweetreader.model.Tweet
-import com.crashlytics.android.Crashlytics
 
 class TweetRepository(private val apiProvider: ApiProvider) {
 
     private var tweets: List<Tweet> = emptyList()
 
-    suspend fun getTweets(hasScrolledToBottom: Boolean, isRefreshing: Boolean): List<Tweet> {
-        return try {
-            val api = apiProvider.getTwitterApi()
+    suspend fun getTweets(
+        hasScrolledToBottom: Boolean,
+        isRefreshing: Boolean
+    ): Result<List<Tweet>> {
+        val api = apiProvider.getTwitterApi()
 
-            val maxId = if (hasScrolledToBottom) tweets.getMaxId() else null
-            val sinceId = if (isRefreshing) tweets.getSinceId() else null
+        val maxId = if (hasScrolledToBottom) tweets.getMaxId() else null
+        val sinceId = if (isRefreshing) tweets.getSinceId() else null
 
+        return safeApiCall {
             val newTweets = api.getTweets(maxId = maxId, sinceId = sinceId).map {
                 it.also { tweet ->
                     if (tweet.isReply())
@@ -26,10 +30,6 @@ class TweetRepository(private val apiProvider: ApiProvider) {
             tweets = updateTweets(newTweets, isRefreshing)
 
             tweets
-        } catch (t: Throwable) {
-            // TODO: handle different error codes
-            Crashlytics.logException(t)
-            emptyList()
         }
     }
 

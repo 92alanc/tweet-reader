@@ -2,13 +2,15 @@ package com.alancamargo.tweetreader.api.results
 
 import com.alancamargo.tweetreader.model.api.ErrorResponse
 
-sealed class ApiResult<out T> {
-    data class Success<out T>(val body: T) : ApiResult<T>()
+sealed class Result<out T> {
+    data class Success<out T>(val body: T) : Result<T>()
 
     data class GenericError(
         val code: Int? = null,
         val body: ErrorResponse? = null
-    ) : ApiResult<Nothing>()
+    ) : Result<Nothing>()
 
-    object NetworkError : ApiResult<Nothing>()
+    object AccountSuspendedError : Result<Nothing>()
+
+    object NetworkError : Result<Nothing>()
 }

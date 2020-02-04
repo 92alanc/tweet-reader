@@ -1,26 +1,35 @@
 package com.alancamargo.tweetreader.api.tools
 
-import com.alancamargo.tweetreader.api.results.ApiResult
+import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
+import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.api.ErrorResponse
+import com.crashlytics.android.Crashlytics
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-suspend fun <T> safeApiCall(apiCall: suspend () -> T): ApiResult<T> {
+suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
     return withContext(Dispatchers.IO) {
         try {
-            ApiResult.Success(apiCall.invoke())
+            Result.Success(apiCall.invoke())
         } catch (t: Throwable) {
+            Crashlytics.logException(t)
+
             when (t) {
-                is IOException -> ApiResult.NetworkError
+                is IOException -> Result.NetworkError
                 is HttpException -> {
                     val code = t.code()
-                    val body = convertErrorBody(t)
-                    ApiResult.GenericError(code, body)
+
+                    if (code == CODE_ACCOUNT_SUSPENDED) {
+                        Result.AccountSuspendedError
+                    } else {
+                        val body = convertErrorBody(t)
+                        Result.GenericError(code, body)
+                    }
                 }
-                else -> ApiResult.GenericError(null, null)
+                else -> Result.GenericError(null, null)
             }
         }
     }
