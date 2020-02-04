@@ -5,6 +5,11 @@ import com.alancamargo.tweetreader.api.BASE_URL
 import com.alancamargo.tweetreader.api.provider.ApiProvider
 import com.alancamargo.tweetreader.api.tools.TokenHelper
 import com.alancamargo.tweetreader.api.tools.TokenHelperImpl
+import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
+import com.alancamargo.tweetreader.data.local.TweetLocalDataSourceImpl
+import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
+import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSourceImpl
+import com.alancamargo.tweetreader.db.TweetDatabaseProvider
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.handlers.ImageHandlerImpl
 import com.alancamargo.tweetreader.helpers.LinkClickListener
@@ -25,8 +30,11 @@ private val data = module {
     viewModel { TweetViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { PhotoDetailsViewModel(get()) }
-    factory { TweetRepository(get()) }
+    factory { TweetRepository(get(), get()) }
+    factory<TweetLocalDataSource> { TweetLocalDataSourceImpl(get()) }
+    factory<TweetRemoteDataSource> { TweetRemoteDataSourceImpl(get()) }
     factory { ApiProvider(BASE_URL, get()) }
+    factory { TweetDatabaseProvider.getInstance(androidContext()).provideDatabase() }
 }
 
 private val helpers = module {

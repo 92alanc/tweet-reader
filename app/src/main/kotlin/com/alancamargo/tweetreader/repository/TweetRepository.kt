@@ -1,12 +1,15 @@
 package com.alancamargo.tweetreader.repository
 
-import com.alancamargo.tweetreader.api.TwitterApi
-import com.alancamargo.tweetreader.api.provider.ApiProvider
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.api.tools.safeApiCall
+import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
+import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.model.Tweet
 
-class TweetRepository(private val apiProvider: ApiProvider) {
+class TweetRepository(
+    private val localDataSource: TweetLocalDataSource,
+    private val remoteDataSource: TweetRemoteDataSource
+) {
 
     private var tweets: List<Tweet> = emptyList()
 
@@ -14,36 +17,24 @@ class TweetRepository(private val apiProvider: ApiProvider) {
         hasScrolledToBottom: Boolean,
         isRefreshing: Boolean
     ): Result<List<Tweet>> {
-        val api = apiProvider.getTwitterApi()
-
         val maxId = if (hasScrolledToBottom) tweets.getMaxId() else null
         val sinceId = if (isRefreshing) tweets.getSinceId() else null
 
-        return safeApiCall {
-            val newTweets = api.getTweets(maxId = maxId, sinceId = sinceId).map {
-                it.also { tweet ->
-                    if (tweet.isReply())
-                        tweet.repliedTweet = loadRepliedTweet(api, it)
-                }
-            }
-
-            tweets = updateTweets(newTweets, isRefreshing)
-
+        return safeApiCall (apiCall = {
+            val newTweets = remoteDataSource.getTweets(maxId = maxId, sinceId = sinceId)
+            localDataSource.updateCache(newTweets)
+            tweets = tweets.append(newTweets, isRefreshing)
             tweets
-        }
+        }, alternative = {
+            localDataSource.getTweets()
+        })
     }
 
-    private suspend fun loadRepliedTweet(api: TwitterApi, tweet: Tweet): Tweet? {
-        return tweet.inReplyTo?.let { id ->
-            api.getTweet(id)
-        }
-    }
-
-    private fun updateTweets(newTweets: List<Tweet>, isRefreshing: Boolean): List<Tweet> {
+    private fun List<Tweet>.append(newTweets: List<Tweet>, isRefreshing: Boolean): List<Tweet> {
         return if (isRefreshing)
-            newTweets + tweets
+            newTweets + this
         else
-            tweets + newTweets
+            this + newTweets
     }
 
     private fun List<Tweet>.getMaxId(): Long? = if (isEmpty()) null else last().id - 1
