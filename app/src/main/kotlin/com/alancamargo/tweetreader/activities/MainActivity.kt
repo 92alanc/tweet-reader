@@ -7,7 +7,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.EndlessScrollListener
@@ -15,9 +14,7 @@ import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.loadBannerAds
-import com.alancamargo.tweetreader.util.showAppInfo
-import com.alancamargo.tweetreader.util.showPrivacyTerms
+import com.alancamargo.tweetreader.util.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
@@ -44,14 +41,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     }
 
     override fun onBackPressed() {
-        val layoutManager = recycler_view.layoutManager as LinearLayoutManager
-        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-        val isAtTop = firstVisibleItemPosition == 0
-
-        if (isAtTop)
+        if (recycler_view.isFirstItemVisible())
             super.onBackPressed()
         else
-            recycler_view.smoothScrollToPosition(0)
+            recycler_view.scrollToTop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -100,7 +93,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                 is Result.Success -> showTweets(it.body)
                 is Result.NetworkError -> showDisconnectedError()
                 is Result.AccountSuspendedError -> showAccountSuspendedError()
-                is Result.GenericError -> TODO("handle generic error")
+                is Result.GenericError -> showGenericError()
             }
         })
     }
@@ -134,6 +127,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private fun showAccountSuspendedError() {
         img_error.setImageResource(R.drawable.ic_account_suspended)
         txt_error.setText(R.string.message_account_suspended)
+        showError()
+    }
+
+    private fun showGenericError() {
+        img_error.setImageResource(R.drawable.ic_error)
+        txt_error.setText(R.string.message_generic_error)
         showError()
     }
 

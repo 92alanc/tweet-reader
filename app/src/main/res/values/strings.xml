@@ -5,6 +5,7 @@
     <string name="member_since_format">Member since %s</string>
     <string name="message_disconnected">Please check your Internet connection</string>
     <string name="message_account_suspended">This account has been suspended since Twitter is not a big fan of free speech.\nPlease try again later</string>
+    <string name="message_generic_error">Something went wrong. Please try again later</string>
     <string name="close">Close</string>
     <string name="no_data_found">No data found</string>
     <string name="about">About</string>
