@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             when (it) {
                 is Result.Success -> showTweets(it.body)
                 is Result.NetworkError -> showDisconnectedMessage()
-                is Result.AccountSuspendedError -> TODO("handle account suspended")
+                is Result.AccountSuspendedError -> showAccountSuspendedMessage()
                 is Result.GenericError -> TODO("handle generic error")
             }
         })
@@ -143,6 +143,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
         group_disconnected.visibility = GONE
         recycler_view.visibility = VISIBLE
+    }
+
+    private fun showAccountSuspendedMessage() {
+        hideProgressBars()
+
+        menu?.findItem(R.id.item_profile)?.let { item ->
+            item.isVisible = false
+        }
+
+        recycler_view.visibility = GONE
+        group_account_suspended.visibility = VISIBLE
     }
 
     private fun showProfile(): Boolean {
