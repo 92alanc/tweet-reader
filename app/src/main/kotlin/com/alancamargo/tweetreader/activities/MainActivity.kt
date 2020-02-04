@@ -98,8 +98,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, Observer {
             when (it) {
                 is Result.Success -> showTweets(it.body)
-                is Result.NetworkError -> showDisconnectedMessage()
-                is Result.AccountSuspendedError -> showAccountSuspendedMessage()
+                is Result.NetworkError -> showDisconnectedError()
+                is Result.AccountSuspendedError -> showAccountSuspendedError()
                 is Result.GenericError -> TODO("handle generic error")
             }
         })
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     private fun showTweets(tweets: List<Tweet>) {
         hideProgressBars()
-        hideDisconnectedMessage()
+        hideError()
         updateTweets(tweets)
     }
 
@@ -125,7 +125,19 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             swipe_refresh_layout.isRefreshing = false
     }
 
-    private fun showDisconnectedMessage() {
+    private fun showDisconnectedError() {
+        img_error.setImageResource(R.drawable.ic_disconnected)
+        txt_error.setText(R.string.message_disconnected)
+        showError()
+    }
+
+    private fun showAccountSuspendedError() {
+        img_error.setImageResource(R.drawable.ic_account_suspended)
+        txt_error.setText(R.string.message_account_suspended)
+        showError()
+    }
+
+    private fun showError() {
         hideProgressBars()
 
         menu?.findItem(R.id.item_profile)?.let { item ->
@@ -133,27 +145,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         }
 
         recycler_view.visibility = GONE
-        group_disconnected.visibility = VISIBLE
+        group_error.visibility = VISIBLE
     }
 
-    private fun hideDisconnectedMessage() {
+    private fun hideError() {
         menu?.findItem(R.id.item_profile)?.let { item ->
             item.isVisible = true
         }
 
-        group_disconnected.visibility = GONE
+        group_error.visibility = GONE
         recycler_view.visibility = VISIBLE
-    }
-
-    private fun showAccountSuspendedMessage() {
-        hideProgressBars()
-
-        menu?.findItem(R.id.item_profile)?.let { item ->
-            item.isVisible = false
-        }
-
-        recycler_view.visibility = GONE
-        group_account_suspended.visibility = VISIBLE
     }
 
     private fun showProfile(): Boolean {
