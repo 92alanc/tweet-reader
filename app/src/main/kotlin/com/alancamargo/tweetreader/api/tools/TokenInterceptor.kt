@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.api.token
+package com.alancamargo.tweetreader.api.tools
 
 import com.alancamargo.tweetreader.api.AUTHORISATION_HEADER
 import okhttp3.Interceptor

@@ -7,22 +7,21 @@ import androidx.room.TypeConverters
 import com.alancamargo.tweetreader.api.MEDIA_PHOTO
 import com.alancamargo.tweetreader.api.MEDIA_VIDEO
 import com.alancamargo.tweetreader.model.api.Media
-import com.google.gson.Gson
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.Moshi
 
 @Entity
 @TypeConverters(Tweet.TweetConverter::class)
 data class Tweet(
-    @Expose @SerializedName("created_at") var creationDate: String = "",
-    @Expose @PrimaryKey var id: Long = 0,
-    @Expose @SerializedName("full_text") var text: String = "",
-    @Expose @SerializedName("user") var author: User = User(),
-    @Expose @SerializedName("extended_entities") var media: Media? = null,
-    @Expose @SerializedName("quoted_status") var quotedTweet: Tweet? = null,
-    @Expose @SerializedName("retweeted_status") var retweet: Tweet? = null,
-    @Expose @SerializedName("in_reply_to_status_id") var inReplyTo: Long? = null,
-    var repliedTweet: Tweet? = null
+    @field:Json(name = "created_at") var creationDate: String = "",
+    @PrimaryKey var id: Long = 0,
+    @field:Json(name = "full_text") var text: String = "",
+    @field:Json(name = "user") var author: User = User(),
+    @field:Json(name = "extended_entities") var media: Media? = null,
+    @field:Json(name = "quoted_status") var quotedTweet: Tweet? = null,
+    @field:Json(name = "retweeted_status") var retweet: Tweet? = null,
+    @field:Json(name = "in_reply_to_status_id") var inReplyTo: Long? = null,
+    @Transient var repliedTweet: Tweet? = null
 ) {
 
     fun isQuoting() = quotedTweet != null
@@ -47,18 +46,21 @@ data class Tweet(
     }
 
     class TweetConverter {
-        private val gson = Gson()
+        private val moshi = Moshi.Builder().build()
+        private val tweetAdapter = moshi.adapter(Tweet::class.java)
+        private val userAdapter = moshi.adapter(User::class.java)
+        private val mediaAdapter = moshi.adapter(Media::class.java)
 
         @TypeConverter
-        fun userToString(user: User): String = gson.toJson(user)
+        fun userToString(user: User): String = userAdapter.toJson(user)
 
         @TypeConverter
-        fun stringToUser(string: String): User = gson.fromJson(string, User::class.java)
+        fun stringToUser(string: String): User? = userAdapter.fromJson(string)
 
         @TypeConverter
         fun mediaToString(media: Media?): String? {
             return if (media != null)
-                gson.toJson(media)
+                mediaAdapter.toJson(media)
             else
                 null
         }
@@ -66,7 +68,7 @@ data class Tweet(
         @TypeConverter
         fun stringToMedia(string: String?): Media? {
             return if (string != null)
-                gson.fromJson(string, Media::class.java)
+                mediaAdapter.fromJson(string)
             else
                 null
         }
@@ -74,7 +76,7 @@ data class Tweet(
         @TypeConverter
         fun quotedTweetToString(quotedTweet: Tweet?): String? {
             return if (quotedTweet != null)
-                gson.toJson(quotedTweet)
+                tweetAdapter.toJson(quotedTweet)
             else
                 null
         }
@@ -82,7 +84,7 @@ data class Tweet(
         @TypeConverter
         fun stringToQuotedTweet(string: String?): Tweet? {
             return if (string != null)
-                gson.fromJson(string, Tweet::class.java)
+                tweetAdapter.fromJson(string)
             else
                 null
         }

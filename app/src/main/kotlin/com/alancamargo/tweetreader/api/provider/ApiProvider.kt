@@ -1,18 +1,18 @@
 package com.alancamargo.tweetreader.api.provider
 
 import com.alancamargo.tweetreader.api.TIMEOUT
-import com.alancamargo.tweetreader.api.token.TokenHelper
-import com.alancamargo.tweetreader.api.token.TokenInterceptor
 import com.alancamargo.tweetreader.api.TwitterApi
+import com.alancamargo.tweetreader.api.tools.TokenHelper
+import com.alancamargo.tweetreader.api.tools.TokenInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 class ApiProvider(private val baseUrl: String, private val tokenHelper: TokenHelper) {
 
     suspend fun getTwitterApi(): TwitterApi {
-        val token = tokenHelper.getAccessTokenAndUpdateCache()
+        val token = tokenHelper.getAccessToken()
         return getService(token)
     }
 
@@ -20,7 +20,7 @@ class ApiProvider(private val baseUrl: String, private val tokenHelper: TokenHel
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(buildClient(token))
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(TwitterApi::class.java)
     }
@@ -29,11 +29,7 @@ class ApiProvider(private val baseUrl: String, private val tokenHelper: TokenHel
         return OkHttpClient.Builder()
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(
-                TokenInterceptor(
-                    token
-                )
-            )
+            .addInterceptor(TokenInterceptor(token))
             .build()
     }
 

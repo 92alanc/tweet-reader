@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.api.token
+package com.alancamargo.tweetreader.api.tools
 
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_KEY
 import com.alancamargo.tweetreader.BuildConfig.CONSUMER_SECRET
@@ -8,14 +8,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Credentials
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class TokenHelperImpl(
     private val preferenceHelper: PreferenceHelper,
     private val baseUrl: String
 ) : TokenHelper {
 
-    override suspend fun getAccessTokenAndUpdateCache(): String {
+    override suspend fun getAccessToken(): String {
         val cachedToken = preferenceHelper.getAccessToken()
 
         return if (cachedToken.isNullOrEmpty()) {
@@ -39,7 +39,7 @@ class TokenHelperImpl(
     private fun buildAuthenticationApi(): AuthenticationApi {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(AuthenticationApi::class.java)
     }

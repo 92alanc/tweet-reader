@@ -3,8 +3,8 @@ package com.alancamargo.tweetreader.di
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.api.BASE_URL
 import com.alancamargo.tweetreader.api.provider.ApiProvider
-import com.alancamargo.tweetreader.api.token.TokenHelper
-import com.alancamargo.tweetreader.api.token.TokenHelperImpl
+import com.alancamargo.tweetreader.api.tools.TokenHelper
+import com.alancamargo.tweetreader.api.tools.TokenHelperImpl
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.handlers.ImageHandlerImpl
 import com.alancamargo.tweetreader.helpers.LinkClickListener

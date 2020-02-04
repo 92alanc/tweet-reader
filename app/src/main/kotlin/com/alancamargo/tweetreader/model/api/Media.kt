@@ -1,9 +1,9 @@
 package com.alancamargo.tweetreader.model.api
 
 import com.alancamargo.tweetreader.api.CONTENT_TYPE_MP4
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
-data class Media(@SerializedName("media") val contents: List<MediaContent>?) {
+data class Media(@field:Json(name = "media") val contents: List<MediaContent>?) {
 
     fun getPhotoUrls() = contents?.map { it.photoUrl }
 
