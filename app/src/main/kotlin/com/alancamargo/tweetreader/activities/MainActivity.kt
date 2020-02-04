@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     private val adapter by inject<TweetAdapter>()
     private val viewModel by viewModel<TweetViewModel>()
-    private val layoutManager by lazy { recycler_view.layoutManager as LinearLayoutManager }
 
     private var user: User? = null
     private var menu: Menu? = null
@@ -41,15 +40,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         configureRecyclerView()
         loadTweets()
         configureSwipeRefreshLayout()
-        progress_bar.visibility = VISIBLE
         ad_view.loadBannerAds()
     }
 
     override fun onBackPressed() {
+        val layoutManager = recycler_view.layoutManager as LinearLayoutManager
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-        val isOnTop = firstVisibleItemPosition == 0
+        val isAtTop = firstVisibleItemPosition == 0
 
-        if (isOnTop)
+        if (isAtTop)
             super.onBackPressed()
         else
             recycler_view.smoothScrollToPosition(0)
@@ -102,6 +101,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         sinceId: Long? = null,
         isRefreshing: Boolean = false
     ) {
+        progress_bar.visibility = VISIBLE
         viewModel.getTweets(maxId, sinceId).observe(this, Observer {
             if (it.isEmpty() && noTweetsLoaded())
                 showDisconnectedMessage()
