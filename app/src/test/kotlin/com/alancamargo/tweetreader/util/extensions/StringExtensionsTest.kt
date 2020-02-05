@@ -1,7 +1,6 @@
 package com.alancamargo.tweetreader.util.extensions
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.Ignore
 import org.junit.Test
 
 class StringExtensionsTest {
@@ -67,24 +66,6 @@ class StringExtensionsTest {
     }
 
     @Test
-    @Ignore("Fix regex")
-    // TODO
-    fun shouldDetectUrlWithDomainOnly() {
-        val string = "github.com"
-
-        assertThat(string.isUrl()).isTrue()
-    }
-
-    @Test
-    @Ignore("Fix regex")
-    // TODO
-    fun shouldDetectUrlWithDomainAndEndpoint() {
-        val string = "github.com/alancamargo92"
-
-        assertThat(string.isUrl()).isTrue()
-    }
-
-    @Test
     fun shouldDetectUrlWithHttpWwwAndEndpoint() {
         val string = "http://www.github.com/alancamargo92"
 
@@ -110,14 +91,6 @@ class StringExtensionsTest {
         val string = "This is a plain text with 8 words."
 
         assertThat(string.isPlainText()).isTrue()
-    }
-
-    @Test
-    @Ignore("Fix regex")
-    fun shouldDetectStringWithLink() {
-        val string = "Check out my github on github.com/alancamargo92, it\'s amazing!"
-
-        assertThat(string.hasLink()).isTrue()
     }
 
     @Test
