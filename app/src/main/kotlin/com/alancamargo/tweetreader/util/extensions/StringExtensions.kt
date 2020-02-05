@@ -1,4 +1,9 @@
-package com.alancamargo.tweetreader.util
+package com.alancamargo.tweetreader.util.extensions
+
+import com.alancamargo.tweetreader.util.REGEX_HASHTAG
+import com.alancamargo.tweetreader.util.REGEX_MENTION
+import com.alancamargo.tweetreader.util.REGEX_URL
+import com.alancamargo.tweetreader.util.REGEX_WORDS
 
 fun String.getWords(): List<String> {
     return this.split(REGEX_WORDS).toMutableList().apply {

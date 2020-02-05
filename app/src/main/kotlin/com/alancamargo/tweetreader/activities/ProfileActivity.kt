@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.loadBannerAds
+import com.alancamargo.tweetreader.util.extensions.loadBannerAds
 import com.alancamargo.tweetreader.util.setMemberSince
 import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_profile.*

@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.util.loadNativeAds
+import com.alancamargo.tweetreader.util.extensions.loadNativeAds
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader

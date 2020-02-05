@@ -14,7 +14,7 @@ import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.*
+import com.alancamargo.tweetreader.util.extensions.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar

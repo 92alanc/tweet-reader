@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.util
+package com.alancamargo.tweetreader.util.extensions
 
 import android.view.View
 import android.widget.Button

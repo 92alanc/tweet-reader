@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.util
+package com.alancamargo.tweetreader.util.extensions
 
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat

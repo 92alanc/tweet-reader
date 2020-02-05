@@ -9,7 +9,7 @@ import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.REGEX_URL
-import com.alancamargo.tweetreader.util.hasLink
+import com.alancamargo.tweetreader.util.extensions.hasLink
 import com.alancamargo.tweetreader.util.setTimestamp
 import com.alancamargo.tweetreader.util.setTweetText
 import kotlinx.android.extensions.LayoutContainer

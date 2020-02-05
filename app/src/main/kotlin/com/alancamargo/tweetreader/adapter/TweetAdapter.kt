@@ -10,7 +10,7 @@ import com.alancamargo.tweetreader.adapter.viewholder.*
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
-import com.alancamargo.tweetreader.util.hasLink
+import com.alancamargo.tweetreader.util.extensions.hasLink
 
 class TweetAdapter(
     private val imageHandler: ImageHandler,

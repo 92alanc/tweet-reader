@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.core.text.toSpannable
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.helpers.LinkClickListener
+import com.alancamargo.tweetreader.util.extensions.*
 
 fun setTimestamp(textView: TextView, timestamp: String) {
     textView.text = formatDate(timestamp)

@@ -4,7 +4,7 @@ import android.view.View
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.extractLink
+import com.alancamargo.tweetreader.util.extensions.extractLink
 import kotlinx.android.synthetic.main.item_tweet_link.*
 
 class LinkTweetViewHolder(
