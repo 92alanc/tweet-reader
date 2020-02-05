@@ -17,6 +17,10 @@ import com.alancamargo.tweetreader.helpers.LinkClickListenerImpl
 import com.alancamargo.tweetreader.helpers.PreferenceHelper
 import com.alancamargo.tweetreader.helpers.PreferenceHelperImpl
 import com.alancamargo.tweetreader.repository.TweetRepository
+import com.alancamargo.tweetreader.util.device.ConnectivityHelper
+import com.alancamargo.tweetreader.util.device.ConnectivityHelperImpl
+import com.alancamargo.tweetreader.util.device.DeviceManager
+import com.alancamargo.tweetreader.util.device.DeviceManagerImpl
 import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModel
 import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
@@ -24,7 +28,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-fun getModules() = listOf(data, helpers, ui)
+fun getModules() = listOf(data, helpers, ui, device)
 
 private val data = module {
     viewModel { TweetViewModel(get()) }
@@ -40,10 +44,15 @@ private val data = module {
 private val helpers = module {
     factory<PreferenceHelper> { PreferenceHelperImpl(androidContext()) }
     factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
+    factory<ConnectivityHelper> { ConnectivityHelperImpl(androidContext()) }
 }
 
 private val ui = module {
     factory<ImageHandler> { ImageHandlerImpl() }
     factory<LinkClickListener> { LinkClickListenerImpl() }
     factory { TweetAdapter(get(), get()) }
+}
+
+private val device = module {
+    factory<DeviceManager> { DeviceManagerImpl(get()) }
 }

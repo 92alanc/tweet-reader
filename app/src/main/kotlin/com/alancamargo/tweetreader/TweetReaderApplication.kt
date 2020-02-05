@@ -1,6 +1,6 @@
 package com.alancamargo.tweetreader
 
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import com.alancamargo.tweetreader.di.getModules
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
@@ -10,7 +10,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 @Suppress("unused")
-class TweetReaderApplication : MultiDexApplication() {
+class TweetReaderApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
