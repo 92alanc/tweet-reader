@@ -103,6 +103,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    testOptions {
+        unitTests.returnDefaultValues true
+    }
 }
 
 dependencies {
@@ -154,5 +158,6 @@ dependencies {
     // region Unit test libraries
     testImplementation 'junit:junit:4.12'
     testImplementation "com.google.truth:truth:1.0.1"
+    testImplementation 'io.mockk:mockk:1.9.1'
     // endregion
 }

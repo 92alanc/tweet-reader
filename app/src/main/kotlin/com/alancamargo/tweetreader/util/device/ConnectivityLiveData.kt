@@ -10,15 +10,15 @@ class ConnectivityLiveData(
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            postValue(ConnectivityState(true))
+            postValue(ConnectivityState.CONNECTED)
         }
 
         override fun onLost(network: Network) {
-            postValue(ConnectivityState(false))
+            postValue(ConnectivityState.DISCONNECTED)
         }
 
         override fun onUnavailable() {
-            postValue(ConnectivityState(false))
+            postValue(ConnectivityState.DISCONNECTED)
         }
     }
 
@@ -27,7 +27,12 @@ class ConnectivityLiveData(
         connectivityHelper.registerNetworkCallback(networkCallback)
         val isConnected = connectivityHelper.isNetworkAvailable()
 
-        postValue(ConnectivityState(isConnected))
+        val connectivityState = if (isConnected)
+            ConnectivityState.CONNECTED
+        else
+            ConnectivityState.DISCONNECTED
+
+        postValue(connectivityState)
     }
 
     override fun onInactive() {

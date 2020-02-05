@@ -20,7 +20,7 @@ class ConnectivityStateObserver(
     }
 
     override fun onChanged(connectivityState: ConnectivityState) {
-        if (connectivityState.isConnected) {
+        if (connectivityState == ConnectivityState.CONNECTED) {
             if (disconnectedSnackbar.isShown) {
                 disconnectedSnackbar.dismiss()
                 connectedSnackbar.show()
