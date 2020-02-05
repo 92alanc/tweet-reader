@@ -18,4 +18,6 @@
     <string name="description_quotation">Quotation</string>
     <string name="ad">Ad</string>
     <string name="error_loading_ad">Error loading ad. Lucky you!</string>
+    <string name="you_are_offline">You are offline</string>
+    <string name="you_are_back_online">You are back online</string>
 </resources>

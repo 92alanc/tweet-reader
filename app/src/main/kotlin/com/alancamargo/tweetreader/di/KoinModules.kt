@@ -17,10 +17,7 @@ import com.alancamargo.tweetreader.helpers.LinkClickListenerImpl
 import com.alancamargo.tweetreader.helpers.PreferenceHelper
 import com.alancamargo.tweetreader.helpers.PreferenceHelperImpl
 import com.alancamargo.tweetreader.repository.TweetRepository
-import com.alancamargo.tweetreader.util.device.ConnectivityHelper
-import com.alancamargo.tweetreader.util.device.ConnectivityHelperImpl
-import com.alancamargo.tweetreader.util.device.DeviceManager
-import com.alancamargo.tweetreader.util.device.DeviceManagerImpl
+import com.alancamargo.tweetreader.util.device.*
 import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModel
 import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
@@ -55,4 +52,5 @@ private val ui = module {
 
 private val device = module {
     factory<DeviceManager> { DeviceManagerImpl(get()) }
+    factory { ConnectivityStateObserver(get()) }
 }

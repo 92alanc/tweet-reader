@@ -14,6 +14,7 @@ import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.User
+import com.alancamargo.tweetreader.util.device.ConnectivityStateObserver
 import com.alancamargo.tweetreader.util.extensions.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.crashlytics.android.Crashlytics
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     SwipeRefreshLayout.OnRefreshListener {
 
     private val adapter by inject<TweetAdapter>()
+    private val connectivityStateObserver by inject<ConnectivityStateObserver>()
     private val viewModel by viewModel<TweetViewModel>()
 
     private var user: User? = null
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         configureRecyclerView()
         loadTweets()
         configureSwipeRefreshLayout()
+        connectivityStateObserver.observeConnectivityState(this, main_activity_root)
         ad_view.loadBannerAds()
     }
 

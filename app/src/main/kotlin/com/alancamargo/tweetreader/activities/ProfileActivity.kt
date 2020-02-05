@@ -6,21 +6,25 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.model.User
+import com.alancamargo.tweetreader.util.device.ConnectivityStateObserver
 import com.alancamargo.tweetreader.util.extensions.loadBannerAds
 import com.alancamargo.tweetreader.util.setMemberSince
 import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.NumberFormat
 
 class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
 
+    private val connectivityStateObserver by inject<ConnectivityStateObserver>()
     private val viewModel by viewModel<ProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.title)
         intent.getParcelableExtra<User>(EXTRA_PROFILE).let(::bindData)
+        connectivityStateObserver.observeConnectivityState(this, profile_activity_root)
         ad_view.loadBannerAds()
     }
 
