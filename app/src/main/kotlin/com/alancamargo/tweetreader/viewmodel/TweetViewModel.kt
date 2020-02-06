@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
 
     private val tweetsLiveData = MutableLiveData<Result<List<Tweet>>>()
+    private val searchLiveData = MutableLiveData<Result<List<Tweet>>>()
 
     fun getTweets(
         hasScrolledToBottom: Boolean,
@@ -20,6 +21,15 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
         return tweetsLiveData.apply {
             viewModelScope.launch {
                 val result = repository.getTweets(hasScrolledToBottom, isRefreshing)
+                postValue(result)
+            }
+        }
+    }
+
+    fun searchTweets(query: String): LiveData<Result<List<Tweet>>> {
+        return searchLiveData.apply {
+            viewModelScope.launch {
+                val result = repository.searchTweets(query)
                 postValue(result)
             }
         }

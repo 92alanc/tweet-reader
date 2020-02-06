@@ -30,6 +30,10 @@ class TweetRepository(
         })
     }
 
+    suspend fun searchTweets(query: String): Result<List<Tweet>> = safeApiCall {
+        remoteDataSource.searchTweets(query)
+    }
+
     private fun List<Tweet>.append(newTweets: List<Tweet>, isRefreshing: Boolean): List<Tweet> {
         return if (isRefreshing)
             newTweets + this

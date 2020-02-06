@@ -1,5 +1,6 @@
 package com.alancamargo.tweetreader.api.tools
 
+import android.util.Log
 import com.alancamargo.tweetreader.api.CODE_ACCOUNT_SUSPENDED
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.api.ErrorResponse
@@ -10,17 +11,26 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
+suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
+    return safeApiCall(apiCall, null)
+}
+
 suspend fun <T> safeApiCall(
     apiCall: suspend () -> T,
-    alternative: suspend () -> T
+    alternative: (suspend () -> T)? = null
 ): Result<T> {
     return withContext(Dispatchers.IO) {
         try {
             Result.Success(apiCall.invoke())
         } catch (t: Throwable) {
+            Log.e(javaClass.simpleName, t.message, t)
             Crashlytics.logException(t)
             val apiError = getApiError(t)
-            tryRunAlternative(apiError, alternative)
+
+            if (alternative != null)
+                tryRunAlternative(apiError, alternative)
+            else
+                apiError
         }
     }
 }

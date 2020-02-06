@@ -1,5 +1,6 @@
 package com.alancamargo.tweetreader.api.provider
 
+import com.alancamargo.tweetreader.api.SearchApi
 import com.alancamargo.tweetreader.api.TIMEOUT
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.api.tools.TokenHelper
@@ -16,13 +17,18 @@ class ApiProvider(private val baseUrl: String, private val tokenHelper: TokenHel
         return getService(token)
     }
 
-    private fun getService(token: String): TwitterApi {
+    suspend fun getSearchApi(): SearchApi {
+        val token = tokenHelper.getAccessToken()
+        return getService(token)
+    }
+
+    private inline fun <reified T> getService(token: String): T {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(buildClient(token))
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
-            .create(TwitterApi::class.java)
+            .create(T::class.java)
     }
 
     private fun buildClient(token: String): OkHttpClient {

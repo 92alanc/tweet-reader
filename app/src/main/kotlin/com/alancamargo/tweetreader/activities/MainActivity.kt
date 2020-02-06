@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
@@ -13,12 +14,9 @@ import com.alancamargo.tweetreader.adapter.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.device.ConnectivityStateObserver
 import com.alancamargo.tweetreader.util.extensions.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
-import com.crashlytics.android.Crashlytics
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -30,8 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private val connectivityStateObserver by inject<ConnectivityStateObserver>()
     private val viewModel by viewModel<TweetViewModel>()
 
-    private var user: User? = null
-    private var menu: Menu? = null
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,14 +48,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        this.menu = menu
         menuInflater.inflate(R.menu.menu_main, menu)
+        searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.item_profile -> showProfile()
             R.id.item_about -> showAppInfo()
             R.id.item_privacy -> showPrivacyTerms()
             else -> super.onOptionsItemSelected(item)
@@ -92,26 +88,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private fun loadTweets(hasScrolledToBottom: Boolean = false, isRefreshing: Boolean = false) {
         progress_bar.visibility = VISIBLE
         viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, Observer {
-            when (it) {
-                is Result.Success -> showTweets(it.body)
-                is Result.NetworkError -> showDisconnectedError()
-                is Result.AccountSuspendedError -> showAccountSuspendedError()
-                is Result.GenericError -> showGenericError()
-            }
+            processResult(it)
         })
     }
 
     private fun showTweets(tweets: List<Tweet>) {
         hideProgressBars()
-        hideError()
-        updateTweets(tweets)
-    }
-
-    private fun updateTweets(tweets: List<Tweet>) {
-        if (user == null)
-            user = tweets.firstOrNull()?.author
-
+        hideErrorIfVisible()
         adapter.submitList(tweets)
+        searchView?.setOnQueryTextListener(getQueryListener())
     }
 
     private fun hideProgressBars() {
@@ -142,32 +127,39 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private fun showError() {
         hideProgressBars()
 
-        menu?.findItem(R.id.item_profile)?.let { item ->
-            item.isVisible = false
-        }
-
         recycler_view.visibility = GONE
         group_error.visibility = VISIBLE
     }
 
-    private fun hideError() {
-        menu?.findItem(R.id.item_profile)?.let { item ->
-            item.isVisible = true
-        }
-
+    private fun hideErrorIfVisible() {
         group_error.visibility = GONE
         recycler_view.visibility = VISIBLE
     }
 
-    private fun showProfile(): Boolean {
-        if (user != null) {
-            val intent = ProfileActivity.getIntent(this, user!!)
-            startActivity(intent)
-        } else {
-            Crashlytics.log("Null user on menu item click")
-            Snackbar.make(ad_view, R.string.no_data_found, Snackbar.LENGTH_SHORT).show()
+    private fun processResult(result: Result<List<Tweet>>) {
+        when (result) {
+            is Result.Success -> showTweets(result.body)
+            is Result.NetworkError -> showDisconnectedError()
+            is Result.AccountSuspendedError -> showAccountSuspendedError()
+            is Result.GenericError -> showGenericError()
         }
-        return true
+    }
+
+    private fun getQueryListener(): SearchView.OnQueryTextListener {
+        return object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    progress_bar.visibility = VISIBLE
+                    viewModel.searchTweets(query).observe(this@MainActivity, Observer {
+                        processResult(it)
+                    })
+                }
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean = true
+        }
     }
 
 }
