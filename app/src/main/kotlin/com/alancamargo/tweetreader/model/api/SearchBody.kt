@@ -1,25 +1,24 @@
 package com.alancamargo.tweetreader.model.api
 
-import com.alancamargo.tweetreader.api.DEFAULT_MAX_SEARCH_RESULTS
-
-class SearchBody private constructor(val data: Data) {
-
-    data class Data(
-        val query: String,
-        val maxResults: Int
-    )
+class SearchBody private constructor(val query: String, val maxResults: Int) {
 
     class Builder {
 
         private var query: String = ""
-        private var maxResults: Int = DEFAULT_MAX_SEARCH_RESULTS
+        private var maxResults: Int = 0
 
         fun setUserId(userId: String): Builder = apply {
-            query = "$query from: $userId"
+            query = if (query.isNotEmpty())
+                "$query from: $userId"
+            else
+                "from: $userId"
         }
 
         fun setQueryTerm(queryTerm: String): Builder = apply {
-            query = "$query \"$queryTerm\""
+            query = if (query.isNotEmpty())
+                "$query \"$queryTerm\""
+            else
+                "\"$queryTerm\""
         }
 
         fun setMaxResults(maxResults: Int): Builder = apply {
@@ -27,8 +26,7 @@ class SearchBody private constructor(val data: Data) {
         }
 
         fun build(): SearchBody {
-            val data = Data(query, maxResults)
-            return SearchBody(data)
+            return SearchBody(query, maxResults)
         }
 
     }

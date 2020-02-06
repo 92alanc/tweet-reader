@@ -1,6 +1,7 @@
 package com.alancamargo.tweetreader.data.remote
 
 import com.alancamargo.tweetreader.BuildConfig
+import com.alancamargo.tweetreader.api.DEFAULT_MAX_SEARCH_RESULTS
 import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.api.provider.ApiProvider
 import com.alancamargo.tweetreader.model.Tweet
@@ -25,9 +26,10 @@ class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRem
         val searchBody = SearchBody.Builder()
             .setQueryTerm(query)
             .setUserId(BuildConfig.USER_ID)
+            .setMaxResults(DEFAULT_MAX_SEARCH_RESULTS)
             .build()
 
-        return api.search(searchBody)
+        return api.search(searchBody).results
     }
 
     private suspend fun loadRepliedTweet(api: TwitterApi, tweet: Tweet): Tweet? {
