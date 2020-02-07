@@ -33,12 +33,9 @@ open class TweetViewHolder(
         txt_screen_name.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
         loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture)
 
-        val text = if (tweet.text.hasLink())
-            tweet.text.replace(REGEX_URL, "")
-        else
-            tweet.text
+        val text = getText(tweet)
 
-        setTweetText(txt_tweet, text.replace("&amp;", "&"), linkClickListener)
+        setTweetText(txt_tweet, text, linkClickListener)
         setTimestamp(txt_creation_date, tweet.creationDate)
         configureAuthorDataClick(tweet)
     }
@@ -47,6 +44,18 @@ open class TweetViewHolder(
         CoroutineScope(Dispatchers.Main).launch {
             imageHandler.loadImage(url, imageView)
         }
+    }
+
+    protected fun getText(tweet: Tweet): String {
+        var text = tweet.fullText
+
+        if (text.isEmpty())
+            text = tweet.text
+
+        if (text.hasLink())
+            text = text.replace(REGEX_URL, "")
+
+        return text.replace("&amp;", "&")
     }
 
     private fun configureAuthorDataClick(tweet: Tweet) {

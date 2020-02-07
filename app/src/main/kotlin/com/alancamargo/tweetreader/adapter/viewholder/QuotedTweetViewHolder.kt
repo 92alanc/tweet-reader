@@ -6,8 +6,6 @@ import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.REGEX_URL
-import com.alancamargo.tweetreader.util.extensions.hasLink
 import com.alancamargo.tweetreader.util.setTimestamp
 import com.alancamargo.tweetreader.util.setTweetText
 import kotlinx.android.synthetic.main.item_quoted_tweet.*
@@ -18,7 +16,7 @@ open class QuotedTweetViewHolder(
     linkClickListener: LinkClickListener
 ) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
 
-    lateinit var originalTweet: Tweet
+    protected lateinit var originalTweet: Tweet
 
     fun bindQuotedTweet(tweet: Tweet) {
         super.bindTo(tweet)
@@ -36,12 +34,9 @@ open class QuotedTweetViewHolder(
 
         )
 
-        val text = if (tweet.text.hasLink())
-            tweet.text.replace(REGEX_URL, "")
-        else
-            tweet.text
+        val text = getText(tweet)
 
-        setTweetText(txt_tweet_original, text.replace("&amp;", "&"), linkClickListener)
+        setTweetText(txt_tweet_original, text, linkClickListener)
         setTimestamp(txt_creation_date_original, tweet.creationDate)
         configureAuthorDataClick(tweet)
     }

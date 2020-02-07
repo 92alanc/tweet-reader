@@ -15,7 +15,8 @@ import com.squareup.moshi.Moshi
 data class Tweet(
     @field:Json(name = "created_at") var creationDate: String = "",
     @PrimaryKey var id: Long = 0,
-    @field:Json(name = "full_text") var text: String = "",
+    @field:Json(name = "full_text") var fullText: String = "",
+    @field:Json(name = "text") var text: String = "",
     @field:Json(name = "user") var author: User = User(),
     @field:Json(name = "extended_entities") var media: Media? = null,
     @field:Json(name = "quoted_status") var quotedTweet: Tweet? = null,

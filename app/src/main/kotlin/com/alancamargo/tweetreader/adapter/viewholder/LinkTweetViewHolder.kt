@@ -16,7 +16,7 @@ class LinkTweetViewHolder(
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
 
-        tweet.text.extractLink()?.let { link ->
+        tweet.fullText.extractLink()?.let { link ->
             with(txt_link) {
                 text = link
                 setOnClickListener {

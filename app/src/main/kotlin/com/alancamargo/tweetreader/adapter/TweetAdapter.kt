@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.viewholder.*
-import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
+import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.extensions.hasLink
 
 class TweetAdapter(
@@ -56,7 +56,7 @@ class TweetAdapter(
         val isAd = (position + 1) % 5 == 0
         val containsPhoto = tweet.containsPhoto()
         val containsVideo = tweet.containsVideo()
-        val containsLink = tweet.text.hasLink()
+        val containsLink = tweet.fullText.hasLink()
         val hasQuotedTweet = tweet.isQuoting()
         val isRetweet = tweet.isRetweet()
         val isReply = tweet.isReply()
@@ -134,6 +134,7 @@ class TweetAdapter(
             return oldItem.id == newItem.id &&
                     oldItem.author.id == newItem.author.id &&
                     oldItem.creationDate == newItem.creationDate &&
+                    oldItem.fullText == newItem.fullText &&
                     oldItem.text == newItem.text
         }
     }
