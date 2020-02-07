@@ -1,7 +1,9 @@
 package com.alancamargo.tweetreader.model.api
 
+import androidx.room.TypeConverter
 import com.alancamargo.tweetreader.api.CONTENT_TYPE_MP4
 import com.squareup.moshi.Json
+import com.squareup.moshi.Moshi
 
 data class Media(@field:Json(name = "media") val contents: List<MediaContent>?) {
 
@@ -15,6 +17,29 @@ data class Media(@field:Json(name = "media") val contents: List<MediaContent>?) 
                 variant.contentType == CONTENT_TYPE_MP4
             }
             ?.url
+    }
+
+    class Converter {
+
+        private val moshi = Moshi.Builder().build()
+        private val mediaAdapter = moshi.adapter(Media::class.java)
+
+        @TypeConverter
+        fun mediaToString(media: Media?): String? {
+            return if (media != null)
+                mediaAdapter.toJson(media)
+            else
+                null
+        }
+
+        @TypeConverter
+        fun stringToMedia(string: String?): Media? {
+            return if (string != null)
+                mediaAdapter.fromJson(string)
+            else
+                null
+        }
+
     }
 
 }
