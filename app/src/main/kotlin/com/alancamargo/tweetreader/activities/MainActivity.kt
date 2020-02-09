@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private val viewModel by viewModel<TweetViewModel>()
 
     private var searchView: SearchView? = null
+    private var tweets = emptyList<Tweet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +50,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
+        menu?.findItem(R.id.item_search)?.let {
+            searchView = it.actionView as SearchView
+            searchView?.setOnCloseListener {
+                showTweets(this.tweets)
+                return@setOnCloseListener false
+            }
+        }
         return true
     }
 
@@ -96,10 +103,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         hideProgressBars()
         hideErrorIfVisible()
 
-        if (tweets.isEmpty())
+        if (tweets.isEmpty()) {
             showNoResultsMessage()
-        else
+        } else {
+            this.tweets = tweets
             adapter.submitList(tweets)
+        }
 
         searchView?.setOnQueryTextListener(getQueryListener())
     }
