@@ -10,18 +10,14 @@ import com.alancamargo.tweetreader.model.api.SearchBody
 class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRemoteDataSource {
 
     override suspend fun getTweets(maxId: Long?, sinceId: Long?): List<Tweet> {
-        val api = apiProvider.getTwitterApi()
+        val twitterApi = apiProvider.getTwitterApi()
 
-        return api.getTweets(maxId = maxId, sinceId = sinceId).map {
-            it.also { tweet ->
-                if (tweet.isReply())
-                    tweet.repliedTweet = loadRepliedTweet(api, it)
-            }
-        }
+        return twitterApi.getTweets(maxId = maxId, sinceId = sinceId).loadReplies(twitterApi)
     }
 
     override suspend fun searchTweets(query: String): List<Tweet> {
-        val api = apiProvider.getSearchApi()
+        val searchApi = apiProvider.getSearchApi()
+        val twitterApi = apiProvider.getTwitterApi()
 
         val searchBody = SearchBody.Builder()
             .setQueryTerm(query)
@@ -29,7 +25,14 @@ class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRem
             .setMaxResults(DEFAULT_MAX_SEARCH_RESULTS)
             .build()
 
-        return api.search(searchBody).results
+        return searchApi.search(searchBody).results.loadReplies(twitterApi)
+    }
+
+    private suspend fun List<Tweet>.loadReplies(twitterApi: TwitterApi) = map {
+        it.also { tweet ->
+            if (tweet.isReply())
+                tweet.repliedTweet = loadRepliedTweet(twitterApi, tweet)
+        }
     }
 
     private suspend fun loadRepliedTweet(api: TwitterApi, tweet: Tweet): Tweet? {
