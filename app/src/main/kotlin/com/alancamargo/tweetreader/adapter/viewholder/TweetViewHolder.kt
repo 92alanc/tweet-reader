@@ -47,7 +47,7 @@ open class TweetViewHolder(
     }
 
     protected fun getText(tweet: Tweet): String {
-        var text = tweet.fullText
+        var text = tweet.extendedTweet?.text ?: tweet.fullText
 
         if (text.isEmpty())
             text = tweet.text
