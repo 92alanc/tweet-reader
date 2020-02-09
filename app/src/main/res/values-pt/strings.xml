@@ -16,4 +16,5 @@
     <string name="message_generic_error">Algo deu errado. Por favor tente novamente mais tarde</string>
     <string name="you_are_offline">Você está offline</string>
     <string name="you_are_back_online">Você está online de novo</string>
+    <string name="message_no_results">Nenhum resultado encontrado</string>
 </resources>

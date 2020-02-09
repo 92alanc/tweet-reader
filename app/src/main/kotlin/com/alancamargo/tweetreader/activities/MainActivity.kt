@@ -95,7 +95,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private fun showTweets(tweets: List<Tweet>) {
         hideProgressBars()
         hideErrorIfVisible()
-        adapter.submitList(tweets)
+
+        if (tweets.isEmpty())
+            showNoResultsMessage()
+        else
+            adapter.submitList(tweets)
+
         searchView?.setOnQueryTextListener(getQueryListener())
     }
 
@@ -104,6 +109,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
         if (swipe_refresh_layout.isRefreshing)
             swipe_refresh_layout.isRefreshing = false
+    }
+
+    private fun showNoResultsMessage() {
+        img_error.setImageResource(R.drawable.ic_no_results)
+        txt_error.setText(R.string.message_no_results)
+        showError()
     }
 
     private fun showDisconnectedError() {
