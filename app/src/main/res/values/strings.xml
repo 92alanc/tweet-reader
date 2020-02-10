@@ -8,7 +8,6 @@
     <string name="message_account_suspended">This account has been suspended since Twitter is not a big fan of free speech.\nPlease try again later</string>
     <string name="message_generic_error">Something went wrong. Please try again later</string>
     <string name="close">Close</string>
-    <string name="no_data_found">No data found</string>
     <string name="about">About</string>
     <string name="developer_info">Developed by Alan Camargo.\n\nDisclaimer: I am not responsible for any of the contents displayed in this app.</string>
     <string name="ok" translatable="false">OK</string>

@@ -155,7 +155,7 @@ dependencies {
     // endregion
 
     // region Unit test libraries
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     testImplementation "com.google.truth:truth:1.0.1"
     testImplementation 'io.mockk:mockk:1.9.1'
     testImplementation 'android.arch.core:core-testing:1.1.1'

@@ -5,7 +5,6 @@
     <string name="message_disconnected">Por favor verifique sua conexão com a Internet</string>
     <string name="message_account_suspended">Esta conta foi suspensa já que o Twitter não é muito fã de liberdade de expressão. Por favor tente de novo mais tarde</string>
     <string name="close">Fechar</string>
-    <string name="no_data_found">Nenhum dado encontrado</string>
     <string name="about">Sobre</string>
     <string name="developer_info">Desenvolvido por Alan Camargo.\n\nObs.: Eu não sou responsável por nenhum conteúdo exibido neste app.</string>
     <string name="description_reply">Resposta</string>
