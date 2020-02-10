@@ -16,6 +16,7 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
 import org.junit.Test
+import retrofit2.HttpException
 
 @ExperimentalCoroutinesApi
 class TokenHelperImplTest {
@@ -66,11 +67,26 @@ class TokenHelperImplTest {
         verify { mockPreferenceHelper.setAccessToken("client_credentials token_from_api") }
     }
 
+    @Test(expected = HttpException::class)
+    fun ifApiSendsError_shouldThrowException() {
+        runBlocking {
+            every { mockPreferenceHelper.getAccessToken() } returns null
+            enqueueErrorResponse()
+
+            tokenHelper.getAccessToken()
+        }
+    }
+
     private fun enqueueSuccessfulResponse() {
         val token = OAuth2Token("client_credentials", "token_from_api")
         val responseBody = jsonAdapter.toJson(token)
         val tokenResponse = MockResponse().setResponseCode(200).setBody(responseBody)
         mockWebServer.enqueue(tokenResponse)
+    }
+
+    private fun enqueueErrorResponse() {
+        val response = MockResponse().setResponseCode(404)
+        mockWebServer.enqueue(response)
     }
 
 }
