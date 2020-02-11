@@ -7,11 +7,8 @@ import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.CrashReportManager
 import com.google.common.truth.Truth.assertThat
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
@@ -44,7 +41,7 @@ class TweetRepositoryTest {
         runBlocking {
             val expected = listOf<Tweet>(mockk(), mockk(), mockk())
             coEvery {
-                mockRemoteDataSource.getTweets(null, null)
+                mockRemoteDataSource.getTweets(any(), any())
             } returns expected
 
             val result = repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
@@ -60,7 +57,7 @@ class TweetRepositoryTest {
         runBlocking {
             val expected = listOf<Tweet>(mockk(), mockk(), mockk())
             coEvery {
-                mockRemoteDataSource.getTweets(null, null)
+                mockRemoteDataSource.getTweets(any(), any())
             } throws Throwable()
 
             coEvery { mockLocalDataSource.getTweets() } returns expected
@@ -77,7 +74,7 @@ class TweetRepositoryTest {
     fun whenRemoteDataSourceRespondsWithErrorAndCacheThrowsException_shouldReturnGenericError() {
         runBlocking {
             coEvery {
-                mockRemoteDataSource.getTweets(null, null)
+                mockRemoteDataSource.getTweets(any(), any())
             } throws Throwable()
 
             coEvery { mockLocalDataSource.getTweets() } throws Throwable()
@@ -92,7 +89,7 @@ class TweetRepositoryTest {
     fun whenRemoteDataSourceThrowsIOExceptionAndCacheThrowsException_shouldReturnNetworkError() {
         runBlocking {
             coEvery {
-                mockRemoteDataSource.getTweets(null, null)
+                mockRemoteDataSource.getTweets(any(), any())
             } throws IOException()
 
             coEvery { mockLocalDataSource.getTweets() } throws Throwable()
@@ -107,7 +104,7 @@ class TweetRepositoryTest {
     fun whenRemoteDataSourceThrowsHttpExceptionAndCacheThrowsException_shouldReturnGenericError() {
         runBlocking {
             coEvery {
-                mockRemoteDataSource.getTweets(null, null)
+                mockRemoteDataSource.getTweets(any(), any())
             } throws mockHttpException()
 
             coEvery { mockLocalDataSource.getTweets() } throws Throwable()
@@ -122,15 +119,50 @@ class TweetRepositoryTest {
 
     @Test
     fun whenNewTweetsAreFetchedFromRemote_shouldUpdateCache() {
-        val tweets = listOf<Tweet>(mockk(), mockk(), mockk())
         runBlocking {
+            val tweets = listOf<Tweet>(mockk(), mockk(), mockk())
             coEvery {
-                mockRemoteDataSource.getTweets(null, null)
+                mockRemoteDataSource.getTweets(any(), any())
             } returns tweets
 
             repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
 
             coVerify { mockLocalDataSource.updateCache(tweets) }
+        }
+    }
+
+    @Test
+    fun whenRemoteDataSourceRespondsWithError_shouldLogInCrashReportManager() {
+        runBlocking {
+            val t = Throwable()
+            coEvery {
+                mockRemoteDataSource.getTweets(any(), any())
+            } throws t
+
+            repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
+
+            verify { mockCrashReportManager.logException(t) }
+        }
+    }
+
+    @Test
+    fun whenBothRemoteAndLocalDataSourcesRespondWithError_shouldLogErrorsInCrashReportManager() {
+        runBlocking {
+            val remoteError = Throwable("Remote error!!!")
+            val localError = Throwable("Local error!!!")
+
+            coEvery {
+                mockRemoteDataSource.getTweets(any(), any())
+            } throws remoteError
+
+            coEvery {
+                mockLocalDataSource.getTweets()
+            } throws localError
+
+            repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
+
+            verify { mockCrashReportManager.logException(remoteError) }
+            verify { mockCrashReportManager.logException(localError) }
         }
     }
 
