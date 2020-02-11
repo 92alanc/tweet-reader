@@ -1,27 +1,29 @@
 package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
-import android.widget.TextView
-import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.di.DependencyInjection
+import com.alancamargo.tweetreader.handlers.ImageHandler
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.LinkType
-import com.alancamargo.tweetreader.util.bindView
-import com.alancamargo.tweetreader.util.extractLinkFrom
+import com.alancamargo.tweetreader.util.extensions.extractLink
+import kotlinx.android.synthetic.main.item_tweet_link.*
 
-class LinkTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
-
-    private val txtLink by bindView<TextView>(R.id.txt_link)
+class LinkTweetViewHolder(
+    itemView: View,
+    imageHandler: ImageHandler,
+    linkClickListener: LinkClickListener
+) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
 
-        extractLinkFrom(tweet.text)?.let { link ->
-            txtLink.run {
+        tweet.fullText.extractLink()?.let { link ->
+            with(txt_link) {
                 text = link
                 setOnClickListener {
-                    DependencyInjection.linkClickListener.onLinkClicked(
-                        context, link, LinkType.PLAIN_URL
+                    linkClickListener.onLinkClicked(
+                        context,
+                        link,
+                        LinkClickListener.LinkType.PLAIN_URL
                     )
                 }
             }

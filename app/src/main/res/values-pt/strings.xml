@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="profile">Perfil</string>
+    <string name="search">Buscar</string>
     <string name="member_since_format">Membro desde %s</string>
-    <string name="account_suspended">Esta conta foi suspensa já que o Twitter não é muito fã de liberdade de expressão.\nPor favor tente de novo mais tarde</string>
-    <string name="you_are_offline">Você está offline</string>
+    <string name="message_disconnected">Por favor verifique sua conexão com a Internet</string>
+    <string name="message_account_suspended">Esta conta foi suspensa já que o Twitter não é muito fã de liberdade de expressão. Por favor tente de novo mais tarde</string>
     <string name="close">Fechar</string>
-    <string name="no_data_found">Nenhum dado encontrado</string>
     <string name="about">Sobre</string>
     <string name="developer_info">Desenvolvido por Alan Camargo.\n\nObs.: Eu não sou responsável por nenhum conteúdo exibido neste app.</string>
     <string name="description_reply">Resposta</string>
     <string name="error_loading_tweet">Erro ao carregar tweet</string>
     <string name="description_quotation">Citação</string>
+    <string name="ad">Anúncio</string>
+    <string name="error_loading_ad">Erro ao carregar o anúncio. Deu sorte!</string>
+    <string name="message_generic_error">Algo deu errado. Por favor tente novamente mais tarde</string>
+    <string name="you_are_offline">Você está offline</string>
+    <string name="you_are_back_online">Você está online de novo</string>
+    <string name="message_no_results">Nenhum resultado encontrado</string>
 </resources>

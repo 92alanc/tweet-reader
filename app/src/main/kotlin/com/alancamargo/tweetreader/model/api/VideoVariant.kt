@@ -1,8 +1,8 @@
 package com.alancamargo.tweetreader.model.api
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class VideoVariant(
-    @SerializedName("content_type") val contentType: String,
+    @field:Json(name = "content_type") val contentType: String,
     val url: String
 )

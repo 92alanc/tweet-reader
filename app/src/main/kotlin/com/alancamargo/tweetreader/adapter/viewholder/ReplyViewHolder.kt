@@ -3,41 +3,36 @@ package com.alancamargo.tweetreader.adapter.viewholder
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.handlers.ImageHandler
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.repository.SingleTweetCallback
-import com.alancamargo.tweetreader.repository.TweetRepository
-import com.alancamargo.tweetreader.util.bindView
+import kotlinx.android.synthetic.main.item_tweet_reply.*
 
-class ReplyViewHolder(itemView: View) : QuotedTweetViewHolder(itemView), SingleTweetCallback {
-
-    private val progressBar by bindView<ProgressBar>(R.id.progress_bar)
-    private val txtError by bindView<TextView>(R.id.txt_error)
-    private val quotedTweet by bindView<FrameLayout>(R.id.quoted_tweet)
+class ReplyViewHolder(
+    itemView: View,
+    imageHandler: ImageHandler,
+    linkClickListener: LinkClickListener
+) : QuotedTweetViewHolder(itemView, imageHandler, linkClickListener) {
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
-        val repository = TweetRepository(itemView.context)
-        originalTweet.inReplyTo?.let { id ->
-            repository.fetchSingleTweet(id, callback = this)
-            quotedTweet.visibility = GONE
-            progressBar.visibility = VISIBLE
-        }
+        quoted_tweet.visibility = GONE
+        progress_bar.visibility = VISIBLE
+        bindRepliedTweet(originalTweet.repliedTweet)
     }
 
-    override fun onTweetLoaded(tweet: Tweet) {
-        progressBar.visibility = GONE
-        quotedTweet.visibility = VISIBLE
-        originalTweet.quotedTweet = tweet
-        super.bindQuotedTweet()
+    private fun bindRepliedTweet(repliedTweet: Tweet?) {
+        progress_bar.visibility = GONE
+        quoted_tweet.visibility = VISIBLE
+        if (repliedTweet != null)
+            super.bindQuotedTweet(repliedTweet)
+        else
+            showError()
     }
 
-    override fun onError() {
-        progressBar.visibility = GONE
-        txtError.visibility = VISIBLE
+    private fun showError() {
+        progress_bar.visibility = GONE
+        txt_error.visibility = VISIBLE
     }
 
 }

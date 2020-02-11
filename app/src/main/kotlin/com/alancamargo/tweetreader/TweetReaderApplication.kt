@@ -1,51 +1,37 @@
 package com.alancamargo.tweetreader
 
-import android.content.IntentFilter
-import android.net.ConnectivityManager
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.LOLLIPOP
-import androidx.multidex.MultiDexApplication
-import com.alancamargo.tweetreader.api.BASE_URL
-import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
-import com.alancamargo.tweetreader.connectivity.ConnectivityReceiver
-import com.alancamargo.tweetreader.di.DependencyInjection
-import com.alancamargo.tweetreader.util.AppImageHandler
-import com.alancamargo.tweetreader.util.AppLinkClickListener
-import com.alancamargo.tweetreader.util.isConnected
+import android.app.Application
+import com.alancamargo.tweetreader.di.getModules
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 @Suppress("unused")
-class TweetReaderApplication : MultiDexApplication() {
+class TweetReaderApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ConnectivityMonitor.isConnected.postValue(isConnected())
-        watchConnectivity()
-        configureImageLoader()
-        FirebaseApp.initializeApp(this)
-        MobileAds.initialize(this, getString(R.string.admob_app_id))
-        DependencyInjection.init(
-            AppImageHandler(), BASE_URL,
-            AppLinkClickListener()
-        )
+        startFirebase()
+        startDependencyInjection()
+        startImageLoader()
     }
 
-    @Suppress("deprecation")
-    private fun watchConnectivity() {
-        if (SDK_INT >= LOLLIPOP) {
-            ConnectivityMonitor().enable(this)
-        } else {
-            registerReceiver(
-                ConnectivityReceiver(),
-                IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-            )
+    private fun startFirebase() {
+        FirebaseApp.initializeApp(this)
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+    }
+
+    private fun startDependencyInjection() {
+        startKoin {
+            androidContext(this@TweetReaderApplication)
+            modules(getModules())
         }
     }
 
-    private fun configureImageLoader() {
+    private fun startImageLoader() {
         val config = ImageLoaderConfiguration.createDefault(this)
         ImageLoader.getInstance().init(config)
     }

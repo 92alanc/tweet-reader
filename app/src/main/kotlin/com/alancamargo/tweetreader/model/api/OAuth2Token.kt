@@ -1,9 +1,11 @@
 package com.alancamargo.tweetreader.model.api
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
-class OAuth2Token(@SerializedName("token_type") private val tokenType: String,
-                  @SerializedName("access_token") private val accessToken: String) {
+data class OAuth2Token(
+    @field:Json(name = "token_type") private val tokenType: String,
+    @field:Json(name = "access_token") private val accessToken: String
+) {
 
     fun getAuthorisationHeader() = "$tokenType $accessToken"
 

@@ -2,31 +2,31 @@ package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.net.Uri
 import android.view.View
-import android.widget.ImageView
 import android.widget.MediaController
-import android.widget.VideoView
-import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.handlers.ImageHandler
+import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.bindView
+import kotlinx.android.synthetic.main.item_tweet_video.*
 
-class VideoTweetViewHolder(itemView: View) : TweetViewHolder(itemView) {
-
-    private val videoView by bindView<VideoView>(R.id.video_view)
-    private val imgVideo by bindView<ImageView>(R.id.img_video)
+class VideoTweetViewHolder(
+    itemView: View,
+    imageHandler: ImageHandler,
+    linkClickListener: LinkClickListener
+) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)
         tweet.media?.getVideoUrl()?.let { videoUrl ->
-            videoView.run {
+            video_view.run {
                 setVideoURI(Uri.parse(videoUrl))
                 setMediaController(MediaController(context).also { it.setAnchorView(this) })
                 setOnCompletionListener {
-                    imgVideo.visibility = View.VISIBLE
+                    img_video.visibility = View.VISIBLE
                 }
             }
 
-            imgVideo.setOnClickListener {
-                videoView.start()
+            img_video.setOnClickListener {
+                video_view.start()
                 it.visibility = View.GONE
             }
         }

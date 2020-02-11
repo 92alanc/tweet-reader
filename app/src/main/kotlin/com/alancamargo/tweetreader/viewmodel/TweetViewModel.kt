@@ -1,75 +1,37 @@
 package com.alancamargo.tweetreader.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import com.alancamargo.tweetreader.connectivity.ConnectivityMonitor
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.repository.TweetCallback
 import com.alancamargo.tweetreader.repository.TweetRepository
-import com.alancamargo.tweetreader.util.runAsync
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class TweetViewModel(application: Application) : AndroidViewModel(application),
-    CoroutineScope,
-    TweetCallback {
+class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
 
-    private val job = Job()
+    private val tweetsLiveData = MutableLiveData<Result<List<Tweet>>>()
+    private val searchLiveData = MutableLiveData<Result<List<Tweet>>>()
 
-    override val coroutineContext = job + Dispatchers.Main
-
-    private val repository = TweetRepository(application)
-
-    private lateinit var view: View
-    private lateinit var lifecycleOwner: LifecycleOwner
-
-    private var isRefreshing = false
-
-    fun insert(tweet: Tweet) {
-        runAsync {
-            if (!repository.contains(tweet))
-                repository.insert(tweet)
+    fun getTweets(
+        hasScrolledToBottom: Boolean,
+        isRefreshing: Boolean
+    ): LiveData<Result<List<Tweet>>> {
+        return tweetsLiveData.apply {
+            viewModelScope.launch {
+                val result = repository.getTweets(hasScrolledToBottom, isRefreshing)
+                postValue(result)
+            }
         }
     }
 
-    fun getTweets(lifecycleOwner: LifecycleOwner,
-                  callback: View,
-                  maxId: Long? = null,
-                  sinceId: Long? = null) {
-        this.lifecycleOwner = lifecycleOwner
-        this.view = callback
-        isRefreshing = sinceId != null
-
-        ConnectivityMonitor.isConnected.observe(lifecycleOwner, Observer { isConnected ->
-            runAsync {
-                if (isConnected) {
-                    repository.fetchFromApi(this, maxId, sinceId)
-                } else {
-                    repository.fetchFromDatabase(this)
-                }
+    fun searchTweets(query: String): LiveData<Result<List<Tweet>>> {
+        return searchLiveData.apply {
+            viewModelScope.launch {
+                val result = repository.searchTweets(query)
+                postValue(result)
             }
-        })
-    }
-
-    override fun onAccountSuspended() {
-        view.onAccountSuspended()
-    }
-
-    override fun onTweetsFound(tweets: LiveData<List<Tweet>?>) {
-        launch {
-            tweets.observe(lifecycleOwner, Observer {
-                it?.let { result ->
-                    if (result.isNotEmpty())
-                        view.onTweetsFound(result, isRefreshing)
-                    else
-                        view.onNothingFound()
-                }
-            })
         }
     }
 

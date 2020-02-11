@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_default"
+            android:textIsSelectable="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/img_profile_picture"
             tools:text="Jair M. Bolsonaro"/>
@@ -36,6 +37,7 @@
             style="@style/Link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textIsSelectable="true"
             app:layout_constraintTop_toBottomOf="@id/txt_name"
             app:layout_constraintBottom_toTopOf="@+id/txt_tweet"
             app:layout_constraintStart_toStartOf="@id/txt_name"
@@ -48,13 +50,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColorHighlight="@android:color/transparent"
+            android:textIsSelectable="true"
             app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="@sample/tweets.json/data/text"/>
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/video_view"
+            android:id="@+id/view_pager"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_view_pager"
             android:layout_marginTop="@dimen/margin_default"
@@ -68,7 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
-            app:layout_constraintTop_toBottomOf="@id/video_view"
+            android:textIsSelectable="true"
+            app:layout_constraintTop_toBottomOf="@id/view_pager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@sample/tweets.json/data/date"/>
