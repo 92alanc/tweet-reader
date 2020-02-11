@@ -4,21 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.device.ConnectivityStateObserver
 import com.alancamargo.tweetreader.util.extensions.loadBannerAds
 import com.alancamargo.tweetreader.util.setMemberSince
-import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.NumberFormat
 
 class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
 
     private val connectivityStateObserver by inject<ConnectivityStateObserver>()
-    private val viewModel by viewModel<ProfileViewModel>()
+    private val imageHandler by inject<ImageHandler>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,18 +31,22 @@ class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
 
     private fun bindData(profile: User) {
         with(profile) {
-            viewModel.loadPhoto(profileBannerUrl, img_profile_banner)
-            viewModel.loadPhoto(profilePictureUrl, img_profile_picture)
-            txt_name.text = name
-            txt_screen_name.text = getString(R.string.screen_name_format, screenName)
-            txt_description.text = description
-            txt_location.text = location
-            setMemberSince(txt_member_since, creationDate)
-            txt_followers_count.text = resources.getQuantityString(
-                R.plurals.followers_count,
-                followersCount,
-                NumberFormat.getNumberInstance().format(followersCount)
-            )
+            lifecycleScope.launch {
+                with(imageHandler) {
+                    loadImage(profileBannerUrl, img_profile_banner)
+                    loadImage(profilePictureUrl, img_profile_picture)
+                }
+                txt_name.text = name
+                txt_screen_name.text = getString(R.string.screen_name_format, screenName)
+                txt_description.text = description
+                txt_location.text = location
+                setMemberSince(txt_member_since, creationDate)
+                txt_followers_count.text = resources.getQuantityString(
+                    R.plurals.followers_count,
+                    followersCount,
+                    NumberFormat.getNumberInstance().format(followersCount)
+                )
+            }
         }
     }
 

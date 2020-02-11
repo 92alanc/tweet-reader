@@ -21,8 +21,6 @@ import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.CrashReportManager
 import com.alancamargo.tweetreader.util.CrashReportManagerImpl
 import com.alancamargo.tweetreader.util.device.*
-import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModel
-import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -32,8 +30,6 @@ fun getModules() = listOf(data, helpers, ui, device)
 
 private val data = module {
     viewModel { TweetViewModel(get()) }
-    viewModel { ProfileViewModel(get()) }
-    viewModel { PhotoDetailsViewModel(get()) }
     factory { TweetRepository(get(), get(), get()) }
     factory<TweetLocalDataSource> { TweetLocalDataSourceImpl(get()) }
     factory<TweetRemoteDataSource> { TweetRemoteDataSourceImpl(get()) }
