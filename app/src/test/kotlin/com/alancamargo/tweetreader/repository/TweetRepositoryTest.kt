@@ -9,6 +9,7 @@ import com.alancamargo.tweetreader.util.CrashReportManager
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,7 +56,7 @@ class TweetRepositoryTest {
     }
 
     @Test
-    fun whenRemoteDataSourceRespondsWithError_shouldGetTweetsFromLocal() {
+    fun whenRemoteDataSourceRespondsWithError_shouldGetTweetsFromCache() {
         runBlocking {
             val expected = listOf<Tweet>(mockk(), mockk(), mockk())
             coEvery {
@@ -114,6 +115,22 @@ class TweetRepositoryTest {
             val result = repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
 
             assertThat(result).isInstanceOf(Result.GenericError::class.java)
+            require(result is Result.GenericError)
+            assertThat(result.code).isEqualTo(404)
+        }
+    }
+
+    @Test
+    fun whenNewTweetsAreFetchedFromRemote_shouldUpdateCache() {
+        val tweets = listOf<Tweet>(mockk(), mockk(), mockk())
+        runBlocking {
+            coEvery {
+                mockRemoteDataSource.getTweets(null, null)
+            } returns tweets
+
+            repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
+
+            coVerify { mockLocalDataSource.updateCache(tweets) }
         }
     }
 
