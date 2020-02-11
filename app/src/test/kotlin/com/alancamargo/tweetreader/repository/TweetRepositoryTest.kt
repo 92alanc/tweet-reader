@@ -13,8 +13,13 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType
+import okhttp3.ResponseBody
+import okio.BufferedSource
 import org.junit.Before
 import org.junit.Test
+import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 
 @ExperimentalCoroutinesApi
@@ -95,6 +100,33 @@ class TweetRepositoryTest {
 
             assertThat(result).isInstanceOf(Result.NetworkError::class.java)
         }
+    }
+
+    @Test
+    fun whenRemoteDataSourceThrowsHttpExceptionAndCacheThrowsException_shouldReturnGenericError() {
+        runBlocking {
+            coEvery {
+                mockRemoteDataSource.getTweets(null, null)
+            } throws mockHttpException()
+
+            coEvery { mockLocalDataSource.getTweets() } throws Throwable()
+
+            val result = repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
+
+            assertThat(result).isInstanceOf(Result.GenericError::class.java)
+        }
+    }
+
+    private fun mockHttpException(): HttpException {
+        val body = Response.error<Any>(404, object : ResponseBody() {
+            override fun contentLength(): Long = 0L
+
+            override fun contentType(): MediaType? = mockk()
+
+            override fun source(): BufferedSource = mockk()
+        })
+
+        return HttpException(body)
     }
 
 }
