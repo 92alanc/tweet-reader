@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.util.extensions.loadNativeAds
-import com.crashlytics.android.Crashlytics
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -32,7 +31,6 @@ class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
             .withAdListener(object : AdListener() {
                 override fun onAdFailedToLoad(errorCode: Int) {
-                    Crashlytics.log("Failed to load ad. Error code: $errorCode")
                     progressBar.visibility = View.GONE
                     errorText.visibility = View.VISIBLE
                 }

@@ -3,6 +3,7 @@ package com.alancamargo.tweetreader.di
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.api.BASE_URL
 import com.alancamargo.tweetreader.api.provider.ApiProvider
+import com.alancamargo.tweetreader.api.tools.ApiHelper
 import com.alancamargo.tweetreader.api.tools.TokenHelper
 import com.alancamargo.tweetreader.api.tools.TokenHelperImpl
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
@@ -17,6 +18,8 @@ import com.alancamargo.tweetreader.helpers.LinkClickListenerImpl
 import com.alancamargo.tweetreader.helpers.PreferenceHelper
 import com.alancamargo.tweetreader.helpers.PreferenceHelperImpl
 import com.alancamargo.tweetreader.repository.TweetRepository
+import com.alancamargo.tweetreader.util.CrashReportManager
+import com.alancamargo.tweetreader.util.CrashReportManagerImpl
 import com.alancamargo.tweetreader.util.device.*
 import com.alancamargo.tweetreader.viewmodel.PhotoDetailsViewModel
 import com.alancamargo.tweetreader.viewmodel.ProfileViewModel
@@ -31,7 +34,7 @@ private val data = module {
     viewModel { TweetViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { PhotoDetailsViewModel(get()) }
-    factory { TweetRepository(get(), get()) }
+    factory { TweetRepository(get(), get(), get()) }
     factory<TweetLocalDataSource> { TweetLocalDataSourceImpl(get()) }
     factory<TweetRemoteDataSource> { TweetRemoteDataSourceImpl(get()) }
     factory { ApiProvider(BASE_URL, get()) }
@@ -42,6 +45,8 @@ private val helpers = module {
     factory<PreferenceHelper> { PreferenceHelperImpl(androidContext()) }
     factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
     factory<ConnectivityHelper> { ConnectivityHelperImpl(androidContext()) }
+    factory<CrashReportManager> { CrashReportManagerImpl() }
+    factory { ApiHelper(get()) }
 }
 
 private val ui = module {

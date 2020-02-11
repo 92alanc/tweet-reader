@@ -1,14 +1,15 @@
 package com.alancamargo.tweetreader.repository
 
 import com.alancamargo.tweetreader.api.results.Result
-import com.alancamargo.tweetreader.api.tools.safeApiCall
+import com.alancamargo.tweetreader.api.tools.ApiHelper
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.model.Tweet
 
 class TweetRepository(
     private val localDataSource: TweetLocalDataSource,
-    private val remoteDataSource: TweetRemoteDataSource
+    private val remoteDataSource: TweetRemoteDataSource,
+    private val apiHelper: ApiHelper
 ) {
 
     private var tweets: List<Tweet> = emptyList()
@@ -20,7 +21,7 @@ class TweetRepository(
         val maxId = if (hasScrolledToBottom) tweets.getMaxId() else null
         val sinceId = if (isRefreshing) tweets.getSinceId() else null
 
-        return safeApiCall (apiCall = {
+        return apiHelper.safeApiCall (apiCall = {
             val newTweets = remoteDataSource.getTweets(maxId = maxId, sinceId = sinceId)
             localDataSource.updateCache(newTweets)
             tweets = tweets.append(newTweets, isRefreshing)
@@ -30,7 +31,7 @@ class TweetRepository(
         })
     }
 
-    suspend fun searchTweets(query: String): Result<List<Tweet>> = safeApiCall {
+    suspend fun searchTweets(query: String): Result<List<Tweet>> = apiHelper.safeApiCall {
         remoteDataSource.searchTweets(query)
     }
 
