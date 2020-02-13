@@ -16,4 +16,5 @@
     <string name="you_are_offline">Você está offline</string>
     <string name="you_are_back_online">Você está online de novo</string>
     <string name="message_no_results">Nenhum resultado encontrado</string>
+    <string name="clear_cache">Limpar cache</string>
 </resources>

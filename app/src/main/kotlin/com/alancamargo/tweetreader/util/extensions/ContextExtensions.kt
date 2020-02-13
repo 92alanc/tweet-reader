@@ -13,7 +13,7 @@ fun Context.getVersionName(): String {
     return packageManager.getPackageInfo(packageName, 0).versionName
 }
 
-fun Context.showAppInfo(): Boolean {
+fun Context.showAppInfo() {
     val title = "${getString(R.string.app_name)} ${getVersionName()}"
     val rawText = getString(R.string.developer_info)
     val textToHighlight = rawText.split("\n\n").last()
@@ -25,11 +25,9 @@ fun Context.showAppInfo(): Boolean {
         .setMessage(message)
         .setNeutralButton(R.string.ok, null)
         .show()
-
-    return true
 }
 
-fun Context.showPrivacyTerms(): Boolean {
+fun Context.showPrivacyTerms() {
     val appName = getAppName()
     val message = getString(R.string.privacy_terms_format, appName, appName)
 
@@ -38,7 +36,6 @@ fun Context.showPrivacyTerms(): Boolean {
         .setMessage(message)
         .setNeutralButton(R.string.ok, null)
         .show()
-    return true
 }
 
 private fun Context.getAppName(): String = getString(R.string.app_name)

@@ -11,6 +11,7 @@ import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import okio.BufferedSource
@@ -164,6 +165,13 @@ class TweetRepositoryTest {
             verify { mockCrashReportManager.logException(remoteError) }
             verify { mockCrashReportManager.logException(localError) }
         }
+    }
+
+    @Test
+    fun shouldClearCache() = runBlockingTest {
+        repository.clearCache()
+
+        coVerify { mockLocalDataSource.clearCache() }
     }
 
     private fun mockHttpException(): HttpException {

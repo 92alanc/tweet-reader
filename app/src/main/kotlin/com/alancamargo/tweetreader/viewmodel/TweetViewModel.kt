@@ -35,4 +35,8 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
         }
     }
 
+    fun clearCache() = viewModelScope.launch {
+        repository.clearCache()
+    }
+
 }

@@ -7,6 +7,9 @@
         android:icon="@drawable/ic_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/item_clear_cache"
+        android:title="@string/clear_cache"
+        app:showAsAction="never"/>
     <item android:id="@+id/item_privacy"
         android:title="@string/privacy_terms"
         app:showAsAction="never"/>

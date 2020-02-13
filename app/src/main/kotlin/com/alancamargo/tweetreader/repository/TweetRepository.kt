@@ -35,6 +35,10 @@ class TweetRepository(
         remoteDataSource.searchTweets(query)
     }
 
+    suspend fun clearCache() {
+        localDataSource.clearCache()
+    }
+
     private fun List<Tweet>.append(newTweets: List<Tweet>, isRefreshing: Boolean): List<Tweet> {
         return if (isRefreshing)
             newTweets + this

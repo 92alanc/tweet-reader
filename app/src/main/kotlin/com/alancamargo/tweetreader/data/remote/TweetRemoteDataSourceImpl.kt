@@ -6,13 +6,17 @@ import com.alancamargo.tweetreader.api.TwitterApi
 import com.alancamargo.tweetreader.api.provider.ApiProvider
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.api.SearchBody
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRemoteDataSource {
 
     override suspend fun getTweets(maxId: Long?, sinceId: Long?): List<Tweet> {
         val twitterApi = apiProvider.getTwitterApi()
 
-        return twitterApi.getTweets(maxId = maxId, sinceId = sinceId).loadReplies(twitterApi)
+        return withContext(Dispatchers.IO) {
+            twitterApi.getTweets(maxId = maxId, sinceId = sinceId).loadReplies(twitterApi)
+        }
     }
 
     override suspend fun searchTweets(query: String): List<Tweet> {
@@ -25,7 +29,9 @@ class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRem
             .setMaxResults(DEFAULT_MAX_SEARCH_RESULTS)
             .build()
 
-        return searchApi.search(searchBody).results.loadReplies(twitterApi)
+        return withContext(Dispatchers.IO) {
+            searchApi.search(searchBody).results.loadReplies(twitterApi)
+        }
     }
 
     private suspend fun List<Tweet>.loadReplies(twitterApi: TwitterApi) = map {
@@ -37,7 +43,9 @@ class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRem
 
     private suspend fun loadRepliedTweet(api: TwitterApi, tweet: Tweet): Tweet? {
         return tweet.inReplyTo?.let { id ->
-            api.getTweet(id)
+            withContext(Dispatchers.IO) {
+                api.getTweet(id)
+            }
         }
     }
 

@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
         menu?.findItem(R.id.item_search)?.let {
             searchView = it.actionView as SearchView
             searchView?.setOnCloseListener {
@@ -57,15 +58,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                 return@setOnCloseListener false
             }
         }
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.item_about -> showAppInfo()
+        when (item.itemId) {
+            R.id.item_clear_cache -> viewModel.clearCache()
             R.id.item_privacy -> showPrivacyTerms()
-            else -> super.onOptionsItemSelected(item)
+            R.id.item_about -> showAppInfo()
         }
+
+        return true
     }
 
     override fun onRefresh() {
