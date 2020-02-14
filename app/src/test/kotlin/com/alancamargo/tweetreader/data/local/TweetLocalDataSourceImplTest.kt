@@ -9,6 +9,7 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
@@ -27,7 +28,7 @@ class TweetLocalDataSourceImplTest {
     }
 
     @Test
-    fun shouldGetTweetsFromDatabase() = runBlockingTest {
+    fun shouldGetTweetsFromDatabase() = runBlocking {
         coEvery { mockDbManager.select() } returns listOf(mockk(), mockk())
 
         assertThat(localDataSource.getTweets().size).isEqualTo(2)
@@ -52,7 +53,7 @@ class TweetLocalDataSourceImplTest {
     }
 
     @Test
-    fun whenATweetIsAlreadyCached_shouldNotCacheAgain() = runBlockingTest {
+    fun whenATweetIsAlreadyCached_shouldNotCacheAgain() = runBlocking {
         val tweets = listOf(Tweet(id = 1), Tweet(id = 2))
         coEvery { mockDbManager.count(1) } returns 1
         coEvery { mockDbManager.count(2) } returns 0
@@ -63,7 +64,7 @@ class TweetLocalDataSourceImplTest {
     }
 
     @Test
-    fun shouldClearCache() = runBlockingTest {
+    fun shouldClearCache() = runBlocking {
         localDataSource.clearCache()
 
         coVerify { mockDbManager.delete() }
