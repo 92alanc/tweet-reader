@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_clear_cache -> viewModel.clearCache()
+            R.id.item_clear_cache -> clearCacheAndShowToast()
             R.id.item_privacy -> showPrivacyTerms()
             R.id.item_about -> showAppInfo()
         }
@@ -184,6 +185,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
             override fun onQueryTextChange(newText: String?): Boolean = true
         }
+    }
+
+    private fun clearCacheAndShowToast() {
+        viewModel.clearCache()
+        Toast.makeText(this, R.string.cache_cleared, Toast.LENGTH_SHORT).show()
     }
 
 }
