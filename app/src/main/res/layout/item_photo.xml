@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:src="@tools:sample/backgrounds/scenic"/>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txt_indicator"
         style="@style/Indicator"
         android:layout_width="wrap_content"

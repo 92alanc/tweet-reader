@@ -57,7 +57,7 @@
 
                 <TextView
                     android:id="@+id/txt_name"
-                    style="@style/TextAppearance.AppCompat.Title"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_large"
@@ -79,7 +79,7 @@
 
                 <TextView
                     android:id="@+id/txt_description"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_large"
@@ -103,7 +103,7 @@
 
                 <TextView
                     android:id="@+id/txt_location"
-                    style="@style/TextAppearance.AppCompat.Body1"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_default"
@@ -115,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/txt_member_since"
-                    style="@style/TextAppearance.AppCompat.Body1"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_default"
@@ -126,7 +126,7 @@
 
                 <TextView
                     android:id="@+id/txt_followers_count"
-                    style="@style/TextAppearance.AppCompat.Body1"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_default"
@@ -136,7 +136,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintVertical_bias="0"
-                    tools:text="1000000 seguidores"/>
+                    tools:text="1,000,000 seguidores"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

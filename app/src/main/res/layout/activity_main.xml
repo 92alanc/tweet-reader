@@ -40,9 +40,9 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:src="@drawable/ic_disconnected"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_error"
-                style="@style/TextAppearance.AppCompat.Title"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_huge"

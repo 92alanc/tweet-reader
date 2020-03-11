@@ -1,4 +1,5 @@
-<com.google.android.gms.ads.formats.UnifiedNativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.gms.ads.formats.UnifiedNativeAdView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +10,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/padding_default">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/label_ad"
             style="@style/AdLabel"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +27,7 @@
             app:layout_constraintTop_toBottomOf="@id/label_ad"
             tools:src="@tools:sample/avatars" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ad_headline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
             app:layout_constraintTop_toTopOf="@id/ad_app_icon"
             tools:text="Buy this piece of crap now!" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ad_advertiser"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/ad_headline"
             tools:text="A crap advertiser" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ad_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ad_body" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ad_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,7 +83,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="£699.99" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ad_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,7 +94,7 @@
             app:layout_constraintTop_toTopOf="@+id/ad_call_to_action"
             tools:text="The crap store" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ad_call_to_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,9 +122,8 @@
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="ad_advertiser,ad_app_icon,ad_body,ad_call_to_action,ad_headline,ad_media,ad_price,ad_store" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_error"
-            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
