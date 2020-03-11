@@ -53,6 +53,7 @@ class TweetAdapter(
     override fun getItemViewType(position: Int): Int {
         val tweet = getItem(position)
 
+        // Every 5 tweets will be an ad, starting from position 1
         val isAd = (position.toString().endsWith("1"))
                 || (position.toString().endsWith("6"))
 
