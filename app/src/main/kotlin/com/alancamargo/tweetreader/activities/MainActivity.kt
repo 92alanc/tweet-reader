@@ -54,9 +54,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
 
         menu?.findItem(R.id.item_search)?.let {
             searchView = it.actionView as SearchView
-            searchView?.setOnCloseListener {
-                showTweets(this.tweets)
-                return@setOnCloseListener false
+            searchView?.run {
+                queryHint = getString(R.string.search)
+                setOnCloseListener {
+                    showTweets(this@MainActivity.tweets)
+                    return@setOnCloseListener false
+                }
             }
         }
 
