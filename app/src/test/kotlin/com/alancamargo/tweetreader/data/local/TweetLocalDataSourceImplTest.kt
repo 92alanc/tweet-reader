@@ -42,7 +42,7 @@ class TweetLocalDataSourceImplTest {
     }
 
     @Test
-    fun shouldUpdateCache() = runBlockingTest {
+    fun shouldUpdateCache() = runBlocking {
         val tweets = listOf(Tweet(id = 1), Tweet(id = 2))
         coEvery { mockDbManager.count(1) } returns 0
         coEvery { mockDbManager.count(2) } returns 0
