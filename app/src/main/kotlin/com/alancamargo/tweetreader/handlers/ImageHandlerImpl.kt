@@ -1,7 +1,6 @@
 package com.alancamargo.tweetreader.handlers
 
 import android.widget.ImageView
-import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
 
