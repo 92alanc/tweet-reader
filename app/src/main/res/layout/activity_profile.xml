@@ -53,7 +53,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.1"
-                    tools:src="@tools:sample/avatars"/>
+                    tools:src="@mipmap/ic_launcher_round"/>
 
                 <TextView
                     android:id="@+id/txt_name"
