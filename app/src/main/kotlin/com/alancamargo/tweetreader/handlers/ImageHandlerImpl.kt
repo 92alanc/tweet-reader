@@ -13,7 +13,8 @@ class ImageHandlerImpl : ImageHandler {
             .considerExifParams(true)
             .build()
 
-        ImageLoader.getInstance().displayImage(url, target, options)
+        ImageLoader.getInstance()
+            .displayImage(url?.replace("_normal", ""), target, options)
     }
 
 }
