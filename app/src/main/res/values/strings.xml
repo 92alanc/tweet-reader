@@ -22,4 +22,5 @@
     <string name="you_are_back_online">You are back online</string>
     <string name="clear_cache">Clear cache</string>
     <string name="cache_cleared">Cache cleared</string>
+    <string name="chooser_title_share">Share tweet</string>
 </resources>

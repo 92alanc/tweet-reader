@@ -18,4 +18,5 @@
     <string name="message_no_results">Nenhum resultado encontrado</string>
     <string name="clear_cache">Limpar cache</string>
     <string name="cache_cleared">Cache limpo</string>
+    <string name="chooser_title_share">Compartilhar tweet</string>
 </resources>
