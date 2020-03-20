@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.PhotoDetailsActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class ViewPagerAdapter(
         return LayoutInflater.from(container.context)
             .inflate(R.layout.item_photo, container, false)
             .apply {
-                val indicator = findViewById<TextView>(R.id.txt_indicator)
+                val indicator = findViewById<MaterialTextView>(R.id.txt_indicator)
                 if (count > 1) {
                     indicator.text = context.getString(R.string.photo_indicator_format,
                         position + 1,

@@ -1,21 +1,25 @@
 package com.alancamargo.tweetreader.util
 
 import android.text.method.LinkMovementMethod
-import android.widget.TextView
 import androidx.core.text.toSpannable
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.helpers.LinkClickListener
 import com.alancamargo.tweetreader.util.extensions.*
+import com.google.android.material.textview.MaterialTextView
 
-fun setTimestamp(textView: TextView, timestamp: String) {
+fun setTimestamp(textView: MaterialTextView, timestamp: String) {
     textView.text = formatDate(timestamp)
 }
 
-fun setMemberSince(textView: TextView, date: String) = textView.run {
+fun setMemberSince(textView: MaterialTextView, date: String) = textView.run {
     text = context.getString(R.string.member_since_format, formatDate(date))
 }
 
-fun setTweetText(textView: TextView, rawText: String, linkClickListener: LinkClickListener) {
+fun setTweetText(
+    textView: MaterialTextView,
+    rawText: String,
+    linkClickListener: LinkClickListener
+) {
     val words = rawText.getWords()
     val formattedText = rawText.toSpannable()
     val textColour = textView.context.getColour(R.color.light_blue)

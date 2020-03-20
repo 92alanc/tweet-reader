@@ -3,12 +3,12 @@ package com.alancamargo.tweetreader.util.extensions
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import com.alancamargo.tweetreader.R
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import com.google.android.material.textview.MaterialTextView
 
 fun AdView.loadBannerAds() {
     val adRequest = AdRequest.Builder().build()
@@ -33,7 +33,7 @@ private fun UnifiedNativeAdView.bindViews() {
 }
 
 private fun UnifiedNativeAdView.fillViews(ad: UnifiedNativeAd) {
-    (headlineView as TextView).text = ad.headline
+    (headlineView as MaterialTextView).text = ad.headline
     mediaView.setMediaContent(ad.mediaContent)
     fillBody(ad)
     fillCallToAction(ad)
@@ -48,7 +48,7 @@ private fun UnifiedNativeAdView.fillBody(ad: UnifiedNativeAd) {
         bodyView.visibility = View.GONE
     } else {
         bodyView.visibility = View.VISIBLE
-        (bodyView as TextView).text = ad.body
+        (bodyView as MaterialTextView).text = ad.body
     }
 }
 
@@ -77,7 +77,7 @@ private fun UnifiedNativeAdView.fillPrice(ad: UnifiedNativeAd) {
         priceView.visibility = View.GONE
     } else {
         priceView.visibility = View.VISIBLE
-        (priceView as TextView).text = ad.price
+        (priceView as MaterialTextView).text = ad.price
     }
 }
 
@@ -86,7 +86,7 @@ private fun UnifiedNativeAdView.fillStore(ad: UnifiedNativeAd) {
         storeView.visibility = View.GONE
     } else {
         storeView.visibility = View.VISIBLE
-        (storeView as TextView).text = ad.store
+        (storeView as MaterialTextView).text = ad.store
     }
 }
 
@@ -94,7 +94,7 @@ private fun UnifiedNativeAdView.fillAdvertiser(ad: UnifiedNativeAd) {
     if (ad.advertiser == null) {
         advertiserView.visibility = View.GONE
     } else {
-        (advertiserView as TextView).text = ad.advertiser
+        (advertiserView as MaterialTextView).text = ad.advertiser
         advertiserView.visibility = View.VISIBLE
     }
 }
