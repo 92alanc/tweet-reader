@@ -22,7 +22,10 @@ class TweetRepository(
         val sinceId = if (isRefreshing) tweets.getSinceId() else null
 
         return apiHelper.safeApiCall (apiCall = {
-            val newTweets = remoteDataSource.getTweets(maxId = maxId, sinceId = sinceId)
+            val newTweets = remoteDataSource.getTweets(maxId = maxId, sinceId = sinceId).filterNot {
+                this.tweets.contains(it)
+            }
+
             localDataSource.updateCache(newTweets)
             tweets = tweets.append(newTweets, isRefreshing)
             tweets
