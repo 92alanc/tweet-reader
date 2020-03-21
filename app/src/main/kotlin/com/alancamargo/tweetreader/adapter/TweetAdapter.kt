@@ -17,6 +17,8 @@ class TweetAdapter(
     private val linkClickListener: LinkClickListener
 ) : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
 
+    private val skippedTweets = mutableMapOf<Int, Tweet>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
@@ -36,9 +38,10 @@ class TweetAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TweetViewHolder) {
-            val tweet = getItem(position)
+            val tweet = getTweet(position)
+
             if (holder is QuotedTweetViewHolder) {
-                holder.run {
+                with(holder) {
                     bindTo(tweet)
                     tweet.quotedTweet?.let(::bindQuotedTweet)
                 }
@@ -51,24 +54,24 @@ class TweetAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val tweet = getItem(position)
-
         // Every 5 tweets will be an ad, starting from position 1
         val isAd = (position.toString().endsWith("1"))
                 || (position.toString().endsWith("6"))
 
-        val containsPhoto = tweet.containsPhoto()
-        val containsVideo = tweet.containsVideo()
-        val containsLink = tweet.fullText.hasLink()
-        val hasQuotedTweet = tweet.isQuoting()
-        val isRetweet = tweet.isRetweet()
-        val isReply = tweet.isReply()
-
-        return if (isAd) {
-            VIEW_TYPE_AD
+        if (isAd) {
+            return VIEW_TYPE_AD
         } else {
-            when {
-                containsPhoto -> VIEW_TYPE_PHOTO
+            val tweet = getTweet(position)
+
+            val containsVideo = tweet.containsVideo()
+            val containsPhoto = tweet.containsPhoto()
+            val containsLink = tweet.fullText.hasLink()
+            val hasQuotedTweet = tweet.isQuoting()
+            val isRetweet = tweet.isRetweet()
+            val isReply = tweet.isReply()
+
+            return when {
+                containsPhoto && !containsVideo -> VIEW_TYPE_PHOTO
                 containsVideo -> VIEW_TYPE_VIDEO
                 containsLink && !hasQuotedTweet -> VIEW_TYPE_LINK
                 hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
@@ -77,6 +80,18 @@ class TweetAdapter(
                 else -> VIEW_TYPE_TEXT
             }
         }
+    }
+
+    private fun getTweet(position: Int): Tweet {
+        val tweet = if (skippedTweets.contains(position - 1))
+            skippedTweets[position - 1]
+        else
+            getItem(position)
+
+        if (tweet != null)
+            return tweet
+        else
+            throw IllegalStateException("Tweet must not be null")
     }
 
     private fun LayoutInflater.getPhotoHolder(parent: ViewGroup): PhotoTweetViewHolder {
