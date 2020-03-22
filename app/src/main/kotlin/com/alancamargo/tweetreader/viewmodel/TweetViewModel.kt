@@ -39,8 +39,4 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
         repository.clearCache()
     }
 
-    fun share(tweet: Tweet) {
-        repository.share(tweet)
-    }
-
 }
