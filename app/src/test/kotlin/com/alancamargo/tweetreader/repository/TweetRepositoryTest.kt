@@ -34,7 +34,7 @@ class TweetRepositoryTest {
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
         val apiHelper = ApiHelper(mockCrashReportManager)
-        repository = TweetRepository(mockLocalDataSource, mockRemoteDataSource, apiHelper)
+        repository = TweetRepository(mockk(), mockLocalDataSource, mockRemoteDataSource, apiHelper)
     }
 
     @Test

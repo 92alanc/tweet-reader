@@ -30,7 +30,7 @@ fun getModules() = listOf(data, helpers, ui, device)
 
 private val data = module {
     viewModel { TweetViewModel(get()) }
-    factory { TweetRepository(get(), get(), get()) }
+    factory { TweetRepository(androidContext(), get(), get(), get()) }
     factory<TweetLocalDataSource> { TweetLocalDataSourceImpl(get()) }
     factory<TweetRemoteDataSource> { TweetRemoteDataSourceImpl(get()) }
     factory { ApiProvider(BASE_URL, get()) }
