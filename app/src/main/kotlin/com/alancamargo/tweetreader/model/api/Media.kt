@@ -1,5 +1,6 @@
 package com.alancamargo.tweetreader.model.api
 
+import android.util.Size
 import androidx.room.TypeConverter
 import com.alancamargo.tweetreader.api.CONTENT_TYPE_MP4
 import com.squareup.moshi.Json
@@ -17,6 +18,17 @@ data class Media(@field:Json(name = "media") val contents: List<MediaContent>?) 
                 variant.contentType == CONTENT_TYPE_MP4
             }
             ?.url
+    }
+
+    fun getVideoAspectRatio(): Size? {
+        val aspectRatio = contents?.first()
+            ?.videoInfo
+            ?.aspectRatio
+
+        return if (aspectRatio != null)
+            Size(aspectRatio.first(), aspectRatio.last())
+        else
+            null
     }
 
     class Converter {
