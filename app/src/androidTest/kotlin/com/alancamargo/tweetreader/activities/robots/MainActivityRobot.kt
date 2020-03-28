@@ -17,56 +17,49 @@ import com.squareup.moshi.Types
 import io.mockk.coEvery
 import io.mockk.every
 
-fun MainActivityTest.launchWithTweets(
-    block: MainActivityAssertions.() -> Unit
-): MainActivityAssertions {
+// region Launch modes
+fun MainActivityTest.launchWithTweets(block: MainActivityRobot.() -> Unit): MainActivityRobot {
     isConnected(true)
     mockTweets()
     return launch(block)
 }
 
-fun MainActivityTest.launchWithoutTweets(
-    block: MainActivityAssertions.() -> Unit
-): MainActivityAssertions {
+fun MainActivityTest.launchWithoutTweets(block: MainActivityRobot.() -> Unit): MainActivityRobot {
     isConnected(true)
     mockNoResults()
     return launch(block)
 }
 
 fun MainActivityTest.launchWithSuspendedAccount(
-    block: MainActivityAssertions.() -> Unit
-): MainActivityAssertions {
+    block: MainActivityRobot.() -> Unit
+): MainActivityRobot {
     isConnected(true)
     mockSuspendedAccount()
     return launch(block)
 }
 
 fun MainActivityTest.launchWithGenericError(
-    block: MainActivityAssertions.() -> Unit
-): MainActivityAssertions {
+    block: MainActivityRobot.() -> Unit
+): MainActivityRobot {
     isConnected(true)
     mockGenericError()
     return launch(block)
 }
 
-fun MainActivityTest.launchDisconnected(
-    block: MainActivityAssertions.() -> Unit
-): MainActivityAssertions {
+fun MainActivityTest.launchDisconnected(block: MainActivityRobot.() -> Unit): MainActivityRobot {
     isConnected(false)
     mockNetworkError()
     return launch(block)
 }
 
-private fun MainActivityTest.launch(
-    block: MainActivityAssertions.() -> Unit
-): MainActivityAssertions {
+private fun MainActivityTest.launch(block: MainActivityRobot.() -> Unit): MainActivityRobot {
     every {
         mockDeviceManager.getConnectivityState()
     } returns ConnectivityLiveData(mockConnectivityHelper)
 
     ActivityScenario.launch(MainActivity::class.java)
 
-    return MainActivityAssertions().apply(block)
+    return MainActivityRobot().apply(block)
 }
 
 private fun MainActivityTest.isConnected(isConnected: Boolean) {
@@ -98,6 +91,15 @@ private fun MainActivityTest.mockSuspendedAccount() {
 
 private fun MainActivityTest.mockGenericError() {
     coEvery { mockRepository.getTweets(any(), any()) } returns Result.GenericError()
+}
+// endregion
+
+class MainActivityRobot {
+
+    infix fun assert(assertion: MainActivityAssertions.() -> Unit) {
+        MainActivityAssertions().run(assertion)
+    }
+
 }
 
 class MainActivityAssertions {
