@@ -11,8 +11,8 @@ import com.alancamargo.tweetreader.activities.MainActivityTest
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.tools.getJsonFromAsset
+import com.alancamargo.tweetreader.tools.moshi
 import com.alancamargo.tweetreader.util.device.ConnectivityLiveData
-import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import io.mockk.coEvery
 import io.mockk.every
@@ -68,7 +68,6 @@ private fun MainActivityTest.isConnected(isConnected: Boolean) {
 
 private fun MainActivityTest.mockTweets() {
     val json = getJsonFromAsset("tweets")
-    val moshi = Moshi.Builder().build()
     val type = Types.newParameterizedType(List::class.java, Tweet::class.java)
     val adapter = moshi.adapter<List<Tweet>>(type)
     val tweets = adapter.fromJson(json)!!

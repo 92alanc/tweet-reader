@@ -1,7 +1,10 @@
 package com.alancamargo.tweetreader.tools
 
 import androidx.test.platform.app.InstrumentationRegistry
+import com.squareup.moshi.Moshi
 import java.io.InputStream
+
+val moshi: Moshi = Moshi.Builder().build()
 
 fun getJsonFromAsset(fileName: String): String {
     val json: String
