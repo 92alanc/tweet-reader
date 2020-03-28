@@ -9,7 +9,7 @@ import com.squareup.moshi.Moshi
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity // TODO: check if it's necessary
+@Entity
 data class User(
     @PrimaryKey var id: Long = 0,
     var name: String = "",

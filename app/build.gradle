@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 29
@@ -29,12 +30,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+
         release {
             minifyEnabled true
             shrinkResources true
             debuggable false
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
     }
 
@@ -83,9 +89,6 @@ android {
             assets.srcDirs = ['src/main/assets', 'src/androidTest/assets/']
             java.srcDirs = ['src/main/kotlin']
         }
-        bolsonaro.java.srcDirs = [ 'src/bolsonaro/kotlin' ]
-        paulJosephWatson.java.srcDirs = [ 'src/paulJosephWatson/kotlin' ]
-        trump.java.srcDirs = [ 'src/trump/kotlin' ]
         androidTest.java.srcDirs = ['src/androidTest/kotlin']
         test.java.srcDirs = ['src/test/kotlin']
     }
@@ -100,8 +103,62 @@ android {
     }
 
     testOptions {
+        animationsDisabled true
         unitTests.returnDefaultValues true
     }
+}
+
+jacoco {
+    toolVersion = "$jacoco_version"
+    reportsDir = file("$project.buildDir/coverageReport")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses true
+}
+
+task deleteOldReports(type: Delete) {
+    delete "$project.buildDir/coverageReport"
+}
+
+task jacocoTestReport(
+        type: JacocoReport,
+        dependsOn: [
+                'deleteOldReports',
+                'testBolsonaroDebugUnitTest',
+                'createBolsonaroDebugCoverageReport'
+        ]
+) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*'
+    ]
+
+    def debugTree = fileTree(
+            dir: "$project.buildDir/intermediates/app_classes/bolsonaroDebug",
+            excludes: fileFilter
+    )
+
+    def mainSrc = "$project.projectDir/src/main/kotlin"
+
+    sourceDirectories.from = files(mainSrc)
+    classDirectories.from = files(debugTree)
+    executionData.from = fileTree(
+            dir: "$project.buildDir",
+            includes: [
+                    "jacoco/testBolsonaroDebugUnitTest.exec",
+                    "outputs/code_coverage/bolsonaroDebugAndroidTest/connected/**/*.ec"
+            ]
+    )
 }
 
 dependencies {

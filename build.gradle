@@ -6,6 +6,7 @@ buildscript {
     ext.retrofit_version = '2.7.0'
     ext.room_version = '2.2.5'
     ext.mockk_version = '1.9.1'
+    ext.jacoco_version = '0.8.4'
 
     repositories {
         google()
@@ -19,6 +20,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.3'
         classpath 'io.fabric.tools:gradle:1.31.2'
+        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
     }
 }
 

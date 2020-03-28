@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 
-// TODO
 data class ExtendedTweet(@field:Json(name = "full_text") val text: String) {
 
     class Converter {
