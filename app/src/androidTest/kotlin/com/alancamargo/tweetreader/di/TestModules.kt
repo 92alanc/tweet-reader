@@ -2,15 +2,18 @@ package com.alancamargo.tweetreader.di
 
 import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.device.DeviceManager
+import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import io.mockk.mockk
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-fun getTestModules() = listOf(data)
+fun getTestModules() = listOf(data, device)
 
 private val data = module {
-    factory<TweetRepository>(override = true) { mockk() }
+    viewModel(override = true) { TweetViewModel(get()) }
+    single<TweetRepository>(override = true) { mockk() }
 }
 
 private val device = module {
-    factory<DeviceManager>(override = true) { mockk() }
+    single<DeviceManager>(override = true) { mockk() }
 }

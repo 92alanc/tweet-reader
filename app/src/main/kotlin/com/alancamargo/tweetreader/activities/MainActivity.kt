@@ -90,6 +90,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         })
     }
 
+    private fun loadTweets(hasScrolledToBottom: Boolean = false, isRefreshing: Boolean = false) {
+        progress_bar.visibility = VISIBLE
+        viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, Observer {
+            processResult(it)
+        })
+    }
+
     private fun configureSwipeRefreshLayout() = with(swipe_refresh_layout) {
         setOnRefreshListener(this@MainActivity)
         setColorSchemeResources(
@@ -100,11 +107,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         )
     }
 
-    private fun loadTweets(hasScrolledToBottom: Boolean = false, isRefreshing: Boolean = false) {
-        progress_bar.visibility = VISIBLE
-        viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, Observer {
-            processResult(it)
-        })
+    private fun processResult(result: Result<List<Tweet>>) {
+        when (result) {
+            is Result.Success -> showTweets(result.body)
+            is Result.NetworkError -> showDisconnectedError()
+            is Result.AccountSuspendedError -> showAccountSuspendedError()
+            is Result.GenericError -> showGenericError()
+        }
     }
 
     private fun showTweets(tweets: List<Tweet>) {
@@ -119,19 +128,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         }
 
         searchView?.setOnQueryTextListener(getQueryListener())
-    }
-
-    private fun hideProgressBars() {
-        progress_bar.visibility = GONE
-
-        if (swipe_refresh_layout.isRefreshing)
-            swipe_refresh_layout.isRefreshing = false
-    }
-
-    private fun showNoResultsMessage() {
-        img_error.setImageResource(R.drawable.ic_no_results)
-        txt_error.setText(R.string.message_no_results)
-        showError()
     }
 
     private fun showDisconnectedError() {
@@ -152,6 +148,19 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         showError()
     }
 
+    private fun hideProgressBars() {
+        progress_bar.visibility = GONE
+
+        if (swipe_refresh_layout.isRefreshing)
+            swipe_refresh_layout.isRefreshing = false
+    }
+
+    private fun showNoResultsMessage() {
+        img_error.setImageResource(R.drawable.ic_no_results)
+        txt_error.setText(R.string.message_no_results)
+        showError()
+    }
+
     private fun showError() {
         hideProgressBars()
 
@@ -162,15 +171,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private fun hideErrorIfVisible() {
         group_error.visibility = GONE
         recycler_view.visibility = VISIBLE
-    }
-
-    private fun processResult(result: Result<List<Tweet>>) {
-        when (result) {
-            is Result.Success -> showTweets(result.body)
-            is Result.NetworkError -> showDisconnectedError()
-            is Result.AccountSuspendedError -> showAccountSuspendedError()
-            is Result.GenericError -> showGenericError()
-        }
     }
 
     private fun getQueryListener(): SearchView.OnQueryTextListener {
