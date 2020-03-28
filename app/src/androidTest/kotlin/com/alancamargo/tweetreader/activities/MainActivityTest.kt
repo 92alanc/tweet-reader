@@ -29,7 +29,6 @@ class MainActivityTest : KoinTest {
     @Test
     fun shouldDisplayTweets() {
         launchWithTweets {
-        } assert {
             showTweets()
         }
     }
@@ -37,7 +36,6 @@ class MainActivityTest : KoinTest {
     @Test
     fun whenNoResultsAreReceived_shouldShowCorrectError() {
         launchWithoutTweets {
-        } assert {
             showNoResultsError()
         }
     }
@@ -45,7 +43,6 @@ class MainActivityTest : KoinTest {
     @Test
     fun whenOffline_shouldShowCorrectError() {
         launchDisconnected {
-        } assert {
             showDisconnectedError()
         }
     }
@@ -53,7 +50,6 @@ class MainActivityTest : KoinTest {
     @Test
     fun whenAccountIsSuspended_shouldShowCorrectError() {
         launchWithSuspendedAccount {
-        } assert {
             showAccountSuspendedError()
         }
     }
@@ -61,7 +57,6 @@ class MainActivityTest : KoinTest {
     @Test
     fun withGenericError_shouldShowCorrectError() {
         launchWithGenericError {
-        } assert {
             showGenericError()
         }
     }
