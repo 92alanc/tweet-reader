@@ -22,19 +22,19 @@ import retrofit2.Response
 import java.io.IOException
 
 @ExperimentalCoroutinesApi
-class TweetRepositoryTest {
+class TweetRepositoryImplTest {
 
     @MockK lateinit var mockLocalDataSource: TweetLocalDataSource
     @MockK lateinit var mockRemoteDataSource: TweetRemoteDataSource
     @MockK lateinit var mockCrashReportManager: CrashReportManager
 
-    private lateinit var repository: TweetRepository
+    private lateinit var repository: TweetRepositoryImpl
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
         val apiHelper = ApiHelper(mockCrashReportManager)
-        repository = TweetRepository(mockk(), mockLocalDataSource, mockRemoteDataSource, apiHelper)
+        repository = TweetRepositoryImpl(mockk(), mockLocalDataSource, mockRemoteDataSource, apiHelper)
     }
 
     @Test

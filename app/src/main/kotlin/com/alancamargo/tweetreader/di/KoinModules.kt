@@ -18,6 +18,7 @@ import com.alancamargo.tweetreader.helpers.LinkClickListenerImpl
 import com.alancamargo.tweetreader.helpers.PreferenceHelper
 import com.alancamargo.tweetreader.helpers.PreferenceHelperImpl
 import com.alancamargo.tweetreader.repository.TweetRepository
+import com.alancamargo.tweetreader.repository.TweetRepositoryImpl
 import com.alancamargo.tweetreader.util.CrashReportManager
 import com.alancamargo.tweetreader.util.CrashReportManagerImpl
 import com.alancamargo.tweetreader.util.device.*
@@ -30,7 +31,7 @@ fun getModules() = listOf(data, helpers, ui, device)
 
 private val data = module {
     viewModel { TweetViewModel(get()) }
-    factory { TweetRepository(androidContext(), get(), get(), get()) }
+    factory<TweetRepository> { TweetRepositoryImpl(androidContext(), get(), get(), get()) }
     factory<TweetLocalDataSource> { TweetLocalDataSourceImpl(get()) }
     factory<TweetRemoteDataSource> { TweetRemoteDataSourceImpl(get()) }
     factory { ApiProvider(BASE_URL, get()) }
