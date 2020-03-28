@@ -8,7 +8,7 @@ import io.mockk.mockk
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-fun getTestModules() = listOf(data, device)
+fun getTestModules() = listOf(data, ui, device)
 
 private val data = module {
     viewModel(override = true) { TweetViewModel(get()) }
@@ -16,7 +16,7 @@ private val data = module {
 }
 
 private val ui = module {
-    single<ImageHandler>(override = true) { mockk() }
+    single<ImageHandler>(override = true) { mockk(relaxed = true) }
 }
 
 private val device = module {
