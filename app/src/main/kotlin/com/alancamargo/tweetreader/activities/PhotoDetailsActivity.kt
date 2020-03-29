@@ -26,7 +26,7 @@ class PhotoDetailsActivity : AppCompatActivity(R.layout.activity_photo_details) 
     }
 
     private fun setUpCloseButton() {
-        bt_close.run {
+        with(bt_close) {
             bringToFront()
             setOnClickListener { finish() }
         }

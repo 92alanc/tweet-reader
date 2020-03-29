@@ -7,6 +7,7 @@ buildscript {
     ext.room_version = '2.2.5'
     ext.mockk_version = '1.9.1'
     ext.jacoco_version = '0.8.4'
+    ext.truth_version = '1.0.1'
 
     repositories {
         google()
