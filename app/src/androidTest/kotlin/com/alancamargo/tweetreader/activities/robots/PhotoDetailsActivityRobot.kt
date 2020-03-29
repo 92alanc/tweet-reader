@@ -19,6 +19,7 @@ fun PhotoDetailsActivityTest.launch(
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     val intent = PhotoDetailsActivity.getIntent(context, MOCK_PHOTO_URL)
 
+    InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     val scenario = ActivityScenario.launch<PhotoDetailsActivity>(intent)
 
     return PhotoDetailsActivityRobot(scenario, mockImageHandler).apply(block)
