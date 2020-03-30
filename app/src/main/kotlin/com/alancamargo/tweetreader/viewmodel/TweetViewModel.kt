@@ -1,5 +1,6 @@
 package com.alancamargo.tweetreader.viewmodel
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,10 +42,6 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
         }
     }
 
-    fun share(tweet: Tweet) {
-        viewModelScope.launch {
-            repository.share(tweet)
-        }
-    }
+    suspend fun getShareIntent(tweet: Tweet): Result<Intent> = repository.getShareIntent(tweet)
 
 }

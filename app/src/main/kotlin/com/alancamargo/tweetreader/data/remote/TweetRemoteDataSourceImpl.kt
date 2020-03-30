@@ -8,6 +8,7 @@ import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.model.api.SearchBody
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.InputStream
 
 class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRemoteDataSource {
 
@@ -31,6 +32,14 @@ class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRem
 
         return withContext(Dispatchers.IO) {
             searchApi.search(searchBody).results.loadReplies(twitterApi)
+        }
+    }
+
+    override suspend fun downloadMedia(mediaUrl: String): InputStream {
+        val downloadApi = apiProvider.getDownloadApi()
+
+        return withContext(Dispatchers.IO) {
+            downloadApi.download(mediaUrl).byteStream()
         }
     }
 

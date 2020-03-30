@@ -6,6 +6,7 @@ import android.net.Uri
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.api.tools.ApiHelper
+import com.alancamargo.tweetreader.data.local.FileType
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.model.Tweet
@@ -47,15 +48,15 @@ class TweetRepositoryImpl(
         localDataSource.clearCache()
     }
 
-    override suspend fun share(tweet: Tweet) {
-        val shareIntent = getShareIntent(tweet)
+    override suspend fun getShareIntent(tweet: Tweet): Result<Intent> {
+        return apiHelper.safeApiCall {
+            val shareIntent = buildShareIntent(tweet)
 
-        val chooser = Intent.createChooser(
-            shareIntent,
-            context.getString(R.string.chooser_title_share)
-        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-        context.startActivity(chooser)
+            Intent.createChooser(
+                shareIntent,
+                context.getString(R.string.chooser_title_share)
+            ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
     }
 
     private fun List<Tweet>.append(newTweets: List<Tweet>, isRefreshing: Boolean): List<Tweet> {
@@ -69,16 +70,30 @@ class TweetRepositoryImpl(
 
     private fun List<Tweet>.getSinceId(): Long? = if (isEmpty()) null else first().id
 
-    private fun getShareIntent(tweet: Tweet): Intent = when {
-        tweet.containsPhoto() -> getShareImageIntent(tweet)
-        tweet.containsVideo() -> getShareVideoIntent(tweet)
-        else -> getSharePlainTextIntent(tweet)
+    private suspend fun buildShareIntent(tweet: Tweet): Intent {
+        val intent = Intent()
+
+        var text = tweet.extendedTweet?.text ?: tweet.fullText
+        if (text.isEmpty())
+            text = tweet.text
+
+        text = "*Tweet - ${tweet.author.name}*\n\n$text"
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+
+        return when {
+            tweet.containsPhoto() -> intent.buildShareImageIntent(tweet)
+            tweet.containsVideo() -> intent.buildShareVideoIntent(tweet)
+            else -> intent.buildSharePlainTextIntent()
+        }
     }
 
-    private fun getShareImageIntent(tweet: Tweet) = Intent().apply {
+    private suspend fun Intent.buildShareImageIntent(tweet: Tweet) = apply {
         val uris = arrayListOf<Uri>()
         tweet.media!!.getPhotoUrls()!!.forEach {
-            uris.add(Uri.parse(it))
+            val byteStream = remoteDataSource.downloadMedia(it)
+            val fileType = FileType.IMAGE
+            val uri = localDataSource.getFileUri(byteStream, tweet.id.toString(), fileType)
+            uris.add(uri)
         }
 
         action = Intent.ACTION_SEND_MULTIPLE
@@ -86,24 +101,19 @@ class TweetRepositoryImpl(
         putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
     }
 
-    private fun getShareVideoIntent(tweet: Tweet) = Intent().apply {
-        val uri = Uri.parse(tweet.media!!.getVideoUrl())
+    private suspend fun Intent.buildShareVideoIntent(tweet: Tweet) = apply {
+        val byteStream = remoteDataSource.downloadMedia(tweet.media!!.getVideoUrl()!!)
+        val fileType = FileType.VIDEO
+        val uri = localDataSource.getFileUri(byteStream, tweet.id.toString(), fileType)
 
         action = Intent.ACTION_SEND
         type = "video/*"
         putExtra(Intent.EXTRA_STREAM, uri)
     }
 
-    private fun getSharePlainTextIntent(tweet: Tweet) = Intent().apply {
-        var text = tweet.extendedTweet?.text ?: tweet.fullText
-        if (text.isEmpty())
-            text = tweet.text
-
-        text = "*Tweet - ${tweet.author.name}*\n\n$text"
-
+    private fun Intent.buildSharePlainTextIntent() = apply {
         action = Intent.ACTION_SEND
         type = "text/plain"
-        putExtra(Intent.EXTRA_TEXT, text)
     }
 
 }

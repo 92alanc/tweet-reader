@@ -24,7 +24,7 @@ class TweetLocalDataSourceImplTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
-        localDataSource = TweetLocalDataSourceImpl(mockDbManager)
+        localDataSource = TweetLocalDataSourceImpl(mockk(), mockDbManager)
     }
 
     @Test

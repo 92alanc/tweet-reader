@@ -1,5 +1,6 @@
 package com.alancamargo.tweetreader.api.provider
 
+import com.alancamargo.tweetreader.api.DownloadApi
 import com.alancamargo.tweetreader.api.SearchApi
 import com.alancamargo.tweetreader.api.TIMEOUT
 import com.alancamargo.tweetreader.api.TwitterApi
@@ -20,6 +21,12 @@ class ApiProvider(private val baseUrl: String, private val tokenHelper: TokenHel
     suspend fun getSearchApi(): SearchApi {
         val token = tokenHelper.getAccessToken()
         return getService(token)
+    }
+
+    fun getDownloadApi(): DownloadApi {
+        return Retrofit.Builder()
+            .build()
+            .create(DownloadApi::class.java)
     }
 
     private inline fun <reified T> getService(token: String): T {
