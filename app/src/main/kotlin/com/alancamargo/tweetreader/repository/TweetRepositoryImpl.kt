@@ -47,7 +47,7 @@ class TweetRepositoryImpl(
         localDataSource.clearCache()
     }
 
-    override fun share(tweet: Tweet) {
+    override suspend fun share(tweet: Tweet) {
         val shareIntent = getShareIntent(tweet)
 
         val chooser = Intent.createChooser(

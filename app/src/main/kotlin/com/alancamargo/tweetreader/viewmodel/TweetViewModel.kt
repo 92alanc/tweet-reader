@@ -42,7 +42,9 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
     }
 
     fun share(tweet: Tweet) {
-        repository.share(tweet)
+        viewModelScope.launch {
+            repository.share(tweet)
+        }
     }
 
 }
