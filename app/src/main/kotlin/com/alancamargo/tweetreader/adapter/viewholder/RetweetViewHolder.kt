@@ -25,7 +25,7 @@ class RetweetViewHolder(
         txt_name_original.text = tweet.author.name
         txt_screen_name_original.text = tweet.author.screenName
         setTimestamp(txt_creation_date_original, tweet.creationDate)
-        bt_share.setOnClickListener {
+        bt_share_original.setOnClickListener {
             shareButtonClickListener?.onShareButtonClicked(tweet)
         }
 
