@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.adapter
+package com.alancamargo.tweetreader.listeners
 
 import androidx.recyclerview.widget.RecyclerView
 
