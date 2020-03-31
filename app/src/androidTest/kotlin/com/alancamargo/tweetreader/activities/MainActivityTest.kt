@@ -1,11 +1,14 @@
 package com.alancamargo.tweetreader.activities
 
+import android.content.Intent
 import com.alancamargo.tweetreader.activities.robots.*
+import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.di.getTestModules
 import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.util.device.ConnectivityHelper
 import com.alancamargo.tweetreader.util.device.DeviceManager
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import org.junit.Before
 import org.junit.Test
@@ -63,6 +66,28 @@ class MainActivityTest : KoinTest {
         launchWithGenericError {
         } assert {
             showGenericError()
+        }
+    }
+
+    @Test
+    fun whenClickingShareIconOnTweetItem_shouldShare() {
+        coEvery {
+            mockRepository.getShareIntent(any())
+        } returns Result.Success(Intent(Intent.ACTION_SEND))
+
+        launchWithTweets {
+        } clickShare {
+            tweetIsShared()
+        }
+    }
+
+    @Test
+    fun whenClickingShareIconOnTweetItem_withError_shouldShowError() {
+        coEvery { mockRepository.getShareIntent(any()) } returns Result.GenericError()
+
+        launchWithTweets {
+        } clickShare {
+            showSharingError()
         }
     }
 

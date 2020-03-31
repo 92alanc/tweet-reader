@@ -1,9 +1,11 @@
 package com.alancamargo.tweetreader.activities.robots
 
+import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.test.core.app.ActivityScenario
 import br.com.concretesolutions.kappuccino.assertions.VisibilityAssertions.displayed
+import br.com.concretesolutions.kappuccino.custom.intent.IntentMatcherInteractions.sentIntent
 import br.com.concretesolutions.kappuccino.custom.recyclerView.RecyclerViewInteractions.recyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.MainActivity
@@ -95,6 +97,16 @@ private fun MainActivityTest.mockGenericError() {
 
 class MainActivityRobot {
 
+    infix fun clickShare(assertion: MainActivityAssertions.() -> Unit) {
+        recyclerView(R.id.recycler_view) {
+            atPosition(0) {
+                clickChildView(R.id.bt_share)
+            }
+        }
+
+        assert(assertion)
+    }
+
     infix fun assert(assertion: MainActivityAssertions.() -> Unit) {
         MainActivityAssertions().run(assertion)
     }
@@ -123,6 +135,18 @@ class MainActivityAssertions {
 
     fun showNoResultsError() {
         showError(R.string.message_no_results, R.drawable.ic_no_results)
+    }
+
+    fun tweetIsShared() {
+        sentIntent {
+            action(Intent.ACTION_SEND)
+        }
+    }
+
+    fun showSharingError() {
+        displayed {
+            text(R.string.error_sharing_tweet)
+        }
     }
 
     private fun showError(@StringRes text: Int, @DrawableRes image: Int) {
