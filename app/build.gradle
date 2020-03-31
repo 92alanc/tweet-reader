@@ -70,14 +70,6 @@ android {
             applicationIdSuffix ".trump"
             buildConfigField "String", "USER_ID", '"25073877"'
         }
-
-        who {
-            dimension "version"
-            versionCode 1
-            versionName "2020.1.0"
-            applicationIdSuffix ".who"
-            buildConfigField "String", "USER_ID", '"14499829"'
-        }
     }
 
     androidExtensions {
