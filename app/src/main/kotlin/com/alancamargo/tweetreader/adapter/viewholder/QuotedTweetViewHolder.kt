@@ -1,8 +1,7 @@
 package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
@@ -48,9 +47,11 @@ open class QuotedTweetViewHolder(
 
         progress_bar_share_original.visibility = GONE
         bt_share_original.visibility = VISIBLE
+        bt_share_original.isEnabled = true
 
         bt_share_original.setOnClickListener {
-            it.visibility = GONE
+            it.visibility = INVISIBLE
+            it.isEnabled = false
             progress_bar_share_original.visibility = VISIBLE
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -59,13 +60,14 @@ open class QuotedTweetViewHolder(
                 withContext(Dispatchers.Main) {
                     progress_bar_share_original.visibility = GONE
                     it.visibility = VISIBLE
+                    it.isEnabled = true
                 }
             }
         }
     }
 
     private fun configureAuthorDataClick(tweet: Tweet) {
-        val clickListener = View.OnClickListener {
+        val clickListener = OnClickListener {
             val context = it.context
             val intent = ProfileActivity.getIntent(context, tweet.author)
             context.startActivity(intent)
