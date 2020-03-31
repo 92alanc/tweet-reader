@@ -1,6 +1,8 @@
 package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
@@ -9,6 +11,10 @@ import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.setTimestamp
 import com.alancamargo.tweetreader.util.setTweetText
 import kotlinx.android.synthetic.main.item_quoted_tweet.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 open class QuotedTweetViewHolder(
     itemView: View,
@@ -39,8 +45,22 @@ open class QuotedTweetViewHolder(
         setTweetText(txt_tweet_original, text, linkClickListener)
         setTimestamp(txt_creation_date_original, tweet.creationDate)
         configureAuthorDataClick(tweet)
+
+        progress_bar_share_original.visibility = GONE
+        bt_share_original.visibility = VISIBLE
+
         bt_share_original.setOnClickListener {
-            shareButtonClickListener?.onShareButtonClicked(tweet)
+            it.visibility = GONE
+            progress_bar_share_original.visibility = VISIBLE
+
+            CoroutineScope(Dispatchers.IO).launch {
+                shareButtonClickListener?.onShareButtonClicked(tweet)
+
+                withContext(Dispatchers.Main) {
+                    progress_bar_share_original.visibility = GONE
+                    it.visibility = VISIBLE
+                }
+            }
         }
     }
 

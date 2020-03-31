@@ -10,6 +10,8 @@ import com.alancamargo.tweetreader.data.local.FileType
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.model.Tweet
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class TweetRepositoryImpl(
     private val context: Context,
@@ -90,9 +92,11 @@ class TweetRepositoryImpl(
     private suspend fun Intent.buildShareImageIntent(tweet: Tweet) = apply {
         val uris = arrayListOf<Uri>()
         tweet.media!!.getPhotoUrls()!!.forEach {
-            val byteStream = remoteDataSource.downloadMedia(it)
-            val fileType = FileType.IMAGE
-            val uri = localDataSource.getFileUri(byteStream, tweet.id.toString(), fileType)
+            val uri = withContext(Dispatchers.IO) {
+                val byteStream = remoteDataSource.downloadMedia(it)
+                val fileType = FileType.IMAGE
+                localDataSource.getFileUri(byteStream, tweet.id.toString(), fileType)
+            }
             uris.add(uri)
         }
 
@@ -102,9 +106,11 @@ class TweetRepositoryImpl(
     }
 
     private suspend fun Intent.buildShareVideoIntent(tweet: Tweet) = apply {
-        val byteStream = remoteDataSource.downloadMedia(tweet.media!!.getVideoUrl()!!)
-        val fileType = FileType.VIDEO
-        val uri = localDataSource.getFileUri(byteStream, tweet.id.toString(), fileType)
+        val uri = withContext(Dispatchers.IO) {
+            val byteStream = remoteDataSource.downloadMedia(tweet.media!!.getVideoUrl()!!)
+            val fileType = FileType.VIDEO
+            localDataSource.getFileUri(byteStream, tweet.id.toString(), fileType)
+        }
 
         action = Intent.ACTION_SEND
         type = "video/*"

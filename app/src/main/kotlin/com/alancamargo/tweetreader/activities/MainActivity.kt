@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.TweetAdapter
@@ -22,7 +21,8 @@ import com.alancamargo.tweetreader.util.extensions.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -85,12 +85,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         loadTweets(isRefreshing = true)
     }
 
-    override fun onShareButtonClicked(tweet: Tweet) {
-        lifecycleScope.launch {
-            when (val shareIntentResult = viewModel.getShareIntent(tweet)) {
-                is Result.Success -> startActivity(shareIntentResult.body)
+    override suspend fun onShareButtonClicked(tweet: Tweet) {
+        when (val shareIntentResult = viewModel.getShareIntent(tweet)) {
+            is Result.Success -> {
+                withContext(Dispatchers.Main) {
+                    startActivity(shareIntentResult.body)
+                }
+            }
 
-                else -> {
+            else -> {
+                withContext(Dispatchers.Main) {
                     Snackbar.make(
                         main_activity_root,
                         R.string.error_sharing_tweet,
