@@ -39,7 +39,7 @@ open class QuotedTweetViewHolder(
         setTweetText(txt_tweet_original, text, linkClickListener)
         setTimestamp(txt_creation_date_original, tweet.creationDate)
         configureAuthorDataClick(tweet)
-        bt_share.setOnClickListener {
+        bt_share_original.setOnClickListener {
             shareButtonClickListener?.onShareButtonClicked(tweet)
         }
     }

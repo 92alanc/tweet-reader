@@ -19,4 +19,5 @@
     <string name="clear_cache">Limpar cache</string>
     <string name="cache_cleared">Cache limpo</string>
     <string name="chooser_title_share">Compartilhar tweet</string>
+    <string name="error_sharing_tweet">Erro ao compartilhar tweet</string>
 </resources>

@@ -25,6 +25,7 @@ class ApiProvider(private val baseUrl: String, private val tokenHelper: TokenHel
 
     fun getDownloadApi(): DownloadApi {
         return Retrofit.Builder()
+            .baseUrl(baseUrl)
             .build()
             .create(DownloadApi::class.java)
     }

@@ -9,21 +9,25 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.listeners.EndlessScrollListener
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.api.results.Result
+import com.alancamargo.tweetreader.listeners.EndlessScrollListener
+import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.device.ConnectivityStateObserver
 import com.alancamargo.tweetreader.util.extensions.*
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main),
-    SwipeRefreshLayout.OnRefreshListener {
+    SwipeRefreshLayout.OnRefreshListener, ShareButtonClickListener {
 
     private val adapter by inject<TweetAdapter>()
     private val connectivityStateObserver by inject<ConnectivityStateObserver>()
@@ -81,8 +85,27 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         loadTweets(isRefreshing = true)
     }
 
+    override fun onShareButtonClicked(tweet: Tweet) {
+        lifecycleScope.launch {
+            when (val shareIntentResult = viewModel.getShareIntent(tweet)) {
+                is Result.Success -> startActivity(shareIntentResult.body)
+
+                else -> {
+                    Snackbar.make(
+                        main_activity_root,
+                        R.string.error_sharing_tweet,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
     private fun configureRecyclerView() {
-        recycler_view.adapter = adapter
+        recycler_view.adapter = adapter.also {
+            it.setShareButtonClickListener(this)
+        }
+
         recycler_view.addOnScrollListener(object : EndlessScrollListener() {
             override fun onLoadMore() {
                 loadTweets(hasScrolledToBottom = true)

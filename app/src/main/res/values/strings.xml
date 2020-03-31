@@ -23,4 +23,5 @@
     <string name="clear_cache">Clear cache</string>
     <string name="cache_cleared">Cache cleared</string>
     <string name="chooser_title_share">Share tweet</string>
+    <string name="error_sharing_tweet">Error sharing tweet</string>
 </resources>
