@@ -13,6 +13,16 @@
         android:layout_height="match_parent"
         android:padding="@dimen/padding_default">
 
+        <ImageButton
+            android:id="@+id/bt_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_share"
+            android:contentDescription="@string/chooser_title_share"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_profile_picture_original"
             android:layout_width="@dimen/size_img_tweet"
@@ -66,15 +76,6 @@
             app:layout_constraintBottom_toTopOf="@+id/quoted_tweet"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@sample/tweets.json/data/date" />
-
-        <ImageView
-            android:id="@+id/img_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_reply"
-            android:contentDescription="@string/description_reply"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"

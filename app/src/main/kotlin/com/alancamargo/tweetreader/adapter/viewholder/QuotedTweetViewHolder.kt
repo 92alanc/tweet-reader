@@ -1,7 +1,6 @@
 package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
-import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.helpers.LinkClickListener
@@ -27,12 +26,6 @@ open class QuotedTweetViewHolder(
         loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture_original)
         txt_name_original.text = tweet.author.name
         txt_screen_name_original.text = tweet.author.screenName
-
-        img_icon.setImageResource(
-            if (tweet.isReply()) R.drawable.ic_reply
-            else R.drawable.ic_quote
-
-        )
 
         val text = getText(tweet)
 
