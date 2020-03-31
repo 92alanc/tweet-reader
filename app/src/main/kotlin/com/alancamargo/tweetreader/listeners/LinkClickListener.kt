@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.helpers
+package com.alancamargo.tweetreader.listeners
 
 import android.content.Context
 

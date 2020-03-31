@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.MediaController
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.alancamargo.tweetreader.handlers.ImageHandler
-import com.alancamargo.tweetreader.helpers.LinkClickListener
+import com.alancamargo.tweetreader.listeners.LinkClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import kotlinx.android.synthetic.main.item_tweet_video.*
 

@@ -6,7 +6,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
-import com.alancamargo.tweetreader.helpers.LinkClickListener
+import com.alancamargo.tweetreader.listeners.LinkClickListener
 import com.alancamargo.tweetreader.util.ClickableTextSpan
 
 fun Spannable.bold(text: String) = apply {

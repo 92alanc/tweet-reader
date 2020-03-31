@@ -3,7 +3,7 @@ package com.alancamargo.tweetreader.util
 import android.text.method.LinkMovementMethod
 import androidx.core.text.toSpannable
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.helpers.LinkClickListener
+import com.alancamargo.tweetreader.listeners.LinkClickListener
 import com.alancamargo.tweetreader.util.extensions.*
 import com.google.android.material.textview.MaterialTextView
 

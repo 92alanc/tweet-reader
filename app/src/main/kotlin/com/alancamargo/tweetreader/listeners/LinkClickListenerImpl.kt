@@ -1,11 +1,12 @@
-package com.alancamargo.tweetreader.helpers
+package com.alancamargo.tweetreader.listeners
 
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 
-class LinkClickListenerImpl : LinkClickListener {
+class LinkClickListenerImpl :
+    LinkClickListener {
 
     override fun onLinkClicked(
         context: Context, link: String,
