@@ -5,14 +5,21 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import kotlinx.android.synthetic.main.item_tweet_reply.*
 
 class ReplyViewHolder(
     itemView: View,
     imageHandler: ImageHandler,
-    linkClickListener: LinkClickListener
-) : QuotedTweetViewHolder(itemView, imageHandler, linkClickListener) {
+    linkClickListener: LinkClickListener,
+    shareButtonClickListener: ShareButtonClickListener?
+) : QuotedTweetViewHolder(
+    itemView,
+    imageHandler,
+    linkClickListener,
+    shareButtonClickListener
+) {
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)

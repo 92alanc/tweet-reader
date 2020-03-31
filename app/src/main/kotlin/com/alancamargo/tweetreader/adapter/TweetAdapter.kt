@@ -9,6 +9,7 @@ import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.adapter.viewholder.*
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.extensions.hasLink
 
@@ -18,6 +19,12 @@ class TweetAdapter(
 ) : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
 
     private val skippedTweets = mutableMapOf<Int, Tweet>()
+
+    private var shareButtonClickListener: ShareButtonClickListener? = null
+
+    fun setShareButtonClickListener(shareButtonClickListener: ShareButtonClickListener) {
+        this.shareButtonClickListener = shareButtonClickListener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -96,32 +103,68 @@ class TweetAdapter(
 
     private fun LayoutInflater.getPhotoHolder(parent: ViewGroup): PhotoTweetViewHolder {
         val itemView = inflate(R.layout.item_tweet_photo, parent, false)
-        return PhotoTweetViewHolder(itemView, imageHandler, linkClickListener)
+
+        return PhotoTweetViewHolder(
+            itemView,
+            imageHandler,
+            linkClickListener,
+            shareButtonClickListener
+        )
     }
 
     private fun LayoutInflater.getVideoHolder(parent: ViewGroup): VideoTweetViewHolder {
         val itemView = inflate(R.layout.item_tweet_video, parent, false)
-        return VideoTweetViewHolder(itemView, imageHandler, linkClickListener)
+
+        return VideoTweetViewHolder(
+            itemView,
+            imageHandler,
+            linkClickListener,
+            shareButtonClickListener
+        )
     }
 
     private fun LayoutInflater.getLinkHolder(parent: ViewGroup): LinkTweetViewHolder {
         val itemView = inflate(R.layout.item_tweet_link, parent, false)
-        return LinkTweetViewHolder(itemView, imageHandler, linkClickListener)
+
+        return LinkTweetViewHolder(
+            itemView,
+            imageHandler,
+            linkClickListener,
+            shareButtonClickListener
+        )
     }
 
     private fun LayoutInflater.getQuoteHolder(parent: ViewGroup): QuotedTweetViewHolder {
         val itemView = inflate(R.layout.item_quoted_tweet, parent, false)
-        return QuotedTweetViewHolder(itemView, imageHandler, linkClickListener)
+
+        return QuotedTweetViewHolder(
+            itemView,
+            imageHandler,
+            linkClickListener,
+            shareButtonClickListener
+        )
     }
 
     private fun LayoutInflater.getRetweetHolder(parent: ViewGroup): RetweetViewHolder {
         val itemView = inflate(R.layout.item_retweet, parent, false)
-        return RetweetViewHolder(itemView, imageHandler, linkClickListener)
+
+        return RetweetViewHolder(
+            itemView,
+            imageHandler,
+            linkClickListener,
+            shareButtonClickListener
+        )
     }
 
     private fun LayoutInflater.getReplyHolder(parent: ViewGroup): ReplyViewHolder {
         val itemView = inflate(R.layout.item_tweet_reply, parent, false)
-        return ReplyViewHolder(itemView, imageHandler, linkClickListener)
+
+        return ReplyViewHolder(
+            itemView,
+            imageHandler,
+            linkClickListener,
+            shareButtonClickListener
+        )
     }
 
     private fun LayoutInflater.getAdHolder(parent: ViewGroup): AdViewHolder {
@@ -131,7 +174,13 @@ class TweetAdapter(
 
     private fun LayoutInflater.getTweetHolder(parent: ViewGroup): TweetViewHolder {
         val itemView = inflate(R.layout.item_tweet, parent, false)
-        return TweetViewHolder(itemView, imageHandler, linkClickListener)
+
+        return TweetViewHolder(
+            itemView,
+            imageHandler,
+            linkClickListener,
+            shareButtonClickListener
+        )
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Tweet>() {

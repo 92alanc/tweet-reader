@@ -7,6 +7,7 @@ import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.REGEX_URL
 import com.alancamargo.tweetreader.util.extensions.hasLink
@@ -21,7 +22,8 @@ import kotlinx.coroutines.launch
 open class TweetViewHolder(
     itemView: View,
     protected val imageHandler: ImageHandler,
-    protected val linkClickListener: LinkClickListener
+    protected val linkClickListener: LinkClickListener,
+    protected val shareButtonClickListener: ShareButtonClickListener?
 ) : RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     private val context = itemView.context
@@ -38,6 +40,9 @@ open class TweetViewHolder(
         setTweetText(txt_tweet, text, linkClickListener)
         setTimestamp(txt_creation_date, tweet.creationDate)
         configureAuthorDataClick(tweet)
+        bt_share.setOnClickListener {
+            shareButtonClickListener?.onShareButtonClicked(tweet)
+        }
     }
 
     protected fun loadProfilePicture(url: String, imageView: ImageView) {

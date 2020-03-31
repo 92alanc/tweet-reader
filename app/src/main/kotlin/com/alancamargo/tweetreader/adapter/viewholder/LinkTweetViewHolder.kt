@@ -3,6 +3,7 @@ package com.alancamargo.tweetreader.adapter.viewholder
 import android.view.View
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.extensions.extractLink
 import kotlinx.android.synthetic.main.item_tweet_link.*
@@ -10,8 +11,14 @@ import kotlinx.android.synthetic.main.item_tweet_link.*
 class LinkTweetViewHolder(
     itemView: View,
     imageHandler: ImageHandler,
-    linkClickListener: LinkClickListener
-) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
+    linkClickListener: LinkClickListener,
+    shareButtonClickListener: ShareButtonClickListener?
+) : TweetViewHolder(
+    itemView,
+    imageHandler,
+    linkClickListener,
+    shareButtonClickListener
+) {
 
     override fun bindTo(tweet: Tweet) {
         super.bindTo(tweet)

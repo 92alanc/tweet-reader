@@ -4,6 +4,7 @@ import android.view.View
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.setTimestamp
 import com.alancamargo.tweetreader.util.setTweetText
@@ -12,8 +13,14 @@ import kotlinx.android.synthetic.main.item_quoted_tweet.*
 open class QuotedTweetViewHolder(
     itemView: View,
     imageHandler: ImageHandler,
-    linkClickListener: LinkClickListener
-) : TweetViewHolder(itemView, imageHandler, linkClickListener) {
+    linkClickListener: LinkClickListener,
+    shareButtonClickListener: ShareButtonClickListener?
+) : TweetViewHolder(
+    itemView,
+    imageHandler,
+    linkClickListener,
+    shareButtonClickListener
+) {
 
     protected lateinit var originalTweet: Tweet
 
@@ -32,6 +39,9 @@ open class QuotedTweetViewHolder(
         setTweetText(txt_tweet_original, text, linkClickListener)
         setTimestamp(txt_creation_date_original, tweet.creationDate)
         configureAuthorDataClick(tweet)
+        bt_share.setOnClickListener {
+            shareButtonClickListener?.onShareButtonClicked(tweet)
+        }
     }
 
     private fun configureAuthorDataClick(tweet: Tweet) {
