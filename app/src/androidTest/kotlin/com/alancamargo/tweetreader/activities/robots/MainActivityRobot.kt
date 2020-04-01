@@ -139,7 +139,7 @@ class MainActivityAssertions {
 
     fun tweetIsShared() {
         sentIntent {
-            action(Intent.ACTION_SEND)
+            action(Intent.ACTION_VIEW)
         }
     }
 

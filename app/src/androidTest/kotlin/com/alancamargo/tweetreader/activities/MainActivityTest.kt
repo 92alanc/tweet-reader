@@ -1,6 +1,7 @@
 package com.alancamargo.tweetreader.activities
 
 import android.content.Intent
+import androidx.test.espresso.intent.Intents
 import com.alancamargo.tweetreader.activities.robots.*
 import com.alancamargo.tweetreader.api.results.Result
 import com.alancamargo.tweetreader.di.getTestModules
@@ -10,6 +11,7 @@ import com.alancamargo.tweetreader.util.device.DeviceManager
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
@@ -27,6 +29,7 @@ class MainActivityTest : KoinTest {
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
         loadKoinModules(getTestModules())
+        Intents.init()
     }
 
     @Test
@@ -73,7 +76,7 @@ class MainActivityTest : KoinTest {
     fun whenClickingShareIconOnTweetItem_shouldShare() {
         coEvery {
             mockRepository.getShareIntent(any())
-        } returns Result.Success(Intent(Intent.ACTION_SEND))
+        } returns Result.Success(Intent(Intent.ACTION_VIEW))
 
         launchWithTweets {
         } clickShare {
@@ -89,6 +92,11 @@ class MainActivityTest : KoinTest {
         } clickShare {
             showSharingError()
         }
+    }
+
+    @After
+    fun tearDown() {
+        Intents.release()
     }
 
 }
