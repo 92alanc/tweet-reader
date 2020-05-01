@@ -57,24 +57,24 @@ android {
 
         bolsonaro {
             dimension "version"
-            versionCode 12
-            versionName "2020.2.0"
+            versionCode 13
+            versionName "2020.2.1"
             applicationIdSuffix ".bolsonaro"
             buildConfigField "String", "USER_ID", '"128372940"'
         }
 
         paulJosephWatson {
             dimension "version"
-            versionCode 12
-            versionName "2020.2.0"
+            versionCode 13
+            versionName "2020.2.1"
             applicationIdSuffix ".pauljosephwatson"
             buildConfigField "String", "USER_ID", '"18643437"'
         }
 
         trump {
             dimension "version"
-            versionCode 12
-            versionName "2020.2.0"
+            versionCode 13
+            versionName "2020.2.1"
             applicationIdSuffix ".trump"
             buildConfigField "String", "USER_ID", '"25073877"'
         }
