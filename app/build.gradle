@@ -47,6 +47,14 @@ android {
     flavorDimensions "version"
 
     productFlavors {
+        moro {
+            dimension "version"
+            versionCode 1
+            versionName "2020.2.0"
+            applicationIdSuffix ".moro"
+            buildConfigField "String", "USER_ID", '"1113094855281008641"'
+        }
+
         bolsonaro {
             dimension "version"
             versionCode 12
@@ -117,8 +125,8 @@ task jacocoTestReport(
         type: JacocoReport,
         dependsOn: [
                 'deleteOldReports',
-                'testBolsonaroDebugUnitTest',
-                'createBolsonaroDebugCoverageReport'
+                'testMoroDebugUnitTest',
+                'createMoroDebugCoverageReport'
         ]
 ) {
     reports {
@@ -136,7 +144,7 @@ task jacocoTestReport(
     ]
 
     def debugTree = fileTree(
-            dir: "$project.buildDir/intermediates/app_classes/bolsonaroDebug",
+            dir: "$project.buildDir/intermediates/app_classes/moroDebug",
             excludes: fileFilter
     )
 
@@ -147,8 +155,8 @@ task jacocoTestReport(
     executionData.from = fileTree(
             dir: "$project.buildDir",
             includes: [
-                    "jacoco/testBolsonaroDebugUnitTest.exec",
-                    "outputs/code_coverage/bolsonaroDebugAndroidTest/connected/**/*.ec"
+                    "jacoco/testMoroDebugUnitTest.exec",
+                    "outputs/code_coverage/moroDebugAndroidTest/connected/**/*.ec"
             ]
     )
 }
