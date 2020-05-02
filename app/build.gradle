@@ -55,15 +55,15 @@ android {
             buildConfigField "String", "USER_ID", '"1113094855281008641"'
         }
 
-        bolsonaro {
+        trump {
             dimension "version"
             versionCode 13
             versionName "2020.2.1"
-            applicationIdSuffix ".bolsonaro"
-            buildConfigField "String", "USER_ID", '"128372940"'
+            applicationIdSuffix ".trump"
+            buildConfigField "String", "USER_ID", '"25073877"'
         }
 
-        paulJosephWatson {
+        pjw {
             dimension "version"
             versionCode 13
             versionName "2020.2.1"
@@ -71,12 +71,12 @@ android {
             buildConfigField "String", "USER_ID", '"18643437"'
         }
 
-        trump {
+        bolsonaro {
             dimension "version"
             versionCode 13
             versionName "2020.2.1"
-            applicationIdSuffix ".trump"
-            buildConfigField "String", "USER_ID", '"25073877"'
+            applicationIdSuffix ".bolsonaro"
+            buildConfigField "String", "USER_ID", '"128372940"'
         }
 
         free {
