@@ -1,6 +1,10 @@
 package com.alancamargo.tweetreader.di
 
 import com.alancamargo.tweetreader.adapter.TweetAdapter
+import com.alancamargo.tweetreader.adapter.helpers.AdapterHelper
+import com.alancamargo.tweetreader.adapter.helpers.AdapterHelperImpl
+import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactory
+import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactoryImpl
 import com.alancamargo.tweetreader.api.BASE_URL
 import com.alancamargo.tweetreader.api.provider.ApiProvider
 import com.alancamargo.tweetreader.api.tools.ApiHelper
@@ -13,10 +17,10 @@ import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSourceImpl
 import com.alancamargo.tweetreader.db.TweetDatabaseProvider
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.handlers.ImageHandlerImpl
-import com.alancamargo.tweetreader.listeners.LinkClickListener
-import com.alancamargo.tweetreader.listeners.LinkClickListenerImpl
 import com.alancamargo.tweetreader.helpers.PreferenceHelper
 import com.alancamargo.tweetreader.helpers.PreferenceHelperImpl
+import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.listeners.LinkClickListenerImpl
 import com.alancamargo.tweetreader.repository.TweetRepository
 import com.alancamargo.tweetreader.repository.TweetRepositoryImpl
 import com.alancamargo.tweetreader.util.CrashReportManager
@@ -49,7 +53,9 @@ private val helpers = module {
 private val ui = module {
     factory<ImageHandler> { ImageHandlerImpl() }
     factory<LinkClickListener> { LinkClickListenerImpl() }
-    factory { TweetAdapter(get(), get()) }
+    factory { TweetAdapter(get()) }
+    factory<AdapterHelper> { AdapterHelperImpl(get()) }
+    factory<ViewHolderFactory> { ViewHolderFactoryImpl(get(), get()) }
 }
 
 private val device = module {

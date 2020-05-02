@@ -44,7 +44,7 @@ android {
         }
     }
 
-    flavorDimensions "version"
+    flavorDimensions "version", "mode"
 
     productFlavors {
         moro {
@@ -78,6 +78,15 @@ android {
             applicationIdSuffix ".trump"
             buildConfigField "String", "USER_ID", '"25073877"'
         }
+
+        free {
+            dimension "mode"
+        }
+
+        paid {
+            dimension "mode"
+            applicationIdSuffix ".paid"
+        }
     }
 
     androidExtensions {
@@ -89,6 +98,8 @@ android {
             assets.srcDirs = ['src/main/assets', 'src/androidTest/assets/']
             java.srcDirs = ['src/main/kotlin']
         }
+        free.java.srcDirs = ['src/free/kotlin']
+        paid.java.srcDirs = ['src/paid/kotlin']
         androidTest.java.srcDirs = ['src/androidTest/kotlin']
         test.java.srcDirs = ['src/test/kotlin']
     }
@@ -182,7 +193,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.google.firebase:firebase-core:17.4.0'
-    implementation 'com.google.firebase:firebase-ads:19.1.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
@@ -195,6 +205,10 @@ dependencies {
     implementation "org.koin:koin-android-ext:$koin_version"
     implementation "org.koin:koin-androidx-ext:$koin_version"
     kapt "androidx.room:room-compiler:$room_version"
+    // endregion
+
+    // region Free version libraries
+    freeImplementation 'com.google.firebase:firebase-ads:19.1.0'
     // endregion
 
     // region Instrumented test libraries

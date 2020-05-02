@@ -5,42 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.adapter.viewholder.*
-import com.alancamargo.tweetreader.handlers.ImageHandler
-import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.adapter.helpers.AdapterHelper
+import com.alancamargo.tweetreader.adapter.viewholder.AdViewHolder
+import com.alancamargo.tweetreader.adapter.viewholder.QuotedTweetViewHolder
+import com.alancamargo.tweetreader.adapter.viewholder.TweetViewHolder
 import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.util.extensions.hasLink
 
 class TweetAdapter(
-    private val imageHandler: ImageHandler,
-    private val linkClickListener: LinkClickListener
+    private val adapterHelper: AdapterHelper
 ) : ListAdapter<Tweet, RecyclerView.ViewHolder>(DiffCallback) {
 
     private val skippedTweets = mutableMapOf<Int, Tweet>()
 
-    private var shareButtonClickListener: ShareButtonClickListener? = null
-
     fun setShareButtonClickListener(shareButtonClickListener: ShareButtonClickListener) {
-        this.shareButtonClickListener = shareButtonClickListener
+        adapterHelper.shareButtonClickListener = shareButtonClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
-        return with(inflater) {
-            when (viewType) {
-                VIEW_TYPE_PHOTO -> getPhotoHolder(parent)
-                VIEW_TYPE_VIDEO -> getVideoHolder(parent)
-                VIEW_TYPE_LINK -> getLinkHolder(parent)
-                VIEW_TYPE_QUOTED_TWEET -> getQuoteHolder(parent)
-                VIEW_TYPE_RETWEET -> getRetweetHolder(parent)
-                VIEW_TYPE_REPLY -> getReplyHolder(parent)
-                VIEW_TYPE_AD -> getAdHolder(parent)
-                else -> getTweetHolder(parent)
-            }
-        }
+        adapterHelper.init(inflater, parent)
+        return adapterHelper.getViewHolder(viewType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -61,32 +46,8 @@ class TweetAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        // Every 5 tweets will be an ad, starting from position 1
-        val isAd = (position.toString().endsWith("1"))
-                || (position.toString().endsWith("6"))
-
-        if (isAd) {
-            return VIEW_TYPE_AD
-        } else {
-            val tweet = getTweet(position)
-
-            val containsVideo = tweet.containsVideo()
-            val containsPhoto = tweet.containsPhoto()
-            val containsLink = tweet.fullText.hasLink()
-            val hasQuotedTweet = tweet.isQuoting()
-            val isRetweet = tweet.isRetweet()
-            val isReply = tweet.isReply()
-
-            return when {
-                containsPhoto && !containsVideo -> VIEW_TYPE_PHOTO
-                containsVideo -> VIEW_TYPE_VIDEO
-                containsLink && !hasQuotedTweet -> VIEW_TYPE_LINK
-                hasQuotedTweet -> VIEW_TYPE_QUOTED_TWEET
-                isRetweet -> VIEW_TYPE_RETWEET
-                isReply -> VIEW_TYPE_REPLY
-                else -> VIEW_TYPE_TEXT
-            }
-        }
+        val tweet = getTweet(position)
+        return adapterHelper.getItemViewType(tweet, position)
     }
 
     private fun getTweet(position: Int): Tweet {
@@ -101,108 +62,13 @@ class TweetAdapter(
             throw IllegalStateException("Tweet must not be null")
     }
 
-    private fun LayoutInflater.getPhotoHolder(parent: ViewGroup): PhotoTweetViewHolder {
-        val itemView = inflate(R.layout.item_tweet_photo, parent, false)
-
-        return PhotoTweetViewHolder(
-            itemView,
-            imageHandler,
-            linkClickListener,
-            shareButtonClickListener
-        )
-    }
-
-    private fun LayoutInflater.getVideoHolder(parent: ViewGroup): VideoTweetViewHolder {
-        val itemView = inflate(R.layout.item_tweet_video, parent, false)
-
-        return VideoTweetViewHolder(
-            itemView,
-            imageHandler,
-            linkClickListener,
-            shareButtonClickListener
-        )
-    }
-
-    private fun LayoutInflater.getLinkHolder(parent: ViewGroup): LinkTweetViewHolder {
-        val itemView = inflate(R.layout.item_tweet_link, parent, false)
-
-        return LinkTweetViewHolder(
-            itemView,
-            imageHandler,
-            linkClickListener,
-            shareButtonClickListener
-        )
-    }
-
-    private fun LayoutInflater.getQuoteHolder(parent: ViewGroup): QuotedTweetViewHolder {
-        val itemView = inflate(R.layout.item_quoted_tweet, parent, false)
-
-        return QuotedTweetViewHolder(
-            itemView,
-            imageHandler,
-            linkClickListener,
-            shareButtonClickListener
-        )
-    }
-
-    private fun LayoutInflater.getRetweetHolder(parent: ViewGroup): RetweetViewHolder {
-        val itemView = inflate(R.layout.item_retweet, parent, false)
-
-        return RetweetViewHolder(
-            itemView,
-            imageHandler,
-            linkClickListener,
-            shareButtonClickListener
-        )
-    }
-
-    private fun LayoutInflater.getReplyHolder(parent: ViewGroup): ReplyViewHolder {
-        val itemView = inflate(R.layout.item_tweet_reply, parent, false)
-
-        return ReplyViewHolder(
-            itemView,
-            imageHandler,
-            linkClickListener,
-            shareButtonClickListener
-        )
-    }
-
-    private fun LayoutInflater.getAdHolder(parent: ViewGroup): AdViewHolder {
-        val itemView = inflate(R.layout.item_ad, parent, false)
-        return AdViewHolder(itemView)
-    }
-
-    private fun LayoutInflater.getTweetHolder(parent: ViewGroup): TweetViewHolder {
-        val itemView = inflate(R.layout.item_tweet, parent, false)
-
-        return TweetViewHolder(
-            itemView,
-            imageHandler,
-            linkClickListener,
-            shareButtonClickListener
-        )
-    }
-
-    companion object DiffCallback : DiffUtil.ItemCallback<Tweet>() {
-        const val VIEW_TYPE_TEXT = 0
-        const val VIEW_TYPE_PHOTO = 1
-        const val VIEW_TYPE_VIDEO = 2
-        const val VIEW_TYPE_LINK = 3
-        const val VIEW_TYPE_QUOTED_TWEET = 4
-        const val VIEW_TYPE_RETWEET = 5
-        const val VIEW_TYPE_REPLY = 6
-        const val VIEW_TYPE_AD = 7
-
+    private companion object DiffCallback : DiffUtil.ItemCallback<Tweet>() {
         override fun areItemsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Tweet, newItem: Tweet): Boolean {
-            return oldItem.id == newItem.id &&
-                    oldItem.author.id == newItem.author.id &&
-                    oldItem.creationDate == newItem.creationDate &&
-                    oldItem.fullText == newItem.fullText &&
-                    oldItem.text == newItem.text
+            return oldItem == newItem
         }
     }
 

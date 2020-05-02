@@ -2,15 +2,14 @@ package com.alancamargo.tweetreader
 
 import android.app.Application
 import com.alancamargo.tweetreader.di.getModules
-import com.google.android.gms.ads.MobileAds
 import com.google.firebase.FirebaseApp
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-@Suppress("unused")
-class TweetReaderApplication : Application() {
+@Suppress("registered")
+open class TweetReaderApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -19,9 +18,8 @@ class TweetReaderApplication : Application() {
         startImageLoader()
     }
 
-    private fun startFirebase() {
+    open fun startFirebase() {
         FirebaseApp.initializeApp(this)
-        MobileAds.initialize(this, getString(R.string.admob_app_id))
     }
 
     private fun startDependencyInjection() {
