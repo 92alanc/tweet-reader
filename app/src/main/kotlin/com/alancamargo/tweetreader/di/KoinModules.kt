@@ -1,8 +1,8 @@
 package com.alancamargo.tweetreader.di
 
+import com.alancamargo.tweetreader.adapter.AdapterHelperImpl
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.adapter.helpers.AdapterHelper
-import com.alancamargo.tweetreader.adapter.helpers.AdapterHelperImpl
 import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactory
 import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactoryImpl
 import com.alancamargo.tweetreader.api.BASE_URL

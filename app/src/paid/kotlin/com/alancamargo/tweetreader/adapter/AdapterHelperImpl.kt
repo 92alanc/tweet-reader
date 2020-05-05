@@ -1,9 +1,6 @@
 package com.alancamargo.tweetreader.adapter
 
-import com.alancamargo.tweetreader.handlers.ImageHandler
-import com.alancamargo.tweetreader.listeners.LinkClickListener
+import com.alancamargo.tweetreader.adapter.helpers.AdapterHelper
+import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactory
 
-class AdapterHelperImpl(
-    imageHandler: ImageHandler,
-    linkClickListener: LinkClickListener
-) : AdapterHelper(imageHandler, linkClickListener)
+class AdapterHelperImpl(viewHolderFactory: ViewHolderFactory) : AdapterHelper(viewHolderFactory)
