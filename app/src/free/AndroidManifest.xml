@@ -2,6 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application android:name="com.alancamargo.tweetreader.FreeApplication"
-        tools:replace="android:name"/>
+        tools:replace="android:name">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
+
+    </application>
 
 </manifest>

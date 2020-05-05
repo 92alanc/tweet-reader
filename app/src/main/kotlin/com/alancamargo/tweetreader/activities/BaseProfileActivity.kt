@@ -9,14 +9,13 @@ import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.model.User
 import com.alancamargo.tweetreader.util.device.ConnectivityStateObserver
-import com.alancamargo.tweetreader.util.extensions.loadBannerAds
 import com.alancamargo.tweetreader.util.setMemberSince
-import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile_base.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.text.NumberFormat
 
-class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
+open class BaseProfileActivity : AppCompatActivity(R.layout.activity_profile) {
 
     private val connectivityStateObserver by inject<ConnectivityStateObserver>()
     private val imageHandler by inject<ImageHandler>()
@@ -26,7 +25,6 @@ class ProfileActivity : AppCompatActivity(R.layout.activity_profile) {
         title = getString(R.string.title)
         intent.getParcelableExtra<User>(EXTRA_PROFILE).let(::bindData)
         connectivityStateObserver.observeConnectivityState(this, profile_activity_root)
-        ad_view.loadBannerAds()
     }
 
     private fun bindData(profile: User) {

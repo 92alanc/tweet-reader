@@ -9,7 +9,7 @@ import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_ad.*
+import kotlinx.android.synthetic.free.item_ad.*
 
 class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), LayoutContainer {
 

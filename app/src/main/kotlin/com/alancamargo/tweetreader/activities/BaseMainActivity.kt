@@ -17,16 +17,19 @@ import com.alancamargo.tweetreader.listeners.EndlessScrollListener
 import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.device.ConnectivityStateObserver
-import com.alancamargo.tweetreader.util.extensions.*
+import com.alancamargo.tweetreader.util.extensions.isFirstItemVisible
+import com.alancamargo.tweetreader.util.extensions.scrollToTop
+import com.alancamargo.tweetreader.util.extensions.showAppInfo
+import com.alancamargo.tweetreader.util.extensions.showPrivacyTerms
 import com.alancamargo.tweetreader.viewmodel.TweetViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_base.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(R.layout.activity_main),
+open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
     SwipeRefreshLayout.OnRefreshListener, ShareButtonClickListener {
 
     private val adapter by inject<TweetAdapter>()
@@ -43,7 +46,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
         loadTweets()
         configureSwipeRefreshLayout()
         connectivityStateObserver.observeConnectivityState(this, main_activity_root)
-        ad_view.loadBannerAds()
     }
 
     override fun onBackPressed() {
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             searchView?.run {
                 queryHint = getString(R.string.search)
                 setOnCloseListener {
-                    showTweets(this@MainActivity.tweets)
+                    showTweets(this@BaseMainActivity.tweets)
                     return@setOnCloseListener false
                 }
             }
@@ -125,7 +127,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     }
 
     private fun configureSwipeRefreshLayout() = with(swipe_refresh_layout) {
-        setOnRefreshListener(this@MainActivity)
+        setOnRefreshListener(this@BaseMainActivity)
         setColorSchemeResources(
             R.color.primary,
             R.color.accent,
@@ -205,7 +207,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     progress_bar.visibility = VISIBLE
-                    viewModel.searchTweets(query).observe(this@MainActivity, Observer {
+                    viewModel.searchTweets(query).observe(this@BaseMainActivity, Observer {
                         processResult(it)
                     })
                 }

@@ -5,7 +5,7 @@ import android.view.View.*
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.activities.ProfileActivity
+import com.alancamargo.tweetreader.activities.BaseProfileActivity
 import com.alancamargo.tweetreader.handlers.ImageHandler
 import com.alancamargo.tweetreader.listeners.LinkClickListener
 import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
@@ -85,7 +85,7 @@ open class TweetViewHolder(
     private fun configureAuthorDataClick(tweet: Tweet) {
         val clickListener = OnClickListener {
             val context = it.context
-            val intent = ProfileActivity.getIntent(context, tweet.author)
+            val intent = BaseProfileActivity.getIntent(context, tweet.author)
             context.startActivity(intent)
         }
 
