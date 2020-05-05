@@ -26,6 +26,13 @@ class AdapterHelperImpl(viewHolderFactory: ViewHolderFactory) : AdapterHelper(vi
             super.getViewHolder(viewType)
     }
 
+    override fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, tweet: Tweet) {
+        if (viewHolder is AdViewHolder)
+            viewHolder.loadAd()
+        else
+            super.bindViewHolder(viewHolder, tweet)
+    }
+
     private fun LayoutInflater.getAdHolder(parent: ViewGroup): AdViewHolder {
         val itemView = inflate(R.layout.item_ad, parent, false)
         return AdViewHolder(itemView)

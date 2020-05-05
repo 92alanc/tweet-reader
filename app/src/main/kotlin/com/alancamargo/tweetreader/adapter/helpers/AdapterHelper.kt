@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.RecyclerView
+import com.alancamargo.tweetreader.adapter.viewholder.QuotedTweetViewHolder
+import com.alancamargo.tweetreader.adapter.viewholder.TweetViewHolder
 import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 import com.alancamargo.tweetreader.util.extensions.hasLink
@@ -55,6 +57,17 @@ abstract class AdapterHelper(private val viewHolderFactory: ViewHolderFactory) {
                 VIEW_TYPE_REPLY -> getReplyHolder()
                 else -> getTweetHolder()
             }
+        }
+    }
+
+    open fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, tweet: Tweet) {
+        if (viewHolder is QuotedTweetViewHolder) {
+            with(viewHolder) {
+                bindTo(tweet)
+                tweet.quotedTweet?.let(::bindQuotedTweet)
+            }
+        } else if (viewHolder is TweetViewHolder) {
+            viewHolder.bindTo(tweet)
         }
     }
 

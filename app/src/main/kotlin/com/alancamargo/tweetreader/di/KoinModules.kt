@@ -1,6 +1,6 @@
 package com.alancamargo.tweetreader.di
 
-import com.alancamargo.tweetreader.adapter.AdapterHelperImpl
+import com.alancamargo.tweetreader.adapter.helpers.AdapterHelperImpl
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.adapter.helpers.AdapterHelper
 import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactory
@@ -54,7 +54,11 @@ private val ui = module {
     factory<ImageHandler> { ImageHandlerImpl() }
     factory<LinkClickListener> { LinkClickListenerImpl() }
     factory { TweetAdapter(get()) }
-    factory<AdapterHelper> { AdapterHelperImpl(get()) }
+    factory<AdapterHelper> {
+        AdapterHelperImpl(
+            get()
+        )
+    }
     factory<ViewHolderFactory> { ViewHolderFactoryImpl(get(), get()) }
 }
 

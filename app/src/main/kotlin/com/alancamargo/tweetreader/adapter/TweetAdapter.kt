@@ -6,9 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.adapter.helpers.AdapterHelper
-//import com.alancamargo.tweetreader.adapter.viewholder.AdViewHolder TODO
-import com.alancamargo.tweetreader.adapter.viewholder.QuotedTweetViewHolder
-import com.alancamargo.tweetreader.adapter.viewholder.TweetViewHolder
 import com.alancamargo.tweetreader.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.model.Tweet
 
@@ -29,20 +26,8 @@ class TweetAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is TweetViewHolder) {
-            val tweet = getTweet(position)
-
-            if (holder is QuotedTweetViewHolder) {
-                with(holder) {
-                    bindTo(tweet)
-                    tweet.quotedTweet?.let(::bindQuotedTweet)
-                }
-            } else {
-                holder.bindTo(tweet)
-            }
-        } /*else if (holder is AdViewHolder) {
-            holder.loadAd() TODO
-        }*/
+        val tweet = getTweet(position)
+        adapterHelper.bindViewHolder(holder, tweet)
     }
 
     override fun getItemViewType(position: Int): Int {
