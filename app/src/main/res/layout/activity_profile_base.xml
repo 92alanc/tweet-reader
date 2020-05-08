@@ -58,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_profile_picture"
-                tools:text="@string/title" />
+                tools:text="Donald Trump" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_screen_name"
@@ -69,7 +69,7 @@
                 android:layout_marginTop="@dimen/margin_default"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_name"
-                tools:text="\@jairbolsonaro" />
+                tools:text="\@realdonaldtrump" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_description"
@@ -82,7 +82,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_screen_name"
-                tools:text="Capitão do Exército Brasileiro, eleito 38° Presidente da República Federativa do Brasil. 🇧🇷" />
+                tools:text="President of the United States" />
 
             <ImageView
                 android:id="@+id/img_location"
@@ -105,7 +105,7 @@
                 app:layout_constraintStart_toEndOf="@id/img_location"
                 app:layout_constraintTop_toTopOf="@id/img_location"
                 app:layout_constraintVertical_bias="0.2"
-                tools:text="Brasília, Brasil" />
+                tools:text="Washington DC, USA" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_member_since"
@@ -116,7 +116,7 @@
                 android:layout_marginTop="@dimen/margin_default"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_location"
-                tools:text="Membro desde 01/01/2010 16:00" />
+                tools:text="Member since 01/01/2010 16:00" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_followers_count"
@@ -130,7 +130,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_member_since"
                 app:layout_constraintVertical_bias="0"
-                tools:text="1,000,000 seguidores" />
+                tools:text="1,000,000 followers" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
