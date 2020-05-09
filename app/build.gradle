@@ -21,11 +21,18 @@ android {
     }
 
     signingConfigs {
-        release {
+        free {
             keyAlias System.getenv("KEY_ALIAS")
             keyPassword System.getenv("KEY_PASSWORD")
             storeFile file(System.getenv("STORE_FILE"))
             storePassword System.getenv("STORE_PASSWORD")
+        }
+
+        paid {
+            keyAlias System.getenv("KEY_ALIAS_TWEET_READER_PAID")
+            keyPassword System.getenv("KEY_PASSWORD_TWEET_READER_PAID")
+            storeFile file(System.getenv("STORE_FILE_TWEET_READER_PAID"))
+            storePassword System.getenv("STORE_PASSWORD_TWEET_READER_PAID")
         }
     }
 
@@ -38,7 +45,6 @@ android {
             minifyEnabled true
             shrinkResources true
             debuggable false
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
         }
@@ -81,11 +87,13 @@ android {
 
         free {
             dimension "mode"
+            signingConfig signingConfigs.free
         }
 
         paid {
             dimension "mode"
             applicationIdSuffix ".paid"
+            signingConfig signingConfigs.paid
         }
     }
 
