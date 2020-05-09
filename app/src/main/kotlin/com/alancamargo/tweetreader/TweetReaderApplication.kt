@@ -8,7 +8,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-@Suppress("registered")
+@Suppress("registered", "unused")
 open class TweetReaderApplication : Application() {
 
     override fun onCreate() {

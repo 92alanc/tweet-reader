@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_media_view">175dp</dimen>
+    <dimen name="width_media_view">250dp</dimen>
+    <dimen name="size_ad_icon">40dp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+</resources>

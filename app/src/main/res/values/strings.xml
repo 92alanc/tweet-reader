@@ -12,12 +12,7 @@
     <string name="developer_info">Developed by Alan Camargo.\n\nDisclaimer: I am not responsible for any of the contents displayed in this app.</string>
     <string name="ok" translatable="false">OK</string>
     <string name="photo_indicator_format" translatable="false">%1$d/%2$d</string>
-    <string name="description_retweet" translatable="false">Retweet</string>
-    <string name="description_reply">Reply</string>
     <string name="error_loading_tweet">Error loading tweet</string>
-    <string name="description_quotation">Quotation</string>
-    <string name="ad">Ad</string>
-    <string name="error_loading_ad">Error loading ad. Lucky you!</string>
     <string name="you_are_offline">You are offline</string>
     <string name="you_are_back_online">You are back online</string>
     <string name="clear_cache">Clear cache</string>

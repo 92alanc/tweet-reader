@@ -5,6 +5,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import br.com.concretesolutions.kappuccino.assertions.VisibilityAssertions.displayed
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.activities.BaseProfileActivity
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.activities.ProfileActivityTest
 import com.alancamargo.tweetreader.handlers.ImageHandler
@@ -42,7 +43,7 @@ private fun ProfileActivityTest.launch(
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     profile = mockProfile()
     
-    val intent = ProfileActivity.getIntent(context, profile)
+    val intent = BaseProfileActivity.getIntent(context, profile)
     ActivityScenario.launch<ProfileActivity>(intent)
 
     return ProfileActivityRobot(context, profile, mockImageHandler).apply(block)

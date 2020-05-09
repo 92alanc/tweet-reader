@@ -1,7 +1,5 @@
 package com.alancamargo.tweetreader
 
-import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.TweetReaderApplication
 import com.google.android.gms.ads.MobileAds
 
 @Suppress("unused")
