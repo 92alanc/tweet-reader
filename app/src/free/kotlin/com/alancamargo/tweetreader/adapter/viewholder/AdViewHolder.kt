@@ -1,6 +1,8 @@
 package com.alancamargo.tweetreader.adapter.viewholder
 
 import android.view.View
+import android.widget.ProgressBar
+import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.util.extensions.loadNativeAds
@@ -8,16 +10,21 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import com.google.android.material.textview.MaterialTextView
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.free.item_ad.*
 
 class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     override val containerView: View? = itemView
 
+    private lateinit var txtError: MaterialTextView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var groupNativeAd: Group
+
     fun loadAd() {
+        bindViews()
         showProgressBar()
-        txt_error.visibility = View.GONE
+        txtError.visibility = View.GONE
         val context = itemView.context
         val adView = itemView as UnifiedNativeAdView
         val adUnitId = context.getString(R.string.ad_unit_id_native)
@@ -28,22 +35,29 @@ class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), LayoutCo
             }
             .withAdListener(object : AdListener() {
                 override fun onAdFailedToLoad(errorCode: Int) {
-                    progress_bar.visibility = View.GONE
-                    txt_error.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                    txtError.visibility = View.VISIBLE
                 }
             }).build()
 
         adLoader.loadAd(AdRequest.Builder().build())
     }
 
+    // FIXME
+    private fun bindViews() = with(itemView) {
+        txtError = findViewById(R.id.txt_error)
+        progressBar = findViewById(R.id.progress_bar)
+        groupNativeAd = findViewById(R.id.group_native_ad)
+    }
+
     private fun showProgressBar() {
-        group_native_ad.visibility = View.GONE
-        progress_bar.visibility = View.VISIBLE
+        groupNativeAd.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
-        group_native_ad.visibility = View.VISIBLE
-        progress_bar.visibility = View.GONE
+        groupNativeAd.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
     }
 
 }
