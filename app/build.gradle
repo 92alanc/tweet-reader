@@ -69,10 +69,10 @@ android {
 
         trump {
             // TODO
-            def freeVersionCode = 13
+            def freeVersionCode = 14
             def paidVersionCode = 1
-            def freeVersionName = 'Free'
-            def paidVersionName = 'Paid'
+            def freeVersionName = '2020.2.2'
+            def paidVersionName = '2020.2.0'
 
             dimension "version"
             versionCode freeVersionCode
