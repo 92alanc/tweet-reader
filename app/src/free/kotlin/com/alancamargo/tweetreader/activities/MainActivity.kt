@@ -9,7 +9,7 @@ class MainActivity : BaseMainActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // FIXME
+        // TODO
         findViewById<AdView>(R.id.ad_view_main).loadBannerAds()
     }
 

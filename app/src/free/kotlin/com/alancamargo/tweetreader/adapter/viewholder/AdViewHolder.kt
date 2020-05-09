@@ -43,7 +43,7 @@ class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), LayoutCo
         adLoader.loadAd(AdRequest.Builder().build())
     }
 
-    // FIXME
+    // TODO
     private fun bindViews() = with(itemView) {
         txtError = findViewById(R.id.txt_error)
         progressBar = findViewById(R.id.progress_bar)
