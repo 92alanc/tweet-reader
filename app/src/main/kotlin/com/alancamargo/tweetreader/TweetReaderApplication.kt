@@ -1,7 +1,7 @@
 package com.alancamargo.tweetreader
 
 import android.app.Application
-import com.alancamargo.tweetreader.di.getModules
+import com.alancamargo.tweetreader.di.KoinModules
 import com.google.firebase.FirebaseApp
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
@@ -10,6 +10,8 @@ import org.koin.core.context.startKoin
 
 @Suppress("registered", "unused")
 open class TweetReaderApplication : Application() {
+
+    protected open val koinModules = KoinModules()
 
     override fun onCreate() {
         super.onCreate()
@@ -25,7 +27,7 @@ open class TweetReaderApplication : Application() {
     private fun startDependencyInjection() {
         startKoin {
             androidContext(this@TweetReaderApplication)
-            modules(getModules())
+            modules(koinModules.getModules())
         }
     }
 

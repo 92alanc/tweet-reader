@@ -1,8 +1,8 @@
 package com.alancamargo.tweetreader.di
 
-import com.alancamargo.tweetreader.adapter.helpers.AdapterHelperImpl
 import com.alancamargo.tweetreader.adapter.TweetAdapter
 import com.alancamargo.tweetreader.adapter.helpers.AdapterHelper
+import com.alancamargo.tweetreader.adapter.helpers.AdapterHelperImpl
 import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactory
 import com.alancamargo.tweetreader.adapter.helpers.ViewHolderFactoryImpl
 import com.alancamargo.tweetreader.api.BASE_URL
@@ -31,38 +31,38 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-fun getModules() = listOf(data, helpers, ui, device)
+open class KoinModules {
 
-private val data = module {
-    viewModel { TweetViewModel(get()) }
-    factory<TweetRepository> { TweetRepositoryImpl(androidContext(), get(), get(), get()) }
-    factory<TweetLocalDataSource> { TweetLocalDataSourceImpl(androidContext(), get()) }
-    factory<TweetRemoteDataSource> { TweetRemoteDataSourceImpl(get()) }
-    factory { ApiProvider(BASE_URL, get()) }
-    factory { TweetDatabaseProvider.getInstance(androidContext()).provideDatabase() }
-}
+    open fun getModules() = arrayListOf(data, helpers, ui, device)
 
-private val helpers = module {
-    factory<PreferenceHelper> { PreferenceHelperImpl(androidContext()) }
-    factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
-    factory<ConnectivityHelper> { ConnectivityHelperImpl(androidContext()) }
-    factory<CrashReportManager> { CrashReportManagerImpl() }
-    factory { ApiHelper(get()) }
-}
-
-private val ui = module {
-    factory<ImageHandler> { ImageHandlerImpl() }
-    factory<LinkClickListener> { LinkClickListenerImpl() }
-    factory { TweetAdapter(get()) }
-    factory<AdapterHelper> {
-        AdapterHelperImpl(
-            get()
-        )
+    private val data = module {
+        viewModel { TweetViewModel(get()) }
+        factory<TweetRepository> { TweetRepositoryImpl(androidContext(), get(), get(), get()) }
+        factory<TweetLocalDataSource> { TweetLocalDataSourceImpl(androidContext(), get()) }
+        factory<TweetRemoteDataSource> { TweetRemoteDataSourceImpl(get()) }
+        factory { ApiProvider(BASE_URL, get()) }
+        factory { TweetDatabaseProvider.getInstance(androidContext()).provideDatabase() }
     }
-    factory<ViewHolderFactory> { ViewHolderFactoryImpl(get(), get()) }
-}
 
-private val device = module {
-    factory<DeviceManager> { DeviceManagerImpl(get()) }
-    factory { ConnectivityStateObserver(get()) }
+    private val helpers = module {
+        factory<PreferenceHelper> { PreferenceHelperImpl(androidContext()) }
+        factory<TokenHelper> { TokenHelperImpl(get(), BASE_URL) }
+        factory<ConnectivityHelper> { ConnectivityHelperImpl(androidContext()) }
+        factory<CrashReportManager> { CrashReportManagerImpl() }
+        factory { ApiHelper(get()) }
+    }
+
+    private val ui = module {
+        factory<ImageHandler> { ImageHandlerImpl() }
+        factory<LinkClickListener> { LinkClickListenerImpl() }
+        factory { TweetAdapter(get()) }
+        factory<AdapterHelper> { AdapterHelperImpl(get()) }
+        factory<ViewHolderFactory> { ViewHolderFactoryImpl(get(), get()) }
+    }
+
+    private val device = module {
+        factory<DeviceManager> { DeviceManagerImpl(get()) }
+        factory { ConnectivityStateObserver(get()) }
+    }
+
 }
