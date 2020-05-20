@@ -95,6 +95,20 @@ android {
             buildConfigField "String", "USER_ID", '"18643437"'
         }
 
+        jb {
+            // TODO
+            def freeVersionCode = 1
+            def paidVersionCode = 1
+            def freeVersionName = '2020.2.0'
+            def paidVersionName = '2020.2.0'
+
+            dimension "version"
+            versionCode freeVersionCode
+            versionName freeVersionName
+            applicationIdSuffix ".jb"
+            buildConfigField "String", "USER_ID", '"27260086"'
+        }
+
         bolsonaro {
             // TODO
             def freeVersionCode = 13
