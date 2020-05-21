@@ -55,9 +55,9 @@ android {
     productFlavors {
         moro {
             // TODO
-            def freeVersionCode = 1
+            def freeVersionCode = 2
             def paidVersionCode = 1
-            def freeVersionName = '2020.2.0'
+            def freeVersionName = '2020.2.1'
             def paidVersionName = '2020.2.0'
 
             dimension "version"
