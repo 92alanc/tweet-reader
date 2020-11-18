@@ -23,7 +23,7 @@ open class BaseProfileActivity : AppCompatActivity(R.layout.activity_profile) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.title)
-        intent.getParcelableExtra<User>(EXTRA_PROFILE).let(::bindData)
+        intent.getParcelableExtra<User>(EXTRA_PROFILE)?.let(::bindData)
         connectivityStateObserver.observeConnectivityState(this, profile_activity_root)
     }
 
