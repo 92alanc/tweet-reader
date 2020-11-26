@@ -1,5 +1,5 @@
 # Model classes
--keep class com.alancamargo.tweetreader.model.** { *; }
+-keep class com.alancamargo.tweetreader.framework.entities.** { *; }
 
 # Retrofit
 -dontwarn retrofit.**

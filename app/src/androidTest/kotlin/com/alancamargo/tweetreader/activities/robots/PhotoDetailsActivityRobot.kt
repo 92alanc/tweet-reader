@@ -5,9 +5,9 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import br.com.concretesolutions.kappuccino.actions.ClickActions.click
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.activities.PhotoDetailsActivity
+import com.alancamargo.tweetreader.ui.activities.PhotoDetailsActivity
 import com.alancamargo.tweetreader.activities.PhotoDetailsActivityTest
-import com.alancamargo.tweetreader.handlers.ImageHandler
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coVerify
 

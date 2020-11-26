@@ -2,7 +2,7 @@
 
     <application>
         <provider
-            android:name="com.alancamargo.tweetreader.provider.FileProvider"
+            android:name="com.alancamargo.tweetreader.framework.tools.FileProvider"
             android:authorities="com.alancamargo.tweetreader.trump.provider"
             android:exported="false"
             android:grantUriPermissions="true">

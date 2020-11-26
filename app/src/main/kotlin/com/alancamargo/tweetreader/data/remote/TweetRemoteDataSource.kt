@@ -1,6 +1,6 @@
 package com.alancamargo.tweetreader.data.remote
 
-import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.framework.entities.Tweet
 import java.io.InputStream
 
 interface TweetRemoteDataSource {

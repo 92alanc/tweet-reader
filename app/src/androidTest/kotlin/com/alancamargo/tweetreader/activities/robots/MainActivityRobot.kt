@@ -10,11 +10,11 @@ import br.com.concretesolutions.kappuccino.custom.recyclerView.RecyclerViewInter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.MainActivity
 import com.alancamargo.tweetreader.activities.MainActivityTest
-import com.alancamargo.tweetreader.api.results.Result
-import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.data.entities.Result
+import com.alancamargo.tweetreader.framework.entities.Tweet
 import com.alancamargo.tweetreader.tools.getJsonFromAsset
 import com.alancamargo.tweetreader.tools.moshi
-import com.alancamargo.tweetreader.util.device.ConnectivityLiveData
+import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityLiveData
 import com.squareup.moshi.Types
 import io.mockk.coEvery
 import io.mockk.every

@@ -1,9 +1,10 @@
 package com.alancamargo.tweetreader.data.remote
 
-import com.alancamargo.tweetreader.api.provider.ApiProvider
-import com.alancamargo.tweetreader.api.tools.TokenHelper
-import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.model.api.SearchResponse
+import com.alancamargo.tweetreader.framework.remote.api.provider.ApiProvider
+import com.alancamargo.tweetreader.data.tools.TokenHelper
+import com.alancamargo.tweetreader.framework.remote.TweetRemoteDataSourceImpl
+import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.data.entities.SearchResponse
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

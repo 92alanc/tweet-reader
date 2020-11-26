@@ -3,7 +3,7 @@ package com.alancamargo.tweetreader
 import com.google.android.gms.ads.MobileAds
 
 @Suppress("unused")
-class FreeApplication : TweetReaderApplication() {
+class FreeApplication : App() {
 
     override fun startFirebase() {
         super.startFirebase()

@@ -3,10 +3,10 @@ package com.alancamargo.tweetreader.activities
 import com.alancamargo.tweetreader.activities.robots.launchConnected
 import com.alancamargo.tweetreader.activities.robots.launchDisconnected
 import com.alancamargo.tweetreader.di.getTestModules
-import com.alancamargo.tweetreader.handlers.ImageHandler
-import com.alancamargo.tweetreader.model.User
-import com.alancamargo.tweetreader.util.device.ConnectivityHelper
-import com.alancamargo.tweetreader.util.device.DeviceManager
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.framework.entities.User
+import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityHelper
+import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import org.junit.Before

@@ -1,7 +1,9 @@
 package com.alancamargo.tweetreader.api.tools
 
-import com.alancamargo.tweetreader.helpers.PreferenceHelper
-import com.alancamargo.tweetreader.model.api.OAuth2Token
+import com.alancamargo.tweetreader.data.tools.TokenHelper
+import com.alancamargo.tweetreader.framework.remote.api.tools.TokenHelperImpl
+import com.alancamargo.tweetreader.data.tools.PreferenceHelper
+import com.alancamargo.tweetreader.data.entities.OAuth2Token
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

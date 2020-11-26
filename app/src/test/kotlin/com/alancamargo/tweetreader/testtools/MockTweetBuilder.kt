@@ -2,9 +2,9 @@ package com.alancamargo.tweetreader.testtools
 
 import com.alancamargo.tweetreader.api.MEDIA_PHOTO
 import com.alancamargo.tweetreader.api.MEDIA_VIDEO
-import com.alancamargo.tweetreader.model.Tweet
-import com.alancamargo.tweetreader.model.api.Media
-import com.alancamargo.tweetreader.model.api.MediaContent
+import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.Media
+import com.alancamargo.tweetreader.framework.entities.MediaContent
 
 class MockTweetBuilder {
 

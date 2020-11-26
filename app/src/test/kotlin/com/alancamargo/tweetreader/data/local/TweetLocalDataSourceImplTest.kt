@@ -1,7 +1,8 @@
 package com.alancamargo.tweetreader.data.local
 
-import com.alancamargo.tweetreader.db.TweetDatabaseManager
-import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.framework.local.db.TweetDao
+import com.alancamargo.tweetreader.framework.local.TweetLocalDataSourceImpl
+import com.alancamargo.tweetreader.framework.entities.Tweet
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -17,7 +18,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class TweetLocalDataSourceImplTest {
 
-    @MockK lateinit var mockDbManager: TweetDatabaseManager
+    @MockK lateinit var mockDbManager: TweetDao
 
     private lateinit var localDataSource: TweetLocalDataSource
 

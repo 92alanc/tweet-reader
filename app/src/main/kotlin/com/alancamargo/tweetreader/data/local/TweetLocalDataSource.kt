@@ -1,7 +1,7 @@
 package com.alancamargo.tweetreader.data.local
 
 import android.net.Uri
-import com.alancamargo.tweetreader.model.Tweet
+import com.alancamargo.tweetreader.framework.entities.Tweet
 import java.io.InputStream
 
 interface TweetLocalDataSource {
