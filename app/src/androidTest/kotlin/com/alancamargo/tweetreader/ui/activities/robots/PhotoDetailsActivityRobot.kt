@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.activities.robots
+package com.alancamargo.tweetreader.ui.activities.robots
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
@@ -6,7 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import br.com.concretesolutions.kappuccino.actions.ClickActions.click
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.ui.activities.PhotoDetailsActivity
-import com.alancamargo.tweetreader.activities.PhotoDetailsActivityTest
+import com.alancamargo.tweetreader.ui.activities.PhotoDetailsActivityTest
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coVerify

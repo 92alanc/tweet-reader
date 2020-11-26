@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.activities.robots
+package com.alancamargo.tweetreader.ui.activities.robots
 
 import android.content.Context
 import androidx.test.core.app.ActivityScenario
@@ -7,7 +7,7 @@ import br.com.concretesolutions.kappuccino.assertions.VisibilityAssertions.displ
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
 import com.alancamargo.tweetreader.activities.ProfileActivity
-import com.alancamargo.tweetreader.activities.ProfileActivityTest
+import com.alancamargo.tweetreader.ui.activities.ProfileActivityTest
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.alancamargo.tweetreader.framework.entities.User
 import com.alancamargo.tweetreader.tools.getJsonFromAsset

@@ -1,7 +1,7 @@
-package com.alancamargo.tweetreader.activities
+package com.alancamargo.tweetreader.ui.activities
 
-import com.alancamargo.tweetreader.activities.robots.launch
 import com.alancamargo.tweetreader.di.getTestModules
+import com.alancamargo.tweetreader.ui.activities.robots.launch
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import org.junit.Before
 import org.junit.Test

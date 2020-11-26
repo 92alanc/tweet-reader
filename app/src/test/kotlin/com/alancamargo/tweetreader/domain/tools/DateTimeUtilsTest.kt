@@ -1,6 +1,5 @@
-package com.alancamargo.tweetreader.util
+package com.alancamargo.tweetreader.domain.tools
 
-import com.alancamargo.tweetreader.domain.tools.formatDate
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

@@ -1,12 +1,11 @@
-package com.alancamargo.tweetreader.repository
+package com.alancamargo.tweetreader.framework.repository
 
 import com.alancamargo.tweetreader.data.entities.Result
-import com.alancamargo.tweetreader.framework.remote.api.tools.ApiHelper
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
-import com.alancamargo.tweetreader.framework.repository.TweetRepositoryImpl
-import com.alancamargo.tweetreader.framework.entities.Tweet
 import com.alancamargo.tweetreader.data.tools.CrashReportManager
+import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.remote.api.tools.ApiHelper
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
 import io.mockk.impl.annotations.MockK

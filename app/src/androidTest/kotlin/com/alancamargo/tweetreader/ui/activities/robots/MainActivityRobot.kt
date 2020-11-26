@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.activities.robots
+package com.alancamargo.tweetreader.ui.activities.robots
 
 import android.content.Intent
 import androidx.annotation.DrawableRes
@@ -9,7 +9,7 @@ import br.com.concretesolutions.kappuccino.custom.intent.IntentMatcherInteractio
 import br.com.concretesolutions.kappuccino.custom.recyclerView.RecyclerViewInteractions.recyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.MainActivity
-import com.alancamargo.tweetreader.activities.MainActivityTest
+import com.alancamargo.tweetreader.ui.activities.MainActivityTest
 import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.framework.entities.Tweet
 import com.alancamargo.tweetreader.tools.getJsonFromAsset

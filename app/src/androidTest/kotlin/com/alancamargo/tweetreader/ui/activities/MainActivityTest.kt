@@ -1,13 +1,13 @@
-package com.alancamargo.tweetreader.activities
+package com.alancamargo.tweetreader.ui.activities
 
 import android.content.Intent
 import androidx.test.espresso.intent.Intents
-import com.alancamargo.tweetreader.activities.robots.*
 import com.alancamargo.tweetreader.data.entities.Result
-import com.alancamargo.tweetreader.di.getTestModules
 import com.alancamargo.tweetreader.data.repository.TweetRepository
+import com.alancamargo.tweetreader.di.getTestModules
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityHelper
 import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
+import com.alancamargo.tweetreader.ui.activities.robots.*
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

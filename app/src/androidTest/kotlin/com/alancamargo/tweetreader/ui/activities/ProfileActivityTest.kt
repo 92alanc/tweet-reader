@@ -1,12 +1,12 @@
-package com.alancamargo.tweetreader.activities
+package com.alancamargo.tweetreader.ui.activities
 
-import com.alancamargo.tweetreader.activities.robots.launchConnected
-import com.alancamargo.tweetreader.activities.robots.launchDisconnected
 import com.alancamargo.tweetreader.di.getTestModules
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.alancamargo.tweetreader.framework.entities.User
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityHelper
 import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
+import com.alancamargo.tweetreader.ui.activities.robots.launchConnected
+import com.alancamargo.tweetreader.ui.activities.robots.launchDisconnected
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import org.junit.Before

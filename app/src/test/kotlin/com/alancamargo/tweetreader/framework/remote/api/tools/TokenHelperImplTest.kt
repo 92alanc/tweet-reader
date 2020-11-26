@@ -1,9 +1,7 @@
-package com.alancamargo.tweetreader.api.tools
+package com.alancamargo.tweetreader.framework.remote.api.tools
 
-import com.alancamargo.tweetreader.data.tools.TokenHelper
-import com.alancamargo.tweetreader.framework.remote.api.tools.TokenHelperImpl
-import com.alancamargo.tweetreader.data.tools.PreferenceHelper
 import com.alancamargo.tweetreader.data.entities.OAuth2Token
+import com.alancamargo.tweetreader.data.tools.PreferenceHelper
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -28,7 +26,7 @@ class TokenHelperImplTest {
     private val mockWebServer = MockWebServer()
 
     private lateinit var jsonAdapter: JsonAdapter<OAuth2Token>
-    private lateinit var tokenHelper: TokenHelper
+    private lateinit var tokenHelper: TokenHelperImpl
 
     @Before
     fun setUp() {
