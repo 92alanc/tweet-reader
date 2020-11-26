@@ -7,8 +7,8 @@ import android.os.Build.VERSION_CODES.N
 import androidx.core.content.FileProvider
 import com.alancamargo.tweetreader.data.local.FileType
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
-import com.alancamargo.tweetreader.framework.local.db.TweetDao
 import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.local.db.TweetDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -17,14 +17,14 @@ import java.io.InputStream
 
 class TweetLocalDataSourceImpl(
     private val context: Context,
-    private val dbManager: TweetDao
+    private val tweetDao: TweetDao
 ) : TweetLocalDataSource {
 
     private val baseDir by lazy { context.filesDir }
 
     override suspend fun getTweets(): List<Tweet> {
         val tweets = withContext(Dispatchers.IO) {
-            dbManager.select()
+            tweetDao.select()
         }
 
         if (tweets.isNotEmpty())
@@ -35,13 +35,13 @@ class TweetLocalDataSourceImpl(
 
     override suspend fun updateCache(tweets: List<Tweet>) = withContext(Dispatchers.IO) {
         tweets.forEach {
-            if (!dbManager.hasTweet(it))
-                dbManager.insert(it)
+            if (!tweetDao.hasTweet(it))
+                tweetDao.insert(it)
         }
     }
 
     override suspend fun clearCache() = withContext(Dispatchers.IO) {
-        dbManager.delete()
+        tweetDao.delete()
     }
 
     override suspend fun getFileUri(byteStream: InputStream, id: String, fileType: FileType): Uri {
@@ -53,6 +53,7 @@ class TweetLocalDataSourceImpl(
         return count(tweet.id) > 0
     }
 
+    @Suppress("BlockingMethodInNonBlockingContext")
     private suspend fun saveFile(byteStream: InputStream, id: String, fileType: FileType): File {
         if (!baseDir.exists())
             baseDir.mkdirs()

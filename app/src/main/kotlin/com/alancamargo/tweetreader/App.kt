@@ -1,11 +1,10 @@
 package com.alancamargo.tweetreader
 
 import android.app.Application
-import com.alancamargo.tweetreader.di.getModules
+import com.alancamargo.tweetreader.di.KoinAppDeclarationProvider
 import com.google.firebase.FirebaseApp
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
-import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 @Suppress("registered", "unused")
@@ -23,10 +22,7 @@ open class App : Application() {
     }
 
     private fun startDependencyInjection() {
-        startKoin {
-            androidContext(this@App)
-            modules(getModules())
-        }
+        startKoin(appDeclaration = KoinAppDeclarationProvider.provideAppDeclaration(this))
     }
 
     private fun startImageLoader() {

@@ -1,10 +1,10 @@
 package com.alancamargo.tweetreader.framework.remote.api.provider
 
+import com.alancamargo.tweetreader.data.remote.TIMEOUT
+import com.alancamargo.tweetreader.data.tools.TokenHelper
 import com.alancamargo.tweetreader.framework.remote.api.DownloadApi
 import com.alancamargo.tweetreader.framework.remote.api.SearchApi
-import com.alancamargo.tweetreader.data.remote.TIMEOUT
 import com.alancamargo.tweetreader.framework.remote.api.TwitterApi
-import com.alancamargo.tweetreader.data.tools.TokenHelper
 import com.alancamargo.tweetreader.framework.remote.api.tools.TokenInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
