@@ -7,7 +7,7 @@ import android.os.Build.VERSION_CODES.N
 import androidx.core.content.FileProvider
 import com.alancamargo.tweetreader.data.local.FileType
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.framework.local.db.TweetDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,7 +22,7 @@ class TweetLocalDataSourceImpl(
 
     private val baseDir by lazy { context.filesDir }
 
-    override suspend fun getTweets(): List<Tweet> {
+    override suspend fun getTweets(): List<TweetResponse> {
         val tweets = withContext(Dispatchers.IO) {
             tweetDao.select()
         }
@@ -33,7 +33,7 @@ class TweetLocalDataSourceImpl(
             throw Exception("No tweets found in cache")
     }
 
-    override suspend fun updateCache(tweets: List<Tweet>) = withContext(Dispatchers.IO) {
+    override suspend fun updateCache(tweets: List<TweetResponse>) = withContext(Dispatchers.IO) {
         tweets.forEach {
             if (!tweetDao.hasTweet(it))
                 tweetDao.insert(it)
@@ -49,7 +49,7 @@ class TweetLocalDataSourceImpl(
         return getFileUri(file)
     }
 
-    private suspend fun TweetDao.hasTweet(tweet: Tweet): Boolean {
+    private suspend fun TweetDao.hasTweet(tweet: TweetResponse): Boolean {
         return count(tweet.id) > 0
     }
 

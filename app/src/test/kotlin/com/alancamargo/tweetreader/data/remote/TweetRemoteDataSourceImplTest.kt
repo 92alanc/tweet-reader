@@ -3,7 +3,7 @@ package com.alancamargo.tweetreader.data.remote
 import com.alancamargo.tweetreader.framework.remote.api.provider.ApiProvider
 import com.alancamargo.tweetreader.data.tools.TokenHelper
 import com.alancamargo.tweetreader.framework.remote.TweetRemoteDataSourceImpl
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.data.entities.SearchResponse
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.JsonAdapter
@@ -27,14 +27,14 @@ class TweetRemoteDataSourceImplTest {
 
     private lateinit var remoteDataSource: TweetRemoteDataSource
     private lateinit var tweetListJsonAdapter: JsonAdapter<List<*>>
-    private lateinit var tweetJsonAdapter: JsonAdapter<Tweet>
+    private lateinit var tweetJsonAdapter: JsonAdapter<TweetResponse>
     private lateinit var searchResponseJsonAdapter: JsonAdapter<SearchResponse>
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
         tweetListJsonAdapter = Moshi.Builder().build().adapter(List::class.java)
-        tweetJsonAdapter = Moshi.Builder().build().adapter(Tweet::class.java)
+        tweetJsonAdapter = Moshi.Builder().build().adapter(TweetResponse::class.java)
         searchResponseJsonAdapter = Moshi.Builder().build().adapter(SearchResponse::class.java)
         val baseUrl = mockWebServer.url("/").toString()
         coEvery { mockTokenHelper.getAccessToken() } returns "mock_token"
@@ -99,9 +99,9 @@ class TweetRemoteDataSourceImplTest {
     }
 
     private fun enqueueSuccessfulTweetListResponse(includeTweetWithReply: Boolean = false) {
-        val tweets = arrayListOf<Tweet>(mockk(), mockk(), mockk()).apply {
+        val tweets = arrayListOf<TweetResponse>(mockk(), mockk(), mockk()).apply {
             if (includeTweetWithReply)
-                add(Tweet(inReplyTo = 123))
+                add(TweetResponse(inReplyTo = 123))
         }
         val body = tweetListJsonAdapter.toJson(tweets)
         val response = MockResponse().setResponseCode(200).setBody(body)
@@ -109,14 +109,14 @@ class TweetRemoteDataSourceImplTest {
     }
 
     private fun enqueueSuccessfulTweetResponse() {
-        val tweet = mockk<Tweet>()
+        val tweet = mockk<TweetResponse>()
         val body = tweetJsonAdapter.toJson(tweet)
         val response = MockResponse().setResponseCode(200).setBody(body)
         mockWebServer.enqueue(response)
     }
 
     private fun enqueueSuccessfulTweetSearchResponse() {
-        val searchResults = listOf<Tweet>(mockk(), mockk())
+        val searchResults = listOf<TweetResponse>(mockk(), mockk())
         val searchResponse = SearchResponse(searchResults)
         val body = searchResponseJsonAdapter.toJson(searchResponse)
         val response = MockResponse().setResponseCode(200).setBody(body)

@@ -10,7 +10,7 @@ import com.alancamargo.tweetreader.data.local.FileType
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.data.repository.TweetRepository
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -21,12 +21,12 @@ class TweetRepositoryImpl(
     private val apiHelper: ApiHelper
 ) : TweetRepository {
 
-    private var tweets: List<Tweet> = emptyList()
+    private var tweets: List<TweetResponse> = emptyList()
 
     override suspend fun getTweets(
         hasScrolledToBottom: Boolean,
         isRefreshing: Boolean
-    ): Result<List<Tweet>> {
+    ): Result<List<TweetResponse>> {
         val maxId = if (hasScrolledToBottom) tweets.getMaxId() else null
         val sinceId = if (isRefreshing) tweets.getSinceId() else null
 
@@ -43,7 +43,7 @@ class TweetRepositoryImpl(
         })
     }
 
-    override suspend fun searchTweets(query: String): Result<List<Tweet>> = apiHelper.safeApiCall {
+    override suspend fun searchTweets(query: String): Result<List<TweetResponse>> = apiHelper.safeApiCall {
         remoteDataSource.searchTweets(query)
     }
 
@@ -51,7 +51,7 @@ class TweetRepositoryImpl(
         localDataSource.clearCache()
     }
 
-    override suspend fun getShareIntent(tweet: Tweet): Result<Intent> {
+    override suspend fun getShareIntent(tweet: TweetResponse): Result<Intent> {
         return apiHelper.safeApiCall {
             val shareIntent = buildShareIntent(tweet)
 
@@ -62,18 +62,18 @@ class TweetRepositoryImpl(
         }
     }
 
-    private fun List<Tweet>.append(newTweets: List<Tweet>, isRefreshing: Boolean): List<Tweet> {
+    private fun List<TweetResponse>.append(newTweets: List<TweetResponse>, isRefreshing: Boolean): List<TweetResponse> {
         return if (isRefreshing)
             newTweets + this
         else
             this + newTweets
     }
 
-    private fun List<Tweet>.getMaxId(): Long? = if (isEmpty()) null else last().id - 1
+    private fun List<TweetResponse>.getMaxId(): Long? = if (isEmpty()) null else last().id - 1
 
-    private fun List<Tweet>.getSinceId(): Long? = if (isEmpty()) null else first().id
+    private fun List<TweetResponse>.getSinceId(): Long? = if (isEmpty()) null else first().id
 
-    private suspend fun buildShareIntent(tweet: Tweet): Intent {
+    private suspend fun buildShareIntent(tweet: TweetResponse): Intent {
         val intent = Intent()
 
         var text = tweet.extendedTweet?.text ?: tweet.fullText
@@ -90,7 +90,7 @@ class TweetRepositoryImpl(
         }
     }
 
-    private suspend fun Intent.buildShareImageIntent(tweet: Tweet) = apply {
+    private suspend fun Intent.buildShareImageIntent(tweet: TweetResponse) = apply {
         val uris = arrayListOf<Uri>()
         tweet.media!!.getPhotoUrls()!!.forEach {
             val uri = withContext(Dispatchers.IO) {
@@ -106,7 +106,7 @@ class TweetRepositoryImpl(
         putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
     }
 
-    private suspend fun Intent.buildShareVideoIntent(tweet: Tweet) = apply {
+    private suspend fun Intent.buildShareVideoIntent(tweet: TweetResponse) = apply {
         val uri = withContext(Dispatchers.IO) {
             val byteStream = remoteDataSource.downloadMedia(tweet.media!!.getVideoUrl()!!)
             val fileType = FileType.VIDEO

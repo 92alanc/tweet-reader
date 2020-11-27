@@ -11,23 +11,23 @@ import com.squareup.moshi.Moshi
 
 @Entity
 @TypeConverters(
-    Tweet.Converter::class,
-    User.Converter::class,
-    Media.Converter::class,
-    ExtendedTweet.Converter::class
+    TweetResponse.Converter::class,
+    UserResponse.Converter::class,
+    MediaResponse.Converter::class,
+    ExtendedTweetResponse.Converter::class
 )
-data class Tweet(
+data class TweetResponse(
     @field:Json(name = "created_at") var creationDate: String = "",
     @PrimaryKey var id: Long = 0,
     @field:Json(name = "full_text") var fullText: String = "",
     @field:Json(name = "text") var text: String = "",
-    @field:Json(name = "user") var author: User = User(),
-    @field:Json(name = "extended_entities") var media: Media? = null,
-    @field:Json(name = "quoted_status") var quotedTweet: Tweet? = null,
-    @field:Json(name = "retweeted_status") var retweet: Tweet? = null,
+    @field:Json(name = "user") var author: UserResponse = UserResponse(),
+    @field:Json(name = "extended_entities") var media: MediaResponse? = null,
+    @field:Json(name = "quoted_status") var quotedTweet: TweetResponse? = null,
+    @field:Json(name = "retweeted_status") var retweet: TweetResponse? = null,
     @field:Json(name = "in_reply_to_status_id") var inReplyTo: Long? = null,
-    @field:Json(name = "extended_tweet") var extendedTweet: ExtendedTweet? = null,
-    @Transient var repliedTweet: Tweet? = null
+    @field:Json(name = "extended_tweet") var extendedTweet: ExtendedTweetResponse? = null,
+    @Transient var repliedTweet: TweetResponse? = null
 ) {
 
     fun isQuoting() = quotedTweet != null
@@ -41,7 +41,7 @@ data class Tweet(
     fun containsVideo() = media?.contents?.any { it.type == MEDIA_VIDEO } ?: false
 
     override fun equals(other: Any?): Boolean {
-        return if (other == null || other !is Tweet)
+        return if (other == null || other !is TweetResponse)
             false
         else
             id == other.id
@@ -54,10 +54,10 @@ data class Tweet(
     class Converter {
 
         private val moshi = Moshi.Builder().build()
-        private val tweetAdapter = moshi.adapter(Tweet::class.java)
+        private val tweetAdapter = moshi.adapter(TweetResponse::class.java)
 
         @TypeConverter
-        fun tweetToString(tweet: Tweet?): String? {
+        fun tweetToString(tweet: TweetResponse?): String? {
             return if (tweet != null)
                 tweetAdapter.toJson(tweet)
             else
@@ -65,7 +65,7 @@ data class Tweet(
         }
 
         @TypeConverter
-        fun stringToTweet(string: String?): Tweet? {
+        fun stringToTweet(string: String?): TweetResponse? {
             return if (string != null)
                 tweetAdapter.fromJson(string)
             else

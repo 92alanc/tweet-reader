@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import kotlinx.android.synthetic.main.item_tweet_video.*
 
 class VideoTweetViewHolder(
@@ -22,7 +22,7 @@ class VideoTweetViewHolder(
     shareButtonClickListener
 ) {
 
-    override fun bindTo(tweet: Tweet) {
+    override fun bindTo(tweet: TweetResponse) {
         super.bindTo(tweet)
         tweet.media?.getVideoUrl()?.let { videoUrl ->
             with(video_view) {

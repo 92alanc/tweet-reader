@@ -9,7 +9,7 @@ import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
 import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.ui.activities.ProfileActivityTest
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
-import com.alancamargo.tweetreader.framework.entities.User
+import com.alancamargo.tweetreader.framework.entities.UserResponse
 import com.alancamargo.tweetreader.tools.getJsonFromAsset
 import com.alancamargo.tweetreader.tools.moshi
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityLiveData
@@ -49,9 +49,9 @@ private fun ProfileActivityTest.launch(
     return ProfileActivityRobot(context, profile, mockImageHandler).apply(block)
 }
 
-private fun mockProfile(): User {
+private fun mockProfile(): UserResponse {
     val json = getJsonFromAsset("user_details")
-    val adapter = moshi.adapter(User::class.java)
+    val adapter = moshi.adapter(UserResponse::class.java)
 
     return adapter.fromJson(json)!!
 }
@@ -63,7 +63,7 @@ private fun ProfileActivityTest.isConnected(isConnected: Boolean) {
 
 class ProfileActivityRobot(
     private val context: Context,
-    private val profile: User,
+    private val profile: UserResponse,
     private val mockImageHandler: ImageHandler
 ) {
 
@@ -75,7 +75,7 @@ class ProfileActivityRobot(
 
 class ProfileActivityAssertions(
     private val context: Context,
-    private val profile: User,
+    private val profile: UserResponse,
     private val mockImageHandler: ImageHandler
 ) {
 

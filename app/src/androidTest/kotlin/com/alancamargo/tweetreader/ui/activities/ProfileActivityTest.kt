@@ -1,7 +1,7 @@
 package com.alancamargo.tweetreader.ui.activities
 
 import com.alancamargo.tweetreader.di.getTestModules
-import com.alancamargo.tweetreader.framework.entities.User
+import com.alancamargo.tweetreader.framework.entities.UserResponse
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityHelper
 import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
 import com.alancamargo.tweetreader.ui.activities.robots.launchConnected
@@ -22,7 +22,7 @@ class ProfileActivityTest : KoinTest {
     val mockDeviceManager by inject<DeviceManager>()
     val mockImageHandler by inject<ImageHandler>()
 
-    lateinit var profile: User
+    lateinit var profile: UserResponse
 
     @Before
     fun setUp() {

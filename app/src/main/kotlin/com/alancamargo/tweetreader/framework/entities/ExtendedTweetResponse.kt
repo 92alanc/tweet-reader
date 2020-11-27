@@ -4,15 +4,15 @@ import androidx.room.TypeConverter
 import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 
-data class ExtendedTweet(@field:Json(name = "full_text") val text: String) {
+data class ExtendedTweetResponse(@field:Json(name = "full_text") val text: String) {
 
     class Converter {
 
         private val moshi = Moshi.Builder().build()
-        private val extendedTweetAdapter = moshi.adapter(ExtendedTweet::class.java)
+        private val extendedTweetAdapter = moshi.adapter(ExtendedTweetResponse::class.java)
 
         @TypeConverter
-        fun extendedTweetToString(extendedTweet: ExtendedTweet?): String? {
+        fun extendedTweetToString(extendedTweet: ExtendedTweetResponse?): String? {
             return if (extendedTweet != null)
                 extendedTweetAdapter.toJson(extendedTweet)
             else
@@ -20,7 +20,7 @@ data class ExtendedTweet(@field:Json(name = "full_text") val text: String) {
         }
 
         @TypeConverter
-        fun stringToExtendedTweet(string: String?): ExtendedTweet? {
+        fun stringToExtendedTweet(string: String?): ExtendedTweetResponse? {
             return if (string != null)
                 extendedTweetAdapter.fromJson(string)
             else

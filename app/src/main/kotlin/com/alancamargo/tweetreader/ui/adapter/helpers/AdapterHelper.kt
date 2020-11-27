@@ -8,7 +8,7 @@ import com.alancamargo.tweetreader.ui.adapter.viewholder.QuotedTweetViewHolder
 import com.alancamargo.tweetreader.ui.adapter.viewholder.TweetViewHolder
 import com.alancamargo.tweetreader.domain.tools.hasLink
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 
 abstract class AdapterHelper(private val viewHolderFactory: ViewHolderFactory) {
 
@@ -25,7 +25,7 @@ abstract class AdapterHelper(private val viewHolderFactory: ViewHolderFactory) {
         this.parent = parent
     }
 
-    open fun getItemViewType(tweet: Tweet, itemPosition: Int): Int {
+    open fun getItemViewType(tweet: TweetResponse, itemPosition: Int): Int {
         val containsVideo = tweet.containsVideo()
         val containsPhoto = tweet.containsPhoto()
         val containsLink = tweet.fullText.hasLink()
@@ -60,7 +60,7 @@ abstract class AdapterHelper(private val viewHolderFactory: ViewHolderFactory) {
         }
     }
 
-    open fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, tweet: Tweet) {
+    open fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, tweet: TweetResponse) {
         if (viewHolder is QuotedTweetViewHolder) {
             with(viewHolder) {
                 bindTo(tweet)

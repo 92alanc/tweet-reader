@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity
-data class User(
+data class UserResponse(
     @PrimaryKey var id: Long = 0,
     var name: String = "",
     @field:Json(name = "screen_name") var screenName: String = "",
@@ -25,13 +25,13 @@ data class User(
     class Converter {
 
         private val moshi = Moshi.Builder().build()
-        private val userAdapter = moshi.adapter(User::class.java)
+        private val userAdapter = moshi.adapter(UserResponse::class.java)
 
         @TypeConverter
-        fun userToString(user: User): String = userAdapter.toJson(user)
+        fun userToString(user: UserResponse): String = userAdapter.toJson(user)
 
         @TypeConverter
-        fun stringToUser(string: String): User? = userAdapter.fromJson(string)
+        fun stringToUser(string: String): UserResponse? = userAdapter.fromJson(string)
 
     }
 

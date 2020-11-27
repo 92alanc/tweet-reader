@@ -11,7 +11,7 @@ import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.MainActivity
 import com.alancamargo.tweetreader.ui.activities.MainActivityTest
 import com.alancamargo.tweetreader.data.entities.Result
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.tools.getJsonFromAsset
 import com.alancamargo.tweetreader.tools.moshi
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityLiveData
@@ -70,8 +70,8 @@ private fun MainActivityTest.isConnected(isConnected: Boolean) {
 
 private fun MainActivityTest.mockTweets() {
     val json = getJsonFromAsset("tweets")
-    val type = Types.newParameterizedType(List::class.java, Tweet::class.java)
-    val adapter = moshi.adapter<List<Tweet>>(type)
+    val type = Types.newParameterizedType(List::class.java, TweetResponse::class.java)
+    val adapter = moshi.adapter<List<TweetResponse>>(type)
     val tweets = adapter.fromJson(json)!!
     val result = Result.Success(tweets)
 

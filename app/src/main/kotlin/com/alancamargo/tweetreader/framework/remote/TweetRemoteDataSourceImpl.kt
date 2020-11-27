@@ -5,7 +5,7 @@ import com.alancamargo.tweetreader.data.remote.DEFAULT_MAX_SEARCH_RESULTS
 import com.alancamargo.tweetreader.framework.remote.api.TwitterApi
 import com.alancamargo.tweetreader.framework.remote.api.provider.ApiProvider
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.domain.entities.SearchBody
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,7 +13,7 @@ import java.io.InputStream
 
 class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRemoteDataSource {
 
-    override suspend fun getTweets(maxId: Long?, sinceId: Long?): List<Tweet> {
+    override suspend fun getTweets(maxId: Long?, sinceId: Long?): List<TweetResponse> {
         val twitterApi = apiProvider.getTwitterApi()
 
         return withContext(Dispatchers.IO) {
@@ -21,7 +21,7 @@ class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRem
         }
     }
 
-    override suspend fun searchTweets(query: String): List<Tweet> {
+    override suspend fun searchTweets(query: String): List<TweetResponse> {
         val searchApi = apiProvider.getSearchApi()
         val twitterApi = apiProvider.getTwitterApi()
 
@@ -44,14 +44,14 @@ class TweetRemoteDataSourceImpl(private val apiProvider: ApiProvider) : TweetRem
         }
     }
 
-    private suspend fun List<Tweet>.loadReplies(twitterApi: TwitterApi) = map {
+    private suspend fun List<TweetResponse>.loadReplies(twitterApi: TwitterApi) = map {
         it.also { tweet ->
             if (tweet.isReply())
                 tweet.repliedTweet = loadRepliedTweet(twitterApi, tweet)
         }
     }
 
-    private suspend fun loadRepliedTweet(api: TwitterApi, tweet: Tweet): Tweet? {
+    private suspend fun loadRepliedTweet(api: TwitterApi, tweet: TweetResponse): TweetResponse? {
         return tweet.inReplyTo?.let { id ->
             withContext(Dispatchers.IO) {
                 api.getTweet(id)

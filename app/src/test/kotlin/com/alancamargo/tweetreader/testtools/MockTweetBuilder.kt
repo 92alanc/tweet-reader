@@ -2,18 +2,18 @@ package com.alancamargo.tweetreader.testtools
 
 import com.alancamargo.tweetreader.data.remote.MEDIA_PHOTO
 import com.alancamargo.tweetreader.data.remote.MEDIA_VIDEO
-import com.alancamargo.tweetreader.framework.entities.Media
-import com.alancamargo.tweetreader.framework.entities.MediaContent
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.MediaResponse
+import com.alancamargo.tweetreader.framework.entities.MediaContentResponse
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 
 class MockTweetBuilder {
 
-    private val tweet = Tweet(fullText = "A random text")
+    private val tweet = TweetResponse(fullText = "A random text")
 
     fun withVideo(): MockTweetBuilder {
-        tweet.media = Media(
+        tweet.media = MediaResponse(
             listOf(
-                MediaContent(type = MEDIA_VIDEO, photoUrl = "", videoInfo = null)
+                MediaContentResponse(type = MEDIA_VIDEO, photoUrl = "", videoInfo = null)
             )
         )
 
@@ -21,9 +21,9 @@ class MockTweetBuilder {
     }
 
     fun withPhoto(): MockTweetBuilder {
-        tweet.media = Media(
+        tweet.media = MediaResponse(
             listOf(
-                MediaContent(type = MEDIA_PHOTO, photoUrl = "", videoInfo = null)
+                MediaContentResponse(type = MEDIA_PHOTO, photoUrl = "", videoInfo = null)
             )
         )
 
@@ -36,12 +36,12 @@ class MockTweetBuilder {
     }
 
     fun withQuotedTweet(): MockTweetBuilder {
-        tweet.quotedTweet = Tweet()
+        tweet.quotedTweet = TweetResponse()
         return this
     }
 
     fun withRetweet(): MockTweetBuilder {
-        tweet.retweet = Tweet()
+        tweet.retweet = TweetResponse()
         return this
     }
 

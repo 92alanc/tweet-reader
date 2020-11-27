@@ -2,7 +2,7 @@ package com.alancamargo.tweetreader.data.local
 
 import com.alancamargo.tweetreader.framework.local.db.TweetDao
 import com.alancamargo.tweetreader.framework.local.TweetLocalDataSourceImpl
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -44,7 +44,7 @@ class TweetLocalDataSourceImplTest {
 
     @Test
     fun shouldUpdateCache() = runBlocking {
-        val tweets = listOf(Tweet(id = 1), Tweet(id = 2))
+        val tweets = listOf(TweetResponse(id = 1), TweetResponse(id = 2))
         coEvery { mockDbManager.count(1) } returns 0
         coEvery { mockDbManager.count(2) } returns 0
 
@@ -55,7 +55,7 @@ class TweetLocalDataSourceImplTest {
 
     @Test
     fun whenATweetIsAlreadyCached_shouldNotCacheAgain() = runBlocking {
-        val tweets = listOf(Tweet(id = 1), Tweet(id = 2))
+        val tweets = listOf(TweetResponse(id = 1), TweetResponse(id = 2))
         coEvery { mockDbManager.count(1) } returns 1
         coEvery { mockDbManager.count(2) } returns 0
 

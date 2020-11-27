@@ -4,7 +4,7 @@ import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.data.tools.CrashReportManager
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.framework.remote.api.tools.ApiHelper
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -40,7 +40,7 @@ class TweetRepositoryImplTest {
     @Test
     fun shouldGetTweetsFromRemoteDataSource() {
         runBlocking {
-            val expected = listOf<Tweet>(mockk(), mockk(), mockk())
+            val expected = listOf<TweetResponse>(mockk(), mockk(), mockk())
             coEvery {
                 mockRemoteDataSource.getTweets(any(), any())
             } returns expected
@@ -56,7 +56,7 @@ class TweetRepositoryImplTest {
     @Test
     fun whenRemoteDataSourceRespondsWithError_shouldGetTweetsFromCache() {
         runBlocking {
-            val expected = listOf<Tweet>(mockk(), mockk(), mockk())
+            val expected = listOf<TweetResponse>(mockk(), mockk(), mockk())
             coEvery {
                 mockRemoteDataSource.getTweets(any(), any())
             } throws Throwable()
@@ -121,7 +121,7 @@ class TweetRepositoryImplTest {
     @Test
     fun whenNewTweetsAreFetchedFromRemote_shouldUpdateCache() {
         runBlocking {
-            val tweets = listOf<Tweet>(mockk(), mockk(), mockk())
+            val tweets = listOf<TweetResponse>(mockk(), mockk(), mockk())
             coEvery {
                 mockRemoteDataSource.getTweets(any(), any())
             } returns tweets

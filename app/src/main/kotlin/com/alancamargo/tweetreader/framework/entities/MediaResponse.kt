@@ -6,7 +6,7 @@ import com.alancamargo.tweetreader.data.remote.CONTENT_TYPE_MP4
 import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 
-data class Media(@field:Json(name = "media") val contents: List<MediaContent>?) {
+data class MediaResponse(@field:Json(name = "media") val contents: List<MediaContentResponse>?) {
 
     fun getPhotoUrls() = contents?.map { it.photoUrl }
 
@@ -34,10 +34,10 @@ data class Media(@field:Json(name = "media") val contents: List<MediaContent>?) 
     class Converter {
 
         private val moshi = Moshi.Builder().build()
-        private val mediaAdapter = moshi.adapter(Media::class.java)
+        private val mediaAdapter = moshi.adapter(MediaResponse::class.java)
 
         @TypeConverter
-        fun mediaToString(media: Media?): String? {
+        fun mediaToString(media: MediaResponse?): String? {
             return if (media != null)
                 mediaAdapter.toJson(media)
             else
@@ -45,7 +45,7 @@ data class Media(@field:Json(name = "media") val contents: List<MediaContent>?) 
         }
 
         @TypeConverter
-        fun stringToMedia(string: String?): Media? {
+        fun stringToMedia(string: String?): MediaResponse? {
             return if (string != null)
                 mediaAdapter.fromJson(string)
             else

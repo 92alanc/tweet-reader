@@ -3,21 +3,21 @@ package com.alancamargo.tweetreader.framework.local.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.alancamargo.tweetreader.framework.entities.Tweet
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 
 @Dao
 interface TweetDao {
 
     @Insert
-    suspend fun insert(tweet: Tweet)
+    suspend fun insert(tweet: TweetResponse)
 
-    @Query("SELECT * FROM Tweet ORDER BY id DESC")
-    suspend fun select(): List<Tweet>
+    @Query("SELECT * FROM TweetResponse ORDER BY id DESC")
+    suspend fun select(): List<TweetResponse>
 
-    @Query("SELECT COUNT() FROM Tweet WHERE id = :id")
+    @Query("SELECT COUNT() FROM TweetResponse WHERE id = :id")
     suspend fun count(id: Long): Int
 
-    @Query("DELETE FROM Tweet")
+    @Query("DELETE FROM TweetResponse")
     suspend fun delete()
 
 }
