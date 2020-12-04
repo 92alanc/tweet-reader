@@ -4,7 +4,7 @@ import com.alancamargo.tweetreader.framework.remote.api.provider.ApiProvider
 import com.alancamargo.tweetreader.data.tools.TokenHelper
 import com.alancamargo.tweetreader.framework.remote.TweetRemoteDataSourceImpl
 import com.alancamargo.tweetreader.framework.entities.TweetResponse
-import com.alancamargo.tweetreader.data.entities.SearchResponse
+import com.alancamargo.tweetreader.framework.entities.api.SearchResponse
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

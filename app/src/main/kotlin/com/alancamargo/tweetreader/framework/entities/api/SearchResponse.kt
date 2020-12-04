@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.data.entities
+package com.alancamargo.tweetreader.framework.entities.api
 
 import com.alancamargo.tweetreader.framework.entities.TweetResponse
 

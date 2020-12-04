@@ -1,7 +1,7 @@
 package com.alancamargo.tweetreader.framework.remote.api
 
 import com.alancamargo.tweetreader.domain.entities.SearchBody
-import com.alancamargo.tweetreader.data.entities.SearchResponse
+import com.alancamargo.tweetreader.framework.entities.api.SearchResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 
