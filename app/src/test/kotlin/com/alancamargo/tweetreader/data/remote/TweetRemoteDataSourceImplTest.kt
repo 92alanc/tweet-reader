@@ -1,10 +1,12 @@
 package com.alancamargo.tweetreader.data.remote
 
-import com.alancamargo.tweetreader.framework.remote.api.provider.ApiProvider
 import com.alancamargo.tweetreader.data.tools.TokenHelper
-import com.alancamargo.tweetreader.framework.remote.TweetRemoteDataSourceImpl
+import com.alancamargo.tweetreader.domain.entities.Tweet
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.framework.entities.api.SearchResponse
+import com.alancamargo.tweetreader.framework.remote.TweetRemoteDataSourceImpl
+import com.alancamargo.tweetreader.framework.remote.api.provider.ApiProvider
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -39,7 +41,8 @@ class TweetRemoteDataSourceImplTest {
         val baseUrl = mockWebServer.url("/").toString()
         coEvery { mockTokenHelper.getAccessToken() } returns "mock_token"
         val apiProvider = ApiProvider(baseUrl, mockTokenHelper)
-        remoteDataSource = TweetRemoteDataSourceImpl(apiProvider)
+        val mockTweetResponseMapper = mockk<EntityMapper<TweetResponse, Tweet>>()
+        remoteDataSource = TweetRemoteDataSourceImpl(apiProvider, mockTweetResponseMapper)
     }
 
     @Test

@@ -5,10 +5,13 @@ import android.view.View.*
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.domain.entities.Tweet
+import com.alancamargo.tweetreader.domain.entities.User
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.domain.tools.REGEX_URL
 import com.alancamargo.tweetreader.domain.tools.hasLink
 import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
-import com.alancamargo.tweetreader.ui.entities.UiTweet
+import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
@@ -25,14 +28,15 @@ open class TweetViewHolder(
     itemView: View,
     protected val imageHandler: ImageHandler,
     protected val linkClickListener: LinkClickListener,
-    protected val shareButtonClickListener: ShareButtonClickListener?
+    protected val shareButtonClickListener: ShareButtonClickListener?,
+    protected val userMapper: EntityMapper<User, UiUser>
 ) : RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     private val context = itemView.context
 
     override val containerView: View? = itemView
 
-    open fun bindTo(tweet: UiTweet) {
+    open fun bindTo(tweet: Tweet) {
         txt_name.text = tweet.author.name
         txt_screen_name.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
         loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture)
@@ -70,7 +74,7 @@ open class TweetViewHolder(
         }
     }
 
-    protected fun getText(tweet: UiTweet): String {
+    protected fun getText(tweet: Tweet): String {
         var text = tweet.extendedTweet?.text ?: tweet.fullText
 
         if (text.isEmpty())
@@ -82,10 +86,11 @@ open class TweetViewHolder(
         return text.replace("&amp;", "&")
     }
 
-    private fun configureAuthorDataClick(tweet: UiTweet) {
+    private fun configureAuthorDataClick(tweet: Tweet) {
         val clickListener = OnClickListener {
             val context = it.context
-            val intent = BaseProfileActivity.getIntent(context, tweet.author)
+            val author = userMapper.map(tweet.author)
+            val intent = BaseProfileActivity.getIntent(context, author)
             context.startActivity(intent)
         }
 

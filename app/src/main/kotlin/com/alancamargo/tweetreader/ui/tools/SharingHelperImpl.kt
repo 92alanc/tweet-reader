@@ -8,8 +8,8 @@ import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.data.local.FileType
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
+import com.alancamargo.tweetreader.domain.entities.Tweet
 import com.alancamargo.tweetreader.framework.remote.api.tools.ApiHelper
-import com.alancamargo.tweetreader.ui.entities.UiTweet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -20,7 +20,7 @@ class SharingHelperImpl(
         private val localDataSource: TweetLocalDataSource
 ) : SharingHelper {
 
-    override suspend fun getShareIntent(tweet: UiTweet): Result<Intent> {
+    override suspend fun getShareIntent(tweet: Tweet): Result<Intent> {
         return apiHelper.safeApiCall {
             val shareIntent = buildShareIntent(tweet)
 
@@ -31,7 +31,7 @@ class SharingHelperImpl(
         }
     }
 
-    private suspend fun buildShareIntent(tweet: UiTweet): Intent {
+    private suspend fun buildShareIntent(tweet: Tweet): Intent {
         val intent = Intent()
 
         var text = tweet.extendedTweet?.text ?: tweet.fullText
@@ -48,7 +48,7 @@ class SharingHelperImpl(
         }
     }
 
-    private suspend fun Intent.buildShareImageIntent(tweet: UiTweet) = apply {
+    private suspend fun Intent.buildShareImageIntent(tweet: Tweet) = apply {
         val uris = arrayListOf<Uri>()
         tweet.media!!.getPhotoUrls()!!.forEach {
             val uri = withContext(Dispatchers.IO) {
@@ -64,7 +64,7 @@ class SharingHelperImpl(
         putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
     }
 
-    private suspend fun Intent.buildShareVideoIntent(tweet: UiTweet) = apply {
+    private suspend fun Intent.buildShareVideoIntent(tweet: Tweet) = apply {
         val uri = withContext(Dispatchers.IO) {
             val byteStream = remoteDataSource.downloadMedia(tweet.media!!.getVideoUrl()!!)
             val fileType = FileType.VIDEO

@@ -1,7 +1,10 @@
 package com.alancamargo.tweetreader.ui.adapter.viewholder
 
 import android.view.View
-import com.alancamargo.tweetreader.ui.entities.UiTweet
+import com.alancamargo.tweetreader.domain.entities.Tweet
+import com.alancamargo.tweetreader.domain.entities.User
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
+import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
@@ -12,15 +15,17 @@ class RetweetViewHolder(
     itemView: View,
     imageHandler: ImageHandler,
     linkClickListener: LinkClickListener,
-    shareButtonClickListener: ShareButtonClickListener?
+    shareButtonClickListener: ShareButtonClickListener?,
+    userMapper: EntityMapper<User, UiUser>
 ) : TweetViewHolder(
     itemView,
     imageHandler,
     linkClickListener,
-    shareButtonClickListener
+    shareButtonClickListener,
+    userMapper
 ) {
 
-    override fun bindTo(tweet: UiTweet) {
+    override fun bindTo(tweet: Tweet) {
         loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture_original)
         txt_name_original.text = tweet.author.name
         txt_screen_name_original.text = tweet.author.screenName

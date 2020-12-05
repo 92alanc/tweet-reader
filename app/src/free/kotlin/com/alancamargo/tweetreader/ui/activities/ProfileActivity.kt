@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.activities
+package com.alancamargo.tweetreader.ui.activities
 
 import android.os.Bundle
 import com.alancamargo.tweetreader.R

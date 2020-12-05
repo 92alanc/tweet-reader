@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.data.repository.TweetRepository
-import com.alancamargo.tweetreader.ui.entities.UiTweet
+import com.alancamargo.tweetreader.domain.entities.Tweet
 import com.alancamargo.tweetreader.ui.tools.SharingHelper
 import kotlinx.coroutines.launch
 
@@ -16,13 +16,13 @@ class TweetViewModel(
         private val sharingHelper: SharingHelper
 ) : ViewModel() {
 
-    private val tweetsLiveData = MutableLiveData<Result<List<UiTweet>>>()
-    private val searchLiveData = MutableLiveData<Result<List<UiTweet>>>()
+    private val tweetsLiveData = MutableLiveData<Result<List<Tweet>>>()
+    private val searchLiveData = MutableLiveData<Result<List<Tweet>>>()
 
     fun getTweets(
             hasScrolledToBottom: Boolean,
             isRefreshing: Boolean
-    ): LiveData<Result<List<UiTweet>>> {
+    ): LiveData<Result<List<Tweet>>> {
         return tweetsLiveData.apply {
             viewModelScope.launch {
                 val result = repository.getTweets(hasScrolledToBottom, isRefreshing)
@@ -31,7 +31,7 @@ class TweetViewModel(
         }
     }
 
-    fun searchTweets(query: String): LiveData<Result<List<UiTweet>>> {
+    fun searchTweets(query: String): LiveData<Result<List<Tweet>>> {
         return searchLiveData.apply {
             viewModelScope.launch {
                 val result = repository.searchTweets(query)
@@ -46,6 +46,6 @@ class TweetViewModel(
         }
     }
 
-    suspend fun getShareIntent(tweet: UiTweet): Result<Intent> = sharingHelper.getShareIntent(tweet)
+    suspend fun getShareIntent(tweet: Tweet): Result<Intent> = sharingHelper.getShareIntent(tweet)
 
 }

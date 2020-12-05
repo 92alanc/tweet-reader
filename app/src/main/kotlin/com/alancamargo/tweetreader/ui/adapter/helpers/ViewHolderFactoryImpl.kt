@@ -5,14 +5,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.domain.entities.Media
+import com.alancamargo.tweetreader.domain.entities.User
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.ui.adapter.viewholder.*
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.entities.UiMedia
+import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 
 class ViewHolderFactoryImpl(
     private val imageHandler: ImageHandler,
-    private val linkClickListener: LinkClickListener
+    private val linkClickListener: LinkClickListener,
+    private val userMapper: EntityMapper<User, UiUser>,
+    private val mediaMapper: EntityMapper<Media, UiMedia>
 ) : ViewHolderFactory {
 
     private lateinit var inflater: LayoutInflater
@@ -36,7 +43,8 @@ class ViewHolderFactoryImpl(
             itemView,
             imageHandler,
             linkClickListener,
-            shareButtonClickListener
+            shareButtonClickListener,
+            userMapper
         )
     }
 
@@ -47,7 +55,9 @@ class ViewHolderFactoryImpl(
             itemView,
             imageHandler,
             linkClickListener,
-            shareButtonClickListener
+            shareButtonClickListener,
+            userMapper,
+            mediaMapper
         )
     }
 
@@ -58,7 +68,8 @@ class ViewHolderFactoryImpl(
             itemView,
             imageHandler,
             linkClickListener,
-            shareButtonClickListener
+            shareButtonClickListener,
+            userMapper
         )
     }
 
@@ -69,7 +80,8 @@ class ViewHolderFactoryImpl(
             itemView,
             imageHandler,
             linkClickListener,
-            shareButtonClickListener
+            shareButtonClickListener,
+            userMapper
         )
     }
 
@@ -80,7 +92,8 @@ class ViewHolderFactoryImpl(
             itemView,
             imageHandler,
             linkClickListener,
-            shareButtonClickListener
+            shareButtonClickListener,
+            userMapper
         )
     }
 
@@ -91,7 +104,8 @@ class ViewHolderFactoryImpl(
             itemView,
             imageHandler,
             linkClickListener,
-            shareButtonClickListener
+            shareButtonClickListener,
+            userMapper
         )
     }
 
@@ -102,7 +116,8 @@ class ViewHolderFactoryImpl(
             itemView,
             imageHandler,
             linkClickListener,
-            shareButtonClickListener
+            shareButtonClickListener,
+            userMapper
         )
     }
 

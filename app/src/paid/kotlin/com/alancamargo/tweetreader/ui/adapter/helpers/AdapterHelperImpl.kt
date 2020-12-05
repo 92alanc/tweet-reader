@@ -1,3 +1,3 @@
-package com.alancamargo.tweetreader.adapter.helpers
+package com.alancamargo.tweetreader.ui.adapter.helpers
 
 class AdapterHelperImpl(viewHolderFactory: ViewHolderFactory) : AdapterHelper(viewHolderFactory)

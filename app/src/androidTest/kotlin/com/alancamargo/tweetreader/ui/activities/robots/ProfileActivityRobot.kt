@@ -5,15 +5,18 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import br.com.concretesolutions.kappuccino.assertions.VisibilityAssertions.displayed
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
-import com.alancamargo.tweetreader.activities.ProfileActivity
-import com.alancamargo.tweetreader.ui.activities.ProfileActivityTest
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.domain.entities.User
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
+import com.alancamargo.tweetreader.domain.tools.formatDate
 import com.alancamargo.tweetreader.framework.entities.UserResponse
+import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityLiveData
 import com.alancamargo.tweetreader.tools.getJsonFromAsset
 import com.alancamargo.tweetreader.tools.moshi
-import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityLiveData
-import com.alancamargo.tweetreader.util.formatDate
+import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
+import com.alancamargo.tweetreader.ui.activities.ProfileActivity
+import com.alancamargo.tweetreader.ui.activities.ProfileActivityTest
+import com.alancamargo.tweetreader.ui.entities.UiUser
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import io.mockk.coVerify
 import io.mockk.every
 import java.text.NumberFormat
@@ -41,7 +44,7 @@ private fun ProfileActivityTest.launch(
     } returns ConnectivityLiveData(mockConnectivityHelper)
 
     val context = InstrumentationRegistry.getInstrumentation().targetContext
-    profile = mockProfile()
+    profile = uiUserMapper.map(mockProfile(userResponseMapper))
     
     val intent = BaseProfileActivity.getIntent(context, profile)
     ActivityScenario.launch<ProfileActivity>(intent)
@@ -49,11 +52,11 @@ private fun ProfileActivityTest.launch(
     return ProfileActivityRobot(context, profile, mockImageHandler).apply(block)
 }
 
-private fun mockProfile(): UserResponse {
+private fun mockProfile(userResponseMapper: EntityMapper<UserResponse, User>): User {
     val json = getJsonFromAsset("user_details")
     val adapter = moshi.adapter(UserResponse::class.java)
 
-    return adapter.fromJson(json)!!
+    return userResponseMapper.map(adapter.fromJson(json)!!)
 }
 
 private fun ProfileActivityTest.isConnected(isConnected: Boolean) {
@@ -63,7 +66,7 @@ private fun ProfileActivityTest.isConnected(isConnected: Boolean) {
 
 class ProfileActivityRobot(
     private val context: Context,
-    private val profile: UserResponse,
+    private val profile: UiUser,
     private val mockImageHandler: ImageHandler
 ) {
 
@@ -75,7 +78,7 @@ class ProfileActivityRobot(
 
 class ProfileActivityAssertions(
     private val context: Context,
-    private val profile: UserResponse,
+    private val profile: UiUser,
     private val mockImageHandler: ImageHandler
 ) {
 

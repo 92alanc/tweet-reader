@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.domain.entities.Tweet
 import com.alancamargo.tweetreader.ui.adapter.viewholder.AdViewHolder
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
 
 class AdapterHelperImpl(viewHolderFactory: ViewHolderFactory) : AdapterHelper(viewHolderFactory) {
 
-    override fun getItemViewType(tweet: TweetResponse, itemPosition: Int): Int {
+    override fun getItemViewType(tweet: Tweet, itemPosition: Int): Int {
         val isAd = (itemPosition.toString().endsWith("1"))
                 || (itemPosition.toString().endsWith("6"))
 
@@ -26,7 +26,7 @@ class AdapterHelperImpl(viewHolderFactory: ViewHolderFactory) : AdapterHelper(vi
             super.getViewHolder(viewType)
     }
 
-    override fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, tweet: TweetResponse) {
+    override fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, tweet: Tweet) {
         if (viewHolder is AdViewHolder)
             viewHolder.loadAd()
         else

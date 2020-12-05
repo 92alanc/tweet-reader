@@ -1,11 +1,14 @@
 package com.alancamargo.tweetreader.ui.activities
 
 import com.alancamargo.tweetreader.di.getTestModules
+import com.alancamargo.tweetreader.domain.entities.User
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.framework.entities.UserResponse
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityHelper
 import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
 import com.alancamargo.tweetreader.ui.activities.robots.launchConnected
 import com.alancamargo.tweetreader.ui.activities.robots.launchDisconnected
+import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
@@ -21,8 +24,10 @@ class ProfileActivityTest : KoinTest {
 
     val mockDeviceManager by inject<DeviceManager>()
     val mockImageHandler by inject<ImageHandler>()
+    val userResponseMapper by inject<EntityMapper<UserResponse, User>>()
+    val uiUserMapper by inject<EntityMapper<User, UiUser>>()
 
-    lateinit var profile: UserResponse
+    lateinit var profile: UiUser
 
     @Before
     fun setUp() {

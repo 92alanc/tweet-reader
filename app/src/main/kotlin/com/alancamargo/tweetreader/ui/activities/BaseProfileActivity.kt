@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.activities.ProfileActivity
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityStateObserver
 import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.tools.ImageHandler

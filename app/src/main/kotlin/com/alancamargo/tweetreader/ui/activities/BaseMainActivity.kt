@@ -11,9 +11,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.data.entities.Result
+import com.alancamargo.tweetreader.domain.entities.Tweet
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityStateObserver
 import com.alancamargo.tweetreader.ui.adapter.TweetAdapter
-import com.alancamargo.tweetreader.ui.entities.UiTweet
 import com.alancamargo.tweetreader.ui.listeners.EndlessScrollListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.ui.tools.extensions.isFirstItemVisible
@@ -36,7 +36,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
     private val viewModel by viewModel<TweetViewModel>()
 
     private var searchView: SearchView? = null
-    private var tweets = emptyList<UiTweet>()
+    private var tweets = emptyList<Tweet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +86,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
         loadTweets(isRefreshing = true)
     }
 
-    override suspend fun onShareButtonClicked(tweet: UiTweet) {
+    override suspend fun onShareButtonClicked(tweet: Tweet) {
         when (val shareIntentResult = viewModel.getShareIntent(tweet)) {
             is Result.Success -> {
                 withContext(Dispatchers.Main) {
@@ -135,7 +135,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
         )
     }
 
-    private fun processResult(result: Result<List<UiTweet>>) {
+    private fun processResult(result: Result<List<Tweet>>) {
         when (result) {
             is Result.Success -> showTweets(result.body)
             is Result.NetworkError -> showDisconnectedError()
@@ -144,7 +144,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
         }
     }
 
-    private fun showTweets(tweets: List<UiTweet>) {
+    private fun showTweets(tweets: List<Tweet>) {
         hideProgressBars()
         hideErrorIfVisible()
 

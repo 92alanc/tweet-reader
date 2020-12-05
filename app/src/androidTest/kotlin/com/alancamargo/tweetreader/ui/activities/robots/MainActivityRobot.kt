@@ -8,13 +8,13 @@ import br.com.concretesolutions.kappuccino.assertions.VisibilityAssertions.displ
 import br.com.concretesolutions.kappuccino.custom.intent.IntentMatcherInteractions.sentIntent
 import br.com.concretesolutions.kappuccino.custom.recyclerView.RecyclerViewInteractions.recyclerView
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.activities.MainActivity
-import com.alancamargo.tweetreader.ui.activities.MainActivityTest
 import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.framework.entities.TweetResponse
+import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityLiveData
 import com.alancamargo.tweetreader.tools.getJsonFromAsset
 import com.alancamargo.tweetreader.tools.moshi
-import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityLiveData
+import com.alancamargo.tweetreader.ui.activities.MainActivity
+import com.alancamargo.tweetreader.ui.activities.MainActivityTest
 import com.squareup.moshi.Types
 import io.mockk.coEvery
 import io.mockk.every
@@ -72,7 +72,7 @@ private fun MainActivityTest.mockTweets() {
     val json = getJsonFromAsset("tweets")
     val type = Types.newParameterizedType(List::class.java, TweetResponse::class.java)
     val adapter = moshi.adapter<List<TweetResponse>>(type)
-    val tweets = adapter.fromJson(json)!!
+    val tweets = adapter.fromJson(json)!!.map(tweetResponseMapper::map)
     val result = Result.Success(tweets)
 
     coEvery { mockRepository.getTweets(any(), any()) } returns result

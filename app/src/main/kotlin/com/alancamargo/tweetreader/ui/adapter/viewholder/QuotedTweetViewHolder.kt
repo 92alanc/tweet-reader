@@ -2,8 +2,11 @@ package com.alancamargo.tweetreader.ui.adapter.viewholder
 
 import android.view.View
 import android.view.View.*
+import com.alancamargo.tweetreader.domain.entities.Tweet
+import com.alancamargo.tweetreader.domain.entities.User
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
-import com.alancamargo.tweetreader.ui.entities.UiTweet
+import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
@@ -19,21 +22,23 @@ open class QuotedTweetViewHolder(
     itemView: View,
     imageHandler: ImageHandler,
     linkClickListener: LinkClickListener,
-    shareButtonClickListener: ShareButtonClickListener?
+    shareButtonClickListener: ShareButtonClickListener?,
+    userMapper: EntityMapper<User, UiUser>
 ) : TweetViewHolder(
     itemView,
     imageHandler,
     linkClickListener,
-    shareButtonClickListener
+    shareButtonClickListener,
+    userMapper
 ) {
 
-    protected lateinit var originalTweet: UiTweet
+    protected lateinit var originalTweet: Tweet
 
-    fun bindQuotedTweet(tweet: UiTweet) {
+    fun bindQuotedTweet(tweet: Tweet) {
         super.bindTo(tweet)
     }
 
-    override fun bindTo(tweet: UiTweet) {
+    override fun bindTo(tweet: Tweet) {
         originalTweet = tweet
         loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture_original)
         txt_name_original.text = tweet.author.name
@@ -66,10 +71,11 @@ open class QuotedTweetViewHolder(
         }
     }
 
-    private fun configureAuthorDataClick(tweet: UiTweet) {
+    private fun configureAuthorDataClick(tweet: Tweet) {
         val clickListener = OnClickListener {
             val context = it.context
-            val intent = BaseProfileActivity.getIntent(context, tweet.author)
+            val author = userMapper.map(tweet.author)
+            val intent = BaseProfileActivity.getIntent(context, author)
             context.startActivity(intent)
         }
 

@@ -1,52 +1,71 @@
 package com.alancamargo.tweetreader.testtools
 
-import com.alancamargo.tweetreader.data.remote.MEDIA_PHOTO
-import com.alancamargo.tweetreader.data.remote.MEDIA_VIDEO
-import com.alancamargo.tweetreader.framework.entities.MediaResponse
-import com.alancamargo.tweetreader.framework.entities.MediaContentResponse
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
+import com.alancamargo.tweetreader.domain.entities.Tweet
+import com.alancamargo.tweetreader.domain.entities.User
 
 class MockTweetBuilder {
 
-    private val tweet = TweetResponse(fullText = "A random text")
+    private val tweet = Tweet(
+        id = 1L,
+        creationDate = "",
+        text = "",
+        author = User(
+            id = 1L,
+            name = "",
+            screenName = "",
+            location = "",
+            description = "",
+            followersCount = 1,
+            creationDate = "",
+            profileBannerUrl = "",
+            profilePictureUrl = ""
+        ),
+        fullText = "A random text",
+        media = null,
+        quotedTweet = null,
+        retweet = null,
+        inReplyTo = null,
+        extendedTweet = null,
+        repliedTweet = null
+    )
 
     fun withVideo(): MockTweetBuilder {
-        tweet.media = MediaResponse(
+        /*tweet.media = Media(
             listOf(
-                MediaContentResponse(type = MEDIA_VIDEO, photoUrl = "", videoInfo = null)
+                MediaContent(type = MEDIA_VIDEO, photoUrl = "", videoInfo = null)
             )
-        )
+        )*/
 
         return this
     }
 
     fun withPhoto(): MockTweetBuilder {
-        tweet.media = MediaResponse(
+        /*tweet.media = Media(
             listOf(
-                MediaContentResponse(type = MEDIA_PHOTO, photoUrl = "", videoInfo = null)
+                MediaContent(type = MEDIA_PHOTO, photoUrl = "", videoInfo = null)
             )
-        )
+        )*/
 
         return this
     }
 
     fun withLink(): MockTweetBuilder {
-        tweet.fullText = "https://www.mockurl.co.uk"
+        //tweet.fullText = "https://www.mockurl.co.uk"
         return this
     }
 
     fun withQuotedTweet(): MockTweetBuilder {
-        tweet.quotedTweet = TweetResponse()
+        //tweet.quotedTweet = Tweet()
         return this
     }
 
     fun withRetweet(): MockTweetBuilder {
-        tweet.retweet = TweetResponse()
+        //tweet.retweet = Tweet()
         return this
     }
 
     fun withReply(): MockTweetBuilder {
-        tweet.inReplyTo = 12345
+        //tweet.inReplyTo = 12345
         return this
     }
 

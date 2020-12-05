@@ -27,7 +27,7 @@
 
         <activity android:name=".ui.activities.PhotoDetailsActivity" />
 
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -35,11 +35,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.ProfileActivity"
-            android:parentActivityName=".activities.MainActivity">
+        <activity android:name=".ui.activities.ProfileActivity"
+            android:parentActivityName=".ui.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".ui.activities.MainActivity" />
         </activity>
 
     </application>

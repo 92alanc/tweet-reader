@@ -5,9 +5,13 @@ import androidx.test.espresso.intent.Intents
 import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.data.repository.TweetRepository
 import com.alancamargo.tweetreader.di.getTestModules
+import com.alancamargo.tweetreader.domain.entities.Tweet
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
+import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityHelper
 import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
 import com.alancamargo.tweetreader.ui.activities.robots.*
+import com.alancamargo.tweetreader.ui.tools.SharingHelper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -24,6 +28,9 @@ class MainActivityTest : KoinTest {
 
     val mockRepository by inject<TweetRepository>()
     val mockDeviceManager by inject<DeviceManager>()
+    val tweetResponseMapper by inject<EntityMapper<TweetResponse, Tweet>>()
+
+    private val mockSharingHelper by inject<SharingHelper>()
 
     @Before
     fun setUp() {
@@ -75,7 +82,7 @@ class MainActivityTest : KoinTest {
     @Test
     fun whenClickingShareIconOnTweetItem_shouldShare() {
         coEvery {
-            mockRepository.getShareIntent(any())
+            mockSharingHelper.getShareIntent(any())
         } returns Result.Success(Intent(Intent.ACTION_VIEW))
 
         launchWithTweets {
@@ -86,7 +93,7 @@ class MainActivityTest : KoinTest {
 
     @Test
     fun whenClickingShareIconOnTweetItem_withError_shouldShowError() {
-        coEvery { mockRepository.getShareIntent(any()) } returns Result.GenericError()
+        coEvery { mockSharingHelper.getShareIntent(any()) } returns Result.GenericError()
 
         launchWithTweets {
         } clickShare {
