@@ -6,7 +6,8 @@ import com.alancamargo.tweetreader.domain.entities.*
 import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.framework.entities.*
 import com.alancamargo.tweetreader.framework.local.db.TweetDatabaseProvider
-import com.alancamargo.tweetreader.framework.mappers.*
+import com.alancamargo.tweetreader.framework.mappers.domain.*
+import com.alancamargo.tweetreader.framework.mappers.responses.*
 import com.alancamargo.tweetreader.framework.remote.api.provider.ApiProvider
 import com.alancamargo.tweetreader.framework.remote.api.tools.ApiHelper
 import com.alancamargo.tweetreader.framework.tools.connectivity.*
@@ -57,6 +58,11 @@ object FrameworkModule : LayerModule() {
     }
 
     private fun Module.mappers() {
+        responseMappers()
+        domainMappers()
+    }
+
+    private fun Module.responseMappers() {
         extendedTweetResponseMapper()
         mediaContentResponseMapper()
         mediaResponseMapper()
@@ -64,6 +70,16 @@ object FrameworkModule : LayerModule() {
         userResponseMapper()
         videoInfoResponseMapper()
         videoVariantResponseMapper()
+    }
+
+    private fun Module.domainMappers() {
+        extendedTweetMapper()
+        mediaContentMapper()
+        mediaMapper()
+        tweetMapper()
+        userMapper()
+        videoInfoMapper()
+        videoVariantMapper()
     }
 
     // region Mappers
@@ -122,6 +138,64 @@ object FrameworkModule : LayerModule() {
                 named(VIDEO_VARIANT_RESPONSE_MAPPER)
         ) {
             VideoVariantResponseMapper()
+        }
+    }
+
+    private fun Module.extendedTweetMapper() {
+        factory<EntityMapper<ExtendedTweet, ExtendedTweetResponse>>(
+            named(EXTENDED_TWEET_MAPPER)
+        ) {
+            ExtendedTweetMapper()
+        }
+    }
+
+    private fun Module.mediaContentMapper() {
+        factory<EntityMapper<MediaContent, MediaContentResponse>>(
+            named(MEDIA_CONTENT_MAPPER)
+        ) {
+            MediaContentMapper(
+                videoInfoMapper = get(named(VIDEO_INFO_MAPPER))
+            )
+        }
+    }
+
+    private fun Module.mediaMapper() {
+        factory<EntityMapper<Media, MediaResponse>>(named(MEDIA_MAPPER)) {
+            MediaMapper(
+                mediaContentMapper = get(named(MEDIA_CONTENT_MAPPER))
+            )
+        }
+    }
+
+    private fun Module.tweetMapper() {
+        factory<EntityMapper<Tweet, TweetResponse>>(named(TWEET_MAPPER)) {
+            TweetMapper(
+                userMapper = get(named(USER_MAPPER)),
+                mediaMapper = get(named(MEDIA_MAPPER)),
+                extendedTweetMapper = get(named(EXTENDED_TWEET_MAPPER))
+            )
+        }
+    }
+
+    private fun Module.userMapper() {
+        factory<EntityMapper<User, UserResponse>>(named(USER_MAPPER)) {
+            UserMapper()
+        }
+    }
+
+    private fun Module.videoInfoMapper() {
+        factory<EntityMapper<VideoInfo, VideoInfoResponse>>(named(VIDEO_INFO_MAPPER)) {
+            VideoInfoMapper(
+                videoVariantMapper = get(named(VIDEO_VARIANT_MAPPER))
+            )
+        }
+    }
+
+    private fun Module.videoVariantMapper() {
+        factory<EntityMapper<VideoVariant, VideoVariantResponse>>(
+            named(VIDEO_VARIANT_MAPPER)
+        ) {
+            VideoVariantMapper()
         }
     }
     // endregion

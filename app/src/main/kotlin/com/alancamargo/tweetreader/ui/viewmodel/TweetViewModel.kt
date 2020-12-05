@@ -6,19 +6,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alancamargo.tweetreader.data.entities.Result
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.data.repository.TweetRepository
+import com.alancamargo.tweetreader.ui.entities.UiTweet
+import com.alancamargo.tweetreader.ui.tools.SharingHelper
 import kotlinx.coroutines.launch
 
-class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
+class TweetViewModel(
+        private val repository: TweetRepository,
+        private val sharingHelper: SharingHelper
+) : ViewModel() {
 
-    private val tweetsLiveData = MutableLiveData<Result<List<TweetResponse>>>()
-    private val searchLiveData = MutableLiveData<Result<List<TweetResponse>>>()
+    private val tweetsLiveData = MutableLiveData<Result<List<UiTweet>>>()
+    private val searchLiveData = MutableLiveData<Result<List<UiTweet>>>()
 
     fun getTweets(
-        hasScrolledToBottom: Boolean,
-        isRefreshing: Boolean
-    ): LiveData<Result<List<TweetResponse>>> {
+            hasScrolledToBottom: Boolean,
+            isRefreshing: Boolean
+    ): LiveData<Result<List<UiTweet>>> {
         return tweetsLiveData.apply {
             viewModelScope.launch {
                 val result = repository.getTweets(hasScrolledToBottom, isRefreshing)
@@ -27,7 +31,7 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
         }
     }
 
-    fun searchTweets(query: String): LiveData<Result<List<TweetResponse>>> {
+    fun searchTweets(query: String): LiveData<Result<List<UiTweet>>> {
         return searchLiveData.apply {
             viewModelScope.launch {
                 val result = repository.searchTweets(query)
@@ -42,6 +46,6 @@ class TweetViewModel(private val repository: TweetRepository) : ViewModel() {
         }
     }
 
-    suspend fun getShareIntent(tweet: TweetResponse): Result<Intent> = repository.getShareIntent(tweet)
+    suspend fun getShareIntent(tweet: UiTweet): Result<Intent> = sharingHelper.getShareIntent(tweet)
 
 }

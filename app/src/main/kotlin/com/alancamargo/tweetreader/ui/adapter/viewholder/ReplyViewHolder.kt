@@ -3,10 +3,10 @@ package com.alancamargo.tweetreader.ui.adapter.viewholder
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.entities.UiTweet
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import kotlinx.android.synthetic.main.item_tweet_reply.*
 
 class ReplyViewHolder(
@@ -21,14 +21,14 @@ class ReplyViewHolder(
     shareButtonClickListener
 ) {
 
-    override fun bindTo(tweet: TweetResponse) {
+    override fun bindTo(tweet: UiTweet) {
         super.bindTo(tweet)
         quoted_tweet.visibility = GONE
         progress_bar.visibility = VISIBLE
         bindRepliedTweet(originalTweet.repliedTweet)
     }
 
-    private fun bindRepliedTweet(repliedTweet: TweetResponse?) {
+    private fun bindRepliedTweet(repliedTweet: UiTweet?) {
         progress_bar.visibility = GONE
         quoted_tweet.visibility = VISIBLE
         if (repliedTweet != null)

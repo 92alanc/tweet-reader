@@ -4,8 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.alancamargo.tweetreader.data.remote.MEDIA_PHOTO
-import com.alancamargo.tweetreader.data.remote.MEDIA_VIDEO
 import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 
@@ -30,15 +28,7 @@ data class TweetResponse(
     @Transient var repliedTweet: TweetResponse? = null
 ) {
 
-    fun isQuoting() = quotedTweet != null
-
-    fun isRetweet() = retweet != null
-
     fun isReply() = inReplyTo != null
-
-    fun containsPhoto() = media?.contents?.any { it.type == MEDIA_PHOTO } ?: false
-
-    fun containsVideo() = media?.contents?.any { it.type == MEDIA_VIDEO } ?: false
 
     override fun equals(other: Any?): Boolean {
         return if (other == null || other !is TweetResponse)

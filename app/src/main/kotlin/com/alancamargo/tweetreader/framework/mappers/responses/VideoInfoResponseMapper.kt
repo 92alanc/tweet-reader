@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.framework.mappers
+package com.alancamargo.tweetreader.framework.mappers.responses
 
 import com.alancamargo.tweetreader.domain.entities.VideoInfo
 import com.alancamargo.tweetreader.domain.entities.VideoVariant

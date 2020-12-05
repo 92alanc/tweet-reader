@@ -7,6 +7,8 @@ import android.os.Build.VERSION_CODES.N
 import androidx.core.content.FileProvider
 import com.alancamargo.tweetreader.data.local.FileType
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
+import com.alancamargo.tweetreader.domain.entities.Tweet
+import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.framework.local.db.TweetDao
 import kotlinx.coroutines.Dispatchers
@@ -17,26 +19,29 @@ import java.io.InputStream
 
 class TweetLocalDataSourceImpl(
     private val context: Context,
-    private val tweetDao: TweetDao
+    private val tweetDao: TweetDao,
+    private val tweetResponseMapper: EntityMapper<TweetResponse, Tweet>,
+    private val tweetMapper: EntityMapper<Tweet, TweetResponse>
 ) : TweetLocalDataSource {
 
     private val baseDir by lazy { context.filesDir }
 
-    override suspend fun getTweets(): List<TweetResponse> {
+    override suspend fun getTweets(): List<Tweet> {
         val tweets = withContext(Dispatchers.IO) {
             tweetDao.select()
         }
 
         if (tweets.isNotEmpty())
-            return tweets
+            return tweets.map(tweetResponseMapper::map)
         else
             throw Exception("No tweets found in cache")
     }
 
-    override suspend fun updateCache(tweets: List<TweetResponse>) = withContext(Dispatchers.IO) {
+    override suspend fun updateCache(tweets: List<Tweet>) = withContext(Dispatchers.IO) {
         tweets.forEach {
-            if (!tweetDao.hasTweet(it))
-                tweetDao.insert(it)
+            val tweet = tweetMapper.map(it)
+            if (!tweetDao.hasTweet(tweet))
+                tweetDao.insert(tweet)
         }
     }
 

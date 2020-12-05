@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.ui.adapter.helpers.AdapterHelper
+import com.alancamargo.tweetreader.ui.entities.UiTweet
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
 
 class TweetAdapter(
     private val adapterHelper: AdapterHelper
-) : ListAdapter<TweetResponse, RecyclerView.ViewHolder>(DiffCallback) {
+) : ListAdapter<UiTweet, RecyclerView.ViewHolder>(DiffCallback) {
 
-    private val skippedTweets = mutableMapOf<Int, TweetResponse>()
+    private val skippedTweets = mutableMapOf<Int, UiTweet>()
 
     fun setShareButtonClickListener(shareButtonClickListener: ShareButtonClickListener) {
         adapterHelper.shareButtonClickListener = shareButtonClickListener
@@ -35,7 +35,7 @@ class TweetAdapter(
         return adapterHelper.getItemViewType(tweet, position)
     }
 
-    private fun getTweet(position: Int): TweetResponse {
+    private fun getTweet(position: Int): UiTweet {
         val tweet = if (skippedTweets.contains(position - 1))
             skippedTweets[position - 1]
         else
@@ -47,12 +47,12 @@ class TweetAdapter(
             throw IllegalStateException("Tweet must not be null")
     }
 
-    private companion object DiffCallback : DiffUtil.ItemCallback<TweetResponse>() {
-        override fun areItemsTheSame(oldItem: TweetResponse, newItem: TweetResponse): Boolean {
+    private companion object DiffCallback : DiffUtil.ItemCallback<UiTweet>() {
+        override fun areItemsTheSame(oldItem: UiTweet, newItem: UiTweet): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: TweetResponse, newItem: TweetResponse): Boolean {
+        override fun areContentsTheSame(oldItem: UiTweet, newItem: UiTweet): Boolean {
             return oldItem == newItem
         }
     }

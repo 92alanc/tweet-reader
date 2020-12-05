@@ -2,8 +2,8 @@ package com.alancamargo.tweetreader.ui.adapter.viewholder
 
 import android.view.View
 import android.view.View.*
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
+import com.alancamargo.tweetreader.ui.entities.UiTweet
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
@@ -27,13 +27,13 @@ open class QuotedTweetViewHolder(
     shareButtonClickListener
 ) {
 
-    protected lateinit var originalTweet: TweetResponse
+    protected lateinit var originalTweet: UiTweet
 
-    fun bindQuotedTweet(tweet: TweetResponse) {
+    fun bindQuotedTweet(tweet: UiTweet) {
         super.bindTo(tweet)
     }
 
-    override fun bindTo(tweet: TweetResponse) {
+    override fun bindTo(tweet: UiTweet) {
         originalTweet = tweet
         loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture_original)
         txt_name_original.text = tweet.author.name
@@ -66,7 +66,7 @@ open class QuotedTweetViewHolder(
         }
     }
 
-    private fun configureAuthorDataClick(tweet: TweetResponse) {
+    private fun configureAuthorDataClick(tweet: UiTweet) {
         val clickListener = OnClickListener {
             val context = it.context
             val intent = BaseProfileActivity.getIntent(context, tweet.author)

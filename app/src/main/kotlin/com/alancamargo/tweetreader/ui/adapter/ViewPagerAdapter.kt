@@ -51,7 +51,7 @@ class ViewPagerAdapter(
         container.removeView(obj as View)
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return "${position + 1}/${photos.size}"
     }
 

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.domain.tools.REGEX_URL
 import com.alancamargo.tweetreader.domain.tools.hasLink
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
+import com.alancamargo.tweetreader.ui.entities.UiTweet
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
@@ -32,7 +32,7 @@ open class TweetViewHolder(
 
     override val containerView: View? = itemView
 
-    open fun bindTo(tweet: TweetResponse) {
+    open fun bindTo(tweet: UiTweet) {
         txt_name.text = tweet.author.name
         txt_screen_name.text = context.getString(R.string.screen_name_format, tweet.author.screenName)
         loadProfilePicture(tweet.author.profilePictureUrl, img_profile_picture)
@@ -70,7 +70,7 @@ open class TweetViewHolder(
         }
     }
 
-    protected fun getText(tweet: TweetResponse): String {
+    protected fun getText(tweet: UiTweet): String {
         var text = tweet.extendedTweet?.text ?: tweet.fullText
 
         if (text.isEmpty())
@@ -82,7 +82,7 @@ open class TweetViewHolder(
         return text.replace("&amp;", "&")
     }
 
-    private fun configureAuthorDataClick(tweet: TweetResponse) {
+    private fun configureAuthorDataClick(tweet: UiTweet) {
         val clickListener = OnClickListener {
             val context = it.context
             val intent = BaseProfileActivity.getIntent(context, tweet.author)

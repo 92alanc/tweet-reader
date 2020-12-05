@@ -8,6 +8,8 @@ import com.alancamargo.tweetreader.data.tools.CrashReportManager
 import com.alancamargo.tweetreader.data.tools.PreferenceHelper
 import com.alancamargo.tweetreader.data.tools.TokenHelper
 import com.alancamargo.tweetreader.di.LayerModule
+import com.alancamargo.tweetreader.framework.di.TWEET_MAPPER
+import com.alancamargo.tweetreader.framework.di.TWEET_RESPONSE_MAPPER
 import com.alancamargo.tweetreader.framework.local.TweetLocalDataSourceImpl
 import com.alancamargo.tweetreader.framework.remote.TweetRemoteDataSourceImpl
 import com.alancamargo.tweetreader.framework.remote.api.tools.TokenHelperImpl
@@ -16,6 +18,7 @@ import com.alancamargo.tweetreader.framework.tools.CrashReportManagerImpl
 import com.alancamargo.tweetreader.framework.tools.PreferenceHelperImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object DataModule : LayerModule() {
@@ -32,7 +35,6 @@ object DataModule : LayerModule() {
     private fun Module.repository() {
         factory<TweetRepository> {
             TweetRepositoryImpl(
-                context = androidContext(),
                 localDataSource = get(),
                 remoteDataSource = get(),
                 apiHelper = get()
@@ -44,14 +46,19 @@ object DataModule : LayerModule() {
         factory<TweetLocalDataSource> {
             TweetLocalDataSourceImpl(
                 context = androidContext(),
-                tweetDao = get()
+                tweetDao = get(),
+                tweetResponseMapper = get(named(TWEET_RESPONSE_MAPPER)),
+                tweetMapper = get(named(TWEET_MAPPER))
             )
         }
     }
 
     private fun Module.remoteDataSource() {
         factory<TweetRemoteDataSource> {
-            TweetRemoteDataSourceImpl(apiProvider = get())
+            TweetRemoteDataSourceImpl(
+                apiProvider = get(),
+                tweetResponseMapper = get(named(TWEET_RESPONSE_MAPPER))
+            )
         }
     }
 

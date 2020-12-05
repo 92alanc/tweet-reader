@@ -1,7 +1,7 @@
 package com.alancamargo.tweetreader.ui.listeners
 
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
+import com.alancamargo.tweetreader.ui.entities.UiTweet
 
 interface ShareButtonClickListener {
-    suspend fun onShareButtonClicked(tweet: TweetResponse)
+    suspend fun onShareButtonClicked(tweet: UiTweet)
 }

@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.activities.ProfileActivity
-import com.alancamargo.tweetreader.framework.entities.UserResponse
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityStateObserver
+import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.alancamargo.tweetreader.ui.tools.setMemberSince
 import kotlinx.android.synthetic.main.activity_profile_base.*
@@ -24,11 +24,11 @@ open class BaseProfileActivity : AppCompatActivity(R.layout.activity_profile) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.title)
-        intent.getParcelableExtra<UserResponse>(EXTRA_PROFILE)?.let(::bindData)
+        intent.getParcelableExtra<UiUser>(EXTRA_PROFILE)?.let(::bindData)
         connectivityStateObserver.observeConnectivityState(this, profile_activity_root)
     }
 
-    private fun bindData(profile: UserResponse) {
+    private fun bindData(profile: UiUser) {
         with(profile) {
             lifecycleScope.launch {
                 with(imageHandler) {
@@ -52,7 +52,7 @@ open class BaseProfileActivity : AppCompatActivity(R.layout.activity_profile) {
     companion object {
         private const val EXTRA_PROFILE = "com.alancamargo.tweetreader.EXTRA_PROFILE"
 
-        fun getIntent(context: Context, profile: UserResponse): Intent {
+        fun getIntent(context: Context, profile: UiUser): Intent {
             return Intent(context, ProfileActivity::class.java).putExtra(EXTRA_PROFILE, profile)
         }
     }

@@ -8,15 +8,14 @@ import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.ui.adapter.TweetAdapter
 import com.alancamargo.tweetreader.data.entities.Result
+import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityStateObserver
+import com.alancamargo.tweetreader.ui.adapter.TweetAdapter
+import com.alancamargo.tweetreader.ui.entities.UiTweet
 import com.alancamargo.tweetreader.ui.listeners.EndlessScrollListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.framework.entities.TweetResponse
-import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityStateObserver
 import com.alancamargo.tweetreader.ui.tools.extensions.isFirstItemVisible
 import com.alancamargo.tweetreader.ui.tools.extensions.scrollToTop
 import com.alancamargo.tweetreader.ui.tools.extensions.showAppInfo
@@ -37,7 +36,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
     private val viewModel by viewModel<TweetViewModel>()
 
     private var searchView: SearchView? = null
-    private var tweets = emptyList<TweetResponse>()
+    private var tweets = emptyList<UiTweet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +86,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
         loadTweets(isRefreshing = true)
     }
 
-    override suspend fun onShareButtonClicked(tweet: TweetResponse) {
+    override suspend fun onShareButtonClicked(tweet: UiTweet) {
         when (val shareIntentResult = viewModel.getShareIntent(tweet)) {
             is Result.Success -> {
                 withContext(Dispatchers.Main) {
@@ -121,7 +120,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
 
     private fun loadTweets(hasScrolledToBottom: Boolean = false, isRefreshing: Boolean = false) {
         progress_bar.visibility = VISIBLE
-        viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, Observer {
+        viewModel.getTweets(hasScrolledToBottom, isRefreshing).observe(this, {
             processResult(it)
         })
     }
@@ -136,7 +135,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
         )
     }
 
-    private fun processResult(result: Result<List<TweetResponse>>) {
+    private fun processResult(result: Result<List<UiTweet>>) {
         when (result) {
             is Result.Success -> showTweets(result.body)
             is Result.NetworkError -> showDisconnectedError()
@@ -145,7 +144,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
         }
     }
 
-    private fun showTweets(tweets: List<TweetResponse>) {
+    private fun showTweets(tweets: List<UiTweet>) {
         hideProgressBars()
         hideErrorIfVisible()
 
@@ -207,7 +206,7 @@ open class BaseMainActivity : AppCompatActivity(R.layout.activity_main),
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     progress_bar.visibility = VISIBLE
-                    viewModel.searchTweets(query).observe(this@BaseMainActivity, Observer {
+                    viewModel.searchTweets(query).observe(this@BaseMainActivity, {
                         processResult(it)
                     })
                 }

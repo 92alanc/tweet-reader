@@ -10,7 +10,10 @@ import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListenerImpl
 import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.alancamargo.tweetreader.ui.tools.ImageHandlerImpl
+import com.alancamargo.tweetreader.ui.tools.SharingHelper
+import com.alancamargo.tweetreader.ui.tools.SharingHelperImpl
 import com.alancamargo.tweetreader.ui.viewmodel.TweetViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -24,10 +27,16 @@ object UiModule : LayerModule() {
         tweetAdapter()
         adapterHelper()
         viewHolderFactory()
+        sharingHelper()
     }
 
     private fun Module.viewModel() {
-        viewModel { TweetViewModel(repository = get()) }
+        viewModel {
+            TweetViewModel(
+                repository = get(),
+                sharingHelper = get()
+            )
+        }
     }
 
     private fun Module.imageHandler() {
@@ -51,6 +60,17 @@ object UiModule : LayerModule() {
             ViewHolderFactoryImpl(
                 imageHandler = get(),
                 linkClickListener = get()
+            )
+        }
+    }
+
+    private fun Module.sharingHelper() {
+        factory<SharingHelper> {
+            SharingHelperImpl(
+                context = androidContext(),
+                apiHelper = get(),
+                remoteDataSource = get(),
+                localDataSource = get()
             )
         }
     }
