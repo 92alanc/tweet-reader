@@ -95,8 +95,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -212,7 +212,8 @@ dependencies {
     // endregion
 
     // region Free version libraries
-    // Add Smaato here
+    freeImplementation "com.smaato.android.sdk:smaato-sdk-banner:$smaato_version"
+    freeImplementation "com.smaato.android.sdk:smaato-sdk-native:$smaato_version"
     // endregion
 
     // region Instrumented test libraries

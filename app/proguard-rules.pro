@@ -12,3 +12,7 @@
 
 # Jsoup
 -keeppackagenames org.jsoup.nodes
+
+# Smaato SDK
+-keep public class com.smaato.sdk.** { *; }
+-keep public interface com.smaato.sdk.** { *; }
