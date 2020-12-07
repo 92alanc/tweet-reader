@@ -1,11 +1,9 @@
 package com.alancamargo.tweetreader.ui.di
 
-import com.alancamargo.tweetreader.ui.adapter.helpers.AdapterHelperImpl
 import com.alancamargo.tweetreader.di.LayerModule
 import com.alancamargo.tweetreader.domain.entities.*
 import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.ui.adapter.TweetAdapter
-import com.alancamargo.tweetreader.ui.adapter.helpers.AdapterHelper
 import com.alancamargo.tweetreader.ui.adapter.helpers.ViewHolderFactory
 import com.alancamargo.tweetreader.ui.adapter.helpers.ViewHolderFactoryImpl
 import com.alancamargo.tweetreader.ui.entities.*
@@ -30,7 +28,6 @@ object UiModule : LayerModule() {
         imageHandler()
         linkClickListener()
         tweetAdapter()
-        adapterHelper()
         viewHolderFactory()
         sharingHelper()
         mappers()
@@ -55,10 +52,6 @@ object UiModule : LayerModule() {
 
     private fun Module.tweetAdapter() {
         factory { TweetAdapter(adapterHelper = get()) }
-    }
-
-    private fun Module.adapterHelper() {
-        factory<AdapterHelper> { AdapterHelperImpl(viewHolderFactory = get()) }
     }
 
     private fun Module.viewHolderFactory() {

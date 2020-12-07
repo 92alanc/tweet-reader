@@ -212,7 +212,7 @@ dependencies {
     // endregion
 
     // region Free version libraries
-    freeImplementation 'com.google.firebase:firebase-ads:19.5.0'
+    // Add Smaato here
     // endregion
 
     // region Instrumented test libraries

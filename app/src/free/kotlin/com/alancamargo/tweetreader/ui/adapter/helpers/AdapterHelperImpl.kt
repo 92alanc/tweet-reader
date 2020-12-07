@@ -6,8 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.domain.entities.Tweet
 import com.alancamargo.tweetreader.ui.adapter.viewholder.AdViewHolder
+import com.alancamargo.tweetreader.ui.tools.AdLoader
 
-class AdapterHelperImpl(viewHolderFactory: ViewHolderFactory) : AdapterHelper(viewHolderFactory) {
+class AdapterHelperImpl(
+    viewHolderFactory: ViewHolderFactory,
+    private val adLoader: AdLoader
+) : AdapterHelper(viewHolderFactory) {
 
     override fun getItemViewType(tweet: Tweet, itemPosition: Int): Int {
         val isAd = (itemPosition.toString().endsWith("1"))
@@ -35,7 +39,7 @@ class AdapterHelperImpl(viewHolderFactory: ViewHolderFactory) : AdapterHelper(vi
 
     private fun LayoutInflater.getAdHolder(parent: ViewGroup): AdViewHolder {
         val itemView = inflate(R.layout.item_ad, parent, false)
-        return AdViewHolder(itemView)
+        return AdViewHolder(itemView, adLoader)
     }
 
     private companion object {

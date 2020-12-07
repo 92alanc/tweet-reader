@@ -1,7 +1,7 @@
 package com.alancamargo.tweetreader
 
 import android.app.Application
-import com.alancamargo.tweetreader.di.KoinAppDeclarationProvider
+import com.alancamargo.tweetreader.di.KoinAppDeclarationProviderImpl
 import com.google.firebase.FirebaseApp
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
@@ -22,7 +22,8 @@ open class App : Application() {
     }
 
     private fun startDependencyInjection() {
-        startKoin(appDeclaration = KoinAppDeclarationProvider.provideAppDeclaration(this))
+        val provider = KoinAppDeclarationProviderImpl()
+        startKoin(appDeclaration = provider.provideAppDeclaration(this))
     }
 
     private fun startImageLoader() {

@@ -1,16 +1,6 @@
 package com.alancamargo.tweetreader.ui.tools.extensions
 
-import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import com.alancamargo.tweetreader.R
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.google.android.gms.ads.formats.UnifiedNativeAdView
-import com.google.android.material.textview.MaterialTextView
-
-fun AdView.loadBannerAds() {
+/*fun AdView.loadBannerAds() {
     val adRequest = AdRequest.Builder().build()
     loadAd(adRequest)
 }
@@ -97,4 +87,4 @@ private fun UnifiedNativeAdView.fillAdvertiser(ad: UnifiedNativeAd) {
         (advertiserView as MaterialTextView).text = ad.advertiser
         advertiserView.visibility = View.VISIBLE
     }
-}
+}*/

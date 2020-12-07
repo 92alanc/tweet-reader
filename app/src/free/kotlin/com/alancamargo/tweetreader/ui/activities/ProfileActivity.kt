@@ -1,16 +1,17 @@
 package com.alancamargo.tweetreader.ui.activities
 
 import android.os.Bundle
-import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
-import com.alancamargo.tweetreader.ui.tools.extensions.loadBannerAds
-import com.google.android.gms.ads.AdView
+import com.alancamargo.tweetreader.ui.tools.AdLoader
+import org.koin.android.ext.android.inject
 
 class ProfileActivity : BaseProfileActivity() {
 
+    private val adLoader by inject<AdLoader>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        findViewById<AdView>(R.id.ad_view_profile).loadBannerAds()
+        /*val target = findViewById<AdView>(R.id.ad_view_profile)
+        adLoader.loadBannerAds(target)*/
     }
 
 }
