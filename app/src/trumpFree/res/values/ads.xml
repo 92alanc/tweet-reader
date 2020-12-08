@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="smaato_publisher_id" translatable="false">1100047680</string>
+    <string name="ads_banner_main" translatable="false">131425694</string>
+    <string name="ads_banner_profile" translatable="false">131425695</string>
+    <string name="ads_native" translatable="false">131425696</string>
 </resources>

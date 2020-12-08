@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="ads_banner_main" translatable="false">130626424</string>
+    <string name="ads_banner_profile" translatable="false">130626424</string>
+    <string name="ads_native" translatable="false">130783664</string>
 </resources>

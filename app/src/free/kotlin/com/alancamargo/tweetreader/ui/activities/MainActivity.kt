@@ -1,7 +1,9 @@
 package com.alancamargo.tweetreader.ui.activities
 
 import android.os.Bundle
+import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.ui.tools.AdLoader
+import com.smaato.sdk.banner.widget.BannerView
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseMainActivity() {
@@ -10,8 +12,8 @@ class MainActivity : BaseMainActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*val target = findViewById<AdView>(R.id.ad_view_main)
-        adLoader.loadNativeAds(target)*/
+        val target = findViewById<BannerView>(R.id.bannerView)
+        adLoader.loadBannerAds(target, R.string.ads_banner_main)
     }
 
 }

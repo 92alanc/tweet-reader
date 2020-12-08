@@ -17,7 +17,7 @@ open class App : Application() {
         startImageLoader()
     }
 
-    open fun startFirebase() {
+    private fun startFirebase() {
         FirebaseApp.initializeApp(this)
     }
 
