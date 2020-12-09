@@ -54,25 +54,21 @@ android {
 
     productFlavors {
         trump {
-            // TODO
-            def freeVersionCode = 15
-            def paidVersionCode = 1
-            def freeVersionName = '2020.4.0'
-            def paidVersionName = '2020.2.0'
-
             dimension "version"
-            versionCode freeVersionCode
-            versionName freeVersionName
             applicationIdSuffix ".trump"
             buildConfigField "String", "USER_ID", '"25073877"'
         }
 
         free {
+            versionCode 16
+            versionName '2020.4.1'
             dimension "mode"
             signingConfig signingConfigs.free
         }
 
         paid {
+            versionCode 2
+            versionName '2020.4.1'
             dimension "mode"
             applicationIdSuffix ".paid"
             signingConfig signingConfigs.paid
