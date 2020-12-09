@@ -3,7 +3,7 @@ package com.alancamargo.tweetreader.framework.repository
 import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
-import com.alancamargo.tweetreader.data.tools.CrashReportManager
+import com.alancamargo.tweetreader.data.tools.Logger
 import com.alancamargo.tweetreader.domain.entities.Tweet
 import com.alancamargo.tweetreader.framework.remote.api.tools.ApiHelper
 import com.google.common.truth.Truth.assertThat
@@ -26,14 +26,14 @@ class TweetRepositoryImplTest {
 
     @MockK lateinit var mockLocalDataSource: TweetLocalDataSource
     @MockK lateinit var mockRemoteDataSource: TweetRemoteDataSource
-    @MockK lateinit var mockCrashReportManager: CrashReportManager
+    @MockK lateinit var mockLogger: Logger
 
     private lateinit var repository: TweetRepositoryImpl
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
-        val apiHelper = ApiHelper(mockCrashReportManager)
+        val apiHelper = ApiHelper(mockLogger)
         repository = TweetRepositoryImpl(
             mockLocalDataSource,
             mockRemoteDataSource,
@@ -137,7 +137,7 @@ class TweetRepositoryImplTest {
     }
 
     @Test
-    fun whenRemoteDataSourceRespondsWithError_shouldLogInCrashReportManager() {
+    fun whenRemoteDataSourceRespondsWithError_shouldLog() {
         runBlocking {
             val t = Throwable()
             coEvery {
@@ -146,12 +146,12 @@ class TweetRepositoryImplTest {
 
             repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
 
-            verify { mockCrashReportManager.logException(t) }
+            verify { mockLogger.logException(t) }
         }
     }
 
     @Test
-    fun whenBothRemoteAndLocalDataSourcesRespondWithError_shouldLogErrorsInCrashReportManager() {
+    fun whenBothRemoteAndLocalDataSourcesRespondWithError_shouldLogErrors() {
         runBlocking {
             val remoteError = Throwable("Remote error!!!")
             val localError = Throwable("Local error!!!")
@@ -166,8 +166,8 @@ class TweetRepositoryImplTest {
 
             repository.getTweets(hasScrolledToBottom = false, isRefreshing = false)
 
-            verify { mockCrashReportManager.logException(remoteError) }
-            verify { mockCrashReportManager.logException(localError) }
+            verify { mockLogger.logException(remoteError) }
+            verify { mockLogger.logException(localError) }
         }
     }
 

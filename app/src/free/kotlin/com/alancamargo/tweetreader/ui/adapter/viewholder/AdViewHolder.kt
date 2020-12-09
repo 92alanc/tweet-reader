@@ -7,6 +7,7 @@ import androidx.annotation.IdRes
 import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
+import com.alancamargo.tweetreader.data.tools.Logger
 import com.alancamargo.tweetreader.ui.ads.AdLoader
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
@@ -16,7 +17,8 @@ import com.smaato.sdk.nativead.NativeAdRenderer
 
 class AdViewHolder(
     itemView: View,
-    private val adLoader: AdLoader
+    private val adLoader: AdLoader,
+    private val logger: Logger
 ) : RecyclerView.ViewHolder(itemView), NativeAd.Listener {
 
     private lateinit var txtError: MaterialTextView
@@ -50,6 +52,7 @@ class AdViewHolder(
     override fun onAdFailedToLoad(ad: NativeAd, error: NativeAdError) {
         progressBar.visibility = View.GONE
         txtError.visibility = View.VISIBLE
+        logger.log("Error loading native ad. Error: $error")
     }
 
     override fun onAdImpressed(ad: NativeAd) { }

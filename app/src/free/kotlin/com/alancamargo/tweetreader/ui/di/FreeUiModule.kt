@@ -14,7 +14,8 @@ object FreeUiModule : LayerModule() {
         factory<AdapterHelper> {
             AdapterHelperImpl(
                 viewHolderFactory = get(),
-                adLoader = get()
+                adLoader = get(),
+                logger = get()
             )
         }
     }

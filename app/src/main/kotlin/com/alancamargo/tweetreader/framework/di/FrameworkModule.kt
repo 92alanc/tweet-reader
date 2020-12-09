@@ -46,7 +46,7 @@ object FrameworkModule : LayerModule() {
     }
 
     private fun Module.apiHelper() {
-        factory { ApiHelper(crashReportManager = get()) }
+        factory { ApiHelper(logger = get()) }
     }
 
     private fun Module.deviceManager() {

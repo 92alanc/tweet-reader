@@ -14,7 +14,7 @@ class FreeApplication : App() {
 
     private fun startSmaato() {
         val config = Config.builder()
-            .setLogLevel(LogLevel.ERROR)
+            .setLogLevel(LogLevel.DEBUG)
             .build()
 
         val publisherId = getString(R.string.smaato_publisher_id)

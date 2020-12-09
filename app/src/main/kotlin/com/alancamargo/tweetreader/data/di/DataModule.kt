@@ -4,7 +4,7 @@ import com.alancamargo.tweetreader.data.local.TweetLocalDataSource
 import com.alancamargo.tweetreader.data.remote.BASE_URL
 import com.alancamargo.tweetreader.data.remote.TweetRemoteDataSource
 import com.alancamargo.tweetreader.data.repository.TweetRepository
-import com.alancamargo.tweetreader.data.tools.CrashReportManager
+import com.alancamargo.tweetreader.data.tools.Logger
 import com.alancamargo.tweetreader.data.tools.PreferenceHelper
 import com.alancamargo.tweetreader.data.tools.TokenHelper
 import com.alancamargo.tweetreader.di.LayerModule
@@ -14,7 +14,7 @@ import com.alancamargo.tweetreader.framework.local.TweetLocalDataSourceImpl
 import com.alancamargo.tweetreader.framework.remote.TweetRemoteDataSourceImpl
 import com.alancamargo.tweetreader.framework.remote.api.tools.TokenHelperImpl
 import com.alancamargo.tweetreader.framework.repository.TweetRepositoryImpl
-import com.alancamargo.tweetreader.framework.tools.CrashReportManagerImpl
+import com.alancamargo.tweetreader.framework.tools.LoggerImpl
 import com.alancamargo.tweetreader.framework.tools.PreferenceHelperImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
@@ -29,7 +29,7 @@ object DataModule : LayerModule() {
         remoteDataSource()
         preferenceHelper()
         tokenHelper()
-        crashReportManager()
+        logger()
     }
 
     private fun Module.repository() {
@@ -75,8 +75,8 @@ object DataModule : LayerModule() {
         }
     }
 
-    private fun Module.crashReportManager() {
-        factory<CrashReportManager> { CrashReportManagerImpl() }
+    private fun Module.logger() {
+        factory<Logger> { LoggerImpl() }
     }
 
 }

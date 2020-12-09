@@ -4,14 +4,14 @@ import android.util.Log
 import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.data.remote.CODE_ACCOUNT_SUSPENDED
 import com.alancamargo.tweetreader.data.entities.ErrorResponse
-import com.alancamargo.tweetreader.data.tools.CrashReportManager
+import com.alancamargo.tweetreader.data.tools.Logger
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-class ApiHelper(private val crashReportManager: CrashReportManager) {
+class ApiHelper(private val logger: Logger) {
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
         return safeApiCall(apiCall, null)
@@ -26,7 +26,7 @@ class ApiHelper(private val crashReportManager: CrashReportManager) {
                 Result.Success(apiCall.invoke())
             } catch (t: Throwable) {
                 Log.e(javaClass.simpleName, t.message, t)
-                crashReportManager.logException(t)
+                logger.logException(t)
                 val apiError = getApiError(t)
 
                 if (alternative != null)
@@ -72,7 +72,7 @@ class ApiHelper(private val crashReportManager: CrashReportManager) {
         return try {
             Result.Success(block.invoke())
         } catch (t: Throwable) {
-            crashReportManager.logException(t)
+            logger.logException(t)
             originalApiError
         }
     }
