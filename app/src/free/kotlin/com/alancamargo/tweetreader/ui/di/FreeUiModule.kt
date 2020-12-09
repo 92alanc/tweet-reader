@@ -3,8 +3,8 @@ package com.alancamargo.tweetreader.ui.di
 import com.alancamargo.tweetreader.di.LayerModule
 import com.alancamargo.tweetreader.ui.adapter.helpers.AdapterHelper
 import com.alancamargo.tweetreader.ui.adapter.helpers.AdapterHelperImpl
-import com.alancamargo.tweetreader.ui.tools.AdLoader
-import com.alancamargo.tweetreader.ui.tools.AdLoaderImpl
+import com.alancamargo.tweetreader.ui.ads.AdLoader
+import com.alancamargo.tweetreader.ui.ads.AdLoaderImpl
 import org.koin.dsl.module
 
 object FreeUiModule : LayerModule() {

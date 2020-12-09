@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.domain.entities.Tweet
 import com.alancamargo.tweetreader.ui.adapter.viewholder.AdViewHolder
-import com.alancamargo.tweetreader.ui.tools.AdLoader
+import com.alancamargo.tweetreader.ui.ads.AdLoader
 
 class AdapterHelperImpl(
     viewHolderFactory: ViewHolderFactory,

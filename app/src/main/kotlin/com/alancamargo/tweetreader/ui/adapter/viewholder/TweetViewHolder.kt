@@ -14,9 +14,9 @@ import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
 import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
-import com.alancamargo.tweetreader.ui.tools.setTimestamp
-import com.alancamargo.tweetreader.ui.tools.setTweetText
+import com.alancamargo.tweetreader.ui.ads.ImageHandler
+import com.alancamargo.tweetreader.ui.ads.setTimestamp
+import com.alancamargo.tweetreader.ui.ads.setTweetText
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_tweet.*
 import kotlinx.coroutines.CoroutineScope

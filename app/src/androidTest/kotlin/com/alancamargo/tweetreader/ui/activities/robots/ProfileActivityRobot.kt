@@ -16,7 +16,7 @@ import com.alancamargo.tweetreader.ui.activities.BaseProfileActivity
 import com.alancamargo.tweetreader.ui.activities.ProfileActivity
 import com.alancamargo.tweetreader.ui.activities.ProfileActivityTest
 import com.alancamargo.tweetreader.ui.entities.UiUser
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.ads.ImageHandler
 import io.mockk.coVerify
 import io.mockk.every
 import java.text.NumberFormat

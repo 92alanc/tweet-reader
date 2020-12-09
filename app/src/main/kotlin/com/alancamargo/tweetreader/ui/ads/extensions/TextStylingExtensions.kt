@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.ui.tools.extensions
+package com.alancamargo.tweetreader.ui.ads.extensions
 
 import android.graphics.Typeface
 import android.text.Spannable
@@ -7,7 +7,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
-import com.alancamargo.tweetreader.ui.tools.ClickableTextSpan
+import com.alancamargo.tweetreader.ui.ads.ClickableTextSpan
 
 fun Spannable.bold(text: String) = apply {
     setSpan(

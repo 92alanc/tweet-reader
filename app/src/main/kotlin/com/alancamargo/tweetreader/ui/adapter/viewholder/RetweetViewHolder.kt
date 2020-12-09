@@ -7,8 +7,8 @@ import com.alancamargo.tweetreader.domain.mapper.EntityMapper
 import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
-import com.alancamargo.tweetreader.ui.tools.setTimestamp
+import com.alancamargo.tweetreader.ui.ads.ImageHandler
+import com.alancamargo.tweetreader.ui.ads.setTimestamp
 import kotlinx.android.synthetic.main.item_retweet.*
 
 class RetweetViewHolder(

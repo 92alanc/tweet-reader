@@ -9,7 +9,7 @@ import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
 import com.alancamargo.tweetreader.ui.activities.robots.launchConnected
 import com.alancamargo.tweetreader.ui.activities.robots.launchDisconnected
 import com.alancamargo.tweetreader.ui.entities.UiUser
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.ads.ImageHandler
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import org.junit.Before

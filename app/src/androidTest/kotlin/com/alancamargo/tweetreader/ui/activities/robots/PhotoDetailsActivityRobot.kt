@@ -7,7 +7,7 @@ import br.com.concretesolutions.kappuccino.actions.ClickActions.click
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.ui.activities.PhotoDetailsActivity
 import com.alancamargo.tweetreader.ui.activities.PhotoDetailsActivityTest
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.ads.ImageHandler
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coVerify
 

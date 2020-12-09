@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.alancamargo.tweetreader.data.entities.Result
 import com.alancamargo.tweetreader.data.repository.TweetRepository
 import com.alancamargo.tweetreader.domain.entities.Tweet
-import com.alancamargo.tweetreader.ui.tools.SharingHelper
+import com.alancamargo.tweetreader.ui.ads.SharingHelper
 import kotlinx.coroutines.launch
 
 class TweetViewModel(

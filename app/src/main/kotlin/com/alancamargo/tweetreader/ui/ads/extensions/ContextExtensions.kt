@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.ui.tools.extensions
+package com.alancamargo.tweetreader.ui.ads.extensions
 
 import android.content.Context
 import androidx.annotation.ColorRes

@@ -1,12 +1,12 @@
-package com.alancamargo.tweetreader.ui.tools
+package com.alancamargo.tweetreader.ui.ads
 
 import android.text.method.LinkMovementMethod
 import androidx.core.text.toSpannable
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.domain.tools.*
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
-import com.alancamargo.tweetreader.ui.tools.extensions.getColour
-import com.alancamargo.tweetreader.ui.tools.extensions.link
+import com.alancamargo.tweetreader.ui.ads.extensions.getColour
+import com.alancamargo.tweetreader.ui.ads.extensions.link
 import com.google.android.material.textview.MaterialTextView
 
 fun setTimestamp(textView: MaterialTextView, timestamp: String) {

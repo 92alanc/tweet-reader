@@ -2,7 +2,7 @@ package com.alancamargo.tweetreader.ui.activities
 
 import android.os.Bundle
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.ui.tools.AdLoader
+import com.alancamargo.tweetreader.ui.ads.AdLoader
 import com.smaato.sdk.banner.widget.BannerView
 import org.koin.android.ext.android.inject
 

@@ -2,7 +2,7 @@ package com.alancamargo.tweetreader.di
 
 import com.alancamargo.tweetreader.data.repository.TweetRepository
 import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
-import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.ads.ImageHandler
 import com.alancamargo.tweetreader.ui.viewmodel.TweetViewModel
 import io.mockk.mockk
 import org.koin.android.viewmodel.dsl.viewModel
