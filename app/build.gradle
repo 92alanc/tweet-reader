@@ -67,8 +67,8 @@ android {
         }
 
         paid {
-            versionCode 2
-            versionName '2020.4.1'
+            versionCode 3
+            versionName '2020.4.2'
             dimension "mode"
             applicationIdSuffix ".paid"
             signingConfig signingConfigs.paid
