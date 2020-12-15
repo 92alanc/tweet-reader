@@ -8,7 +8,7 @@ import com.alancamargo.tweetreader.ui.adapter.ViewPagerAdapter
 import com.alancamargo.tweetreader.ui.entities.UiUser
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.ui.ads.ImageHandler
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import kotlinx.android.synthetic.main.item_tweet_photo.*
 
 class PhotoTweetViewHolder(

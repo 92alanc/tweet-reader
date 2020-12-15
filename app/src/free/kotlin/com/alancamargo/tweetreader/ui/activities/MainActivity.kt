@@ -10,10 +10,16 @@ class MainActivity : BaseMainActivity() {
 
     private val adLoader by inject<AdLoader>()
 
+    private val banner by lazy { findViewById<BannerView>(R.id.bannerView) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val target = findViewById<BannerView>(R.id.bannerView)
-        adLoader.loadBannerAds(target, R.string.ads_banner_main)
+        adLoader.loadBannerAds(banner, R.string.ads_banner_main)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adLoader.destroyBannerAds(banner)
     }
 
 }

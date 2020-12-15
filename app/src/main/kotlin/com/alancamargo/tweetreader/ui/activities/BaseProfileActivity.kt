@@ -8,8 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityStateObserver
 import com.alancamargo.tweetreader.ui.entities.UiUser
-import com.alancamargo.tweetreader.ui.ads.ImageHandler
-import com.alancamargo.tweetreader.ui.ads.setMemberSince
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.tools.setMemberSince
 import kotlinx.android.synthetic.main.activity_profile_base.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject

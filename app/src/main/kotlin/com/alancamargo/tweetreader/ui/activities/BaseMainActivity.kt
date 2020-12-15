@@ -16,10 +16,10 @@ import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityStat
 import com.alancamargo.tweetreader.ui.adapter.TweetAdapter
 import com.alancamargo.tweetreader.ui.listeners.EndlessScrollListener
 import com.alancamargo.tweetreader.ui.listeners.ShareButtonClickListener
-import com.alancamargo.tweetreader.ui.ads.extensions.isFirstItemVisible
-import com.alancamargo.tweetreader.ui.ads.extensions.scrollToTop
-import com.alancamargo.tweetreader.ui.ads.extensions.showAppInfo
-import com.alancamargo.tweetreader.ui.ads.extensions.showPrivacyTerms
+import com.alancamargo.tweetreader.ui.tools.extensions.isFirstItemVisible
+import com.alancamargo.tweetreader.ui.tools.extensions.scrollToTop
+import com.alancamargo.tweetreader.ui.tools.extensions.showAppInfo
+import com.alancamargo.tweetreader.ui.tools.extensions.showPrivacyTerms
 import com.alancamargo.tweetreader.ui.viewmodel.TweetViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main_base.*

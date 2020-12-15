@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.ui.ads
+package com.alancamargo.tweetreader.ui.tools
 
 import android.widget.ImageView
 

@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.ui.ads
+package com.alancamargo.tweetreader.ui.tools
 
 import android.text.TextPaint
 import android.text.style.ClickableSpan

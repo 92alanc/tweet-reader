@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.ui.ads
+package com.alancamargo.tweetreader.ui.tools
 
 import android.content.Context
 import android.content.Intent

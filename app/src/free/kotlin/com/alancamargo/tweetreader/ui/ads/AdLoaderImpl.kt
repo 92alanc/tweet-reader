@@ -1,6 +1,7 @@
 package com.alancamargo.tweetreader.ui.ads
 
 import android.view.View
+import com.smaato.sdk.banner.ad.BannerAdSize
 import com.smaato.sdk.banner.widget.BannerView
 import com.smaato.sdk.nativead.NativeAd
 import com.smaato.sdk.nativead.NativeAdRequest
@@ -10,7 +11,7 @@ class AdLoaderImpl : AdLoader {
 
     override fun loadBannerAds(target: View, adId: Int) {
         with(target as BannerView) {
-            loadAd(context.getString(adId), null)
+            loadAd(context.getString(adId), BannerAdSize.XX_LARGE_320x50)
         }
     }
 

@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.alancamargo.tweetreader.R
 import com.alancamargo.tweetreader.ui.activities.PhotoDetailsActivity
-import com.alancamargo.tweetreader.ui.ads.ImageHandler
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -1,6 +1,5 @@
-package com.alancamargo.tweetreader.ui.ads.extensions
+package com.alancamargo.tweetreader.domain.tools
 
-import com.alancamargo.tweetreader.domain.tools.*
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

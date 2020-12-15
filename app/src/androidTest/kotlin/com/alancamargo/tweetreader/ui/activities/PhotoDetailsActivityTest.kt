@@ -2,7 +2,7 @@ package com.alancamargo.tweetreader.ui.activities
 
 import com.alancamargo.tweetreader.di.getTestModules
 import com.alancamargo.tweetreader.ui.activities.robots.launch
-import com.alancamargo.tweetreader.ui.ads.ImageHandler
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
