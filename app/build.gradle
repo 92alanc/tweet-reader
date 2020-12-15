@@ -60,8 +60,8 @@ android {
         }
 
         free {
-            versionCode 18
-            versionName '2020.4.3'
+            versionCode 19
+            versionName '2020.4.4'
             dimension "mode"
             signingConfig signingConfigs.free
         }
