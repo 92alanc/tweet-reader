@@ -11,7 +11,7 @@ import com.alancamargo.tweetreader.framework.entities.TweetResponse
 import com.alancamargo.tweetreader.framework.tools.connectivity.ConnectivityHelper
 import com.alancamargo.tweetreader.framework.tools.connectivity.DeviceManager
 import com.alancamargo.tweetreader.ui.activities.robots.*
-import com.alancamargo.tweetreader.ui.ads.SharingHelper
+import com.alancamargo.tweetreader.ui.tools.SharingHelper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

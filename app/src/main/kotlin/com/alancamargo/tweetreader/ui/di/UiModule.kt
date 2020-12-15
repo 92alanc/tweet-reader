@@ -10,10 +10,10 @@ import com.alancamargo.tweetreader.ui.entities.*
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListener
 import com.alancamargo.tweetreader.ui.listeners.LinkClickListenerImpl
 import com.alancamargo.tweetreader.ui.mappers.*
-import com.alancamargo.tweetreader.ui.ads.ImageHandler
-import com.alancamargo.tweetreader.ui.ads.ImageHandlerImpl
-import com.alancamargo.tweetreader.ui.ads.SharingHelper
-import com.alancamargo.tweetreader.ui.ads.SharingHelperImpl
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
+import com.alancamargo.tweetreader.ui.tools.ImageHandlerImpl
+import com.alancamargo.tweetreader.ui.tools.SharingHelper
+import com.alancamargo.tweetreader.ui.tools.SharingHelperImpl
 import com.alancamargo.tweetreader.ui.viewmodel.TweetViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel

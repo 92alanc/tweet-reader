@@ -1,4 +1,4 @@
-package com.alancamargo.tweetreader.ui.ads.extensions
+package com.alancamargo.tweetreader.ui.tools.extensions
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

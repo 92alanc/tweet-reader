@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.alancamargo.tweetreader.R
-import com.alancamargo.tweetreader.ui.ads.ImageHandler
+import com.alancamargo.tweetreader.ui.tools.ImageHandler
 import kotlinx.android.synthetic.main.activity_photo_details.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
